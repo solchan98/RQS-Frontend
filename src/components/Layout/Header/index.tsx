@@ -3,16 +3,14 @@ import { Link } from 'react-router-dom';
 
 import cs from './header.module.scss';
 import { Notification } from './Notification';
+import { SearchBar } from './SearchBar';
 
 export const Header = () => {
   return (
     <header className={cs.layoutHeader}>
       <div>
-        <Logo size={42} color='#000' />
-        <form>
-          <input />
-          서치바
-        </form>
+        <Logo size={42} color='#b4b4b4' />
+        <SearchBar />
         <div className={cs.profileSection}>
           <Notification size={24} color='#b4b4b4' />
           <Link to='#'>
