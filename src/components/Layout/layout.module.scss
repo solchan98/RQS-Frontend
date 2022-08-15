@@ -5,6 +5,9 @@
     background-color: #61dafb;
 
     > div {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       width: 1065px;
       height: 60px;
       margin: 0 auto;
