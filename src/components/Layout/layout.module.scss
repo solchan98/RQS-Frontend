@@ -1,12 +1,16 @@
 .layout {
   > main {
+    display: flex;
     width: 1065px;
+    height: calc(100vh - 60px);
     margin: 0 auto;
-    background-color: aquamarine;
 
     > aside {
       width: 24%;
-      height: calc(100vh - 60px);
+    }
+
+    > section {
+      width: 76%;
     }
   }
 }

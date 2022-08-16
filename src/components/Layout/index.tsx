@@ -1,6 +1,8 @@
-import cs from './layout.module.scss';
+import { Outlet } from 'react-router-dom';
 import { Header } from './Header';
 import { MySpaces } from './MySpaces';
+
+import cs from './layout.module.scss';
 
 export const Layout = () => {
   return (
@@ -8,7 +10,9 @@ export const Layout = () => {
       <Header />
       <main>
         <MySpaces />
-        <section />
+        <section>
+          <Outlet />
+        </section>
       </main>
     </div>
   );
