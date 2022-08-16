@@ -20,6 +20,9 @@
   }
 
   > button {
+    box-sizing: content-box;
+    width: 22px;
+    height: 22px;
     padding-left: 0;
     cursor: pointer;
     background-color: transparent;
