@@ -1,0 +1,61 @@
+.itemTop {
+  display: flex;
+  width: 100%;
+  height: 32px;
+
+  .avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50px;
+
+    > img {
+      width: inherit;
+      height: inherit;
+      border-radius: inherit;
+    }
+  }
+
+  .itemTopSide {
+    display: flex;
+    flex-direction: column;
+    height: 32px;
+    margin-left: 10px;
+
+    .profileNickname {
+      font-size: 14px;
+      font-weight: 600;
+      color: #616161;
+    }
+
+    .timestamp {
+      font-size: 10px;
+      font-weight: 600;
+      text-align: start;
+      color: #bebebe;
+    }
+  }
+}
+
+.itemMain {
+  width: 100%;
+  margin: 12px 0;
+  font-size: 14px;
+  font-weight: 500;
+  color: #393939;
+}
+
+.itemBottom {
+  display: flex;
+  gap: 6px;
+
+  .itemBottomItem {
+    display: flex;
+    flex-direction: column;
+    color: #747474;
+
+    > span {
+      font-size: 12px;
+      text-align: center;
+    }
+  }
+}
