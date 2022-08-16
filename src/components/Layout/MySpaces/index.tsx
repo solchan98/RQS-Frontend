@@ -8,8 +8,8 @@ export const MySpaces = () => {
     <aside className={cs.layoutAside}>
       <div className={cs.asideTop}>
         <span className={cs.asideTitle}>My Spaces</span>
-        <button type='button'>
-          <Add width='24' height='24' />
+        <button className={cs.addButton} type='button'>
+          <Add />
         </button>
       </div>
       <ul className={cs.asideSpaceList}>

@@ -20,6 +20,12 @@
         width: 32px;
         height: 32px;
         border-radius: 50px;
+
+        > img {
+          width: inherit;
+          height: inherit;
+          border-radius: inherit;
+        }
       }
     }
   }

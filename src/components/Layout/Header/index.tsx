@@ -13,9 +13,8 @@ export const Header = () => {
         <SearchBar />
         <div className={cs.profileSection}>
           <Notification size={24} color='#b4b4b4' />
-          <Link to='#'>
+          <Link className={cs.avatar} to='#'>
             <img
-              className={cs.avatar}
               src='https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png'
               alt='profile_img'
             />

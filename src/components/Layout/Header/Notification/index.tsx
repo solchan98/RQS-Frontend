@@ -8,7 +8,7 @@ interface Props {
 
 export const Notification = ({ size, color }: Props) => {
   return (
-    <Link to='/' style={{ marginBottom: '-4px' }}>
+    <Link to='/' style={{ width: `${size}px`, height: `${size}px`, marginBottom: '-2px' }}>
       <Noti width={size} height={size} color={color} />
     </Link>
   );

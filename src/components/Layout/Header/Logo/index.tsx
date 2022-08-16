@@ -8,7 +8,7 @@ interface Props {
 
 export const Logo = ({ size, color }: Props) => {
   return (
-    <Link to='/'>
+    <Link to='/' style={{ width: `${size}px`, height: `${size}px` }}>
       <Cat width={size} height={size} color={color} />
     </Link>
   );

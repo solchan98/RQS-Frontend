@@ -20,12 +20,17 @@
       color: #000;
     }
 
-    > button {
+    > .addButton {
+      box-sizing: content-box;
+      width: 24px;
+      height: 24px;
+      padding: 0;
       color: #4d4c4c;
       cursor: pointer;
 
       > svg {
-        margin-bottom: -4px;
+        width: inherit;
+        height: inherit;
       }
     }
   }
@@ -69,5 +74,9 @@
     font-size: 12px;
     color: #b0b0b0;
     cursor: pointer;
+  }
+
+  .asideShowMore:hover {
+    color: #838383;
   }
 }
