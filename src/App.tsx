@@ -1,17 +1,33 @@
-import React from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import React, { useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+
+import { userState } from './recoil/atoms/user';
 import { Layout } from './components/Layout';
 import { Explore } from './pages/Explore';
+import { Space } from './pages/Space';
+import { Login } from './components/Login';
 
 import './App.css';
-import { Space } from './pages/Space';
+import AuthWrapper from './pages/AuthWapper';
 
 const App = () => {
+  const { isLoggedIn } = useRecoilValue(userState);
+
+  useEffect(() => {
+    if (!isLoggedIn) {
+      console.log('로그인 요청해!');
+    }
+  }, []);
+
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route path='/explore' element={<Explore />} />
-        <Route path='/space/:spaceId' element={<Space />} />
+      <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
+        <Route path='explore' element={<Explore />} />
+        <Route path='space/:spaceId' element={<Space />} />
+      </Route>
+      <Route path='auth' element={<AuthWrapper />}>
+        <Route path='login' element={<Login />} />
       </Route>
     </Routes>
   );
