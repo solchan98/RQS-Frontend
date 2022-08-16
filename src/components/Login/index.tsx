@@ -30,12 +30,12 @@ export const Login = () => {
           memberId,
           email,
           nickname,
-          avatar,
+          avatar: avatar ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
           isLoggedIn: true,
         }));
         store.set('atk', atk);
       })
-      .catch((error) => console.log(error));
+      .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
   };
 
   const onClickSignUp: MouseEventHandler<HTMLButtonElement> = () => {

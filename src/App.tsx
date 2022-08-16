@@ -26,7 +26,7 @@ const App = () => {
         <Route path='explore' element={<Explore />} />
         <Route path='space/:spaceId' element={<Space />} />
       </Route>
-      <Route path='auth' element={<AuthWrapper />}>
+      <Route path='auth' element={!isLoggedIn ? <AuthWrapper /> : <Navigate to='/' />}>
         <Route path='login' element={<Login />} />
       </Route>
     </Routes>
