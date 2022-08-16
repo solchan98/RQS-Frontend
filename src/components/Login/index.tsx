@@ -2,9 +2,9 @@ import store from 'store';
 
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { login } from 'service/user';
+import { login } from 'service/member';
 import { useSetRecoilState } from 'recoil';
-import { userState } from 'recoil/atoms/user';
+import { memberState } from 'recoil/atoms/member';
 
 import cs from './login.module.scss';
 
@@ -12,7 +12,7 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
-  const setUser = useSetRecoilState(userState);
+  const setUser = useSetRecoilState(memberState);
 
   const nav = useNavigate();
 
@@ -24,10 +24,11 @@ export const Login = () => {
     setErr('');
     login(email, password)
       .then((res) => {
-        const { userId, nickname, avatar, atk } = res.data;
+        const { memberId, nickname, avatar, atk } = res.data;
         setUser((prev) => ({
           ...prev,
-          userId,
+          memberId,
+          email,
           nickname,
           avatar,
           isLoggedIn: true,

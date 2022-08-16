@@ -2,7 +2,7 @@ import { useRecoilValue } from 'recoil';
 import React, { useEffect } from 'react';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { userState } from './recoil/atoms/user';
+import { memberState } from './recoil/atoms/member';
 import { Layout } from './components/Layout';
 import { Explore } from './pages/Explore';
 import { Space } from './pages/Space';
@@ -12,7 +12,7 @@ import './App.css';
 import AuthWrapper from './pages/AuthWapper';
 
 const App = () => {
-  const { isLoggedIn } = useRecoilValue(userState);
+  const { isLoggedIn } = useRecoilValue(memberState);
 
   useEffect(() => {
     if (!isLoggedIn) {
