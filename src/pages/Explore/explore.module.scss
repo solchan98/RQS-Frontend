@@ -13,12 +13,12 @@
 }
 
 .exploreCardList {
-  padding-left: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 12px;
+  padding: 24px 12px;
 
   .exploreCard {
-    box-sizing: border-box;
-    width: 200px;
-    height: 160px;
     padding: 12px;
     list-style: none;
     border: 1px solid #c7c7c7;

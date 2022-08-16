@@ -8,6 +8,37 @@ export const Explore = () => {
         <li className={cs.exploreCard}>아이템</li>
         <li className={cs.exploreCard}>아이템</li>
         <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li> <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li> <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
+        <li className={cs.exploreCard}>아이템</li>
       </ul>
     </div>
   );
