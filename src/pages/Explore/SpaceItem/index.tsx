@@ -18,7 +18,7 @@ export const SpaceItem = () => {
           <span className={cs.timestamp}>10h ago</span>
         </div>
       </div>
-      <div className={cs.spaceItemMain}>벡엔드 면접 예상 질문 모음</div>
+      <div className={cs.spaceItemMain}>벡엔드 면접 예상 질문 모음벡엔드 면접 예상 질문 모음</div>
       <div className={cs.spaceItemBottom}>
         <div className={cs.spaceItemBottomItem}>
           <Members width='18' height='18' />
