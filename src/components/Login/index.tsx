@@ -1,9 +1,8 @@
 import store from 'store';
-
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { login } from 'service/member';
 import { useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
+import { login } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 
 import cs from './login.module.scss';
@@ -12,7 +11,7 @@ export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [err, setErr] = useState('');
-  const setUser = useSetRecoilState(memberState);
+  const setMember = useSetRecoilState(memberState);
 
   const nav = useNavigate();
 
@@ -25,7 +24,7 @@ export const Login = () => {
     login(email, password)
       .then((res) => {
         const { memberId, nickname, avatar, atk } = res.data;
-        setUser((prev) => ({
+        setMember((prev) => ({
           ...prev,
           memberId,
           email,
