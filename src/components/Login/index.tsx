@@ -23,7 +23,7 @@ export const Login = () => {
     setErr('');
     login(email, password)
       .then((res) => {
-        const { memberId, nickname, avatar, atk } = res.data;
+        const { memberId, nickname, avatar, tokenObj } = res.data;
         setMember((prev) => ({
           ...prev,
           memberId,
@@ -32,7 +32,8 @@ export const Login = () => {
           avatar: avatar ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
           isLoggedIn: true,
         }));
-        store.set('atk', atk);
+        store.set('atk', tokenObj.atk);
+        store.set('rtk', tokenObj.rtk);
       })
       .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
   };
