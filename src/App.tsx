@@ -13,31 +13,33 @@ import AuthWrapper from './pages/AuthWapper';
 import { useMount } from 'react-use';
 import { getMemberInfo } from './service/member';
 import store from 'store';
+import { useLogout } from './hooks/useLogout';
+import { IMemberResponse } from 'types/member';
 
 const App = () => {
   const { isLoggedIn } = useRecoilValue(memberState);
   const setMember = useSetRecoilState(memberState);
 
+  const logout = useLogout();
+
+  const loadMemberInfoSuccessHandler = (data: IMemberResponse) => {
+    const { memberId, email, nickname, avatar } = data;
+    setMember((prev) => ({
+      ...prev,
+      memberId,
+      email,
+      nickname,
+      avatar: avatar ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
+      isLoggedIn: true,
+    }));
+  };
+
   useMount(() => {
     const atk = store.get('atk');
-    setMember((prev) => ({ ...prev, isLoading: true }));
     if (!isLoggedIn && atk) {
-      getMemberInfo(atk)
-        .then((res) => {
-          const { memberId, email, nickname, avatar } = res.data;
-          setMember((prev) => ({
-            ...prev,
-            memberId,
-            email,
-            nickname,
-            avatar: avatar ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
-            isLoggedIn: true,
-          }));
-        })
-        .catch((error) => {
-          store.remove('atk');
-          console.log(error.response);
-        });
+      getMemberInfo()
+        .then((data) => loadMemberInfoSuccessHandler(data))
+        .catch(() => logout());
     }
   });
 
