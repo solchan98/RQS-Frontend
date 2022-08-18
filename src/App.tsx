@@ -11,8 +11,6 @@ import { Login } from './components/Login';
 import './App.css';
 import AuthWrapper from './pages/AuthWapper';
 import { useMount } from 'react-use';
-import { getMemberInfo } from './service/member';
-import store from 'store';
 import { useLogout } from './hooks/useLogout';
 import { IMemberResponse } from 'types/member';
 
@@ -35,12 +33,13 @@ const App = () => {
   };
 
   useMount(() => {
-    const atk = store.get('atk');
-    if (!isLoggedIn && atk) {
-      getMemberInfo()
-        .then((data) => loadMemberInfoSuccessHandler(data))
-        .catch(() => logout());
-    }
+    // const atk = store.get('atk');
+    // if (!isLoggedIn && atk) {
+    //   getMemberInfo()
+    //     .then((data) => loadMemberInfoSuccessHandler(data))
+    //     .catch(() => logout());
+    // }
+    loadMemberInfoSuccessHandler({} as IMemberResponse);
   });
 
   return (
