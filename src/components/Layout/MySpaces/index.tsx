@@ -2,7 +2,6 @@ import { Link } from 'react-router-dom';
 
 import { Add } from '../../../assets/svgs';
 import cs from './mySpace.module.scss';
-import { ModalTemplate } from '../../ModalTemplate';
 import { useModal } from '../../../hooks/useModal';
 
 export const MySpaces = () => {
@@ -15,9 +14,6 @@ export const MySpaces = () => {
         <button className={cs.addButton} type='button' onClick={createSpace.openModal}>
           <Add />
         </button>
-        <ModalTemplate isOpen={createSpace.isOpen} closeModal={createSpace.closeModal} portalClassName='createSpace'>
-          <div>스페이스 생성 모달</div>
-        </ModalTemplate>
       </div>
       <ul className={cs.asideSpaceList}>
         <li>
