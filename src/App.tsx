@@ -1,5 +1,6 @@
 import { useRecoilValue, useSetRecoilState } from 'recoil';
 import React from 'react';
+import store from 'store';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { memberState } from './recoil/atoms/member';
@@ -13,6 +14,7 @@ import AuthWrapper from './pages/AuthWapper';
 import { useMount } from 'react-use';
 import { useLogout } from './hooks/useLogout';
 import { IMemberResponse } from 'types/member';
+import { getMemberInfo } from './service/member';
 
 const App = () => {
   const { isLoggedIn } = useRecoilValue(memberState);
@@ -33,13 +35,15 @@ const App = () => {
   };
 
   useMount(() => {
-    // const atk = store.get('atk');
-    // if (!isLoggedIn && atk) {
-    //   getMemberInfo()
-    //     .then((data) => loadMemberInfoSuccessHandler(data))
-    //     .catch(() => logout());
-    // }
-    loadMemberInfoSuccessHandler({} as IMemberResponse);
+    const atk = store.get('atk');
+    if (!isLoggedIn && atk) {
+      getMemberInfo()
+        .then((data) => loadMemberInfoSuccessHandler(data))
+        .catch(() => {
+          console.log('fail!');
+          logout();
+        });
+    }
   });
 
   return (

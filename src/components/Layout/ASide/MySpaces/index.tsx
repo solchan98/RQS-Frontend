@@ -1,28 +1,50 @@
-import { useEffect } from 'react';
+import { useMount } from 'react-use';
 import { Link } from 'react-router-dom';
+import { useRecoilState, useRecoilValue } from 'recoil';
+
+import { getAsideMySpaceList } from 'service/spaces';
+import { memberState } from 'recoil/atoms/member';
+import { ISpace } from 'types/space';
+import { spaceListState } from 'recoil/atoms/spaces';
 
 import cs from './mySpace.module.scss';
 
 export const MySpaces = () => {
-  useEffect(() => {
-    console.log('hello!');
-  }, []);
+  const { email } = useRecoilValue(memberState);
+  const [spaceListValue, setSpaceListValue] = useRecoilState(spaceListState);
+
+  const mySpaceListSuccessHandler = (data: ISpace[]) =>
+    data.length === 0
+      ? setSpaceListValue((prev) => ({ ...prev, isLast: true }))
+      : setSpaceListValue((prev) => ({ ...prev, spaceList: [...prev.spaceList, ...data] }));
+
+  const loadMore = () => {
+    if (spaceListValue.isLast) return;
+    getAsideMySpaceList(email, spaceListValue.spaceList[spaceListValue.spaceList.length - 1])
+      .then((data) => mySpaceListSuccessHandler(data))
+      .catch((err) => console.log(err));
+  };
+
+  useMount(() => {
+    if (spaceListValue.isLast) return;
+    getAsideMySpaceList(email, spaceListValue.spaceList[spaceListValue.spaceList.length - 1])
+      .then((data) => mySpaceListSuccessHandler(data))
+      .catch((err) => console.log(err));
+  });
   return (
     <>
       <ul className={cs.asideSpaceList}>
-        <li>
-          <Link to='/space/1'>백엔드 면접 예상 질문 모음</Link>
-        </li>
-        <li>
-          <Link to='/space/2'>프론트엔드 면접 예상 질문 모음음음음음음</Link>
-        </li>
-        <li>
-          <Link to='/space/3'>스프링 개념 체크 질문 모음</Link>
-        </li>
+        {spaceListValue.spaceList.map((space: ISpace) => (
+          <li key={space.spaceId}>
+            <Link to={`/space/${space.spaceId}`}>{space.title}</Link>
+          </li>
+        ))}
       </ul>
-      <button className={cs.asideShowMore} type='button'>
-        Show more
-      </button>
+      {!spaceListValue.isLast && (
+        <button className={cs.asideShowMore} type='button' onClick={loadMore}>
+          Show more
+        </button>
+      )}
     </>
   );
 };
