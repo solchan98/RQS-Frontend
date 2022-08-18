@@ -2,6 +2,8 @@ import cs from './space.module.scss';
 import { Item } from './Item';
 import { ModalTemplate } from '../../components/ModalTemplate';
 import { useModal } from '../../hooks/useModal';
+import { CreateQModal } from '../../components/CreateQModal';
+import { RandomQModal } from '../../components/RandomQModal';
 
 export const Space = () => {
   const createQuestion = useModal();
@@ -22,7 +24,7 @@ export const Space = () => {
           closeModal={createQuestion.isOpen ? createQuestion.closeModal : randomQuestion.closeModal}
           portalClassName={createQuestion.isOpen ? 'createQuestion' : 'randomQuestion'}
         >
-          {createQuestion.isOpen ? <div>질문 생성 모달</div> : <div>랜덤 질문 모달</div>}
+          {createQuestion.isOpen ? <CreateQModal /> : <RandomQModal />}
         </ModalTemplate>
       </div>
       <ul className={cs.itemCardList}>
