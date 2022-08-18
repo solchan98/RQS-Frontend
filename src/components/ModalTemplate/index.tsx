@@ -9,6 +9,7 @@ const customStyles = {
     bottom: 'auto',
     marginRight: '-50%',
     transform: 'translate(-50%, -50%)',
+    borderRadius: '16px',
   },
 };
 
@@ -24,6 +25,7 @@ export const ModalTemplate = ({ isOpen, closeModal, portalClassName, children }:
     <Modal
       isOpen={isOpen}
       onRequestClose={closeModal}
+      ariaHideApp={false}
       portalClassName={portalClassName}
       style={customStyles}
       contentLabel='Example Modal'

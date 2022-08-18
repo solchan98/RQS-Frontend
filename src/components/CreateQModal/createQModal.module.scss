@@ -1,0 +1,117 @@
+.container {
+  width: 40vw;
+  min-width: 40vw;
+  max-width: 50vw;
+
+  .subTitle {
+    margin-bottom: -8px;
+    letter-spacing: 0.3px;
+    color: #3a3a3a;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+    padding-bottom: 12px;
+    color: #3a3a3a;
+    border-bottom: 1px solid #e5e5e5;
+
+    .spaceTitle {
+      font-size: 24px;
+      font-weight: 600;
+    }
+
+    .exit {
+      box-sizing: content-box;
+      width: 32px;
+      height: 32px;
+
+      > svg {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: inherit;
+    margin: 12px 0;
+
+    .textArea {
+      box-sizing: border-box;
+      width: inherit;
+      padding: 8px 12px;
+      font-size: 14px;
+      resize: none;
+      color: #3a3a3a;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+    }
+
+    .textArea::placeholder {
+      font-size: 14px;
+    }
+
+    .answerTextArea {
+      height: 240px;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    width: inherit;
+
+    .bottomSubTitle {
+      font-size: 12px;
+    }
+
+    .hintInput {
+      box-sizing: border-box;
+      width: 40%;
+      padding: 6px 12px;
+      font-size: 12px;
+      text-align: center;
+      color: #3a3a3a;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+    }
+
+    .hintInput::placeholder {
+      font-size: 12px;
+    }
+
+    .hintList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .hint {
+        padding: 6px;
+        font-size: 14px;
+        border-radius: 14px;
+        color: #3a3a3a;
+      }
+    }
+
+    .createQBtnWrapper {
+      display: flex;
+      justify-content: center;
+
+      .createQBtn {
+        width: 30%;
+        padding: 12px 8px;
+        font-size: 14px;
+        font-weight: 600;
+        border-radius: 18px;
+        background-color: #71ee8b;
+      }
+    }
+  }
+}
