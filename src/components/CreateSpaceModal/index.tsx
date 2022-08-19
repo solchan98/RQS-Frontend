@@ -1,14 +1,15 @@
+import { useSetRecoilState } from 'recoil';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
-import { Exit } from '../../assets/svgs';
+import { useLogout } from 'hooks/useLogout';
 import { ModalTemplate } from '../ModalTemplate';
+import { ISpace } from 'types/space';
+import { createSpace } from 'service/spaces';
+import { spaceListState } from 'recoil/atoms/spaces';
 
 import cx from 'classnames';
+import { Exit } from 'assets/svgs';
 import cs from './createSpaceModal.module.scss';
-import { createSpace } from '../../service/spaces';
-import { useSetRecoilState } from 'recoil';
-import { spaceListState } from '../../recoil/atoms/spaces';
-import { ISpace } from 'types/space';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -45,6 +46,8 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     }));
   };
 
+  const logout = useLogout();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (title.length === 0) {
@@ -54,9 +57,12 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     createSpace(title, visibility)
       .then((data) => {
         createSpaceSuccessHandler(data);
-        closeModal(handleCloseModal);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        logout();
+      });
+    closeModal(handleCloseModal);
   };
 
   return (

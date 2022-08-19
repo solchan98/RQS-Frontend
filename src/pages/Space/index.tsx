@@ -6,6 +6,7 @@ import { itemListState } from 'recoil/atoms/items';
 import { spaceListState } from 'recoil/atoms/spaces';
 
 import { Item } from './Item';
+import { useLogout } from 'hooks/useLogout';
 import { useModal } from 'hooks/useModal';
 import { CreateQModal } from 'components/CreateQModal';
 import { getSpaceItem } from 'service/items';
@@ -16,6 +17,8 @@ import cs from './space.module.scss';
 export const Space = () => {
   const createQuestion = useModal();
   const randomQuestion = useModal();
+
+  const logout = useLogout();
 
   const { spaceId } = useParams();
 
@@ -48,7 +51,10 @@ export const Space = () => {
     changeSpaceInfo(Number(spaceId));
     getSpaceItem(Number(spaceId))
       .then((data) => itemListSuccessHandler(data))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        logout();
+      });
   }, [spaceId]);
 
   return (

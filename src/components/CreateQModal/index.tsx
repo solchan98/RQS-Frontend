@@ -9,6 +9,7 @@ import { itemListState } from 'recoil/atoms/items';
 
 import { Exit } from 'assets/svgs';
 import cs from './createQModal.module.scss';
+import { useLogout } from '../../hooks/useLogout';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -53,11 +54,16 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     }));
   };
 
+  const logout = useLogout();
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
       .then((data) => createSpaceItemSuccessHandler(data))
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        logout();
+      });
     closeModal(handleCloseModal);
   };
 
