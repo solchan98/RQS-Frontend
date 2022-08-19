@@ -23,7 +23,7 @@ const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
     .then((res) => res.data);
 };
 
-export const getAsideMySpaceList = (email: string, lastSpace: ISpace | undefined) => {
+export const getAsideMySpaceList = (email: string, lastSpace?: ISpace) => {
   return getAsideMySpaceListApi(email, lastSpace && lastSpace)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => getAsideMySpaceListApi(email, lastSpace)));

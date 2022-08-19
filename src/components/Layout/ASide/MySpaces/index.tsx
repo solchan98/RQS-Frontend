@@ -26,8 +26,8 @@ export const MySpaces = () => {
   };
 
   useMount(() => {
-    if (spaceListValue.isLast) return;
-    getAsideMySpaceList(email, spaceListValue.spaceList[spaceListValue.spaceList.length - 1])
+    setSpaceListValue({ isLast: false, spaceList: [] });
+    getAsideMySpaceList(email)
       .then((data) => mySpaceListSuccessHandler(data))
       .catch((err) => console.log(err));
   });
