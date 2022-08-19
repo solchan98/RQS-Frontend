@@ -19,10 +19,18 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
   const setSpaceList = useSetRecoilState(spaceListState);
 
   const [title, setTitle] = useState('');
-  const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => setTitle(e.currentTarget.value);
+  const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => {
+    const { value } = e.currentTarget;
+    setTitle(value);
+    if (value.length !== 0) {
+      setErrFlag(false);
+    }
+  };
 
   const [visibility, setVisibility] = useState(true);
   const onClickVisibility: ChangeEventHandler<HTMLInputElement> = () => setVisibility((prev) => !prev);
+
+  const [errFlag, setErrFlag] = useState(false);
 
   const createSpaceSuccessHandler = (data: ISpace) => {
     setSpaceList((prev) => ({
@@ -33,6 +41,10 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (title.length === 0) {
+      setErrFlag(true);
+      return;
+    }
     createSpace(title, visibility)
       .then((data) => {
         createSpaceSuccessHandler(data);
@@ -58,6 +70,7 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
             onChange={onChangeTitle}
             placeholder='스페이스의 제목을 입력하세요. :)'
           />
+          {errFlag && <span className={cs.errFlag}>내용이 비어있습니다!</span>}
         </form>
         <div className={cs.bottom}>
           <div className={cs.visibility}>
