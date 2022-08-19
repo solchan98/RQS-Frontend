@@ -1,14 +1,18 @@
 import cx from 'classnames';
-
-import { Exit } from '../../assets/svgs';
-
-import cs from './createQModal.module.scss';
-import { ModalTemplate } from '../ModalTemplate';
+import { useSetRecoilState } from 'recoil';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
+
+import { IItem } from 'types/item';
+import { ModalTemplate } from '../ModalTemplate';
+import { createSpaceItem } from 'service/items';
+import { itemListState } from 'recoil/atoms/items';
+
+import { Exit } from 'assets/svgs';
+import cs from './createQModal.module.scss';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
-  spaceInfo: { spaceTitle: string; myRole: string };
+  spaceInfo: { spaceId: number; spaceTitle: string; myRole: string };
 }
 
 export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
@@ -16,7 +20,6 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);
 
   const [hintList, setHintList] = useState<string[]>([]);
-
   const onSubmitAddHint: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const exist = hintList.find((item) => item === hint);
@@ -28,10 +31,34 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setHintList((prev) => prev.filter((item) => item !== target));
   };
 
+  const [question, setQuestion] = useState('');
+  const [answer, setAnswer] = useState('');
+  const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => setQuestion(e.currentTarget.value);
+  const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => setAnswer(e.currentTarget.value);
+
   const { isOpen, closeModal } = useModal;
   const handleCloseModal = () => {
     setHint('');
     setHintList([]);
+    setQuestion('');
+    setAnswer('');
+  };
+
+  const setItemListValue = useSetRecoilState(itemListState);
+
+  const createSpaceItemSuccessHandler = (data: IItem) => {
+    setItemListValue((prev) => ({
+      ...prev,
+      itemList: [data, ...prev.itemList],
+    }));
+  };
+
+  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
+      .then((data) => createSpaceItemSuccessHandler(data))
+      .catch((err) => console.log(err));
+    closeModal(handleCloseModal);
   };
 
   return (
@@ -43,11 +70,21 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
             <Exit />
           </button>
         </div>
-        <form id='createQuestion' className={cs.main}>
+        <form id='createQuestion' className={cs.main} onSubmit={onSubmit}>
           <span className={cs.subTitle}>Question</span>
-          <textarea className={cs.textArea} placeholder='질문을 작성하세요 :)' />
+          <textarea
+            value={question}
+            className={cs.textArea}
+            placeholder='질문을 작성하세요 :)'
+            onChange={onChangeQuestion}
+          />
           <span className={cs.subTitle}>Answer</span>
-          <textarea className={cx(cs.textArea, cs.answerTextArea)} placeholder='답변을 작성하세요 :)' />
+          <textarea
+            value={answer}
+            className={cx(cs.textArea, cs.answerTextArea)}
+            placeholder='답변을 작성하세요 :)'
+            onChange={onChangeAnswer}
+          />
         </form>
         <div className={cs.bottom}>
           <span className={cx(cs.subTitle, cs.bottomSubTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>

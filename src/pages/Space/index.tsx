@@ -21,7 +21,8 @@ export const Space = () => {
 
   const memberValue = useRecoilValue(memberState);
   const spaceListValue = useRecoilValue(spaceListState);
-  const [spaceInfo, setSpaceInfo] = useState<{ spaceTitle: string; myRole: string }>({
+  const [spaceInfo, setSpaceInfo] = useState<{ spaceId: number; spaceTitle: string; myRole: string }>({
+    spaceId: Number(spaceId),
     spaceTitle: '',
     myRole: 'MEMBER',
   });
@@ -30,6 +31,7 @@ export const Space = () => {
     const curSpaceMember = curSpace?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
     setSpaceInfo((prev) => ({
       ...prev,
+      spaceId: id,
       spaceTitle: curSpace?.title ?? '서버 에러',
       myRole: curSpaceMember?.role ?? 'NONE',
     }));
