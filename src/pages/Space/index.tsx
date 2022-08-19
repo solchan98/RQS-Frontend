@@ -61,7 +61,7 @@ export const Space = () => {
         <button type='button' onClick={createQuestion.openModal}>
           질문 생성
         </button>
-        <CreateQModal useModal={createQuestion} />
+        <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} />
       </div>
       <ul className={cs.itemCardList}>
         {itemListValue.itemList.map((item) => (

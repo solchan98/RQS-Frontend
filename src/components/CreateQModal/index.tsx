@@ -7,18 +7,15 @@ import { ModalTemplate } from '../ModalTemplate';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 
 interface Props {
-  useModal: { isOpen: boolean; openModal: () => void; closeModal: () => void };
+  useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
+  spaceInfo: { spaceTitle: string; myRole: string };
 }
 
-const HINT_LIST = ['보안', 'HTTP'];
-
-export const CreateQModal = ({ useModal }: Props) => {
-  const { isOpen, closeModal } = useModal;
-
+export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
   const [hint, setHint] = useState('');
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);
 
-  const [hintList, setHintList] = useState<string[]>(HINT_LIST);
+  const [hintList, setHintList] = useState<string[]>([]);
 
   const onSubmitAddHint: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
@@ -31,12 +28,18 @@ export const CreateQModal = ({ useModal }: Props) => {
     setHintList((prev) => prev.filter((item) => item !== target));
   };
 
+  const { isOpen, closeModal } = useModal;
+  const handleCloseModal = () => {
+    setHint('');
+    setHintList([]);
+  };
+
   return (
-    <ModalTemplate isOpen={isOpen} closeModal={closeModal} portalClassName='createQuestion'>
+    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(handleCloseModal)} portalClassName='createQuestion'>
       <div className={cs.container}>
         <div className={cs.top}>
-          <span className={cs.spaceTitle}>백엔드 면접 예상 질문 모음</span>
-          <button type='button' className={cs.exit} onClick={closeModal}>
+          <span className={cs.spaceTitle}>{spaceInfo.spaceTitle}</span>
+          <button type='button' className={cs.exit} onClick={() => closeModal(handleCloseModal)}>
             <Exit />
           </button>
         </div>

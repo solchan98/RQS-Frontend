@@ -11,11 +11,10 @@ import { spaceListState } from '../../recoil/atoms/spaces';
 import { ISpace } from 'types/space';
 
 interface Props {
-  useModal: { isOpen: boolean; openModal: () => void; closeModal: () => void };
+  useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
 }
 
 export const CreateSpaceModal = ({ useModal }: Props) => {
-  const { isOpen, closeModal } = useModal;
   const setSpaceList = useSetRecoilState(spaceListState);
 
   const [title, setTitle] = useState('');
@@ -31,6 +30,13 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
   const onClickVisibility: ChangeEventHandler<HTMLInputElement> = () => setVisibility((prev) => !prev);
 
   const [errFlag, setErrFlag] = useState(false);
+
+  const { isOpen, closeModal } = useModal;
+  const handleCloseModal = () => {
+    setTitle('');
+    setErrFlag(false);
+    setVisibility(true);
+  };
 
   const createSpaceSuccessHandler = (data: ISpace) => {
     setSpaceList((prev) => ({
@@ -48,17 +54,17 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     createSpace(title, visibility)
       .then((data) => {
         createSpaceSuccessHandler(data);
-        closeModal();
+        closeModal(handleCloseModal);
       })
       .catch((err) => console.log(err));
   };
 
   return (
-    <ModalTemplate isOpen={isOpen} closeModal={closeModal} portalClassName='createSpace'>
+    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(handleCloseModal)} portalClassName='createSpace'>
       <div className={cs.container}>
         <div className={cs.top}>
           <span className={cs.title}>새로운 스페이스 생성</span>
-          <button type='button' className={cs.exit} onClick={closeModal}>
+          <button type='button' className={cs.exit} onClick={() => closeModal(handleCloseModal)}>
             <Exit />
           </button>
         </div>
