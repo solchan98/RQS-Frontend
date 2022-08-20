@@ -30,8 +30,12 @@ export const RandomQModal = ({ useModal, spaceId }: Props) => {
         setStartState(true);
       })
       .catch((err) => {
-        console.log(err);
-        logout();
+        if (err.response.data.status === 'UNAUTHORIZED') {
+          logout();
+        } else {
+          closeModal(closeModalHandler);
+          alert(err.response.data?.message ?? 'SERVER ERROR');
+        }
       });
   };
 

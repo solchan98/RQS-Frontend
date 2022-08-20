@@ -61,5 +61,10 @@ const getRandomSpaceItemApi = (spaceId: number) => {
 export const getRandomSpaceItem = (spaceId: number) => {
   return getRandomSpaceItemApi(spaceId)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => getRandomSpaceItemApi(spaceId)));
+    .catch((err) => {
+      if (err.response.data.status === 'UNAUTHORIZED') {
+        reissueAtk().then(() => getRandomSpaceItemApi(spaceId));
+      }
+      throw err;
+    });
 };
