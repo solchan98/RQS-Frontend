@@ -49,6 +49,7 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setHintList([]);
     setQuestion('');
     setAnswer('');
+    setErrFrag(false);
   };
 
   const setItemListValue = useSetRecoilState(itemListState);
