@@ -33,7 +33,7 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
   const [errFlag, setErrFlag] = useState(false);
 
   const { isOpen, closeModal } = useModal;
-  const handleCloseModal = () => {
+  const closeModalHandler = () => {
     setTitle('');
     setErrFlag(false);
     setVisibility(true);
@@ -62,15 +62,15 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
         console.log(err);
         logout();
       });
-    closeModal(handleCloseModal);
+    closeModal(closeModalHandler);
   };
 
   return (
-    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(handleCloseModal)} portalClassName='createSpace'>
+    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='createSpace'>
       <div className={cs.container}>
         <div className={cs.top}>
           <span className={cs.title}>새로운 스페이스 생성</span>
-          <button type='button' className={cs.exit} onClick={() => closeModal(handleCloseModal)}>
+          <button type='button' className={cs.exit} onClick={() => closeModal(closeModalHandler)}>
             <Exit />
           </button>
         </div>
