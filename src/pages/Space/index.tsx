@@ -9,6 +9,7 @@ import { Item } from './Item';
 import { useLogout } from 'hooks/useLogout';
 import { useModal } from 'hooks/useModal';
 import { CreateQModal } from 'components/CreateQModal';
+import { RandomQModal } from 'components/RandomQModal';
 import { getSpaceItem } from 'service/items';
 import { IItem } from 'types/item';
 
@@ -66,6 +67,7 @@ export const Space = () => {
         <button type='button' onClick={randomQuestion.openModal}>
           랜덤 질문 시작
         </button>
+        <RandomQModal useModal={randomQuestion} />
         <button type='button' onClick={createQuestion.openModal}>
           질문 생성
         </button>

@@ -1,0 +1,66 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 40vw;
+  min-width: 40vw;
+  max-width: 40vw;
+
+  .questionWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(40vw - 40px);
+    height: 40vh;
+
+    .question {
+      position: relative;
+      display: flex;
+      align-items: center;
+      width: inherit;
+      font-size: 18px;
+
+      > svg {
+        position: absolute;
+        top: -12px;
+        left: -20px;
+      }
+
+      > span {
+        width: inherit;
+        font-size: 16px;
+        line-height: 18px;
+        letter-spacing: 0.3px;
+      }
+    }
+  }
+
+  .bottom {
+    width: inherit;
+    height: 10%;
+
+    .hintList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: inherit;
+      margin: 12px;
+
+      .hint {
+        height: 24px;
+        padding: 0 6px;
+        font-size: 14px;
+        font-weight: 500;
+        line-height: 28px;
+        background-color: #beecf3;
+        border-radius: 12px;
+      }
+    }
+
+    .buttonWrapper {
+      display: flex;
+      justify-content: end;
+    }
+  }
+}
