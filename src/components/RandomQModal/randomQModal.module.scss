@@ -61,6 +61,23 @@
     .buttonWrapper {
       display: flex;
       justify-content: end;
+
+      .nextButton {
+        font-size: 14px;
+      }
     }
+  }
+}
+
+.beforeStart {
+  gap: 6px;
+
+  .tip {
+    margin-bottom: 12px;
+    font-size: 12px;
+  }
+
+  .startButton {
+    font-size: 14px;
   }
 }

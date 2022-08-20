@@ -67,7 +67,7 @@ export const Space = () => {
         <button type='button' onClick={randomQuestion.openModal}>
           랜덤 질문 시작
         </button>
-        <RandomQModal useModal={randomQuestion} />
+        <RandomQModal useModal={randomQuestion} spaceId={spaceInfo.spaceId} />
         <button type='button' onClick={createQuestion.openModal}>
           질문 생성
         </button>
