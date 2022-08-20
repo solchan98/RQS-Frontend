@@ -32,9 +32,15 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setHintList((prev) => prev.filter((item) => item !== target));
   };
 
+  const [errFrag, setErrFrag] = useState(false);
   const [question, setQuestion] = useState('');
   const [answer, setAnswer] = useState('');
-  const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => setQuestion(e.currentTarget.value);
+  const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.currentTarget.value.length !== 0 && errFrag) {
+      setErrFrag(false);
+    }
+    setQuestion(e.currentTarget.value);
+  };
   const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => setAnswer(e.currentTarget.value);
 
   const { isOpen, closeModal } = useModal;
@@ -58,6 +64,10 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
+    if (question.length === 0) {
+      setErrFrag(true);
+      return;
+    }
     createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
       .then((data) => createSpaceItemSuccessHandler(data))
       .catch((err) => {
@@ -80,8 +90,8 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
           <span className={cs.subTitle}>Question</span>
           <textarea
             value={question}
-            className={cs.textArea}
-            placeholder='질문을 작성하세요 :)'
+            className={cx(cs.textArea, errFrag && cs.isEmpty)}
+            placeholder={errFrag ? '질문은 비어있으면 안됩니다!' : '질문을 작성하세요 :)'}
             onChange={onChangeQuestion}
           />
           <span className={cs.subTitle}>Answer</span>

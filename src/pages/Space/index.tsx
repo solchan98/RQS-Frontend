@@ -60,9 +60,7 @@ export const Space = () => {
 
   return (
     <div className={cs.spaceContainer}>
-      <div className={cs.itemTop}>
-        {spaceInfo.spaceTitle}, {spaceInfo.myRole}
-      </div>
+      <div className={cs.itemTop}>{spaceInfo.spaceTitle}</div>
       <div className={cs.itemButtonWrapper}>
         <button type='button' onClick={randomQuestion.openModal}>
           랜덤 질문 시작
