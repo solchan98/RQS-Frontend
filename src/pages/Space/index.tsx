@@ -4,18 +4,18 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { memberState } from 'recoil/atoms/member';
 import { itemListState } from 'recoil/atoms/items';
 import { spaceListState } from 'recoil/atoms/spaces';
+import { getSpaceItem } from 'service/items';
 
 import { Item } from './Item';
 import { useLogout } from 'hooks/useLogout';
 import { useModal } from 'hooks/useModal';
 import { CreateQModal } from 'components/CreateQModal';
 import { RandomQModal } from 'components/RandomQModal';
-import { getSpaceItem } from 'service/items';
 import { IItem } from 'types/item';
 
-import cs from './space.module.scss';
 import { NewItem, Play } from 'assets/svgs';
-import EmptyData from 'assets/no_data.png';
+import { EmptyLottie } from 'components/Lotties/EmptyLottie';
+import cs from './space.module.scss';
 
 export const Space = () => {
   const createQuestion = useModal();
@@ -73,7 +73,7 @@ export const Space = () => {
         </button>
         <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} />
       </div>
-      {itemListValue.itemList.length === 0 && <img width='640px' src={EmptyData} alt='no-data' />}
+      {itemListValue.itemList.length === 0 && <EmptyLottie />}
       <ul className={cs.itemCardList}>
         {itemListValue.itemList.map((item) => (
           <li key={item.itemId} className={cs.itemCard}>
