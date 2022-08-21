@@ -1,17 +1,11 @@
-import Lottie from 'react-lottie';
+import Lottie from 'react-lottie-player';
 
 import data from 'assets/lottie/start.json';
-
-const lottieOptions = {
-  animationData: data,
-  loop: true,
-  autoplay: true,
-};
 
 export const StartLottie = () => {
   return (
     <div>
-      <Lottie options={lottieOptions} isClickToPauseDisabled={false} style={{ width: '240px', height: '240px' }} />
+      <Lottie loop play animationData={data} style={{ width: '240px', height: '240px' }} />
     </div>
   );
 };
