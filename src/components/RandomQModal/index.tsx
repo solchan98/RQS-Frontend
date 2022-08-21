@@ -8,6 +8,7 @@ import { ModalTemplate } from '../ModalTemplate';
 
 import cs from './randomQModal.module.scss';
 import cx from 'classnames';
+import { StartLottie } from '../Lotties/StartLottie';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -45,6 +46,7 @@ export const RandomQModal = ({ useModal, spaceInfo }: Props) => {
         <div className={cx(cs.container, cs.beforeStart)}>
           <div>{spaceInfo.spaceTitle}</div>
           <small className={cs.tip}>(질문이 적은 경우 중복 확률이 높습니다.)</small>
+          <StartLottie />
           <button className={cs.startButton} type='button' onClick={getItem}>
             시작하기
           </button>
