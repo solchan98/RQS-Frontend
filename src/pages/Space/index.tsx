@@ -67,7 +67,7 @@ export const Space = () => {
         <button type='button' onClick={randomQuestion.openModal}>
           <Play />
         </button>
-        <RandomQModal useModal={randomQuestion} spaceId={spaceInfo.spaceId} />
+        <RandomQModal useModal={randomQuestion} spaceInfo={spaceInfo} />
         <button type='button' onClick={createQuestion.openModal}>
           <NewItem />
         </button>

@@ -11,10 +11,10 @@ import cx from 'classnames';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
-  spaceId: number;
+  spaceInfo: { spaceId: number; spaceTitle: string; myRole: string };
 }
 
-export const RandomQModal = ({ useModal, spaceId }: Props) => {
+export const RandomQModal = ({ useModal, spaceInfo }: Props) => {
   const [startState, setStartState] = useState(false);
 
   const { isOpen, closeModal } = useModal;
@@ -24,7 +24,7 @@ export const RandomQModal = ({ useModal, spaceId }: Props) => {
 
   const [itemState, setItemState] = useState<IItem>({} as IItem);
   const getItem = () => {
-    getRandomSpaceItem(spaceId)
+    getRandomSpaceItem(spaceInfo.spaceId)
       .then((data) => {
         setItemState(data);
         setStartState(true);
@@ -43,7 +43,7 @@ export const RandomQModal = ({ useModal, spaceId }: Props) => {
     return (
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
         <div className={cx(cs.container, cs.beforeStart)}>
-          <div>백엔드 면접 질문 모음</div>
+          <div>{spaceInfo.spaceTitle}</div>
           <small className={cs.tip}>(질문이 적은 경우 중복 확률이 높습니다.)</small>
           <button className={cs.startButton} type='button' onClick={getItem}>
             시작하기
