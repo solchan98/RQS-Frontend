@@ -48,14 +48,17 @@
   display: flex;
   gap: 6px;
 
-  .itemBottomItem {
+  .hintList {
     display: flex;
-    flex-direction: column;
-    color: #747474;
+    flex-wrap: wrap;
+    gap: 6px;
+    width: inherit;
 
-    > span {
+    .hint {
+      padding: 2px 6px;
       font-size: 12px;
-      text-align: center;
+      background-color: #def5fa;
+      border-radius: 12px;
     }
   }
 }
