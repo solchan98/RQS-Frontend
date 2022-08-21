@@ -6,6 +6,6 @@ export interface IItem {
   question: string;
   answer: string;
   hint: string;
-  createdAt: Date;
+  createdAt: string;
   spaceMemberResponse: ISpaceMember;
 }
