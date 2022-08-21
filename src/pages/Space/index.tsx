@@ -14,7 +14,8 @@ import { getSpaceItem } from 'service/items';
 import { IItem } from 'types/item';
 
 import cs from './space.module.scss';
-import { NewItem, Play } from '../../assets/svgs';
+import { NewItem, Play } from 'assets/svgs';
+import EmptyData from 'assets/no_data.png';
 
 export const Space = () => {
   const createQuestion = useModal();
@@ -72,6 +73,7 @@ export const Space = () => {
         </button>
         <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} />
       </div>
+      {itemListValue.itemList.length === 0 && <img width='640px' src={EmptyData} alt='no-data' />}
       <ul className={cs.itemCardList}>
         {itemListValue.itemList.map((item) => (
           <li key={item.itemId} className={cs.itemCard}>
