@@ -21,7 +21,6 @@ export const Item = ({ item }: Props) => {
         </Link>
         <div className={cs.itemTopSide}>
           <span className={cs.profileNickname}>{item.spaceMemberResponse?.nickname ?? TEMP_NICKNAME}</span>
-          {/* TODO: createdAT 받아와서 시간 라이브러리 사용하여 적용 */}
           <span className={cs.timestamp}>{timeAgo.format(new Date(item.createdAt))}</span>
         </div>
       </div>
