@@ -7,5 +7,5 @@ export interface IItem {
   answer: string;
   hint: string;
   createdAt: Date;
-  spaceMember: ISpaceMember;
+  spaceMemberResponse: ISpaceMember;
 }

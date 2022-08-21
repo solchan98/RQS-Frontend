@@ -44,7 +44,7 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
   const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => setAnswer(e.currentTarget.value);
 
   const { isOpen, closeModal } = useModal;
-  const handleCloseModal = () => {
+  const closeModalHandler = () => {
     setHint('');
     setHintList([]);
     setQuestion('');
@@ -72,18 +72,21 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
       .then((data) => createSpaceItemSuccessHandler(data))
       .catch((err) => {
-        console.log(err);
-        logout();
+        if (err.response.data.status === 401) {
+          logout();
+        } else {
+          closeModal(closeModalHandler);
+          alert(err.response.data?.message ?? 'SERVER ERROR');
+        }
       });
-    closeModal(handleCloseModal);
   };
 
   return (
-    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(handleCloseModal)} portalClassName='createQuestion'>
+    <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='createQuestion'>
       <div className={cs.container}>
         <div className={cs.top}>
           <span className={cs.spaceTitle}>{spaceInfo.spaceTitle}</span>
-          <button type='button' className={cs.exit} onClick={() => closeModal(handleCloseModal)}>
+          <button type='button' className={cs.exit} onClick={() => closeModal(closeModalHandler)}>
             <Exit />
           </button>
         </div>

@@ -3,7 +3,7 @@ import { baseApi } from './index';
 import { reissueAtk } from './member';
 
 const GET_SPACE_ITEM_LIST = '/item';
-const GET_RAMDOM_SPACE_ITEM = '/item/random';
+const GET_RANDOM_SPACE_ITEM = '/item/random';
 const CREATE_SPACE_ITEM = '/item';
 
 const getSpaceItemApi = (spaceId: number, lastItemId?: number) => {
@@ -49,7 +49,7 @@ const getRandomSpaceItemApi = (spaceId: number) => {
   const atk = store.get('atk');
   const params = { spaceId };
   return baseApi
-    .get(GET_RAMDOM_SPACE_ITEM, {
+    .get(GET_RANDOM_SPACE_ITEM, {
       params,
       headers: {
         Authorization: `bearer ${atk}`,
@@ -61,10 +61,5 @@ const getRandomSpaceItemApi = (spaceId: number) => {
 export const getRandomSpaceItem = (spaceId: number) => {
   return getRandomSpaceItemApi(spaceId)
     .then((data) => data)
-    .catch((err) => {
-      if (err.response.data.status === 'UNAUTHORIZED') {
-        reissueAtk().then(() => getRandomSpaceItemApi(spaceId));
-      }
-      throw err;
-    });
+    .catch(() => reissueAtk().then(() => getRandomSpaceItemApi(spaceId)));
 };

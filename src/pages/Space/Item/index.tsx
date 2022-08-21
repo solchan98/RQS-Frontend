@@ -15,10 +15,10 @@ export const Item = ({ item }: Props) => {
     <>
       <div className={cs.itemTop}>
         <Link className={cs.avatar} to='#'>
-          <img src={item.spaceMember?.avatar ?? TEMP_AVATAR} alt='profile_img' />
+          <img src={item.spaceMemberResponse?.avatar ?? TEMP_AVATAR} alt='profile_img' />
         </Link>
         <div className={cs.itemTopSide}>
-          <span className={cs.profileNickname}>{item.spaceMember?.nickname ?? TEMP_NICKNAME}</span>
+          <span className={cs.profileNickname}>{item.spaceMemberResponse?.nickname ?? TEMP_NICKNAME}</span>
           {/* TODO: createdAT 받아와서 시간 라이브러리 사용하여 적용 */}
           <span className={cs.timestamp}>10h ago</span>
         </div>
