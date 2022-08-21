@@ -23,13 +23,25 @@
   margin: 6px 0;
 
   > button {
-    font-size: 12px;
-    font-weight: 600;
-    background-color: #adadad;
-    color: #ffffff;
-    cursor: pointer;
-    border: none;
-    border-radius: 6px;
+    box-sizing: content-box;
+    width: 24px;
+    height: 24px;
+    padding: 0 2px;
+
+    > svg {
+      width: inherit;
+      height: inherit;
+    }
+  }
+
+  > button:hover {
+    > svg {
+      color: yellow;
+    }
+  }
+
+  :nth-child(1) {
+    margin-top: 1px;
   }
 }
 

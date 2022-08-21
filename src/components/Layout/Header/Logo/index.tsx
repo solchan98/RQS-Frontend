@@ -1,4 +1,4 @@
-import { Cat } from '../../../../assets/svgs';
+import { MainLogo } from 'assets/svgs';
 import { Link } from 'react-router-dom';
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
 export const Logo = ({ size, color }: Props) => {
   return (
     <Link to='/' style={{ width: `${size}px`, height: `${size}px` }}>
-      <Cat width={size} height={size} color={color} />
+      <MainLogo width={size} height={size} />
     </Link>
   );
 };

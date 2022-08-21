@@ -14,6 +14,7 @@ import { getSpaceItem } from 'service/items';
 import { IItem } from 'types/item';
 
 import cs from './space.module.scss';
+import { NewItem, Play } from '../../assets/svgs';
 
 export const Space = () => {
   const createQuestion = useModal();
@@ -63,11 +64,11 @@ export const Space = () => {
       <div className={cs.itemTop}>{spaceInfo.spaceTitle}</div>
       <div className={cs.itemButtonWrapper}>
         <button type='button' onClick={randomQuestion.openModal}>
-          랜덤 질문 시작
+          <Play />
         </button>
         <RandomQModal useModal={randomQuestion} spaceId={spaceInfo.spaceId} />
         <button type='button' onClick={createQuestion.openModal}>
-          질문 생성
+          <NewItem />
         </button>
         <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} />
       </div>
