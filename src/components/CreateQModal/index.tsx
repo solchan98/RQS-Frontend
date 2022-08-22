@@ -75,10 +75,10 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
         if (err.response.data.status === 401) {
           logout();
         } else {
-          closeModal(closeModalHandler);
           alert(err.response.data?.message ?? 'SERVER ERROR');
         }
       });
+    closeModal(closeModalHandler);
   };
 
   return (

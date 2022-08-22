@@ -55,8 +55,8 @@ export const Space = () => {
     getSpaceItem(Number(spaceId))
       .then((data) => itemListSuccessHandler(data))
       .catch((err) => {
-        console.log(err);
-        logout();
+        if (err.status === 401) logout();
+        alert(err.response?.data.message ?? 'SERVER ERROR');
       });
   }, [spaceId]);
 
