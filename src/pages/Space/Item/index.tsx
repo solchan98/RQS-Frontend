@@ -27,11 +27,12 @@ export const Item = ({ item }: Props) => {
       <div className={cs.itemMain}>{item.question}</div>
       <div className={cs.itemBottom}>
         <ul className={cs.hintList}>
-          {item.hint.split(',').map((hint) => (
-            <li key={hint} className={cs.hint}>
-              {hint}
-            </li>
-          ))}
+          {item.hint.length !== 0 &&
+            item.hint.split(',').map((hint) => (
+              <li key={hint} className={cs.hint}>
+                {hint}
+              </li>
+            ))}
         </ul>
       </div>
     </>

@@ -65,11 +65,12 @@ export const RandomQModal = ({ useModal, spaceInfo }: Props) => {
         </div>
         <div className={cs.bottom}>
           <ul className={cs.hintList}>
-            {itemState.hint.split(',').map((hint) => (
-              <li key={hint} className={cs.hint}>
-                {hint}
-              </li>
-            ))}
+            {itemState.hint.length !== 0 &&
+              itemState.hint.split(',').map((hint) => (
+                <li key={hint} className={cs.hint}>
+                  {hint}
+                </li>
+              ))}
           </ul>
           <div className={cs.buttonWrapper}>
             <button className={cs.nextButton} type='button' onClick={getItem}>
