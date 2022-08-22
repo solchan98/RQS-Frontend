@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { memberState } from 'recoil/atoms/member';
 import { itemListState } from 'recoil/atoms/items';
@@ -62,6 +62,7 @@ export const Space = () => {
 
   return (
     <div className={cs.spaceContainer}>
+      <Link to='./setting'>세팅</Link>
       <div className={cs.itemTop}>{spaceInfo.spaceTitle}</div>
       <div className={cs.itemButtonWrapper}>
         <button type='button' onClick={randomQuestion.openModal}>

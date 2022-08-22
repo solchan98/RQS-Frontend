@@ -5,6 +5,7 @@ import { reissueAtk } from './member';
 
 const CREATE_NEW_SPACE = '/space';
 const GET_ASIDE_MY_SPACE_LIST = '/space/all';
+const UPDATE_SPACE_TITLE = '/space';
 
 const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
@@ -45,4 +46,22 @@ export const createSpace = (title: string, visibility: boolean) => {
   return createSpaceApi(title, visibility)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => createSpaceApi(title, visibility)));
+};
+
+const updateSpaceTitleApi = (spaceId: number, title: string) => {
+  const atk = store.get('atk');
+  const data = { spaceId, title };
+  return baseApi
+    .patch(UPDATE_SPACE_TITLE, data, {
+      headers: {
+        Authorization: `bearer ${atk}`,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const updateSpaceTitle = (spaceId: number, title: string) => {
+  return updateSpaceTitleApi(spaceId, title)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => updateSpaceTitleApi(spaceId, title)));
 };

@@ -15,6 +15,7 @@ import { useMount } from 'react-use';
 import { useLogout } from './hooks/useLogout';
 import { IMemberResponse } from 'types/member';
 import { getMemberInfo } from './service/member';
+import { UpdateSpace } from './pages/UpdateSpace';
 
 const App = () => {
   const { isLoggedIn } = useRecoilValue(memberState);
@@ -51,6 +52,7 @@ const App = () => {
       <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='explore' element={<Explore />} />
         <Route path='space/:spaceId' element={<Space />} />
+        <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
       </Route>
       <Route path='auth' element={!isLoggedIn ? <AuthWrapper /> : <Navigate to='/' />}>
         <Route path='login' element={<Login />} />
