@@ -6,6 +6,9 @@ import { spaceListState } from 'recoil/atoms/spaces';
 import { changeSpaceMemberRole } from 'service/spaces';
 import { ISpace } from 'types/space';
 
+import cs from './manageSpaceMember.module.scss';
+import cx from 'classnames';
+
 interface Props {
   space: ISpace;
 }
@@ -38,21 +41,28 @@ export const ManageSpaceMember = ({ space }: Props) => {
   };
 
   return (
-    <div>
-      <div>멤버 리스트</div>
-      <ul>
-        {space.spaceMemberList.map((spaceMember) => (
-          <li key={spaceMember.spaceMemberId}>
-            <span>{spaceMember.email}</span>
+    <ul className={cs.container}>
+      <li className={cs.s}>
+        <span className={cs.email}>이메일</span>
+        <span className={cs.role}>권한</span>
+        <span className={cs.delete} />
+      </li>
+      {space.spaceMemberList.map((spaceMember) => (
+        <li key={spaceMember.spaceMemberId}>
+          <span className={cs.email}>{spaceMember.email}</span>
+          <div className={cs.role}>
             <form
               id={`changeRoleAdmin_${spaceMember.spaceMemberId}`}
               data-role='ADMIN'
               data-id={spaceMember.spaceMemberId}
               onSubmit={onSubmitChangeRole}
             >
-              <button type='submit' form={`changeRoleAdmin_${spaceMember.spaceMemberId}`}>
+              <button
+                className={cx(spaceMember.role === 'ADMIN' && cs.myRole)}
+                type='submit'
+                form={`changeRoleAdmin_${spaceMember.spaceMemberId}`}
+              >
                 ADMIN
-                {spaceMember.role === 'ADMIN' && ' O'}
               </button>
             </form>
             <form
@@ -61,19 +71,23 @@ export const ManageSpaceMember = ({ space }: Props) => {
               data-id={spaceMember.spaceMemberId}
               onSubmit={onSubmitChangeRole}
             >
-              <button type='submit' data-id='MEMBER' form={`changeRoleMember_${spaceMember.spaceMemberId}`}>
+              <button
+                className={cx(spaceMember.role === 'MEMBER' && cs.myRole)}
+                type='submit'
+                data-id='MEMBER'
+                form={`changeRoleMember_${spaceMember.spaceMemberId}`}
+              >
                 MEMBER
-                {spaceMember.role === 'MEMBER' && ' O'}
               </button>
             </form>
-            <form id='deleteMember'>
-              <button type='submit' form='deleteMember'>
-                제외
-              </button>
-            </form>
-          </li>
-        ))}
-      </ul>
-    </div>
+          </div>
+          <form className={cs.delete} id='deleteMember'>
+            <button type='submit' form='deleteMember'>
+              제거
+            </button>
+          </form>
+        </li>
+      ))}
+    </ul>
   );
 };

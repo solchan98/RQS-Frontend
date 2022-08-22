@@ -1,6 +1,8 @@
 .container {
   width: 680px;
+  height: 100%;
   margin: 0 auto;
+  background-color: orange;
 
   .top {
     height: 24px;
@@ -12,14 +14,23 @@
   }
 
   .updateTitleWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
     margin: 12px 0;
+  }
 
-    .label {
-      padding: 0 4px;
-      font-size: 14px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      opacity: 0.5;
-    }
+  .label {
+    padding: 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    opacity: 0.5;
+  }
+
+  .manageSpaceMemberWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
   }
 }

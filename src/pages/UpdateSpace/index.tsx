@@ -37,7 +37,10 @@ export const UpdateSpace = () => {
         <span className={cs.label}>Space Name</span>
         <UpdateTitle space={space} />
       </div>
-      <ManageSpaceMember space={space} />
+      <div className={cs.manageSpaceMemberWrapper}>
+        <span className={cs.label}>Space Member Management</span>
+        <ManageSpaceMember space={space} />
+      </div>
     </div>
   );
 };
