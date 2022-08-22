@@ -33,7 +33,10 @@ export const UpdateSpace = () => {
   return (
     <div className={cs.container}>
       <div className={cs.top}>스페이스 관리</div>
-      <UpdateTitle space={space} />
+      <div className={cs.updateTitleWrapper}>
+        <span className={cs.label}>Space Name</span>
+        <UpdateTitle space={space} />
+      </div>
       <ManageSpaceMember space={space} />
     </div>
   );

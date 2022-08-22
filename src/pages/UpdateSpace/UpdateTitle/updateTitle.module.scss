@@ -1,0 +1,20 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 40px;
+}
+
+.title {
+  box-sizing: border-box;
+  flex-grow: 1;
+  height: 36px;
+  padding: 8px 12px;
+  font-size: 14px;
+  border: 1px solid #e5e5e5;
+  border-radius: 12px;
+}
+
+.readOnlyTitle {
+  cursor: default;
+}

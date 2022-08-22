@@ -6,6 +6,9 @@ import { useLogout } from 'hooks/useLogout';
 import { updateSpaceTitle } from 'service/spaces';
 import { ISpace } from 'types/space';
 
+import cx from 'classnames';
+import cs from './updateTitle.module.scss';
+
 interface Props {
   space: ISpace;
 }
@@ -36,27 +39,28 @@ export const UpdateTitle = ({ space }: Props) => {
       });
   };
 
-  return (
-    <div>
-      {!isTitleUpdate && (
-        <div>
-          <div>{space.title}</div>
-          <button type='button' onClick={onChangeIsTitleUpdate}>
-            변경
-          </button>
-        </div>
-      )}
-      {isTitleUpdate && (
-        <form id='updateTitle' onSubmit={onSubmitTitleUpdate}>
-          <input value={title} onChange={onChangeTitle} />
-          <button type='button' onClick={onChangeIsTitleUpdate}>
+  if (isTitleUpdate)
+    return (
+      <form className={cs.container} id='updateTitle' onSubmit={onSubmitTitleUpdate}>
+        {/* eslint-disable-next-line jsx-a11y/no-autofocus */}
+        <input autoFocus className={cs.title} value={title} onChange={onChangeTitle} />
+        <div className={cs.buttonWrapper}>
+          <button className={cs.btn} type='button' onClick={onChangeIsTitleUpdate}>
             취소
           </button>
-          <button type='submit' form='updateTitle'>
+          <button className={cs.btn} type='submit' form='updateTitle'>
             저장
           </button>
-        </form>
-      )}
+        </div>
+      </form>
+    );
+
+  return (
+    <div className={cs.container}>
+      <input readOnly className={cx(cs.title, cs.readOnlyTitle)} value={title} onChange={onChangeTitle} />
+      <button className={cs.btn} type='button' onClick={onChangeIsTitleUpdate}>
+        변경
+      </button>
     </div>
   );
 };
