@@ -4,12 +4,25 @@
 }
 
 .itemTop {
+  display: flex;
+  justify-content: space-between;
   height: 24px;
   padding: 12px 0;
   font-size: 16px;
   font-weight: 500;
   line-height: 24px;
   border-bottom: 1px solid #cfcfcf;
+
+  .setting {
+    width: 24px;
+    height: 24px;
+    color: #B8B8B8;
+
+    > svg {
+      width: inherit;
+      height: inherit;
+    }
+  }
 }
 
 .itemButtonWrapper {

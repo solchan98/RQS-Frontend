@@ -9,3 +9,4 @@ export { ReactComponent as Exit } from './exit.svg';
 export { ReactComponent as MainLogo } from './main_logo.svg';
 export { ReactComponent as Play } from './play.svg';
 export { ReactComponent as NewItem } from './new_item.svg';
+export { ReactComponent as Setting } from './setting.svg';

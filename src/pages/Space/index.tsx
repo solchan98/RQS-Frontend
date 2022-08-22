@@ -13,7 +13,7 @@ import { CreateQModal } from 'components/CreateQModal';
 import { RandomQModal } from 'components/RandomQModal';
 import { IItem } from 'types/item';
 
-import { NewItem, Play } from 'assets/svgs';
+import { NewItem, Play, Setting } from 'assets/svgs';
 import { EmptyLottie } from 'components/Lotties/EmptyLottie';
 import cs from './space.module.scss';
 
@@ -62,8 +62,14 @@ export const Space = () => {
 
   return (
     <div className={cs.spaceContainer}>
-      <Link to='./setting'>세팅</Link>
-      <div className={cs.itemTop}>{spaceInfo.spaceTitle}</div>
+      <div className={cs.itemTop}>
+        <span>{spaceInfo.spaceTitle}</span>
+        {spaceInfo.myRole === 'ADMIN' && (
+          <Link className={cs.setting} to='./setting'>
+            <Setting />
+          </Link>
+        )}
+      </div>
       <div className={cs.itemButtonWrapper}>
         <button type='button' onClick={randomQuestion.openModal}>
           <Play />
