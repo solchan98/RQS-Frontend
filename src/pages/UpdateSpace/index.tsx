@@ -30,6 +30,8 @@ export const UpdateSpace = () => {
     }
   });
 
+  const onClickExit = () => nav(-1);
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>스페이스 관리</div>
@@ -40,6 +42,16 @@ export const UpdateSpace = () => {
       <div className={cs.manageSpaceMemberWrapper}>
         <span className={cs.label}>Space Member Management</span>
         <ManageSpaceMember space={space} />
+      </div>
+      <div className={cs.bottom}>
+        <form id='spaceDelete'>
+          <button className={cs.exit} type='submit' form='spaceDelete'>
+            삭제하기
+          </button>
+          <button type='button' onClick={onClickExit}>
+            나가기
+          </button>
+        </form>
       </div>
     </div>
   );
