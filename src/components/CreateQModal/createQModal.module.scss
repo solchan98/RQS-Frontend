@@ -67,40 +67,42 @@
   }
 
   .bottom {
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-    width: inherit;
-
-    .bottomSubTitle {
-      font-size: 12px;
-    }
-
-    .hintInput {
-      box-sizing: border-box;
-      width: 40%;
-      padding: 6px 12px;
-      font-size: 12px;
-      text-align: center;
-      color: #3a3a3a;
-      border: 1px solid #e5e5e5;
-      border-radius: 16px;
-    }
-
-    .hintInput::placeholder {
-      font-size: 12px;
-    }
-
-    .hintList {
+    .hintWrapper {
       display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
+      flex-direction: column;
+      gap: 12px;
+      width: inherit;
 
-      .hint {
-        padding: 6px;
-        font-size: 14px;
-        border-radius: 14px;
+      .hintTitle {
+        font-size: 12px;
+      }
+
+      .hintInput {
+        box-sizing: border-box;
+        width: 180px;
+        padding: 6px 12px;
+        font-size: 12px;
+        text-align: center;
         color: #3a3a3a;
+        border: 1px solid #e5e5e5;
+        border-radius: 16px;
+      }
+
+      .hintInput::placeholder {
+        font-size: 12px;
+      }
+
+      .hintList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .hint {
+          padding: 6px;
+          font-size: 14px;
+          border-radius: 14px;
+          color: #3a3a3a;
+        }
       }
     }
 

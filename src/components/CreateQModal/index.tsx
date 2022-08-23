@@ -124,8 +124,8 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
           />
         </form>
         <div className={cs.bottom}>
-          <span className={cx(cs.subTitle, cs.bottomSubTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>
-          <form onSubmit={onSubmitAddHint}>
+          <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
+            <span className={cx(cs.subTitle, cs.hintTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>
             <input
               disabled={hintList.length >= 5}
               className={cs.hintInput}
@@ -133,16 +133,16 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
               value={hint}
               onChange={onChangeHint}
             />
+            <ul className={cs.hintList}>
+              {hintList.map((h) => (
+                <li key={h}>
+                  <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
+                    {h}
+                  </button>
+                </li>
+              ))}
+            </ul>
           </form>
-          <ul className={cs.hintList}>
-            {hintList.map((h) => (
-              <li key={h}>
-                <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
-                  {h}
-                </button>
-              </li>
-            ))}
-          </ul>
           <div className={cs.createQBtnWrapper}>
             <button className={cs.createQBtn} type='submit' form='createQuestion'>
               생성하기
