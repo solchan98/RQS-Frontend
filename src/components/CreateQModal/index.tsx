@@ -32,16 +32,22 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setHintList((prev) => prev.filter((item) => item !== target));
   };
 
-  const [errFrag, setErrFrag] = useState(false);
   const [question, setQuestion] = useState('');
+  const [questionIsEmpty, setQuestionIsEmpty] = useState(false);
   const [answer, setAnswer] = useState('');
+  const [answerIsEmpty, setAnswerIsEmpty] = useState(false);
   const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.currentTarget.value.length !== 0 && errFrag) {
-      setErrFrag(false);
+    if (e.currentTarget.value.length !== 0 && questionIsEmpty) {
+      setQuestionIsEmpty(false);
     }
     setQuestion(e.currentTarget.value);
   };
-  const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => setAnswer(e.currentTarget.value);
+  const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
+    if (e.currentTarget.value.length !== 0 && answerIsEmpty) {
+      setAnswerIsEmpty(false);
+    }
+    setAnswer(e.currentTarget.value);
+  };
 
   const { isOpen, closeModal } = useModal;
   const closeModalHandler = () => {
@@ -49,7 +55,8 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setHintList([]);
     setQuestion('');
     setAnswer('');
-    setErrFrag(false);
+    setQuestionIsEmpty(false);
+    setAnswerIsEmpty(false);
   };
 
   const setItemListValue = useSetRecoilState(itemListState);
@@ -63,12 +70,22 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
 
   const logout = useLogout();
 
+  const checkDataIsEmpty = (): boolean => {
+    if (question.length === 0) {
+      setQuestionIsEmpty(true);
+      return false;
+    }
+    if (answer.length === 0) {
+      setAnswerIsEmpty(true);
+      return false;
+    }
+    return true;
+  };
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    if (question.length === 0) {
-      setErrFrag(true);
-      return;
-    }
+    const check = checkDataIsEmpty();
+    if (!check) return;
     createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
       .then((data) => createSpaceItemSuccessHandler(data))
       .catch((err) => {
@@ -94,15 +111,15 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
           <span className={cs.subTitle}>Question</span>
           <textarea
             value={question}
-            className={cx(cs.textArea, errFrag && cs.isEmpty)}
-            placeholder={errFrag ? '질문은 비어있으면 안됩니다!' : '질문을 작성하세요 :)'}
+            className={cx(cs.textArea, questionIsEmpty && cs.isEmpty)}
+            placeholder={questionIsEmpty ? '질문은 비어있으면 안됩니다!' : '질문을 작성하세요 :)'}
             onChange={onChangeQuestion}
           />
           <span className={cs.subTitle}>Answer</span>
           <textarea
             value={answer}
-            className={cx(cs.textArea, cs.answerTextArea)}
-            placeholder='답변을 작성하세요 :)'
+            className={cx(cs.textArea, cs.answerTextArea, answerIsEmpty && cs.isEmpty)}
+            placeholder={answerIsEmpty ? '답변은 비어있으면 안됩니다!' : '답변을 작성하세요 :)'}
             onChange={onChangeAnswer}
           />
         </form>
