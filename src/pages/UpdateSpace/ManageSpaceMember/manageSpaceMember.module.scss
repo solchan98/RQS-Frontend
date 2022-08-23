@@ -27,8 +27,13 @@
     .role {
       width: 35%;
 
+      .roleBtn {
+        opacity: 0.5;
+      }
+
       .myRole {
         font-weight: bold;
+        opacity: 1;
       }
     }
 

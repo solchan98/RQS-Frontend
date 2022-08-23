@@ -45,10 +45,10 @@ export const UpdateSpace = () => {
       </div>
       <div className={cs.bottom}>
         <form id='spaceDelete'>
-          <button className={cs.exit} type='submit' form='spaceDelete'>
+          <button className={cs.delete} type='submit' form='spaceDelete'>
             삭제하기
           </button>
-          <button type='button' onClick={onClickExit}>
+          <button className={cs.exit} type='button' onClick={onClickExit}>
             돌아가기
           </button>
         </form>

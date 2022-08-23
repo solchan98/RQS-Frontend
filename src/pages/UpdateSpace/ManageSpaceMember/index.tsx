@@ -58,7 +58,7 @@ export const ManageSpaceMember = ({ space }: Props) => {
               onSubmit={onSubmitChangeRole}
             >
               <button
-                className={cx(spaceMember.role === 'ADMIN' && cs.myRole)}
+                className={cx(cs.roleBtn, spaceMember.role === 'ADMIN' && cs.myRole)}
                 type='submit'
                 form={`changeRoleAdmin_${spaceMember.spaceMemberId}`}
               >
@@ -72,7 +72,7 @@ export const ManageSpaceMember = ({ space }: Props) => {
               onSubmit={onSubmitChangeRole}
             >
               <button
-                className={cx(spaceMember.role === 'MEMBER' && cs.myRole)}
+                className={cx(cs.roleBtn, spaceMember.role === 'MEMBER' && cs.myRole)}
                 type='submit'
                 data-id='MEMBER'
                 form={`changeRoleMember_${spaceMember.spaceMemberId}`}
