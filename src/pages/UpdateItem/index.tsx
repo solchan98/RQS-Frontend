@@ -72,18 +72,22 @@ export const UpdateItem = () => {
 
   const logout = useLogout();
 
+  const updateSpaceItemSuccessHandler = (data: IItem) => {
+    const itemList = itemListValue.itemList.map((i) => (i.itemId === Number(itemId) ? data : i));
+    setItemListValue((prev) => ({
+      ...prev,
+      itemList,
+    }));
+    alert('업데이트 성공 :)');
+    nav(-1);
+  };
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const check = checkDataIsEmpty();
     if (!check) return;
     updateSpaceItem(Number(itemId), question, answer, hintList)
-      .then((data) => {
-        const itemList = itemListValue.itemList.map((i) => (i.itemId === Number(itemId) ? data : i));
-        setItemListValue((prev) => ({
-          ...prev,
-          itemList,
-        }));
-      })
+      .then((data) => updateSpaceItemSuccessHandler(data))
       .catch((err) => {
         if (err.response.data.status === 401) {
           logout();
@@ -96,18 +100,25 @@ export const UpdateItem = () => {
   return (
     <div className={cs.container}>
       <div className={cs.top}>아이템 관리</div>
-      <form id='updateItem' onSubmit={onSubmit}>
-        <div className={cs.questionWrapper}>
-          <textarea
-            value={question}
-            className={cx(cs.textArea, questionIsEmpty && cs.isEmpty)}
-            onChange={onChangeQuestion}
-          />
-        </div>
-        <div className={cs.answerWrapper}>
-          <textarea value={answer} className={cx(cs.textArea, answerIsEmpty && cs.isEmpty)} onChange={onChangeAnswer} />
-        </div>
-        <form onSubmit={onSubmitAddHint}>
+      <form className={cs.main} id='updateItem' onSubmit={onSubmit}>
+        <span className={cs.subTitle}>Question</span>
+        <textarea
+          value={question}
+          className={cx(cs.textArea, questionIsEmpty && cs.isEmpty)}
+          placeholder={questionIsEmpty ? '질문은 비어있으면 안됩니다!' : '질문을 작성하세요 :)'}
+          onChange={onChangeQuestion}
+        />
+        <span className={cs.subTitle}>Answer</span>
+        <textarea
+          value={answer}
+          className={cx(cs.textArea, cs.answerTextArea, answerIsEmpty && cs.isEmpty)}
+          placeholder={answerIsEmpty ? '답변은 비어있으면 안됩니다!' : '답변을 작성하세요 :)'}
+          onChange={onChangeAnswer}
+        />
+      </form>
+      <div className={cs.bottom}>
+        <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
+          <span className={cx(cs.subTitle, cs.hintTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>
           <input
             disabled={hintList.length >= 5}
             className={cs.hintInput}
@@ -115,20 +126,20 @@ export const UpdateItem = () => {
             value={hint}
             onChange={onChangeHint}
           />
+          <ul className={cs.hintList}>
+            {hintList.map((h) => (
+              <li key={h}>
+                <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
+                  {h}
+                </button>
+              </li>
+            ))}
+          </ul>
         </form>
-        <ul className={cs.hintList}>
-          {hintList.map((h) => (
-            <li key={h}>
-              <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
-                {h}
-              </button>
-            </li>
-          ))}
-        </ul>
         <button type='submit' form='updateItem'>
           변경하기
         </button>
-      </form>
+      </div>
     </div>
   );
 };

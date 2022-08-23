@@ -10,4 +10,83 @@
     line-height: 24px;
     border-bottom: 1px solid #cfcfcf;
   }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 12px 0;
+
+    .subTitle {
+      padding: 0 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      opacity: 0.5;
+    }
+
+    .textArea {
+      box-sizing: border-box;
+      width: inherit;
+      padding: 8px 12px;
+      font-size: 14px;
+      resize: none;
+      color: #3a3a3a;
+      border: 1px solid #e5e5e5;
+      border-radius: 12px;
+    }
+
+    .answerTextArea {
+      height: 240px;
+    }
+
+    .isEmpty {
+      border: 1px solid #ec3535;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+
+    .hintWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      width: inherit;
+
+      .hintTitle {
+        font-size: 12px;
+        color: #3a3a3a;
+      }
+
+      .hintInput {
+        box-sizing: border-box;
+        width: 180px;
+        padding: 6px 12px;
+        font-size: 12px;
+        text-align: center;
+        color: #3a3a3a;
+        border: 1px solid #e5e5e5;
+        border-radius: 16px;
+      }
+
+      .hintInput::placeholder {
+        font-size: 12px;
+      }
+
+      .hintList {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+
+        .hint {
+          padding: 6px;
+          font-size: 14px;
+          border-radius: 14px;
+          color: #3a3a3a;
+        }
+      }
+    }
+  }
 }
