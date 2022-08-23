@@ -97,6 +97,8 @@ export const UpdateItem = () => {
       });
   };
 
+  const onClickExitBtn: MouseEventHandler<HTMLButtonElement> = () => nav(-1);
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>아이템 관리</div>
@@ -136,9 +138,14 @@ export const UpdateItem = () => {
             ))}
           </ul>
         </form>
-        <button type='submit' form='updateItem'>
-          변경하기
-        </button>
+        <div className={cs.buttonWrapper}>
+          <button type='button' onClick={onClickExitBtn}>
+            돌아가기
+          </button>
+          <button type='submit' form='updateItem'>
+            변경하기
+          </button>
+        </div>
       </div>
     </div>
   );
