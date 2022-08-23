@@ -5,6 +5,7 @@ import { reissueAtk } from './member';
 const GET_SPACE_ITEM_LIST = '/item';
 const GET_RANDOM_SPACE_ITEM = '/item/random';
 const CREATE_SPACE_ITEM = '/item';
+const UPDATE_SPACE_ITEM = '/item';
 
 const getSpaceItemApi = (spaceId: number, lastItemId?: number) => {
   const atk = store.get('atk');
@@ -62,4 +63,23 @@ export const getRandomSpaceItem = (spaceId: number) => {
   return getRandomSpaceItemApi(spaceId)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => getRandomSpaceItemApi(spaceId)));
+};
+
+const updateSpaceItemApi = (itemId: number, question: string, answer: string, hint: string) => {
+  const atk = store.get('atk');
+  const data = { itemId, question, answer, hint };
+  return baseApi
+    .put(UPDATE_SPACE_ITEM, data, {
+      headers: {
+        Authorization: `bearer ${atk}`,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const updateSpaceItem = (itemId: number, question: string, answer: string, hintList: string[]) => {
+  const hint = hintList.join(',');
+  return updateSpaceItemApi(itemId, question, answer, hint)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => updateSpaceItemApi(itemId, question, answer, hint)));
 };
