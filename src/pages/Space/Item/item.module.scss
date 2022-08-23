@@ -1,64 +1,91 @@
-.itemTop {
-  display: flex;
-  width: 100%;
-  height: 32px;
+.container {
+  box-sizing: border-box;
+  width: inherit;
+  padding: 12px 12px 6px;
+  background-color: transparent;
+  border: none;
 
-  .avatar {
-    width: 32px;
+  .itemTop {
+    display: flex;
+    width: 100%;
     height: 32px;
-    border-radius: 50px;
+    padding-bottom: 4px;
+    border-bottom: 1px solid #e5e5d5;
 
-    > img {
-      width: inherit;
-      height: inherit;
-      border-radius: inherit;
+    .avatar {
+      width: 32px;
+      height: 32px;
+      border-radius: 50px;
+
+      > img {
+        width: inherit;
+        height: inherit;
+        border-radius: inherit;
+      }
+    }
+
+    .itemTopSide {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: start;
+      justify-content: center;
+      width: 100%;
+      height: 32px;
+      margin-left: 10px;
+
+      .profileNickname {
+        font-size: 14px;
+        font-weight: 600;
+        color: #616161;
+      }
+
+      .timestamp {
+        font-size: 10px;
+        text-align: start;
+        color: #bebebe;
+      }
+
+      .setting {
+        position: absolute;
+        top: 0;
+        right: 0;
+        width: 20px;
+        height: 20px;
+        color: #B8B8B8;
+
+        > svg {
+          width: inherit;
+          height: inherit;
+        }
+      }
     }
   }
 
-  .itemTopSide {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    height: 32px;
-    margin-left: 10px;
-
-    .profileNickname {
-      font-size: 14px;
-      font-weight: 600;
-      color: #616161;
-    }
-
-    .timestamp {
-      font-size: 10px;
-      text-align: start;
-      color: #bebebe;
-    }
+  .itemMain {
+    width: 100%;
+    padding: 12px 4px;
+    font-size: 14px;
+    text-align: start;
+    color: #393939;
   }
-}
 
-.itemMain {
-  width: 100%;
-  margin: 12px 0;
-  font-size: 14px;
-  text-align: start;
-  color: #393939;
-}
-
-.itemBottom {
-  display: flex;
-  gap: 6px;
-
-  .hintList {
+  .itemBottom {
     display: flex;
-    flex-wrap: wrap;
     gap: 6px;
-    width: inherit;
 
-    .hint {
-      padding: 2px 6px;
-      font-size: 12px;
-      background-color: #def5fa;
-      border-radius: 12px;
+    .hintList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      width: inherit;
+
+      .hint {
+        padding: 2px 6px;
+        font-size: 12px;
+        background-color: #def5fa;
+        border-radius: 12px;
+      }
     }
   }
 }

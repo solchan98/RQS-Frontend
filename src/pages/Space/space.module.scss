@@ -66,16 +66,18 @@
   margin-top: 0;
 
   .itemCard {
+    width: 100%;
     list-style: none;
     border: 1px solid #c7c7c7;
     border-radius: 8px;
 
-    > button {
-      padding: 12px 12px 6px;
-      cursor: pointer;
-      background-color: transparent;
-      border: none;
-    }
+    //> button {
+    //  width: inherit;
+    //  padding: 12px 12px 6px;
+    //  cursor: pointer;
+    //  background-color: transparent;
+    //  border: none;
+    //}
   }
 
   .empty {

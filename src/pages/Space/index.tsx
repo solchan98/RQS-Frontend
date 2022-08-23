@@ -84,9 +84,7 @@ export const Space = () => {
       <ul className={cs.itemCardList}>
         {itemListValue.itemList.map((item) => (
           <li key={item.itemId} className={cs.itemCard}>
-            <button type='button' onClick={() => console.log('1')}>
-              <Item item={item} />
-            </button>
+            <Item item={item} />
           </li>
         ))}
       </ul>

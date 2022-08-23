@@ -49,7 +49,7 @@ export const UpdateSpace = () => {
             삭제하기
           </button>
           <button type='button' onClick={onClickExit}>
-            나가기
+            돌아가기
           </button>
         </form>
       </div>

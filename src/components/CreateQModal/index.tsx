@@ -9,7 +9,7 @@ import { itemListState } from 'recoil/atoms/items';
 
 import { Exit } from 'assets/svgs';
 import cs from './createQModal.module.scss';
-import { useLogout } from '../../hooks/useLogout';
+import { useLogout } from 'hooks/useLogout';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
