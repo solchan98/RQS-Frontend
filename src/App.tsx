@@ -17,6 +17,7 @@ import { IMemberResponse } from 'types/member';
 import { getMemberInfo } from './service/member';
 import { UpdateSpace } from './pages/UpdateSpace';
 import { UpdateItem } from './pages/UpdateItem';
+import { Main } from './pages/Main';
 
 const App = () => {
   const { isLoggedIn } = useRecoilValue(memberState);
@@ -51,6 +52,7 @@ const App = () => {
   return (
     <Routes>
       <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
+        <Route path='' element={<Main />} />
         <Route path='explore' element={<Explore />} />
         <Route path='space/:spaceId' element={<Space />} />
         <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
