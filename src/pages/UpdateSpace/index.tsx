@@ -5,11 +5,12 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
 import { spaceListState } from 'recoil/atoms/spaces';
-import { ISpace } from 'types/space';
-
-import cs from './updateSpace.module.scss';
 import { UpdateTitle } from './UpdateTitle';
 import { ManageSpaceMember } from './ManageSpaceMember';
+import { ISpace } from 'types/space';
+
+import cx from 'classnames';
+import cs from './updateSpace.module.scss';
 
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
@@ -45,13 +46,13 @@ export const UpdateSpace = () => {
       </div>
       <div className={cs.bottom}>
         <form id='spaceDelete'>
-          <button className={cs.delete} type='submit' form='spaceDelete'>
+          <button className={cx(cs.delete, cs.button)} type='submit' form='spaceDelete'>
             삭제하기
           </button>
-          <button className={cs.exit} type='button' onClick={onClickExit}>
-            돌아가기
-          </button>
         </form>
+        <button className={cx(cs.exit, cs.button)} type='button' onClick={onClickExit}>
+          돌아가기
+        </button>
       </div>
     </div>
   );

@@ -33,27 +33,32 @@
   }
 
   .bottom {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .button {
+      width: 80px;
+      height: 24px;
+      padding: 4px 2px;
+      line-height: 16px;
+      border: 1px solid #000000;
+      border-radius: 12px;
+    }
+
     > form {
       box-sizing: border-box;
-      display: flex;
-      justify-content: space-between;
       width: 100%;
       padding: 24px 12px;
-
-      > button {
-        padding: 8px 12px;
-        border: 1px solid #000000;
-        border-radius: 12px;
-      }
 
       .delete {
         color: #e12020;
         border: 1px solid #e12020;
       }
+    }
 
-      .exit {
-        color: #000000;
-      }
+    .exit {
+      color: #000000;
     }
   }
 }
