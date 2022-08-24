@@ -3,14 +3,14 @@ import { useMount } from 'react-use';
 import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useLogout } from 'hooks/useLogout';
+import { deleteItem, updateSpaceItem } from 'service/items';
 import { memberState } from 'recoil/atoms/member';
 import { itemListState } from 'recoil/atoms/items';
 import { IItem } from 'types/item';
 
 import cx from 'classnames';
 import cs from './updateItem.module.scss';
-import { updateSpaceItem } from '../../service/items';
-import { useLogout } from '../../hooks/useLogout';
 
 export const UpdateItem = () => {
   const { itemId } = useParams();
@@ -46,7 +46,7 @@ export const UpdateItem = () => {
   const [hint, setHint] = useState('');
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);
 
-  const [hintList, setHintList] = useState<string[]>(item.hint.split(','));
+  const [hintList, setHintList] = useState<string[]>(item.hint?.split(','));
   const onSubmitAddHint: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const exist = hintList.find((h) => h === hint);
@@ -84,8 +84,7 @@ export const UpdateItem = () => {
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const check = checkDataIsEmpty();
-    if (!check) return;
+    if (!checkDataIsEmpty()) return;
     updateSpaceItem(Number(itemId), question, answer, hintList)
       .then((data) => updateSpaceItemSuccessHandler(data))
       .catch((err) => {
@@ -95,6 +94,32 @@ export const UpdateItem = () => {
           alert(err.response.data?.message ?? 'SERVER ERROR');
         }
       });
+  };
+
+  const deleteItemSuccessHandler = () => {
+    nav(-1);
+    setItemListValue((prev) => ({
+      ...prev,
+      itemList: prev.itemList.filter((i) => i.itemId !== Number(itemId)),
+    }));
+  };
+
+  const [checkDelete, setCheckDelete] = useState(false);
+  const onSubmitDeleteItem: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (!checkDelete) {
+      setCheckDelete((prev) => !prev);
+    } else {
+      deleteItem(Number(itemId))
+        .then(() => deleteItemSuccessHandler())
+        .catch((err) => {
+          if (err.response.data.status === 401) {
+            logout();
+          } else {
+            alert(err.response.data?.message ?? 'SERVER ERROR');
+          }
+        });
+    }
   };
 
   const onClickExitBtn: MouseEventHandler<HTMLButtonElement> = () => nav(-1);
@@ -118,31 +143,37 @@ export const UpdateItem = () => {
           onChange={onChangeAnswer}
         />
       </form>
+      <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
+        <span className={cx(cs.subTitle, cs.hintTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>
+        <input
+          disabled={hintList.length >= 5}
+          className={cs.hintInput}
+          placeholder={hintList.length >= 5 ? '더이상 추가할 수 없습니다.' : 'Ex) 보안'}
+          value={hint}
+          onChange={onChangeHint}
+        />
+        <ul className={cs.hintList}>
+          {hintList.map((h) => (
+            <li key={h}>
+              <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
+                {h}
+              </button>
+            </li>
+          ))}
+        </ul>
+      </form>
       <div className={cs.bottom}>
-        <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
-          <span className={cx(cs.subTitle, cs.hintTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>
-          <input
-            disabled={hintList.length >= 5}
-            className={cs.hintInput}
-            placeholder={hintList.length >= 5 ? '더이상 추가할 수 없습니다.' : 'Ex) 보안'}
-            value={hint}
-            onChange={onChangeHint}
-          />
-          <ul className={cs.hintList}>
-            {hintList.map((h) => (
-              <li key={h}>
-                <button type='button' data-id={h} className={cs.hint} onClick={onClickDeleteHint}>
-                  {h}
-                </button>
-              </li>
-            ))}
-          </ul>
+        <form id='deleteItem' onSubmit={onSubmitDeleteItem}>
+          <button className={cx(cs.button, cs.delete)} type='submit' form='deleteItem'>
+            삭제하기
+          </button>
+          {checkDelete && <span className={cs.checkDelete}>한번더 누르면 삭제가 진행됩니다.</span>}
         </form>
-        <div className={cs.buttonWrapper}>
-          <button type='button' onClick={onClickExitBtn}>
+        <div className={cs.sideBtnWrapper}>
+          <button className={cs.button} type='button' onClick={onClickExitBtn}>
             돌아가기
           </button>
-          <button type='submit' form='updateItem'>
+          <button className={cs.button} type='submit' form='updateItem'>
             변경하기
           </button>
         </div>

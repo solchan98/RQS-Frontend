@@ -45,48 +45,75 @@
     }
   }
 
+  .hintWrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    width: inherit;
+
+    .hintTitle {
+      font-size: 12px;
+      color: #3a3a3a;
+    }
+
+    .hintInput {
+      box-sizing: border-box;
+      width: 180px;
+      padding: 6px 12px;
+      font-size: 12px;
+      text-align: center;
+      color: #3a3a3a;
+      border: 1px solid #e5e5e5;
+      border-radius: 16px;
+    }
+
+    .hintInput::placeholder {
+      font-size: 12px;
+    }
+
+    .hintList {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .hint {
+        padding: 6px;
+        font-size: 14px;
+        border-radius: 14px;
+        color: #3a3a3a;
+      }
+    }
+  }
+
   .bottom {
     display: flex;
+    align-items: center;
     justify-content: space-between;
+    margin: 8px 0;
 
-    .hintWrapper {
+    .button {
+      width: 80px;
+      height: 24px;
+      padding: 4px 2px;
+      line-height: 16px;
+      border: 1px solid #000000;
+      border-radius: 12px;
+    }
+
+    .delete {
+      color: #e12020;
+      border: 1px solid #e12020;
+    }
+
+    .checkDelete {
+      margin: 0 12px;
+      font-size: 12px;
+      color: #e12020;
+    }
+
+    .sideBtnWrapper {
       display: flex;
-      flex-direction: column;
-      gap: 6px;
-      width: inherit;
-
-      .hintTitle {
-        font-size: 12px;
-        color: #3a3a3a;
-      }
-
-      .hintInput {
-        box-sizing: border-box;
-        width: 180px;
-        padding: 6px 12px;
-        font-size: 12px;
-        text-align: center;
-        color: #3a3a3a;
-        border: 1px solid #e5e5e5;
-        border-radius: 16px;
-      }
-
-      .hintInput::placeholder {
-        font-size: 12px;
-      }
-
-      .hintList {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 6px;
-
-        .hint {
-          padding: 6px;
-          font-size: 14px;
-          border-radius: 14px;
-          color: #3a3a3a;
-        }
-      }
+      gap: 4px;
     }
   }
 }

@@ -6,6 +6,7 @@ const GET_SPACE_ITEM_LIST = '/item';
 const GET_RANDOM_SPACE_ITEM = '/item/random';
 const CREATE_SPACE_ITEM = '/item';
 const UPDATE_SPACE_ITEM = '/item';
+const DELETE_SPACE_ITEM = '/item';
 
 const getSpaceItemApi = (spaceId: number, lastItemId?: number) => {
   const atk = store.get('atk');
@@ -82,4 +83,23 @@ export const updateSpaceItem = (itemId: number, question: string, answer: string
   return updateSpaceItemApi(itemId, question, answer, hint)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => updateSpaceItemApi(itemId, question, answer, hint)));
+};
+
+const deleteItemApi = (itemId: number) => {
+  const atk = store.get('atk');
+  const params = { itemId };
+  return baseApi
+    .delete(DELETE_SPACE_ITEM, {
+      params,
+      headers: {
+        Authorization: `bearer ${atk}`,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const deleteItem = (itemId: number) => {
+  return deleteItemApi(itemId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => deleteItemApi(itemId)));
 };
