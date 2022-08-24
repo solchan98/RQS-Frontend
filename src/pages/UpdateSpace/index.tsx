@@ -1,6 +1,6 @@
-import { useMemo } from 'react';
+import { FormEventHandler, useMemo, useState } from 'react';
 import { useMount } from 'react-use';
-import { useRecoilValue } from 'recoil';
+import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
@@ -11,13 +11,15 @@ import { ISpace } from 'types/space';
 
 import cx from 'classnames';
 import cs from './updateSpace.module.scss';
+import { deleteSpace } from 'service/spaces';
+import { useLogout } from 'hooks/useLogout';
 
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
   const nav = useNavigate();
 
   const memberValue = useRecoilValue(memberState);
-  const spaceListValue = useRecoilValue(spaceListState);
+  const [spaceListValue, setSpaceListValue] = useRecoilState(spaceListState);
 
   const space = useMemo(() => {
     return spaceListValue.spaceList.find((s) => s.spaceId === Number(spaceId)) ?? ({} as ISpace);
@@ -31,6 +33,32 @@ export const UpdateSpace = () => {
     }
   });
 
+  const logout = useLogout();
+  const deleteSpaceSuccessHandler = () => {
+    setSpaceListValue((prev) => ({
+      ...prev,
+      spaceList: prev.spaceList.filter((s) => s.spaceId !== Number(spaceId)),
+    }));
+    nav('/');
+  };
+
+  const [checkDelete, setCheckDelete] = useState(false);
+  const onSubmitSpaceDelete: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (!checkDelete) {
+      setCheckDelete(true);
+    } else {
+      deleteSpace(Number(spaceId))
+        .then(() => deleteSpaceSuccessHandler())
+        .catch((err) => {
+          if (err.response.data.status === 401) {
+            logout();
+          } else {
+            alert(err.response.data?.message ?? 'SERVER ERROR');
+          }
+        });
+    }
+  };
   const onClickExit = () => nav(-1);
 
   return (
@@ -45,10 +73,11 @@ export const UpdateSpace = () => {
         <ManageSpaceMember space={space} />
       </div>
       <div className={cs.bottom}>
-        <form id='spaceDelete'>
+        <form id='spaceDelete' onSubmit={onSubmitSpaceDelete}>
           <button className={cx(cs.delete, cs.button)} type='submit' form='spaceDelete'>
             삭제하기
           </button>
+          {checkDelete && <span className={cs.checkDelete}>한번더 누르면 삭제가 진행됩니다.</span>}
         </form>
         <button className={cx(cs.exit, cs.button)} type='button' onClick={onClickExit}>
           돌아가기

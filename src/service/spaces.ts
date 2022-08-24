@@ -7,6 +7,7 @@ const CREATE_NEW_SPACE = '/space';
 const GET_ASIDE_MY_SPACE_LIST = '/space/all';
 const UPDATE_SPACE_TITLE = '/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/space/spaceMember/role';
+const DELETE_SPACE = '/space';
 
 const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
@@ -84,4 +85,23 @@ export const changeSpaceMemberRole = (spaceId: number, spaceMemberId: number, ro
   return changeSpaceMemberRoleApi(spaceId, spaceMemberId, role)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => changeSpaceMemberRoleApi(spaceId, spaceMemberId, role)));
+};
+
+const deleteSpaceApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  const params = { spaceId };
+  return baseApi
+    .delete(DELETE_SPACE, {
+      params,
+      headers: {
+        Authorization: `bearer ${atk}`,
+      },
+    })
+    .then((res) => res.data);
+};
+
+export const deleteSpace = (spaceId: number) => {
+  return deleteSpaceApi(spaceId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => deleteSpaceApi(spaceId)));
 };
