@@ -34,6 +34,7 @@ export const Login = () => {
         }));
         store.set('atk', tokenObj.atk);
         store.set('rtk', tokenObj.rtk);
+        nav('/');
       })
       .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
   };

@@ -72,6 +72,7 @@ export const Main = () => {
           </ul>
         </section>
       </main>
+      <footer className={cs.authFooter}>Copyright 2022. RQS all rights reserved.</footer>
     </div>
   );
 };
