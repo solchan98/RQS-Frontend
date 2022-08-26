@@ -1,5 +1,5 @@
 import store from 'store';
-import { baseApi } from './index';
+import { authApi, baseApi } from './index';
 import { IMemberResponse } from 'types/member';
 
 const LOGIN = '/member/login';
@@ -38,5 +38,8 @@ export const reissueAtk = () => {
         Authorization: `bearer ${rtk}`,
       },
     })
-    .then((res) => store.set('atk', res.data.atk));
+    .then((res) => {
+      store.set('atk', res.data.atk);
+      authApi.defaults.headers.common.Authorization = `bearer ${res.data.atk}`;
+    });
 };
