@@ -1,6 +1,6 @@
 import cs from './main.module.scss';
 import { Link } from 'react-router-dom';
-import { Search } from 'assets/svgs';
+import { Add, Search } from 'assets/svgs';
 import { Space } from 'components/Space';
 
 const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
@@ -23,7 +23,12 @@ export const Main = () => {
       <main className={cs.main}>
         <section>
           <div className={cs.listTop}>
-            <h3>나의 스페이스</h3>
+            <div className={cs.spaceSubTitleWrapper}>
+              <h3 className={cs.subTitle}>나의 스페이스</h3>
+              <button className={cs.createSpace} type='button'>
+                <Add />
+              </button>
+            </div>
             <button className={cs.viewMore} type='button'>
               View more
             </button>
@@ -53,7 +58,7 @@ export const Main = () => {
         </section>
         <section>
           <div className={cs.listTop}>
-            <h3>나의 스크랩</h3>
+            <h3 className={cs.subTitle}>나의 스크랩</h3>
             <button className={cs.viewMore} type='button'>
               View more
             </button>
