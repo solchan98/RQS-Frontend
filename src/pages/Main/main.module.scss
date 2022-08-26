@@ -1,6 +1,88 @@
+@use '/src/styles/constants/colors';
+
 .container {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  height: 80%;
+  box-sizing: border-box;
+  width: 100%;
+  height: 100%;
+  padding: 12px;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .profileWrapper {
+      display: flex;
+      justify-content: end;
+      padding: 12px 12px 0;
+
+      .avatar {
+        width: 36px;
+        height: 36px;
+
+        > img {
+          width: inherit;
+          height: inherit;
+          border-radius: 18px;
+        }
+      }
+    }
+
+    .intro {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+    }
+
+    .searchForm {
+      box-sizing: border-box;
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      width: 100%;
+      height: 48px;
+      padding: 0 12px;
+      background-color: #efefef;
+      border-radius: 12px;
+
+      > svg {
+        width: 24px;
+        height: 24px;
+      }
+
+      > input {
+        width: inherit;
+        height: inherit;
+      }
+    }
+  }
+
+  .main {
+    > section {
+      .listTop {
+        display: flex;
+        justify-content: space-between;
+        margin: 24px 0;
+
+        > h3 {
+          font-size: 18px;
+          font-weight: 600;
+          color: colors.$SUB_TITLE;
+          letter-spacing: 0.3px;
+        }
+
+        .viewMore {
+          font-size: 14px;
+          font-weight: 500;
+          color: colors.$GRAY_01;
+        }
+      }
+
+      .listContent {
+        display: flex;
+        gap: 12px;
+        overflow: scroll;
+      }
+    }
+  }
 }
