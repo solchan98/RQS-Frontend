@@ -1,9 +1,9 @@
-import store from 'store';
 import { useSetRecoilState } from 'recoil';
 import { useNavigate } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 import { login } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
+import { IMemberResponse } from 'types/member';
 
 import cs from './login.module.scss';
 
@@ -22,8 +22,8 @@ export const Login = () => {
     e.preventDefault();
     setErr('');
     login(email, password)
-      .then((res) => {
-        const { memberId, nickname, avatar, tokenObj } = res.data;
+      .then((data: IMemberResponse) => {
+        const { memberId, nickname, avatar } = data;
         setMember((prev) => ({
           ...prev,
           memberId,
@@ -32,8 +32,6 @@ export const Login = () => {
           avatar: avatar ?? 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
           isLoggedIn: true,
         }));
-        store.set('atk', tokenObj.atk);
-        store.set('rtk', tokenObj.rtk);
         nav('/');
       })
       .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
