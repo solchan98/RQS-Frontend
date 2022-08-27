@@ -1,15 +1,14 @@
-import { useSetRecoilState } from 'recoil';
-import React from 'react';
 import store from 'store';
+import { useMount } from 'react-use';
+import { useSetRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { memberState } from './recoil/atoms/member';
-import { Login } from './components/Login';
-
-import AuthWrapper from './pages/AuthWapper';
-import { useMount } from 'react-use';
 import { IMemberResponse } from 'types/member';
+import { Login } from './components/Login';
+import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
+import AuthWrapper from './pages/AuthWapper';
 
 const App = () => {
   const atk = store.get('atk');
@@ -35,7 +34,10 @@ const App = () => {
 
   return (
     <Routes>
-      <Route path='' element={atk ? <Main /> : <Navigate to='auth/login' />} />
+      <Route path='' element={atk ? <Layout /> : <Navigate to='auth/login' />}>
+        <Route path='' element={<Main />} />
+        <Route path='space/:spaceId' element={<div>질문 리스트</div>} />
+      </Route>
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='login' element={<Login />} />
       </Route>

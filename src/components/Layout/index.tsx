@@ -1,18 +1,19 @@
-import { Outlet } from 'react-router-dom';
-import { Header } from './Header';
-import { ASide } from './ASide';
+import { Link, Outlet } from 'react-router-dom';
 
 import cs from './layout.module.scss';
+
+const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
 export const Layout = () => {
   return (
     <div className={cs.layout}>
-      <Header />
+      <div className={cs.profileWrapper}>
+        <Link className={cs.avatar} to='#'>
+          <img src={AVATAR} alt='profile_image' />
+        </Link>
+      </div>
       <main>
-        <ASide />
-        <section>
-          <Outlet />
-        </section>
+        <Outlet />
       </main>
     </div>
   );
