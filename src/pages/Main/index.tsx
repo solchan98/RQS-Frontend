@@ -1,13 +1,19 @@
-import cs from './main.module.scss';
-import { Search } from 'assets/svgs';
+import { useRecoilValue } from 'recoil';
+import { memberState } from 'recoil/atoms/member';
+
 import { SpaceList } from './SpaceList';
 import { ScrapList } from './ScrapList';
+import { Search } from 'assets/svgs';
+
+import cs from './main.module.scss';
 
 export const Main = () => {
+  const memberValue = useRecoilValue(memberState);
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>
-        <h3 className={cs.intro}>Mark님 반갑습니다.</h3>
+        <h3 className={cs.intro}>{memberValue.nickname}님 반갑습니다.</h3>
         <form className={cs.searchForm} id='searchSpace'>
           <Search />
           <input type='text' form='searchSpace' placeholder='스페이스 검색' />
