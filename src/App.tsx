@@ -9,6 +9,7 @@ import { Login } from './components/Login';
 import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
 import AuthWrapper from './pages/AuthWapper';
+import { Space } from './pages/Space';
 
 const App = () => {
   const atk = store.get('atk');
@@ -36,7 +37,7 @@ const App = () => {
     <Routes>
       <Route path='' element={atk ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
-        <Route path='space/:spaceId' element={<div>질문 리스트</div>} />
+        <Route path='space/:spaceId' element={<Space />} />
       </Route>
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='login' element={<Login />} />

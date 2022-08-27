@@ -1,23 +1,37 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
-import { memberState } from 'recoil/atoms/member';
-import { itemListState } from 'recoil/atoms/items';
-import { spaceListState } from 'recoil/atoms/spaces';
-import { getSpaceItem } from 'service/items';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+
+import { IItem } from 'types/item';
+import { ISpace, ISpaceMember } from 'types/space';
 
 import { Item } from './Item';
-import { useLogout } from 'hooks/useLogout';
-import { useModal } from 'hooks/useModal';
-import { CreateQModal } from 'components/CreateQModal';
-import { RandomQModal } from 'components/RandomQModal';
-import { IItem } from 'types/item';
-
-import { NewItem, Play, Setting } from 'assets/svgs';
-import { EmptyLottie } from 'components/Lotties/EmptyLottie';
+import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
 
+const TEMP_SPACE = {
+  spaceId: 1,
+  title: '백엔드 면접 질문 리스트',
+  visibility: false,
+  spaceMemberList: [] as ISpaceMember[],
+  createdAt: '2022-08-18',
+  updatedAt: '2022-08-18',
+} as ISpace;
+
+const ITEM_LIST: IItem[] = [
+  {
+    itemId: 1,
+    spaceId: 1,
+    question: 'HTTP와 HTTPS의 차이에 대해 설명해주세요',
+    answer: 'dd',
+    hint: 'a,b',
+    createdAt: '2022-08-18',
+    spaceMemberResponse: { nickname: 'sol', email: 'sol@sol.com' },
+  },
+];
+
 export const Space = () => {
+  const { spaceId } = useParams();
+  const nav = useNavigate();
+
   // const createQuestion = useModal();
   // const randomQuestion = useModal();
   //
@@ -61,7 +75,52 @@ export const Space = () => {
   // }, [spaceId]);
 
   return (
-    <div className={cs.spaceContainer}>
+    <div className={cs.container}>
+      <div className={cs.top}>
+        <div className={cs.title}>{TEMP_SPACE.title}</div>
+        <Link className={cs.setting} to='#'>
+          <Setting />
+        </Link>
+      </div>
+      <main className={cs.main}>
+        <div className={cs.mainTop}>
+          <div className={cs.infoWrapper}>
+            <h3 className={cs.subTitle}>퀴즈 리스트</h3>
+            <button className={cs.createQuiz} type='button'>
+              <Add />
+            </button>
+          </div>
+          <button className={cs.playButton} type='button'>
+            <Play />
+          </button>
+        </div>
+        <ul className={cs.quizList}>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+          <li>
+            <Item item={ITEM_LIST[0]} />
+          </li>
+        </ul>
+      </main>
       {/* <div className={cs.itemTop}> */}
       {/*  <span>{spaceInfo.spaceTitle}</span> */}
       {/*  {spaceInfo.myRole === 'ADMIN' && ( */}

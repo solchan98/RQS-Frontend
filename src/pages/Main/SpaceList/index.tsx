@@ -1,12 +1,13 @@
 import { Link } from 'react-router-dom';
+import { useMount } from 'react-use';
 import { useInfiniteQuery } from '@tanstack/react-query';
 import { useRecoilState, useRecoilValue } from 'recoil';
-import { ISpace } from 'types/space';
 
 import { getMySpaceList } from 'service/spaces';
 import { useModal } from 'hooks/useModal';
 import { memberState } from 'recoil/atoms/member';
 import { spaceListState } from 'recoil/atoms/spaces';
+import { ISpace } from 'types/space';
 import { Space } from 'components/Space';
 import { CreateSpaceModal } from 'pages/Main/SpaceList/CreateSpaceModal';
 
@@ -25,8 +26,11 @@ export const SpaceList = () => {
       getNextPageParam: (spaceListResponse: ISpace[]) =>
         spaceListResponse.length !== 0 && spaceListResponse[spaceListResponse.length - 1],
       onSuccess: ({ pages }) => setSpaceListValue((prev) => [...prev, ...pages[pages.length - 1]]),
+      enabled: false,
     }
   );
+
+  useMount(() => spaceListValue.length === 0 && fetchNextPage());
 
   const createSpace = useModal();
 
@@ -44,7 +48,7 @@ export const SpaceList = () => {
       <ul className={cs.listContent}>
         {spaceListValue.map((space) => (
           <li key={space.spaceId}>
-            <Link to='#'>
+            <Link to={`/space/${space.spaceId}`}>
               <Space space={space} />
             </Link>
           </li>

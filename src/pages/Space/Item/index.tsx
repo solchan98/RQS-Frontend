@@ -1,7 +1,7 @@
-import { Link } from 'react-router-dom';
-import timeAgo from 'util/timaAgo';
-
 import { useRecoilValue } from 'recoil';
+import timeAgo from 'util/timaAgo';
+import { Link } from 'react-router-dom';
+
 import { memberState } from 'recoil/atoms/member';
 import { IItem } from 'types/item';
 
@@ -19,12 +19,12 @@ export const Item = ({ item }: Props) => {
 
   return (
     <div className={cs.container}>
-      <div className={cs.itemTop}>
+      <div className={cs.top}>
         <Link className={cs.avatar} to='#'>
           <img src={item.spaceMemberResponse?.avatar ?? TEMP_AVATAR} alt='profile_img' />
         </Link>
-        <div className={cs.itemTopSide}>
-          <span className={cs.profileNickname}>{item.spaceMemberResponse.nickname}</span>
+        <div className={cs.topSide}>
+          <span className={cs.nickname}>{item.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(item.createdAt))}</span>
           {email === item.spaceMemberResponse.email && (
             <Link className={cs.setting} to={`./item/${item.itemId}/setting`}>
@@ -33,10 +33,10 @@ export const Item = ({ item }: Props) => {
           )}
         </div>
       </div>
-      <button type='button' className={cs.itemMain}>
+      <button type='button' className={cs.main}>
         {item.question}
       </button>
-      <div className={cs.itemBottom}>
+      <div className={cs.bottom}>
         <ul className={cs.hintList}>
           {item.hint.length !== 0 &&
             item.hint.split(',').map((hint) => (
