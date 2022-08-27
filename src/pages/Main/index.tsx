@@ -1,7 +1,8 @@
 import cs from './main.module.scss';
 import { Link } from 'react-router-dom';
-import { Add, Search } from 'assets/svgs';
-import { Space } from 'components/Space';
+import { Search } from 'assets/svgs';
+import { SpaceList } from './SpaceList';
+import { ScrapList } from './ScrapList';
 
 const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
@@ -22,57 +23,13 @@ export const Main = () => {
       </div>
       <main className={cs.main}>
         <section>
-          <div className={cs.listTop}>
-            <div className={cs.spaceSubTitleWrapper}>
-              <h3 className={cs.subTitle}>나의 스페이스</h3>
-              <button className={cs.createSpace} type='button'>
-                <Add />
-              </button>
-            </div>
-            <button className={cs.viewMore} type='button'>
-              View more
-            </button>
-          </div>
-          <ul className={cs.listContent}>
-            <li>
-              <Link to='#'>
-                <Space />
-              </Link>
-            </li>
-            <li>
-              <Link to='#'>
-                <Space />
-              </Link>
-            </li>
-            <li>
-              <Link to='#'>
-                <Space />
-              </Link>
-            </li>
-            <li>
-              <Link to='#'>
-                <Space />
-              </Link>
-            </li>
-          </ul>
+          <SpaceList />
         </section>
         <section>
-          <div className={cs.listTop}>
-            <h3 className={cs.subTitle}>나의 스크랩</h3>
-            <button className={cs.viewMore} type='button'>
-              View more
-            </button>
-          </div>
-          <ul className={cs.listContent}>
-            <li>
-              <Link to='#'>
-                <Space />
-              </Link>
-            </li>
-          </ul>
+          <ScrapList />
         </section>
       </main>
-      <footer className={cs.authFooter}>Copyright 2022. RQS all rights reserved.</footer>
+      <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>
     </div>
   );
 };
