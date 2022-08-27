@@ -1,10 +1,8 @@
-import { useSetRecoilState } from 'recoil';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 
-import { spaceListState } from 'recoil/atoms/spaces';
 import { useLogout } from 'hooks/useLogout';
 import { createSpace } from 'service/spaces';
-import { ISpace } from 'types/space';
 import { ModalTemplate } from 'components/ModalTemplate';
 
 import { Exit } from 'assets/svgs';
@@ -13,11 +11,10 @@ import cs from './createSpaceModal.module.scss';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
+  refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => void;
 }
 
-export const CreateSpaceModal = ({ useModal }: Props) => {
-  const setSpaceList = useSetRecoilState(spaceListState);
-
+export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
   const [title, setTitle] = useState('');
   const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
@@ -37,10 +34,6 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     setVisibility(true);
   };
 
-  const createSpaceSuccessHandler = (data: ISpace) => {
-    setSpaceList((prev) => [data, ...prev]);
-  };
-
   const logout = useLogout();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
@@ -49,9 +42,7 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
       setErrFlag(true);
     } else {
       createSpace(title, visibility)
-        .then((data) => {
-          createSpaceSuccessHandler(data);
-        })
+        .then(() => refetch())
         .catch((err) => {
           console.log(err);
           logout();

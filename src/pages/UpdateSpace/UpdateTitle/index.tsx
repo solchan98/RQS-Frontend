@@ -1,7 +1,6 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 
 import { useSetRecoilState } from 'recoil';
-import { spaceListState } from 'recoil/atoms/spaces';
 import { useLogout } from 'hooks/useLogout';
 import { updateSpaceTitle } from 'service/spaces';
 import { ISpace } from 'types/space';

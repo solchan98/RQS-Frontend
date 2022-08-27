@@ -4,7 +4,6 @@ import { useRecoilState, useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
-import { spaceListState } from 'recoil/atoms/spaces';
 import { UpdateTitle } from './UpdateTitle';
 import { ManageSpaceMember } from './ManageSpaceMember';
 import { ISpace } from 'types/space';

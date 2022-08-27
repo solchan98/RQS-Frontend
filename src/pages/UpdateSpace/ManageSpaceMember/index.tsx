@@ -2,7 +2,6 @@ import { useRecoilState } from 'recoil';
 import { FormEventHandler } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
-import { spaceListState } from 'recoil/atoms/spaces';
 import { changeSpaceMemberRole } from 'service/spaces';
 import { ISpace } from 'types/space';
 
