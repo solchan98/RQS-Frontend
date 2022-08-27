@@ -19,9 +19,7 @@ const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   return baseApi
     .get(GET_ASIDE_MY_SPACE_LIST, {
       params,
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
+      headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
 };

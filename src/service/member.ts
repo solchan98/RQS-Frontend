@@ -1,5 +1,5 @@
 import store from 'store';
-import { authApi, baseApi } from './index';
+import { baseApi } from './index';
 import { IMemberResponse } from 'types/member';
 import { AxiosResponse } from 'axios';
 
@@ -16,7 +16,6 @@ export const login = (email: string, password: string) => {
     .then((res: AxiosResponse<IMemberResponse>) => {
       store.set('atk', res.data.tokenObj.atk);
       store.set('rtk', res.data.tokenObj.rtk);
-      authApi.defaults.headers.common.Authorization = `bearer ${res.data.tokenObj.atk}`;
       return res.data;
     });
 };
@@ -47,7 +46,7 @@ export const reissueAtk = () => {
       },
     })
     .then((res) => {
-      store.set('atk', res.data.atk);
-      authApi.defaults.headers.common.Authorization = `bearer ${res.data.atk}`;
+      const { atk } = res.data;
+      store.set('atk', atk);
     });
 };
