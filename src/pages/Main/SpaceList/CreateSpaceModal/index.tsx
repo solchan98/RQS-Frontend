@@ -1,14 +1,14 @@
 import { useSetRecoilState } from 'recoil';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
-import { ModalTemplate } from '../ModalTemplate';
-import { ISpace } from 'types/space';
-import { createSpace } from 'service/spaces';
 import { spaceListState } from 'recoil/atoms/spaces';
+import { useLogout } from 'hooks/useLogout';
+import { createSpace } from 'service/spaces';
+import { ISpace } from 'types/space';
+import { ModalTemplate } from 'components/ModalTemplate';
 
-import cx from 'classnames';
 import { Exit } from 'assets/svgs';
+import cx from 'classnames';
 import cs from './createSpaceModal.module.scss';
 
 interface Props {
@@ -22,9 +22,7 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
   const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
     setTitle(value);
-    if (value.length !== 0) {
-      setErrFlag(false);
-    }
+    if (value.length !== 0 && errFlag) setErrFlag((prev) => !prev);
   };
 
   const [visibility, setVisibility] = useState(true);
@@ -40,10 +38,7 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
   };
 
   const createSpaceSuccessHandler = (data: ISpace) => {
-    setSpaceList((prev) => ({
-      ...prev,
-      spaceList: [data, ...prev.spaceList],
-    }));
+    setSpaceList((prev) => [data, ...prev]);
   };
 
   const logout = useLogout();
@@ -52,17 +47,17 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     e.preventDefault();
     if (title.length === 0) {
       setErrFlag(true);
-      return;
+    } else {
+      createSpace(title, visibility)
+        .then((data) => {
+          createSpaceSuccessHandler(data);
+        })
+        .catch((err) => {
+          console.log(err);
+          logout();
+        });
+      closeModal(closeModalHandler);
     }
-    createSpace(title, visibility)
-      .then((data) => {
-        createSpaceSuccessHandler(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        logout();
-      });
-    closeModal(closeModalHandler);
   };
 
   return (

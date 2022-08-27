@@ -9,7 +9,7 @@ const UPDATE_SPACE_TITLE = '/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/space/spaceMember/role';
 const DELETE_SPACE = '/space';
 
-const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
+const getMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
   let params;
   if (lastSpace) {
@@ -24,10 +24,10 @@ const getAsideMySpaceListApi = (email: string, lastSpace?: ISpace) => {
     .then((res) => res.data);
 };
 
-export const getAsideMySpaceList = (email: string, lastSpace?: ISpace) => {
-  return getAsideMySpaceListApi(email, lastSpace && lastSpace)
+export const getMySpaceList = (email: string, lastSpace?: ISpace) => {
+  return getMySpaceListApi(email, lastSpace && lastSpace)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => getAsideMySpaceListApi(email, lastSpace)));
+    .catch(() => reissueAtk().then(() => getMySpaceListApi(email, lastSpace)));
 };
 
 const createSpaceApi = (title: string, visibility: boolean) => {
