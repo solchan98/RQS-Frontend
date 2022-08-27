@@ -1,6 +1,6 @@
 import store from 'store';
 import { useMount } from 'react-use';
-import { useSetRecoilState } from 'recoil';
+import { useRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { memberState } from './recoil/atoms/member';
@@ -13,11 +13,11 @@ import { Space } from './pages/Space';
 
 const App = () => {
   const atk = store.get('atk');
-  const setMember = useSetRecoilState(memberState);
+  const [memberValue, setMemberValue] = useRecoilState(memberState);
 
   const loadMemberInfoSuccessHandler = (data: IMemberResponse) => {
     const { memberId, email, nickname, avatar } = data;
-    setMember((prev) => ({
+    setMemberValue((prev) => ({
       ...prev,
       memberId,
       email,
@@ -28,18 +28,20 @@ const App = () => {
   };
 
   useMount(() => {
-    // TODO: atk parse
-    const parsedAtk = { memberId: 1, email: 'sol@sol.com', nickname: 'sol' } as IMemberResponse;
-    loadMemberInfoSuccessHandler(parsedAtk);
+    if (atk) {
+      // TODO: atk parse
+      const parsedAtk = { memberId: 1, email: 'sol@sol.com', nickname: 'sol' } as IMemberResponse;
+      loadMemberInfoSuccessHandler(parsedAtk);
+    }
   });
 
   return (
     <Routes>
-      <Route path='' element={atk ? <Layout /> : <Navigate to='auth/login' />}>
+      <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
         <Route path='space/:spaceId' element={<Space />} />
       </Route>
-      <Route path='auth' element={<AuthWrapper />}>
+      <Route path='auth' element={atk || memberValue.isLoggedIn ? <Navigate to='/' /> : <AuthWrapper />}>
         <Route path='login' element={<Login />} />
       </Route>
     </Routes>

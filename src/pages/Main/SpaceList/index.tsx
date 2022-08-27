@@ -4,6 +4,7 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 
 import { getMySpaceList } from 'service/spaces';
 import { useModal } from 'hooks/useModal';
+import { useLogout } from 'hooks/useLogout';
 import { memberState } from 'recoil/atoms/member';
 import { ISpace } from 'types/space';
 import { Space } from 'components/Space';
@@ -16,12 +17,14 @@ import scs from './spaceList.module.scss';
 export const SpaceList = () => {
   const memberValue = useRecoilValue(memberState);
 
+  const logout = useLogout();
   const { data, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery(
     ['#spaceList'],
     ({ pageParam = undefined }) => getMySpaceList(memberValue.email, pageParam),
     {
       getNextPageParam: (spaceListResponse: ISpace[]) =>
         spaceListResponse.length !== 0 && spaceListResponse[spaceListResponse.length - 1],
+      onError: logout,
     }
   );
 

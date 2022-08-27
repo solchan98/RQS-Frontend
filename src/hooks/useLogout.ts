@@ -10,6 +10,6 @@ export const useLogout = () => {
   return () => {
     store.remove('atk');
     store.remove('rtk');
-    setMember({ isLoggedIn: false } as IMember);
+    setMember({} as IMember);
   };
 };

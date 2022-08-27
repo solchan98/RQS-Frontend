@@ -1,28 +1,31 @@
+import { useMemo } from 'react';
 import timeAgo from 'util/timaAgo';
 import { ISpace } from 'types/space';
+import { useRecoilValue } from 'recoil';
+import { memberState } from 'recoil/atoms/member';
 
 import cs from './space.module.scss';
-import { Members, Question } from 'assets/svgs';
-
-const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+import { Members, Question, UnLock, Lock } from 'assets/svgs';
 
 interface Props {
   space: ISpace;
 }
 
-// TODO: space.spaceMemberList[0] -> space.creator | space 응답에 creator 추가 예쩡
-
 export const Space = ({ space }: Props) => {
+  const memberValue = useRecoilValue(memberState);
+
+  const me = useMemo(() => {
+    return space.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
+  }, [memberValue.email, space.spaceMemberList]);
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>
-        <div className={cs.avatar}>
-          <img src={space.spaceMemberList[0]?.avatar ?? AVATAR} alt='profile_img' />
+        <div className={cs.subInfo}>
+          {space.visibility ? <UnLock /> : <Lock />}
+          <span className={cs.role}>{me?.role ?? 'GUEST'}</span>
         </div>
-        <div className={cs.aside}>
-          <span className={cs.nickname}>{space.spaceMemberList[0].nickname}</span>
-          <span className={cs.timestamp}>{timeAgo.format(new Date(space.createdAt))}</span>
-        </div>
+        <span className={cs.timestamp}>{timeAgo.format(new Date(space.createdAt))}</span>
       </div>
       <div className={cs.main}>
         <span className={cs.content}>{space.title}</span>
@@ -30,7 +33,7 @@ export const Space = ({ space }: Props) => {
       <div className={cs.status}>
         <div className={cs.cntWrapper}>
           <Question />
-          <span>121</span>
+          <span>{space.itemCount}</span>
         </div>
         <div className={cs.cntWrapper}>
           <Members />
