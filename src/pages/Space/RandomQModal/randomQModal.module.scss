@@ -24,14 +24,14 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: calc(40vw - 40px);
+    width: 80%;
     height: 40vh;
 
     .question {
       position: relative;
       display: flex;
       align-items: center;
-      width: inherit;
+      width: 100%;
       font-size: 18px;
 
       > svg {
