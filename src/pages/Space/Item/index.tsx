@@ -1,8 +1,6 @@
-import { useRecoilValue } from 'recoil';
 import timeAgo from 'util/timaAgo';
 import { Link } from 'react-router-dom';
 
-import { memberState } from 'recoil/atoms/member';
 import { IItem } from 'types/item';
 
 import cs from './item.module.scss';
@@ -12,11 +10,10 @@ const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profil
 
 interface Props {
   item: IItem;
+  isUpdatable: boolean;
 }
 
-export const Item = ({ item }: Props) => {
-  const { email } = useRecoilValue(memberState);
-
+export const Item = ({ item, isUpdatable }: Props) => {
   return (
     <div className={cs.container}>
       <div className={cs.top}>
@@ -26,7 +23,7 @@ export const Item = ({ item }: Props) => {
         <div className={cs.topSide}>
           <span className={cs.nickname}>{item.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(item.createdAt))}</span>
-          {email === item.spaceMemberResponse.email && (
+          {isUpdatable && (
             <Link className={cs.setting} to={`./item/${item.itemId}/setting`}>
               <Setting />
             </Link>

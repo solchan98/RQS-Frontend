@@ -83,7 +83,7 @@ export const Space = () => {
           {itemList?.pages.map((page) =>
             page.map((item) => (
               <li key={item.itemId}>
-                <Item item={item} />
+                <Item item={item} isUpdatable={me?.email === item.spaceMemberResponse.email} />
               </li>
             ))
           )}
