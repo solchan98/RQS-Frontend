@@ -4,11 +4,13 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { getSpace } from 'service/spaces';
 import { getSpaceItem } from 'service/items';
+import { useModal } from 'hooks/useModal';
 import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import { Item } from './Item';
+import { RandomQModal } from 'components/RandomQModal';
 import { EmptyLottie } from 'components/Lotties/EmptyLottie';
 import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
@@ -59,6 +61,8 @@ export const Space = () => {
   //     });
   // }, [spaceId]);
 
+  const randomQuiz = useModal();
+
   const logout = useLogout();
   const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
     select: (data): ISpace => data,
@@ -97,9 +101,10 @@ export const Space = () => {
               <Add />
             </button>
           </div>
-          <button className={cs.playButton} type='button'>
+          <button className={cs.playButton} type='button' onClick={randomQuiz.openModal}>
             <Play />
           </button>
+          {space && <RandomQModal useModal={randomQuiz} space={space} />}
         </div>
         {itemList?.pages[0].length === 0 && <EmptyLottie />}
         <ul className={cs.quizList}>
@@ -110,12 +115,14 @@ export const Space = () => {
               </li>
             ))
           )}
-          {hasNextPage && (
+        </ul>
+        {hasNextPage && (
+          <div className={cs.showMoreWrapper}>
             <button type='button' onClick={() => fetchNextPage()}>
               더보기
             </button>
-          )}
-        </ul>
+          </div>
+        )}
       </main>
       {/* <div className={cs.itemTop}> */}
       {/*  <span>{spaceInfo.spaceTitle}</span> */}

@@ -1,11 +1,24 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  width: 40vw;
-  min-width: 40vw;
-  max-width: 40vw;
+  width: 80vw;
+
+  @include responsive.after('SD') {
+    width: 60vw;
+  }
+
+  @include responsive.after('LD') {
+    width: 40vw;
+  }
+
+  @include responsive.after('HD') {
+    width: 40vw;
+  }
 
   .questionWrapper {
     display: flex;
@@ -51,7 +64,7 @@
         padding: 6px 8px;
         font-size: 14px;
         font-weight: 500;
-        background-color: #def5fa;
+        background-color: colors.$THEME;
         border-radius: 12px;
       }
     }
