@@ -14,54 +14,14 @@ import { RandomQModal } from 'components/RandomQModal';
 import { EmptyLottie } from 'components/Lotties/EmptyLottie';
 import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
+import { CreateQModal } from '../../components/CreateQModal';
 
 export const Space = () => {
   const { spaceId } = useParams();
   const nav = useNavigate();
 
-  // const createQuestion = useModal();
-  // const randomQuestion = useModal();
-  //
-  // const logout = useLogout();
-  //
-  // const { spaceId } = useParams();
-  //
-  // const memberValue = useRecoilValue(memberState);
-  // const spaceListValue = useRecoilValue(spaceListState);
-  // const [spaceInfo, setSpaceInfo] = useState<{ spaceId: number; spaceTitle: string; myRole: string }>({
-  //   spaceId: Number(spaceId),
-  //   spaceTitle: '',
-  //   myRole: 'MEMBER',
-  // });
-  // const changeSpaceInfo = (id: number) => {
-  //   const curSpace = spaceListValue.spaceList.find((space) => space.spaceId === id);
-  //   const curSpaceMember = curSpace?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
-  //   setSpaceInfo((prev) => ({
-  //     ...prev,
-  //     spaceId: id,
-  //     spaceTitle: curSpace?.title ?? '서버 에러',
-  //     myRole: curSpaceMember?.role ?? 'NONE',
-  //   }));
-  // };
-  //
-  // const [itemListValue, setItemListValue] = useRecoilState(itemListState);
-  // const itemListSuccessHandler = (data: IItem[]) =>
-  //   data.length === 0
-  //     ? setItemListValue((prev) => ({ ...prev, isLast: true }))
-  //     : setItemListValue((prev) => ({ ...prev, itemList: [...prev.itemList, ...data] }));
-  //
-  // useEffect(() => {
-  //   setItemListValue({ isLast: false, itemList: [] });
-  //   changeSpaceInfo(Number(spaceId));
-  //   getSpaceItem(Number(spaceId))
-  //     .then((data) => itemListSuccessHandler(data))
-  //     .catch((err) => {
-  //       if (err.status === 401) logout();
-  //       alert(err.response?.data.message ?? 'SERVER ERROR');
-  //     });
-  // }, [spaceId]);
-
   const randomQuiz = useModal();
+  const createQuiz = useModal();
 
   const logout = useLogout();
   const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
@@ -74,6 +34,7 @@ export const Space = () => {
     data: itemList,
     hasNextPage,
     fetchNextPage,
+    refetch,
   } = useInfiniteQuery(
     [`#itemList_${spaceId}`],
     ({ pageParam = undefined }) => getSpaceItem(Number(spaceId), pageParam),
@@ -97,9 +58,10 @@ export const Space = () => {
         <div className={cs.mainTop}>
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
-            <button className={cs.createQuiz} type='button'>
+            <button className={cs.createQuiz} type='button' onClick={createQuiz.openModal}>
               <Add />
             </button>
+            {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
           </div>
           <button className={cs.playButton} type='button' onClick={randomQuiz.openModal}>
             <Play />
@@ -124,32 +86,6 @@ export const Space = () => {
           </div>
         )}
       </main>
-      {/* <div className={cs.itemTop}> */}
-      {/*  <span>{spaceInfo.spaceTitle}</span> */}
-      {/*  {spaceInfo.myRole === 'ADMIN' && ( */}
-      {/*    <Link className={cs.setting} to='./setting'> */}
-      {/*      <Setting /> */}
-      {/*    </Link> */}
-      {/*  )} */}
-      {/* </div> */}
-      {/* <div className={cs.itemButtonWrapper}> */}
-      {/*  <button type='button' onClick={randomQuestion.openModal}> */}
-      {/*    <Play /> */}
-      {/*  </button> */}
-      {/*  <RandomQModal useModal={randomQuestion} spaceInfo={spaceInfo} /> */}
-      {/*  <button type='button' onClick={createQuestion.openModal}> */}
-      {/*    <NewItem /> */}
-      {/*  </button> */}
-      {/*  <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} /> */}
-      {/* </div> */}
-      {/* {itemListValue.itemList.length === 0 && <EmptyLottie />} */}
-      {/* <ul className={cs.itemCardList}> */}
-      {/*  {itemListValue.itemList.map((item) => ( */}
-      {/*    <li key={item.itemId} className={cs.itemCard}> */}
-      {/*      <Item item={item} /> */}
-      {/*    </li> */}
-      {/*  ))} */}
-      {/* </ul> */}
     </div>
   );
 };

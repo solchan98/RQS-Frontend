@@ -43,10 +43,7 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
     } else {
       createSpace(title, visibility)
         .then(() => refetch())
-        .catch((err) => {
-          console.log(err);
-          logout();
-        });
+        .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
       closeModal(closeModalHandler);
     }
   };
