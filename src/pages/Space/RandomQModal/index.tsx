@@ -31,7 +31,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
         setQuiz(data);
         if (!startState) setStartState((prev) => !prev);
       })
-      .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   if (!startState)

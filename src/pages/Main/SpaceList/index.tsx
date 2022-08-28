@@ -26,7 +26,7 @@ export const SpaceList = () => {
       getNextPageParam: (spaceListResponse: ISpace[]) =>
         spaceListResponse.length !== 0 && spaceListResponse[spaceListResponse.length - 1],
       onError: (err: AxiosError<{ message: string }>) =>
-        err.response?.status === 401 ? logout : alert(err.response?.data.message),
+        err.response?.status === 401 ? logout() : alert(err.response?.data.message),
     }
   );
 

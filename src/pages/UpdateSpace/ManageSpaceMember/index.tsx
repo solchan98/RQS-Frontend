@@ -26,7 +26,7 @@ export const ManageSpaceMember = ({ space }: Props) => {
     if (!role) return;
     changeSpaceMemberRole(Number(space.spaceId), Number(id), role)
       .then((data: ISpaceMember) => changeRoleSuccessHandler(data))
-      .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
   return (
     <ul className={cs.container}>

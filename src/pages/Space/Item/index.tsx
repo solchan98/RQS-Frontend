@@ -24,7 +24,7 @@ export const Item = ({ item, isUpdatable }: Props) => {
           <span className={cs.nickname}>{item.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(item.createdAt))}</span>
           {isUpdatable && (
-            <Link className={cs.setting} to={`./item/${item.itemId}/setting`}>
+            <Link className={cs.setting} to={`/item/${item.itemId}/setting`}>
               <Setting />
             </Link>
           )}

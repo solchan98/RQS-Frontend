@@ -46,7 +46,7 @@ export const UpdateSpace = () => {
     } else {
       deleteSpace(Number(spaceId))
         .then(() => nav('/'))
-        .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
+        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     }
   };
 

@@ -79,7 +79,7 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
     if (!check) return;
     createSpaceItem(space.spaceId, question, answer, hintList)
       .then(() => refetch())
-      .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     closeModal(closeModalHandler);
   };
 

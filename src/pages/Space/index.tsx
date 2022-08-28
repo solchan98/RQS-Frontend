@@ -6,7 +6,7 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { memberState } from 'recoil/atoms/member';
 import { getSpace } from 'service/spaces';
-import { getSpaceItem } from 'service/items';
+import { getSpaceItemList } from 'service/items';
 import { useModal } from 'hooks/useModal';
 import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
@@ -39,12 +39,12 @@ export const Space = () => {
     refetch,
   } = useInfiniteQuery(
     [`#itemList_${spaceId}`],
-    ({ pageParam = undefined }) => getSpaceItem(Number(spaceId), pageParam),
+    ({ pageParam = undefined }) => getSpaceItemList(Number(spaceId), pageParam),
     {
       getNextPageParam: (itemListResponse: IItem[]) =>
         itemListResponse.length !== 0 && itemListResponse[itemListResponse.length - 1].itemId,
       onError: (err: AxiosError<{ message: string }>) =>
-        err.response?.status === 401 ? logout : alert(err.response?.data.message),
+        err.response?.status === 401 ? logout() : alert(err.response?.data.message),
     }
   );
 

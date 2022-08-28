@@ -23,7 +23,7 @@ export const UpdateTitle = ({ space }: Props) => {
     e.preventDefault();
     updateSpaceTitle(Number(space.spaceId), title)
       .then(() => setIsTitleUpdate(false))
-      .catch((err) => (err.response?.status === 401 ? logout : alert(err.response?.data.message)));
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   if (isTitleUpdate)
