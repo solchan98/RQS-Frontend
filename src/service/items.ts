@@ -2,7 +2,7 @@ import store from 'store';
 import { baseApi } from './index';
 import { reissueAtk } from './member';
 
-const GET_SPACE_ITEM_LIST = '/item';
+const GET_SPACE_ITEM_LIST = '/item/all';
 const GET_RANDOM_SPACE_ITEM = '/item/random';
 const CREATE_SPACE_ITEM = '/item';
 const UPDATE_SPACE_ITEM = '/item';
