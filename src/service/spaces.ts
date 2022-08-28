@@ -4,10 +4,27 @@ import { ISpace } from 'types/space';
 import { reissueAtk } from './member';
 
 const CREATE_NEW_SPACE = '/space';
-const GET_ASIDE_MY_SPACE_LIST = '/space/all';
+const GET_SPACE = '/space';
+const GET_MY_SPACE_LIST = '/space/all';
 const UPDATE_SPACE_TITLE = '/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/space/spaceMember/role';
 const DELETE_SPACE = '/space';
+
+const getSpaceApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  return baseApi
+    .get(GET_SPACE, {
+      params: { spaceId },
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const getSpace = (spaceId: number) => {
+  return getSpaceApi(spaceId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => getSpaceApi(spaceId)));
+};
 
 const getMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
@@ -17,7 +34,7 @@ const getMySpaceListApi = (email: string, lastSpace?: ISpace) => {
     params = { lastJoinedAt: last?.joinedAt };
   }
   return baseApi
-    .get(GET_ASIDE_MY_SPACE_LIST, {
+    .get(GET_MY_SPACE_LIST, {
       params,
       headers: { Authorization: `bearer ${atk}` },
     })
@@ -35,9 +52,7 @@ const createSpaceApi = (title: string, visibility: boolean) => {
   const data = { title, visibility };
   return baseApi
     .post(CREATE_NEW_SPACE, data, {
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
+      headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
 };
@@ -53,9 +68,7 @@ const updateSpaceTitleApi = (spaceId: number, title: string) => {
   const data = { spaceId, title };
   return baseApi
     .patch(UPDATE_SPACE_TITLE, data, {
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
+      headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
 };
@@ -72,9 +85,7 @@ const changeSpaceMemberRoleApi = (spaceId: number, spaceMemberId: number, role: 
   return baseApi
     .patch(UPDATE_SPACE_MEMBER_ROLE, null, {
       params,
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
+      headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
 };
@@ -91,9 +102,7 @@ const deleteSpaceApi = (spaceId: number) => {
   return baseApi
     .delete(DELETE_SPACE, {
       params,
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
+      headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
 };

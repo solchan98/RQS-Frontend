@@ -1,32 +1,17 @@
+import { AxiosError } from 'axios';
 import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
+import { getSpace } from 'service/spaces';
+import { getSpaceItem } from 'service/items';
+import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
-import { ISpace, ISpaceMember } from 'types/space';
+import { ISpace } from 'types/space';
 
 import { Item } from './Item';
+import { EmptyLottie } from 'components/Lotties/EmptyLottie';
 import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
-
-const TEMP_SPACE = {
-  spaceId: 1,
-  title: '백엔드 면접 질문 리스트',
-  visibility: false,
-  spaceMemberList: [] as ISpaceMember[],
-  createdAt: '2022-08-18',
-  updatedAt: '2022-08-18',
-} as ISpace;
-
-const ITEM_LIST: IItem[] = [
-  {
-    itemId: 1,
-    spaceId: 1,
-    question: 'HTTP와 HTTPS의 차이에 대해 설명해주세요',
-    answer: 'dd',
-    hint: 'a,b',
-    createdAt: '2022-08-18',
-    spaceMemberResponse: { nickname: 'sol', email: 'sol@sol.com' },
-  },
-];
 
 export const Space = () => {
   const { spaceId } = useParams();
@@ -74,11 +59,33 @@ export const Space = () => {
   //     });
   // }, [spaceId]);
 
+  const logout = useLogout();
+  const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
+    select: (data): ISpace => data,
+    onError: (err: AxiosError<{ message: string }>) =>
+      err.response?.status === 401 ? logout : alert(err.response?.data.message),
+  });
+
+  const {
+    data: itemList,
+    hasNextPage,
+    fetchNextPage,
+  } = useInfiniteQuery(
+    [`#itemList_${spaceId}`],
+    ({ pageParam = undefined }) => getSpaceItem(Number(spaceId), pageParam),
+    {
+      getNextPageParam: (itemListResponse: IItem[]) =>
+        itemListResponse.length !== 0 && itemListResponse[itemListResponse.length - 1].itemId,
+      onError: (err: AxiosError<{ message: string }>) =>
+        err.response?.status === 401 ? logout : alert(err.response?.data.message),
+    }
+  );
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>
-        <div className={cs.title}>{TEMP_SPACE.title}</div>
-        <Link className={cs.setting} to='#'>
+        <div className={cs.title}>{space?.title}</div>
+        <Link className={cs.setting} to='./setting'>
           <Setting />
         </Link>
       </div>
@@ -94,31 +101,20 @@ export const Space = () => {
             <Play />
           </button>
         </div>
+        {itemList?.pages[0].length === 0 && <EmptyLottie />}
         <ul className={cs.quizList}>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
-          <li>
-            <Item item={ITEM_LIST[0]} />
-          </li>
+          {itemList?.pages.map((page) =>
+            page.map((item) => (
+              <li key={item.itemId}>
+                <Item item={item} />
+              </li>
+            ))
+          )}
+          {hasNextPage && (
+            <button type='button' onClick={() => fetchNextPage()}>
+              더보기
+            </button>
+          )}
         </ul>
       </main>
       {/* <div className={cs.itemTop}> */}
