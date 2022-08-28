@@ -10,6 +10,7 @@ import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
 import AuthWrapper from './pages/AuthWapper';
 import { Space } from './pages/Space';
+import { UpdateSpace } from './pages/UpdateSpace';
 
 const App = () => {
   const atk = store.get('atk');
@@ -40,6 +41,7 @@ const App = () => {
       <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
         <Route path='space/:spaceId' element={<Space />} />
+        <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
       </Route>
       <Route path='auth' element={atk || memberValue.isLoggedIn ? <Navigate to='/' /> : <AuthWrapper />}>
         <Route path='login' element={<Login />} />

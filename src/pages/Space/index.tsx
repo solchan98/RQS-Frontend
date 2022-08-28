@@ -1,7 +1,10 @@
+import { useMemo } from 'react';
 import { AxiosError } from 'axios';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useRecoilValue } from 'recoil';
+import { Link, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
+import { memberState } from 'recoil/atoms/member';
 import { getSpace } from 'service/spaces';
 import { getSpaceItem } from 'service/items';
 import { useModal } from 'hooks/useModal';
@@ -18,7 +21,6 @@ import { CreateQModal } from './CreateQModal';
 
 export const Space = () => {
   const { spaceId } = useParams();
-  const nav = useNavigate();
 
   const randomQuiz = useModal();
   const createQuiz = useModal();
@@ -46,13 +48,21 @@ export const Space = () => {
     }
   );
 
+  const memberValue = useRecoilValue(memberState);
+
+  const me = useMemo(() => {
+    return space?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
+  }, [memberValue.email, space?.spaceMemberList]);
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>
         <div className={cs.title}>{space?.title}</div>
-        <Link className={cs.setting} to='./setting'>
-          <Setting />
-        </Link>
+        {me?.role === 'ADMIN' && (
+          <Link className={cs.setting} to='./setting'>
+            <Setting />
+          </Link>
+        )}
       </div>
       <main className={cs.main}>
         <div className={cs.mainTop}>
