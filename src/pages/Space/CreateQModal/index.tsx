@@ -4,7 +4,7 @@ import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } fro
 import { createSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
 import { ISpace } from 'types/space';
-import { ModalTemplate } from '../ModalTemplate';
+import { ModalTemplate } from 'components/ModalTemplate';
 
 import { Exit } from 'assets/svgs';
 import cx from 'classnames';

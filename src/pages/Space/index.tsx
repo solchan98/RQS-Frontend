@@ -10,11 +10,11 @@ import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import { Item } from './Item';
-import { RandomQModal } from 'components/RandomQModal';
+import { RandomQModal } from 'pages/Space/RandomQModal';
 import { EmptyLottie } from 'components/Lotties/EmptyLottie';
 import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
-import { CreateQModal } from '../../components/CreateQModal';
+import { CreateQModal } from './CreateQModal';
 
 export const Space = () => {
   const { spaceId } = useParams();

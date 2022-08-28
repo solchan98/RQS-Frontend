@@ -5,8 +5,8 @@ import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
-import { ModalTemplate } from '../ModalTemplate';
-import { StartLottie } from '../Lotties/StartLottie';
+import { ModalTemplate } from 'components/ModalTemplate';
+import { StartLottie } from 'components/Lotties/StartLottie';
 import { TitleQuestion } from 'assets/svgs';
 import cx from 'classnames';
 import cs from './randomQModal.module.scss';
