@@ -6,8 +6,8 @@ import { FormEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
-import { deleteSpace, getSpace } from 'service/spaces';
 import { useLogout } from 'hooks/useLogout';
+import { deleteSpace, getSpace } from 'service/spaces';
 import { ISpace } from 'types/space';
 
 import { ManageSpaceMember } from './ManageSpaceMember';
@@ -17,25 +17,40 @@ import cx from 'classnames';
 
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
-
-  const logout = useLogout();
-  const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
-    select: (data): ISpace => data,
-    onError: (err: AxiosError<{ message: string }>) =>
-      err.response?.status === 401 ? logout : alert(err.response?.data.message),
-  });
+  const [spaceState, setSpaceState] = useState<ISpace>({} as ISpace);
 
   const nav = useNavigate();
   const memberValue = useRecoilValue(memberState);
   const [hasAccessRole, setHasAccessRole] = useState(false);
-  useMount(() => {
-    const me = space?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
+  useMount(() => {});
+
+  const onSuccessGetSpace = (space: ISpace) => {
+    const { title, visibility, itemCount, spaceMemberList, updatedAt, createdAt } = space;
+    const me = spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
     if (!me || me.role !== 'ADMIN') {
       nav(-1);
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
-    } else {
-      setHasAccessRole((prev) => !prev);
+      return;
     }
+    setSpaceState((prev) => ({
+      ...prev,
+      spaceId: Number(spaceId),
+      title,
+      visibility,
+      itemCount,
+      spaceMemberList,
+      updatedAt,
+      createdAt,
+    }));
+    setHasAccessRole((prev) => !prev);
+  };
+
+  const logout = useLogout();
+  useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
+    select: (data): ISpace => data,
+    onSuccess: (data: ISpace) => onSuccessGetSpace(data),
+    onError: (err: AxiosError<{ message: string }>) =>
+      err.response?.status === 401 ? logout : alert(err.response?.data.message),
   });
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -61,11 +76,11 @@ export const UpdateSpace = () => {
       </div>
       <div className={cs.updateTitleWrapper}>
         <span className={cs.label}>Space Name</span>
-        {space && <UpdateTitle space={space} />}
+        <UpdateTitle space={spaceState} />
       </div>
       <div className={cs.manageSpaceMemberWrapper}>
         <span className={cs.label}>Space Member List</span>
-        {space && <ManageSpaceMember space={space} />}
+        <ManageSpaceMember space={spaceState} />
       </div>
       <div className={cs.bottom}>
         <form id='spaceDelete' onSubmit={onSubmitSpaceDelete}>
