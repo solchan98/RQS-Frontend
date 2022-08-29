@@ -59,12 +59,19 @@ export const UpdateItem = () => {
       createdAt,
     }));
   };
+  const onErrorGetSpaceItem = (err: AxiosError<{ message: string }>) => {
+    if (err.response?.status === 401) {
+      logout();
+    } else {
+      nav(-1);
+      alert(err.response?.data.message);
+    }
+  };
 
   useQuery([`#item_${itemId}`], () => getSpaceItem(Number(itemId)), {
     select: (data): IItem => data,
     onSuccess: (data: IItem) => onSuccessGetSpaceItem(data),
-    onError: (err: AxiosError<{ message: string }>) =>
-      err.response?.status === 401 ? logout() : alert(err.response?.data.message),
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpaceItem(err),
   });
 
   const [hint, setHint] = useState('');
