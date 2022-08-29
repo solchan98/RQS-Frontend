@@ -1,53 +1,47 @@
 import { useState } from 'react';
 import { getRandomSpaceItem } from 'service/items';
 
-import { IItem } from 'types/item';
 import { useLogout } from 'hooks/useLogout';
-import { TitleQuestion } from 'assets/svgs';
-import { ModalTemplate } from '../ModalTemplate';
+import { IItem } from 'types/item';
+import { ISpace } from 'types/space';
 
-import cs from './randomQModal.module.scss';
+import { ModalTemplate } from 'components/ModalTemplate';
+import { StartLottie } from 'components/Lotties/StartLottie';
+import { TitleQuestion } from 'assets/svgs';
 import cx from 'classnames';
-import { StartLottie } from '../Lotties/StartLottie';
+import cs from './randomQModal.module.scss';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
-  spaceInfo: { spaceId: number; spaceTitle: string; myRole: string };
+  space: ISpace;
 }
 
-export const RandomQModal = ({ useModal, spaceInfo }: Props) => {
+export const RandomQModal = ({ useModal, space }: Props) => {
   const [startState, setStartState] = useState(false);
+  const [quiz, setQuiz] = useState<IItem>({} as IItem);
 
   const { isOpen, closeModal } = useModal;
   const closeModalHandler = () => setStartState(false);
 
   const logout = useLogout();
 
-  const [itemState, setItemState] = useState<IItem>({} as IItem);
-  const getItem = () => {
-    getRandomSpaceItem(spaceInfo.spaceId)
+  const getRandomQuiz = () => {
+    getRandomSpaceItem(Number(space.spaceId))
       .then((data) => {
-        setItemState(data);
-        setStartState(true);
+        setQuiz(data);
+        if (!startState) setStartState((prev) => !prev);
       })
-      .catch((err) => {
-        if (err.response.status === 401) {
-          logout();
-        } else {
-          closeModal(closeModalHandler);
-          alert(err.response.data?.message ?? 'SERVER ERROR');
-        }
-      });
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   if (!startState)
     return (
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
         <div className={cx(cs.container, cs.beforeStart)}>
-          <div>{spaceInfo.spaceTitle}</div>
+          <div>{space.title}</div>
           <small className={cs.tip}>(질문이 적은 경우 중복 확률이 높습니다.)</small>
           <StartLottie />
-          <button className={cs.startButton} type='button' onClick={getItem}>
+          <button className={cs.startButton} type='button' onClick={getRandomQuiz}>
             시작하기
           </button>
         </div>
@@ -60,20 +54,20 @@ export const RandomQModal = ({ useModal, spaceInfo }: Props) => {
         <div className={cs.questionWrapper}>
           <div className={cs.question}>
             <TitleQuestion />
-            <span>{itemState.question}</span>
+            <span>{quiz.question}</span>
           </div>
         </div>
         <div className={cs.bottom}>
           <ul className={cs.hintList}>
-            {itemState.hint.length !== 0 &&
-              itemState.hint.split(',').map((hint) => (
+            {quiz.hint.length !== 0 &&
+              quiz.hint.split(',').map((hint) => (
                 <li key={hint} className={cs.hint}>
                   {hint}
                 </li>
               ))}
           </ul>
           <div className={cs.buttonWrapper}>
-            <button className={cs.nextButton} type='button' onClick={getItem}>
+            <button className={cs.nextButton} type='button' onClick={getRandomQuiz}>
               다음 문제
             </button>
           </div>

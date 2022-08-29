@@ -1,16 +1,20 @@
+@use '/src/styles/constants/colors';
+
 .container {
   box-sizing: border-box;
   width: inherit;
+  height: 100%;
   padding: 12px 12px 6px;
   background-color: transparent;
-  border: none;
+  border: 1px solid colors.$DIVIDE_LINE;
+  border-radius: 12px;
 
-  .itemTop {
+  .top {
     display: flex;
     width: 100%;
     height: 32px;
     padding-bottom: 4px;
-    border-bottom: 1px solid #e5e5d5;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
 
     .avatar {
       width: 32px;
@@ -24,26 +28,26 @@
       }
     }
 
-    .itemTopSide {
+    .topSide {
       position: relative;
       display: flex;
       flex-direction: column;
+      gap: 4px;
       align-items: start;
       justify-content: center;
       width: 100%;
-      height: 32px;
       margin-left: 10px;
 
-      .profileNickname {
+      .nickname {
         font-size: 14px;
         font-weight: 600;
-        color: #616161;
+        color: colors.$SUB_TITLE;
       }
 
       .timestamp {
         font-size: 10px;
+        color: colors.$TIME_STAMP;
         text-align: start;
-        color: #bebebe;
       }
 
       .setting {
@@ -52,7 +56,7 @@
         right: 0;
         width: 20px;
         height: 20px;
-        color: #B8B8B8;
+        color: colors.$GRAY_01;
 
         > svg {
           width: inherit;
@@ -62,15 +66,15 @@
     }
   }
 
-  .itemMain {
+  .main {
     width: 100%;
     padding: 12px 4px;
     font-size: 14px;
+    color: colors.$BASIC_FONT;
     text-align: start;
-    color: #393939;
   }
 
-  .itemBottom {
+  .bottom {
     display: flex;
     gap: 6px;
 
@@ -83,7 +87,7 @@
       .hint {
         padding: 2px 6px;
         font-size: 12px;
-        background-color: #def5fa;
+        background-color: colors.$THEME; // TODO: 색 이상해
         border-radius: 12px;
       }
     }

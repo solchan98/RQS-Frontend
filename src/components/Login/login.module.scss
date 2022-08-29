@@ -1,41 +1,36 @@
-.loginContainer {
-  position: absolute;
-  top: calc(50% - 240px);
-  left: calc(50% - 240px);
-  width: 480px;
-  height: 480px;
-}
+@use '/src/styles/constants/colors';
 
 .loginForm {
   display: flex;
   flex-direction: column;
+  gap: 2px;
   align-items: center;
   justify-content: center;
   padding: 12px;
 
   > input {
-    width: 50%;
+    width: 240px;
     padding: 12px 8px;
     font-size: 16px;
-    border: 1px solid #b4b4b4;
+    border: 1px solid colors.$GRAY_01;
     border-radius: 4px;
 
     &:focus {
-      border: 1px solid #61dafb;
+      border: 1px solid colors.$THEME;
     }
   }
 
   > span {
     margin-top: 12px;
     font-size: 12px;
-    color: red;
+    color: colors.$ALERT;
   }
 
   .loginBtn {
     width: 100px;
     height: 32px;
     margin: 24px 0 12px;
-    background-color: #71ee8b;
+    background-color: colors.$THEME;
     border-radius: 4px;
     opacity: 0.8;
 
@@ -46,7 +41,7 @@
 
   .signUpSpan {
     font-size: 12px;
-    color: #4d4c4c;
+    color: colors.$SUB_TITLE;
     opacity: 0.8;
 
     &:hover {

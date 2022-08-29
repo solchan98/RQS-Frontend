@@ -1,16 +1,23 @@
 import store from 'store';
 import { baseApi } from './index';
 import { IMemberResponse } from 'types/member';
+import { AxiosResponse } from 'axios';
 
 const LOGIN = '/member/login';
 const GET_MEMBER_INFO = '/member';
 const REFRESH_TOKEN = '/member/reissue';
 
 export const login = (email: string, password: string) => {
-  return baseApi.post(LOGIN, {
-    email,
-    password,
-  });
+  return baseApi
+    .post(LOGIN, {
+      email,
+      password,
+    })
+    .then((res: AxiosResponse<IMemberResponse>) => {
+      store.set('atk', res.data.tokenObj.atk);
+      store.set('rtk', res.data.tokenObj.rtk);
+      return res.data;
+    });
 };
 
 const getMemberInfoApi = () => {
@@ -38,5 +45,8 @@ export const reissueAtk = () => {
         Authorization: `bearer ${rtk}`,
       },
     })
-    .then((res) => store.set('atk', res.data.atk));
+    .then((res) => {
+      const { atk } = res.data;
+      store.set('atk', atk);
+    });
 };

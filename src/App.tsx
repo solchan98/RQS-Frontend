@@ -1,33 +1,27 @@
-import { useRecoilValue, useSetRecoilState } from 'recoil';
-import React from 'react';
 import store from 'store';
+import jwtDecode from 'jwt-decode';
+import { useMount } from 'react-use';
+import { useRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { memberState } from './recoil/atoms/member';
-import { Layout } from './components/Layout';
-import { Explore } from './pages/Explore';
-import { Space } from './pages/Space';
-import { Login } from './components/Login';
-
-import './App.css';
-import AuthWrapper from './pages/AuthWapper';
-import { useMount } from 'react-use';
-import { useLogout } from './hooks/useLogout';
+import { memberState } from 'recoil/atoms/member';
 import { IMemberResponse } from 'types/member';
-import { getMemberInfo } from './service/member';
-import { UpdateSpace } from './pages/UpdateSpace';
-import { UpdateItem } from './pages/UpdateItem';
-import { Main } from './pages/Main';
+
+import { Login } from 'components/Login';
+import { Layout } from 'components/Layout';
+import { Main } from 'pages/Main';
+import AuthWrapper from 'pages/AuthWapper';
+import { Space } from 'pages/Space';
+import { UpdateSpace } from 'pages/UpdateSpace';
+import { UpdateItem } from 'pages/UpdateItem';
 
 const App = () => {
-  const { isLoggedIn } = useRecoilValue(memberState);
-  const setMember = useSetRecoilState(memberState);
-
-  const logout = useLogout();
+  const atk = store.get('atk');
+  const [memberValue, setMemberValue] = useRecoilState(memberState);
 
   const loadMemberInfoSuccessHandler = (data: IMemberResponse) => {
     const { memberId, email, nickname, avatar } = data;
-    setMember((prev) => ({
+    setMemberValue((prev) => ({
       ...prev,
       memberId,
       email,
@@ -38,30 +32,37 @@ const App = () => {
   };
 
   useMount(() => {
-    const atk = store.get('atk');
-    if (!isLoggedIn && atk) {
-      getMemberInfo()
-        .then((data) => loadMemberInfoSuccessHandler(data))
-        .catch(() => {
-          console.log('fail!');
-          logout();
-        });
+    if (atk) {
+      // TODO: atk parse
+      const decoded: { exp: number; iat: number; sub: string } = jwtDecode(atk);
+      loadMemberInfoSuccessHandler(JSON.parse(decoded.sub));
     }
   });
 
   return (
     <Routes>
-      <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
+      <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
-        <Route path='explore' element={<Explore />} />
         <Route path='space/:spaceId' element={<Space />} />
         <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
-        <Route path='space/:spaceId/item/:itemId/setting' element={<UpdateItem />} />
+        <Route path='item/:itemId/setting' element={<UpdateItem />} />
       </Route>
-      <Route path='auth' element={!isLoggedIn ? <AuthWrapper /> : <Navigate to='/' />}>
+      <Route path='auth' element={atk || memberValue.isLoggedIn ? <Navigate to='/' /> : <AuthWrapper />}>
         <Route path='login' element={<Login />} />
       </Route>
     </Routes>
+    // <Routes>
+    //   <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
+    //     <Route path='' element={<Main />} />
+    //     <Route path='explore' element={<Explore />} />
+    //     <Route path='space/:spaceId' element={<Space />} />
+    //     <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
+    //     <Route path='space/:spaceId/item/:itemId/setting' element={<UpdateItem />} />
+    //   </Route>
+    //   <Route path='auth' element={!isLoggedIn ? <AuthWrapper /> : <Navigate to='/' />}>
+    //     <Route path='login' element={<Login />} />
+    //   </Route>
+    // </Routes>
   );
 };
 

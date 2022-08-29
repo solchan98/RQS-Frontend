@@ -1,7 +1,8 @@
 export interface ISpace {
   spaceId: number;
   title: string;
-  boolean: visibility;
+  visibility: boolean;
+  itemCount: number;
   spaceMemberList: ISpaceMember[];
   createdAt: string;
   updatedAt: string;

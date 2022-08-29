@@ -1,14 +1,21 @@
+@use '/src/styles/constants/colors';
+
 .container {
-  width: 680px;
-  margin: 0 auto;
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
 
   .top {
-    height: 24px;
-    padding: 12px 0;
-    font-size: 16px;
-    font-weight: 500;
-    line-height: 24px;
-    border-bottom: 1px solid #cfcfcf;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0 24px;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.1px;
+    }
   }
 
   .updateTitleWrapper {
@@ -42,7 +49,7 @@
       height: 24px;
       padding: 4px 2px;
       line-height: 16px;
-      border: 1px solid #000000;
+      border: 1px solid colors.$BLACK;
       border-radius: 12px;
     }
 
@@ -52,19 +59,19 @@
       padding: 24px 12px;
 
       .delete {
-        color: #e12020;
-        border: 1px solid #e12020;
+        color: colors.$ALERT;
+        border: 1px solid colors.$ALERT;
       }
 
       .checkDelete {
         margin: 0 12px;
         font-size: 12px;
-        color: #e12020;
+        color: colors.$ALERT;
       }
     }
 
     .exit {
-      color: #000000;
+      color: colors.$BLACK;
     }
   }
 }

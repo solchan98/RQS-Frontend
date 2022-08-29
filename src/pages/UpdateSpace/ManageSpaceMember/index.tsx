@@ -1,13 +1,11 @@
-import { useRecoilState } from 'recoil';
-import { FormEventHandler } from 'react';
+import { FormEventHandler, useState } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
-import { spaceListState } from 'recoil/atoms/spaces';
 import { changeSpaceMemberRole } from 'service/spaces';
-import { ISpace } from 'types/space';
+import { ISpace, ISpaceMember } from 'types/space';
 
-import cs from './manageSpaceMember.module.scss';
 import cx from 'classnames';
+import cs from './manageSpaceMember.module.scss';
 
 interface Props {
   space: ISpace;
@@ -15,31 +13,21 @@ interface Props {
 
 export const ManageSpaceMember = ({ space }: Props) => {
   const logout = useLogout();
+  const [spaceMemberList, setSpaceMemberList] = useState(space.spaceMemberList);
 
-  const [spaceListValue, setSpaceListValue] = useRecoilState(spaceListState);
-
+  const changeRoleSuccessHandler = (data: ISpaceMember) => {
+    setSpaceMemberList((prev) =>
+      prev.map((spaceMember) => (spaceMember.spaceMemberId === data.spaceMemberId ? data : spaceMember))
+    );
+  };
   const onSubmitChangeRole: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const { id, role } = e.currentTarget.dataset;
     if (!role) return;
     changeSpaceMemberRole(Number(space.spaceId), Number(id), role)
-      .then((data) => {
-        const curSpace = spaceListValue.spaceList.find((s) => s.spaceId === Number(space.spaceId));
-        const changedMemberList =
-          curSpace?.spaceMemberList.map((sm) => (sm.spaceMemberId === Number(id) ? data : sm)) ?? [];
-        setSpaceListValue((prev) => ({
-          ...prev,
-          spaceList: prev.spaceList.map((s) =>
-            s.spaceId === Number(space.spaceId) ? { ...s, spaceMemberList: changedMemberList } : s
-          ),
-        }));
-      })
-      .catch((err) => {
-        if (err.status === 401) logout();
-        alert(err.response?.data.message ?? 'SERVER ERROR');
-      });
+      .then((data: ISpaceMember) => changeRoleSuccessHandler(data))
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
-
   return (
     <ul className={cs.container}>
       <li className={cs.s}>
@@ -47,7 +35,7 @@ export const ManageSpaceMember = ({ space }: Props) => {
         <span className={cs.role}>권한</span>
         <span className={cs.delete} />
       </li>
-      {space.spaceMemberList.map((spaceMember) => (
+      {spaceMemberList.map((spaceMember) => (
         <li key={spaceMember.spaceMemberId}>
           <span className={cs.email}>{spaceMember.email}</span>
           <div className={cs.role}>

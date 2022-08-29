@@ -1,0 +1,81 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  box-sizing: border-box;
+  width: 200px;
+  padding: 12px;
+  background-color: colors.$WHITE;
+  border-radius: 12px;
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-bottom: 4px;
+
+    .subInfo {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+
+      .role {
+        font-size: 12px;
+        font-weight: 600;
+        color: colors.$SUB_TITLE;
+      }
+
+      > svg {
+        width: 18px;
+        height: 18px;
+        color: colors.$GRAY_01;
+      }
+    }
+
+    .timestamp {
+      font-size: 10px;
+      color: colors.$TIME_STAMP;
+      text-align: start;
+    }
+  }
+
+  .main {
+    height: 36px;
+    padding: 4px;
+    overflow: scroll;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
+
+    .content {
+      width: 100%;
+      font-size: 14px;
+      font-weight: 600;
+      line-height: 4px;
+      color: colors.$BASIC_FONT;
+      letter-spacing: 0.2px;
+    }
+  }
+
+  .status {
+    display: flex;
+    gap: 12px;
+    padding: 12px 0 0 4px;
+
+    .cntWrapper {
+      display: flex;
+      gap: 2px;
+      align-items: center;
+      color: colors.$BASIC_FONT;
+
+      > svg {
+        width: 18px;
+        height: 18px;
+        opacity: 0.5;
+      }
+
+      > span {
+        font-size: 14px;
+        font-weight: 500;
+        opacity: 0.8;
+      }
+    }
+  }
+}

@@ -1,12 +1,12 @@
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useState } from 'react';
-import { useMount } from 'react-use';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { AxiosError } from 'axios';
+import { useQuery } from '@tanstack/react-query';
+import { useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useState } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
-import { deleteItem, updateSpaceItem } from 'service/items';
+import { deleteItem, getSpaceItem, updateSpaceItem } from 'service/items';
 import { memberState } from 'recoil/atoms/member';
-import { itemListState } from 'recoil/atoms/items';
 import { IItem } from 'types/item';
 
 import cx from 'classnames';
@@ -14,94 +14,111 @@ import cs from './updateItem.module.scss';
 
 export const UpdateItem = () => {
   const { itemId } = useParams();
-  const nav = useNavigate();
 
-  const [itemListValue, setItemListValue] = useRecoilState(itemListState);
-  const memberValue = useRecoilValue(memberState);
-
-  const item = useMemo(() => {
-    return itemListValue.itemList.find((i) => i.itemId === Number(itemId)) ?? ({} as IItem);
-  }, [itemId, itemListValue.itemList]);
-
-  useMount(() => {
-    const isCreator = memberValue.email === item.spaceMemberResponse.email;
-    if (!isCreator) {
-      alert('권한이 존재하지 않아 페이지에 접근 불가능합니다.');
-      nav(-1);
-    }
-  });
-
-  const [question, setQuestion] = useState(item.question);
+  const [itemState, setItemState] = useState<IItem>({} as IItem);
   const [questionIsEmpty, setQuestionIsEmpty] = useState(false);
   const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.currentTarget.value.length !== 0 && questionIsEmpty) setQuestionIsEmpty(false);
-    setQuestion(e.currentTarget.value);
+    const { value } = e.currentTarget;
+    if (value.length !== 0 && questionIsEmpty) setQuestionIsEmpty(false);
+    setItemState((prev) => ({ ...prev, question: value }));
   };
-  const [answer, setAnswer] = useState(item.answer);
+
   const [answerIsEmpty, setAnswerIsEmpty] = useState(false);
   const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.currentTarget.value.length !== 0 && answerIsEmpty) setAnswerIsEmpty(false);
-    setAnswer(e.currentTarget.value);
+    const { value } = e.currentTarget;
+    if (value.length !== 0 && answerIsEmpty) setAnswerIsEmpty(false);
+    setItemState((prev) => ({ ...prev, answer: value }));
   };
+
+  const hintList = useMemo(() => {
+    return itemState.hint?.length === 0 ? [] : itemState.hint?.split(',');
+  }, [itemState.hint]);
+
+  const nav = useNavigate();
+  const logout = useLogout();
+
+  const memberValue = useRecoilValue(memberState);
+  const [hasAccessRole, setHasAccessRole] = useState(false);
+  const onSuccessGetSpaceItem = (item: IItem) => {
+    const isCreator = item.spaceMemberResponse.email === memberValue.email;
+    if (!isCreator) {
+      nav(-1);
+      alert('권한이 존재하지 않아 접근할 수 없습니다.');
+      return;
+    }
+    setHasAccessRole((prev) => !prev);
+    const { question, answer, hint, spaceId, spaceMemberResponse, createdAt } = item;
+    setItemState((prev) => ({
+      ...prev,
+      itemId: Number(itemId),
+      question,
+      answer,
+      hint,
+      spaceId,
+      spaceMemberResponse,
+      createdAt,
+    }));
+  };
+  const onErrorGetSpaceItem = (err: AxiosError<{ message: string }>) => {
+    if (err.response?.status === 401) {
+      logout();
+    } else {
+      nav(-1);
+      alert(err.response?.data.message);
+    }
+  };
+
+  useQuery([`#item_${itemId}`], () => getSpaceItem(Number(itemId)), {
+    select: (data): IItem => data,
+    onSuccess: (data: IItem) => onSuccessGetSpaceItem(data),
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpaceItem(err),
+  });
+
   const [hint, setHint] = useState('');
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);
 
-  const [hintList, setHintList] = useState<string[]>(item.hint?.split(','));
   const onSubmitAddHint: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const exist = hintList.find((h) => h === hint);
-    if (!exist) setHintList((prev) => [...prev, hint]);
+    const exist = hintList?.find((h) => h === hint);
+    if (!exist && hint.length !== 0) {
+      const newHint = itemState.hint === '' ? hint : `${itemState.hint},${hint}`;
+      setItemState((prev) => ({ ...prev, hint: newHint }));
+    }
     setHint('');
   };
   const onClickDeleteHint: MouseEventHandler<HTMLButtonElement> = (e) => {
     const target = e.currentTarget.dataset.id;
-    setHintList((prev) => prev.filter((h) => h !== target));
+    const changedHintState = hintList.filter((h) => h !== target).join(',');
+    setItemState((prev) => ({ ...prev, hint: changedHintState }));
   };
 
   const checkDataIsEmpty = (): boolean => {
-    if (question.length === 0) {
+    if (itemState.question.length === 0) {
       setQuestionIsEmpty(true);
       return false;
     }
-    if (answer.length === 0) {
+    if (itemState.answer.length === 0) {
       setAnswerIsEmpty(true);
       return false;
     }
     return true;
   };
 
-  const logout = useLogout();
-
-  const updateSpaceItemSuccessHandler = (data: IItem) => {
-    const itemList = itemListValue.itemList.map((i) => (i.itemId === Number(itemId) ? data : i));
-    setItemListValue((prev) => ({
-      ...prev,
-      itemList,
-    }));
-    alert('업데이트 성공 :)');
+  const updateSpaceItemSuccessHandler = () => {
     nav(-1);
+    alert('아이템이 업데이트되었습니다.');
   };
-
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  const onSubmitUpdateItem: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!checkDataIsEmpty()) return;
-    updateSpaceItem(Number(itemId), question, answer, hintList)
-      .then((data) => updateSpaceItemSuccessHandler(data))
-      .catch((err) => {
-        if (err.response.data.status === 401) {
-          logout();
-        } else {
-          alert(err.response.data?.message ?? 'SERVER ERROR');
-        }
-      });
+    updateSpaceItem(Number(itemId), itemState.question, itemState.answer, itemState.hint)
+      .then(() => updateSpaceItemSuccessHandler())
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   const deleteItemSuccessHandler = () => {
     nav(-1);
-    setItemListValue((prev) => ({
-      ...prev,
-      itemList: prev.itemList.filter((i) => i.itemId !== Number(itemId)),
-    }));
+    alert('아이템이 삭제되었습니다.');
   };
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -112,32 +129,28 @@ export const UpdateItem = () => {
     } else {
       deleteItem(Number(itemId))
         .then(() => deleteItemSuccessHandler())
-        .catch((err) => {
-          if (err.response.data.status === 401) {
-            logout();
-          } else {
-            alert(err.response.data?.message ?? 'SERVER ERROR');
-          }
-        });
+        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     }
   };
 
   const onClickExitBtn: MouseEventHandler<HTMLButtonElement> = () => nav(-1);
 
+  if (!hasAccessRole) return <div>권한 확인중...</div>;
+
   return (
     <div className={cs.container}>
       <div className={cs.top}>아이템 관리</div>
-      <form className={cs.main} id='updateItem' onSubmit={onSubmit}>
+      <form className={cs.main} id='updateItem' onSubmit={onSubmitUpdateItem}>
         <span className={cs.subTitle}>Question</span>
         <textarea
-          value={question}
+          value={itemState.question}
           className={cx(cs.textArea, questionIsEmpty && cs.isEmpty)}
           placeholder={questionIsEmpty ? '질문은 비어있으면 안됩니다!' : '질문을 작성하세요 :)'}
           onChange={onChangeQuestion}
         />
         <span className={cs.subTitle}>Answer</span>
         <textarea
-          value={answer}
+          value={itemState.answer}
           className={cx(cs.textArea, cs.answerTextArea, answerIsEmpty && cs.isEmpty)}
           placeholder={answerIsEmpty ? '답변은 비어있으면 안됩니다!' : '답변을 작성하세요 :)'}
           onChange={onChangeAnswer}

@@ -1,22 +1,22 @@
-import cx from 'classnames';
-import { useSetRecoilState } from 'recoil';
+import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 
-import { IItem } from 'types/item';
-import { ModalTemplate } from '../ModalTemplate';
 import { createSpaceItem } from 'service/items';
-import { itemListState } from 'recoil/atoms/items';
+import { useLogout } from 'hooks/useLogout';
+import { ISpace } from 'types/space';
+import { ModalTemplate } from 'components/ModalTemplate';
 
 import { Exit } from 'assets/svgs';
+import cx from 'classnames';
 import cs from './createQModal.module.scss';
-import { useLogout } from 'hooks/useLogout';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
-  spaceInfo: { spaceId: number; spaceTitle: string; myRole: string };
+  space: ISpace;
+  refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => void;
 }
 
-export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
+export const CreateQModal = ({ useModal, space, refetch }: Props) => {
   const [hint, setHint] = useState('');
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);
 
@@ -59,15 +59,6 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     setAnswerIsEmpty(false);
   };
 
-  const setItemListValue = useSetRecoilState(itemListState);
-
-  const createSpaceItemSuccessHandler = (data: IItem) => {
-    setItemListValue((prev) => ({
-      ...prev,
-      itemList: [data, ...prev.itemList],
-    }));
-  };
-
   const logout = useLogout();
 
   const checkDataIsEmpty = (): boolean => {
@@ -86,15 +77,9 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     e.preventDefault();
     const check = checkDataIsEmpty();
     if (!check) return;
-    createSpaceItem(spaceInfo.spaceId, question, answer, hintList)
-      .then((data) => createSpaceItemSuccessHandler(data))
-      .catch((err) => {
-        if (err.response.data.status === 401) {
-          logout();
-        } else {
-          alert(err.response.data?.message ?? 'SERVER ERROR');
-        }
-      });
+    createSpaceItem(space.spaceId, question, answer, hintList)
+      .then(() => refetch())
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     closeModal(closeModalHandler);
   };
 
@@ -102,7 +87,7 @@ export const CreateQModal = ({ useModal, spaceInfo }: Props) => {
     <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='createQuestion'>
       <div className={cs.container}>
         <div className={cs.top}>
-          <span className={cs.spaceTitle}>{spaceInfo.spaceTitle}</span>
+          <span className={cs.spaceTitle}>{space.title}</span>
           <button type='button' className={cs.exit} onClick={() => closeModal(closeModalHandler)}>
             <Exit />
           </button>

@@ -1,17 +1,18 @@
 .layout {
-  > main {
+  .profileWrapper {
     display: flex;
-    width: 1065px;
-    height: calc(100vh - 60px);
-    margin: 0 auto;
+    justify-content: end;
+    padding: 12px 12px 24px;
 
-    > aside {
-      width: 24%;
-    }
+    .avatar {
+      width: 36px;
+      height: 36px;
 
-    > section {
-      width: 76%;
-      overflow-y: scroll;
+      > img {
+        width: inherit;
+        height: inherit;
+        border-radius: 18px;
+      }
     }
   }
 }

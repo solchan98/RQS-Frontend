@@ -1,7 +1,8 @@
+@use '/src/styles/constants/colors';
+
 .container {
-  width: 30vw;
-  min-width: 30vw;
-  max-width: 30vw;
+  width: 80vw;
+  max-width: 540px;
 
   .top {
     display: flex;
@@ -9,8 +10,8 @@
     justify-content: space-between;
     width: 100%;
     padding-bottom: 12px;
-    color: #3a3a3a;
-    border-bottom: 1px solid #e5e5e5;
+    color: colors.$SUB_TITLE;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
 
     .title {
       font-size: 18px;
@@ -34,13 +35,13 @@
     display: flex;
     flex-direction: column;
     gap: 12px;
-    width: inherit;
+    width: 100%;
     margin: 24px 0;
 
     .subTitle {
       margin-bottom: -8px;
+      color: colors.$SUB_TITLE;
       letter-spacing: 0.3px;
-      color: #3a3a3a;
     }
 
     .input {
@@ -48,14 +49,14 @@
       width: inherit;
       padding: 8px 12px;
       font-size: 14px;
-      color: #3a3a3a;
-      border: 1px solid #e5e5e5;
+      color: colors.$SUB_TITLE;
+      border: 1px solid colors.$DIVIDE_LINE;
       border-radius: 12px;
     }
 
     .errFlag {
       font-size: 12px;
-      color: red;
+      color: colors.$ALERT;
     }
   }
 
@@ -87,8 +88,8 @@
       padding: 8px 4px;
       font-size: 14px;
       font-weight: 600;
+      background-color: colors.$THEME;
       border-radius: 18px;
-      background-color: #71ee8b;
     }
   }
 }

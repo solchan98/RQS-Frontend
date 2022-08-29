@@ -1,8 +1,6 @@
-import { Link } from 'react-router-dom';
 import timeAgo from 'util/timaAgo';
+import { Link } from 'react-router-dom';
 
-import { useRecoilValue } from 'recoil';
-import { memberState } from 'recoil/atoms/member';
 import { IItem } from 'types/item';
 
 import cs from './item.module.scss';
@@ -12,31 +10,30 @@ const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profil
 
 interface Props {
   item: IItem;
+  isUpdatable: boolean;
 }
 
-export const Item = ({ item }: Props) => {
-  const { email } = useRecoilValue(memberState);
-
+export const Item = ({ item, isUpdatable }: Props) => {
   return (
     <div className={cs.container}>
-      <div className={cs.itemTop}>
+      <div className={cs.top}>
         <Link className={cs.avatar} to='#'>
           <img src={item.spaceMemberResponse?.avatar ?? TEMP_AVATAR} alt='profile_img' />
         </Link>
-        <div className={cs.itemTopSide}>
-          <span className={cs.profileNickname}>{item.spaceMemberResponse.nickname}</span>
+        <div className={cs.topSide}>
+          <span className={cs.nickname}>{item.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(item.createdAt))}</span>
-          {email === item.spaceMemberResponse.email && (
-            <Link className={cs.setting} to={`./item/${item.itemId}/setting`}>
+          {isUpdatable && (
+            <Link className={cs.setting} to={`/item/${item.itemId}/setting`}>
               <Setting />
             </Link>
           )}
         </div>
       </div>
-      <button type='button' className={cs.itemMain}>
+      <button type='button' className={cs.main}>
         {item.question}
       </button>
-      <div className={cs.itemBottom}>
+      <div className={cs.bottom}>
         <ul className={cs.hintList}>
           {item.hint.length !== 0 &&
             item.hint.split(',').map((hint) => (

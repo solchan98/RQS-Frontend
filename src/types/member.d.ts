@@ -11,4 +11,8 @@ export interface IMemberResponse {
   email: string;
   nickname: string;
   avatar: string;
+  tokenObj: {
+    atk: string;
+    rtk: string;
+  };
 }

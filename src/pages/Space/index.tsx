@@ -1,93 +1,109 @@
-import { useEffect, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useRecoilState, useRecoilValue } from 'recoil';
+import { useMemo } from 'react';
+import { AxiosError } from 'axios';
+import { useRecoilValue } from 'recoil';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
+
 import { memberState } from 'recoil/atoms/member';
-import { itemListState } from 'recoil/atoms/items';
-import { spaceListState } from 'recoil/atoms/spaces';
-import { getSpaceItem } from 'service/items';
+import { getSpace } from 'service/spaces';
+import { getSpaceItemList } from 'service/items';
+import { useModal } from 'hooks/useModal';
+import { useLogout } from 'hooks/useLogout';
+import { IItem } from 'types/item';
+import { ISpace } from 'types/space';
 
 import { Item } from './Item';
-import { useLogout } from 'hooks/useLogout';
-import { useModal } from 'hooks/useModal';
-import { CreateQModal } from 'components/CreateQModal';
-import { RandomQModal } from 'components/RandomQModal';
-import { IItem } from 'types/item';
-
-import { NewItem, Play, Setting } from 'assets/svgs';
+import { RandomQModal } from 'pages/Space/RandomQModal';
 import { EmptyLottie } from 'components/Lotties/EmptyLottie';
+import { Add, Play, Setting } from 'assets/svgs';
 import cs from './space.module.scss';
+import { CreateQModal } from './CreateQModal';
 
 export const Space = () => {
-  const createQuestion = useModal();
-  const randomQuestion = useModal();
-
-  const logout = useLogout();
-
   const { spaceId } = useParams();
 
-  const memberValue = useRecoilValue(memberState);
-  const spaceListValue = useRecoilValue(spaceListState);
-  const [spaceInfo, setSpaceInfo] = useState<{ spaceId: number; spaceTitle: string; myRole: string }>({
-    spaceId: Number(spaceId),
-    spaceTitle: '',
-    myRole: 'MEMBER',
-  });
-  const changeSpaceInfo = (id: number) => {
-    const curSpace = spaceListValue.spaceList.find((space) => space.spaceId === id);
-    const curSpaceMember = curSpace?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
-    setSpaceInfo((prev) => ({
-      ...prev,
-      spaceId: id,
-      spaceTitle: curSpace?.title ?? '서버 에러',
-      myRole: curSpaceMember?.role ?? 'NONE',
-    }));
+  const randomQuiz = useModal();
+  const createQuiz = useModal();
+
+  const nav = useNavigate();
+  const logout = useLogout();
+  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
+    if (err.response?.status === 401) {
+      logout();
+    } else {
+      nav(-1);
+      alert(err.response?.data.message);
+    }
   };
+  const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
+    select: (data): ISpace => data,
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
+  });
 
-  const [itemListValue, setItemListValue] = useRecoilState(itemListState);
-  const itemListSuccessHandler = (data: IItem[]) =>
-    data.length === 0
-      ? setItemListValue((prev) => ({ ...prev, isLast: true }))
-      : setItemListValue((prev) => ({ ...prev, itemList: [...prev.itemList, ...data] }));
+  const {
+    data: itemList,
+    hasNextPage,
+    fetchNextPage,
+    refetch,
+  } = useInfiniteQuery(
+    [`#itemList_${spaceId}`],
+    ({ pageParam = undefined }) => getSpaceItemList(Number(spaceId), pageParam),
+    {
+      getNextPageParam: (itemListResponse: IItem[]) =>
+        itemListResponse.length !== 0 && itemListResponse[itemListResponse.length - 1].itemId,
+      onError: (err: AxiosError<{ message: string }>) =>
+        err.response?.status === 401 ? logout() : alert(err.response?.data.message),
+    }
+  );
 
-  useEffect(() => {
-    setItemListValue({ isLast: false, itemList: [] });
-    changeSpaceInfo(Number(spaceId));
-    getSpaceItem(Number(spaceId))
-      .then((data) => itemListSuccessHandler(data))
-      .catch((err) => {
-        if (err.status === 401) logout();
-        alert(err.response?.data.message ?? 'SERVER ERROR');
-      });
-  }, [spaceId]);
+  const memberValue = useRecoilValue(memberState);
+
+  const me = useMemo(() => {
+    return space?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
+  }, [memberValue.email, space?.spaceMemberList]);
 
   return (
-    <div className={cs.spaceContainer}>
-      <div className={cs.itemTop}>
-        <span>{spaceInfo.spaceTitle}</span>
-        {spaceInfo.myRole === 'ADMIN' && (
+    <div className={cs.container}>
+      <div className={cs.top}>
+        <div className={cs.title}>{space?.title}</div>
+        {me?.role === 'ADMIN' && (
           <Link className={cs.setting} to='./setting'>
             <Setting />
           </Link>
         )}
       </div>
-      <div className={cs.itemButtonWrapper}>
-        <button type='button' onClick={randomQuestion.openModal}>
-          <Play />
-        </button>
-        <RandomQModal useModal={randomQuestion} spaceInfo={spaceInfo} />
-        <button type='button' onClick={createQuestion.openModal}>
-          <NewItem />
-        </button>
-        <CreateQModal useModal={createQuestion} spaceInfo={spaceInfo} />
-      </div>
-      {itemListValue.itemList.length === 0 && <EmptyLottie />}
-      <ul className={cs.itemCardList}>
-        {itemListValue.itemList.map((item) => (
-          <li key={item.itemId} className={cs.itemCard}>
-            <Item item={item} />
-          </li>
-        ))}
-      </ul>
+      <main className={cs.main}>
+        <div className={cs.mainTop}>
+          <div className={cs.infoWrapper}>
+            <h3 className={cs.subTitle}>퀴즈 리스트</h3>
+            <button className={cs.createQuiz} type='button' onClick={createQuiz.openModal}>
+              <Add />
+            </button>
+            {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
+          </div>
+          <button className={cs.playButton} type='button' onClick={randomQuiz.openModal}>
+            <Play />
+          </button>
+          {space && <RandomQModal useModal={randomQuiz} space={space} />}
+        </div>
+        {itemList?.pages[0].length === 0 && <EmptyLottie />}
+        <ul className={cs.quizList}>
+          {itemList?.pages.map((page) =>
+            page.map((item) => (
+              <li key={item.itemId}>
+                <Item item={item} isUpdatable={me?.email === item.spaceMemberResponse.email} />
+              </li>
+            ))
+          )}
+        </ul>
+        {hasNextPage && (
+          <div className={cs.showMoreWrapper}>
+            <button type='button' onClick={() => fetchNextPage()}>
+              더보기
+            </button>
+          </div>
+        )}
+      </main>
     </div>
   );
 };

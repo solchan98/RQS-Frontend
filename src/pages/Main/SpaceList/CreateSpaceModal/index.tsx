@@ -1,30 +1,25 @@
-import { useSetRecoilState } from 'recoil';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 
 import { useLogout } from 'hooks/useLogout';
-import { ModalTemplate } from '../ModalTemplate';
-import { ISpace } from 'types/space';
 import { createSpace } from 'service/spaces';
-import { spaceListState } from 'recoil/atoms/spaces';
+import { ModalTemplate } from 'components/ModalTemplate';
 
-import cx from 'classnames';
 import { Exit } from 'assets/svgs';
+import cx from 'classnames';
 import cs from './createSpaceModal.module.scss';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
+  refetch: <TPageData>(options?: (RefetchOptions & RefetchQueryFilters<TPageData>) | undefined) => void;
 }
 
-export const CreateSpaceModal = ({ useModal }: Props) => {
-  const setSpaceList = useSetRecoilState(spaceListState);
-
+export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
   const [title, setTitle] = useState('');
   const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => {
     const { value } = e.currentTarget;
     setTitle(value);
-    if (value.length !== 0) {
-      setErrFlag(false);
-    }
+    if (value.length !== 0 && errFlag) setErrFlag((prev) => !prev);
   };
 
   const [visibility, setVisibility] = useState(true);
@@ -39,30 +34,18 @@ export const CreateSpaceModal = ({ useModal }: Props) => {
     setVisibility(true);
   };
 
-  const createSpaceSuccessHandler = (data: ISpace) => {
-    setSpaceList((prev) => ({
-      ...prev,
-      spaceList: [data, ...prev.spaceList],
-    }));
-  };
-
   const logout = useLogout();
 
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (title.length === 0) {
       setErrFlag(true);
-      return;
+    } else {
+      createSpace(title, visibility)
+        .then(() => refetch())
+        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      closeModal(closeModalHandler);
     }
-    createSpace(title, visibility)
-      .then((data) => {
-        createSpaceSuccessHandler(data);
-      })
-      .catch((err) => {
-        console.log(err);
-        logout();
-      });
-    closeModal(closeModalHandler);
   };
 
   return (
