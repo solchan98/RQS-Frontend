@@ -1,7 +1,7 @@
 import { useMemo } from 'react';
 import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { memberState } from 'recoil/atoms/member';
@@ -25,11 +25,19 @@ export const Space = () => {
   const randomQuiz = useModal();
   const createQuiz = useModal();
 
+  const nav = useNavigate();
   const logout = useLogout();
+  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
+    if (err.response?.status === 401) {
+      logout();
+    } else {
+      nav(-1);
+      alert(err.response?.data.message);
+    }
+  };
   const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
     select: (data): ISpace => data,
-    onError: (err: AxiosError<{ message: string }>) =>
-      err.response?.status === 401 ? logout : alert(err.response?.data.message),
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
   });
 
   const {

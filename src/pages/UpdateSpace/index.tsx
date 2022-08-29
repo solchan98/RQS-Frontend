@@ -44,13 +44,20 @@ export const UpdateSpace = () => {
     }));
     setHasAccessRole((prev) => !prev);
   };
+  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
+    if (err.response?.status === 401) {
+      logout();
+    } else {
+      nav(-1);
+      alert(err.response?.data.message);
+    }
+  };
 
   const logout = useLogout();
   useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
     select: (data): ISpace => data,
     onSuccess: (data: ISpace) => onSuccessGetSpace(data),
-    onError: (err: AxiosError<{ message: string }>) =>
-      err.response?.status === 401 ? logout : alert(err.response?.data.message),
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
   });
 
   const [checkDelete, setCheckDelete] = useState(false);
