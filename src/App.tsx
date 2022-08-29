@@ -1,17 +1,19 @@
 import store from 'store';
+import jwtDecode from 'jwt-decode';
 import { useMount } from 'react-use';
 import { useRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
-import { memberState } from './recoil/atoms/member';
+import { memberState } from 'recoil/atoms/member';
 import { IMemberResponse } from 'types/member';
-import { Login } from './components/Login';
-import { Layout } from './components/Layout';
-import { Main } from './pages/Main';
-import AuthWrapper from './pages/AuthWapper';
-import { Space } from './pages/Space';
-import { UpdateSpace } from './pages/UpdateSpace';
-import { UpdateItem } from './pages/UpdateItem';
+
+import { Login } from 'components/Login';
+import { Layout } from 'components/Layout';
+import { Main } from 'pages/Main';
+import AuthWrapper from 'pages/AuthWapper';
+import { Space } from 'pages/Space';
+import { UpdateSpace } from 'pages/UpdateSpace';
+import { UpdateItem } from 'pages/UpdateItem';
 
 const App = () => {
   const atk = store.get('atk');
@@ -32,8 +34,8 @@ const App = () => {
   useMount(() => {
     if (atk) {
       // TODO: atk parse
-      const parsedAtk = { memberId: 1, email: 'sol@sol.com', nickname: 'sol' } as IMemberResponse;
-      loadMemberInfoSuccessHandler(parsedAtk);
+      const decoded: { exp: number; iat: number; sub: string } = jwtDecode(atk);
+      loadMemberInfoSuccessHandler(JSON.parse(decoded.sub));
     }
   });
 
