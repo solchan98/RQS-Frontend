@@ -1,4 +1,5 @@
 import { useSetRecoilState } from 'recoil';
+import { useNavigate } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 
 import { login } from 'service/member';
@@ -34,10 +35,8 @@ export const Login = () => {
       .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
   };
 
-  const onClickSignUp: MouseEventHandler<HTMLButtonElement> = () => {
-    console.log('회원가입 페이지로 이동!');
-    // nav('/auth/sign-up')
-  };
+  const nav = useNavigate();
+  const onClickSignUp: MouseEventHandler<HTMLButtonElement> = () => nav('/auth/sign-up');
 
   return (
     <form className={cs.loginForm} onSubmit={onLoginSubmit}>

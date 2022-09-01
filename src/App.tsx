@@ -14,6 +14,7 @@ import AuthWrapper from 'pages/AuthWapper';
 import { Space } from 'pages/Space';
 import { UpdateSpace } from 'pages/UpdateSpace';
 import { UpdateItem } from 'pages/UpdateItem';
+import { SignUp } from './components/SignUp';
 
 const App = () => {
   const atk = store.get('atk');
@@ -49,20 +50,9 @@ const App = () => {
       </Route>
       <Route path='auth' element={atk || memberValue.isLoggedIn ? <Navigate to='/' /> : <AuthWrapper />}>
         <Route path='login' element={<Login />} />
+        <Route path='sign-up' element={<SignUp />} />
       </Route>
     </Routes>
-    // <Routes>
-    //   <Route path='' element={isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
-    //     <Route path='' element={<Main />} />
-    //     <Route path='explore' element={<Explore />} />
-    //     <Route path='space/:spaceId' element={<Space />} />
-    //     <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
-    //     <Route path='space/:spaceId/item/:itemId/setting' element={<UpdateItem />} />
-    //   </Route>
-    //   <Route path='auth' element={!isLoggedIn ? <AuthWrapper /> : <Navigate to='/' />}>
-    //     <Route path='login' element={<Login />} />
-    //   </Route>
-    // </Routes>
   );
 };
 
