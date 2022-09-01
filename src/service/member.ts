@@ -6,6 +6,15 @@ import { AxiosResponse } from 'axios';
 const LOGIN = '/member/login';
 const GET_MEMBER_INFO = '/member';
 const REFRESH_TOKEN = '/member/reissue';
+const CHECK_EMAIL_DUPLICATE = '/member/check';
+
+export const checkEmail = (email: string) => {
+  return baseApi
+    .get(CHECK_EMAIL_DUPLICATE, {
+      params: { email },
+    })
+    .then((res) => res.data);
+};
 
 export const login = (email: string, password: string) => {
   return baseApi
