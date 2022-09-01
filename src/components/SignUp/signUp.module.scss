@@ -1,0 +1,44 @@
+@use 'src/styles/constants/colors';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  align-items: center;
+  justify-content: center;
+  padding: 12px;
+
+  .input {
+    width: 240px;
+    padding: 12px 8px;
+    font-size: 16px;
+    border: 1px solid colors.$GRAY_01;
+    border-radius: 4px;
+
+    &:focus {
+      border: 1px solid colors.$THEME;
+    }
+  }
+
+  .inputInfo {
+    margin-bottom: 6px;
+    font-size: 12px;
+  }
+
+  .alert {
+    color: colors.$ALERT;
+  }
+
+  .signUpBtn {
+    width: 100px;
+    height: 32px;
+    margin: 24px 0 12px;
+    background-color: colors.$THEME;
+    border-radius: 4px;
+    opacity: 0.8;
+
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
