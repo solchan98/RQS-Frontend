@@ -18,7 +18,9 @@ jobs:
           node-version: 18
 
       - name: Build
-        run: npm run build
+        run: |
+          npm install,
+          npm run build
 
       - name: Authenticate with Google Cloud
         id: 'auth'
