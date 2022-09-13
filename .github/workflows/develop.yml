@@ -17,10 +17,13 @@ jobs:
         with:
           node-version: 18
 
+      - name: Setup Properties
+        run: echo "${{ secrets.ENV }}" > .env
+
       - name: Build
         run: |
           npm install
-          npm run build
+          CI="" npm run build
 
       - name: Authenticate with Google Cloud
         id: 'auth'
