@@ -3,10 +3,10 @@ name: Build And Deploy
 on:
   push:
     branches:
-      - 'feature/**' # Test, 나중에 develop로 변경
+      - 'develop'
 
 jobs:
-  test:
+  build-and-deploy:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
