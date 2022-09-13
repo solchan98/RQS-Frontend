@@ -19,7 +19,7 @@ jobs:
 
       - name: Build
         run: |
-          npm install,
+          npm install
           npm run build
 
       - name: Authenticate with Google Cloud
