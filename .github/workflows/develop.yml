@@ -3,7 +3,7 @@ name: Build And Deploy
 on:
   push:
     branches:
-      - 'feature/**' # Test, will change develop
+      - 'develop'
 
 jobs:
   build-and-deploy:
