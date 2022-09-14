@@ -24,6 +24,7 @@ jobs:
         run: |
           npm install
           CI="" npm run build
+          tar -cvf build.tar build
 
       - name: Authenticate with Google Cloud
         id: 'auth'
@@ -34,7 +35,7 @@ jobs:
       - name: 'Upload to Bucket'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
-            path: './build'
+            path: './build.tar'
             destination: ${{ secrets.GCP_BUCKET_NAME }}
 
       - name: Connect GCE And Execute Deploy Script
