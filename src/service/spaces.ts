@@ -31,7 +31,7 @@ const getMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
   let params;
   if (lastSpace) {
-    params = { lastJoinedAt: lastSpace.joinedAt };
+    params = { lastJoinedAt: lastSpace.memberJoinedAt };
   }
   return baseApi
     .get(GET_MY_SPACE_LIST, {

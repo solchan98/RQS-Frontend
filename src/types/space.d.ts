@@ -5,7 +5,7 @@ export interface ISpace {
   itemCount: number;
   spaceMemberCount: number;
   authority: string;
-  joinedAt: string;
+  memberJoinedAt: string;
   createdAt: string;
   updatedAt: string;
 }
