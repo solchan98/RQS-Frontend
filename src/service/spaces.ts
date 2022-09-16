@@ -6,6 +6,7 @@ import { reissueAtk } from './member';
 const CREATE_NEW_SPACE = '/space';
 const GET_SPACE = '/space';
 const GET_MY_SPACE_LIST = '/space/all';
+const GET_SPACE_MEMBER_LIST = '/space/spaceMemberList';
 const UPDATE_SPACE_TITLE = '/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/space/spaceMember/role';
 const DELETE_SPACE = '/space';
@@ -44,6 +45,20 @@ export const getMySpaceList = (email: string, lastSpace?: ISpace) => {
   return getMySpaceListApi(email, lastSpace && lastSpace)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => getMySpaceListApi(email, lastSpace)));
+};
+
+const getSpaceMemberListApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  const params = { spaceId };
+  return baseApi
+    .get(GET_SPACE_MEMBER_LIST, { params, headers: { Authorization: `bearer ${atk}` } })
+    .then((res) => res.data);
+};
+
+export const getSpaceMemberList = (spaceId: number) => {
+  return getSpaceMemberListApi(spaceId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => getSpaceMemberListApi(spaceId)));
 };
 
 const createSpaceApi = (title: string, visibility: boolean) => {
