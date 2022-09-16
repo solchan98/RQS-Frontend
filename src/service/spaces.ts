@@ -29,9 +29,10 @@ export const getSpace = (spaceId: number) => {
 
 const getMySpaceListApi = (email: string, lastSpace?: ISpace) => {
   const atk = store.get('atk');
+  console.log(lastSpace);
   let params;
   if (lastSpace) {
-    params = { lastJoinedAt: lastSpace.joinedAt };
+    params = { lastJoinedAt: lastSpace.memberJoinedAt };
   }
   return baseApi
     .get(GET_MY_SPACE_LIST, {
