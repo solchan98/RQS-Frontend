@@ -1,4 +1,3 @@
-import { useMemo } from 'react';
 import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
 import { Link, useNavigate, useParams } from 'react-router-dom';
@@ -58,15 +57,11 @@ export const Space = () => {
 
   const memberValue = useRecoilValue(memberState);
 
-  const me = useMemo(() => {
-    return space?.spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
-  }, [memberValue.email, space?.spaceMemberList]);
-
   return (
     <div className={cs.container}>
       <div className={cs.top}>
         <div className={cs.title}>{space?.title}</div>
-        {me?.role === 'ADMIN' && (
+        {space?.authority === 'ADMIN' && (
           <Link className={cs.setting} to='./setting'>
             <Setting />
           </Link>
@@ -91,7 +86,7 @@ export const Space = () => {
           {itemList?.pages.map((page) =>
             page.map((item) => (
               <li key={item.itemId}>
-                <Item item={item} isUpdatable={me?.email === item.spaceMemberResponse.email} />
+                <Item item={item} isUpdatable={memberValue.email === item.spaceMemberResponse.email} />
               </li>
             ))
           )}

@@ -1,7 +1,8 @@
+import { useQuery } from '@tanstack/react-query';
 import { FormEventHandler, useState } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
-import { changeSpaceMemberRole } from 'service/spaces';
+import { changeSpaceMemberRole, getSpaceMemberList } from 'service/spaces';
 import { ISpace, ISpaceMember } from 'types/space';
 
 import cx from 'classnames';
@@ -13,7 +14,11 @@ interface Props {
 
 export const ManageSpaceMember = ({ space }: Props) => {
   const logout = useLogout();
-  const [spaceMemberList, setSpaceMemberList] = useState(space.spaceMemberList);
+  const [spaceMemberList, setSpaceMemberList] = useState<ISpaceMember[]>([]);
+
+  useQuery([`#spaceMemberList_in_spaceId_${space.spaceId}`], () => getSpaceMemberList(Number(space.spaceId)), {
+    onSuccess: (data: ISpaceMember[]) => setSpaceMemberList(data),
+  });
 
   const changeRoleSuccessHandler = (data: ISpaceMember) => {
     setSpaceMemberList((prev) =>

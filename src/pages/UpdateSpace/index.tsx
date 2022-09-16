@@ -1,11 +1,9 @@
 import { AxiosError } from 'axios';
 import { useMount } from 'react-use';
 import { useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
 import { FormEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { memberState } from 'recoil/atoms/member';
 import { useLogout } from 'hooks/useLogout';
 import { deleteSpace, getSpace } from 'service/spaces';
 import { ISpace } from 'types/space';
@@ -20,29 +18,17 @@ export const UpdateSpace = () => {
   const [spaceState, setSpaceState] = useState<ISpace>({} as ISpace);
 
   const nav = useNavigate();
-  const memberValue = useRecoilValue(memberState);
   const [hasAccessRole, setHasAccessRole] = useState(false);
   useMount(() => {});
 
   const onSuccessGetSpace = (space: ISpace) => {
-    const { title, visibility, itemCount, spaceMemberList, updatedAt, createdAt } = space;
-    const me = spaceMemberList.find((spaceMember) => spaceMember.email === memberValue.email);
-    if (!me || me.role !== 'ADMIN') {
+    if (space.authority !== 'ADMIN') {
       nav(-1);
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
-      return;
+    } else {
+      setSpaceState((prev) => ({ ...prev, ...space, spaceId: Number(spaceId) }));
+      setHasAccessRole((prev) => !prev);
     }
-    setSpaceState((prev) => ({
-      ...prev,
-      spaceId: Number(spaceId),
-      title,
-      visibility,
-      itemCount,
-      spaceMemberList,
-      updatedAt,
-      createdAt,
-    }));
-    setHasAccessRole((prev) => !prev);
   };
   const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
     if (err.response?.status === 401) {
@@ -85,10 +71,12 @@ export const UpdateSpace = () => {
         <span className={cs.label}>Space Name</span>
         <UpdateTitle space={spaceState} />
       </div>
-      <div className={cs.manageSpaceMemberWrapper}>
-        <span className={cs.label}>Space Member List</span>
-        <ManageSpaceMember space={spaceState} />
-      </div>
+      {hasAccessRole && (
+        <div className={cs.manageSpaceMemberWrapper}>
+          <span className={cs.label}>Space Member List</span>
+          <ManageSpaceMember space={spaceState} />
+        </div>
+      )}
       <div className={cs.bottom}>
         <form id='spaceDelete' onSubmit={onSubmitSpaceDelete}>
           <button className={cx(cs.delete, cs.button)} type='submit' form='spaceDelete'>
