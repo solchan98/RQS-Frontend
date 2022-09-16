@@ -3,7 +3,9 @@ export interface ISpace {
   title: string;
   visibility: boolean;
   itemCount: number;
-  spaceMemberList: ISpaceMember[];
+  spaceMemberCount: number;
+  authority: string;
+  joinedAt: string;
   createdAt: string;
   updatedAt: string;
 }
