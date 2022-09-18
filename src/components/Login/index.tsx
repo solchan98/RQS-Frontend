@@ -4,9 +4,10 @@ import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } fro
 
 import { login } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
-import { IMemberResponse } from 'types/member';
+import { IMemberResponse, IMemberSubject } from 'types/member';
 
 import cs from './login.module.scss';
+import jwtDecode from 'jwt-decode';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -22,7 +23,9 @@ export const Login = () => {
     setErr('');
     login(email, password)
       .then((data: IMemberResponse) => {
-        const { memberId, nickname, avatar } = data;
+        const { atk } = data;
+        const decoded: { exp: number; iat: number; sub: string } = jwtDecode(atk);
+        const { memberId, nickname, avatar }: IMemberSubject = JSON.parse(decoded.sub);
         setMemberValue((prev) => ({
           ...prev,
           memberId,

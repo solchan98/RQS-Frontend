@@ -5,7 +5,7 @@ import { useRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
-import { IMemberResponse } from 'types/member';
+import { IMemberSubject } from 'types/member';
 
 import { Login } from 'components/Login';
 import { Layout } from 'components/Layout';
@@ -20,7 +20,7 @@ const App = () => {
   const atk = store.get('atk');
   const [memberValue, setMemberValue] = useRecoilState(memberState);
 
-  const loadMemberInfoSuccessHandler = (data: IMemberResponse) => {
+  const loadMemberInfoSuccessHandler = (data: IMemberSubject) => {
     const { memberId, email, nickname, avatar } = data;
     setMemberValue((prev) => ({
       ...prev,
@@ -34,7 +34,6 @@ const App = () => {
 
   useMount(() => {
     if (atk) {
-      // TODO: atk parse
       const decoded: { exp: number; iat: number; sub: string } = jwtDecode(atk);
       loadMemberInfoSuccessHandler(JSON.parse(decoded.sub));
     }
