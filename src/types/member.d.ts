@@ -7,12 +7,13 @@ export interface IMember {
 }
 
 export interface IMemberResponse {
+  atk: string;
+  rtk: string;
+}
+
+export interface IMemberSubject {
   memberId: number;
   email: string;
   nickname: string;
   avatar: string;
-  tokenObj: {
-    atk: string;
-    rtk: string;
-  };
 }

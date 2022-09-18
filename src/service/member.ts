@@ -29,8 +29,8 @@ export const login = (email: string, password: string) => {
       password,
     })
     .then((res: AxiosResponse<IMemberResponse>) => {
-      store.set('atk', res.data.tokenObj.atk);
-      store.set('rtk', res.data.tokenObj.rtk);
+      store.set('atk', res.data.atk);
+      store.set('rtk', res.data.rtk);
       return res.data;
     });
 };
