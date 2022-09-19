@@ -44,6 +44,7 @@ const App = () => {
     <Routes>
       <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
+        <Route path='join/:itk' element={<JoinSpace />} />
         <Route path='space/:spaceId' element={<Space />} />
         <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
         <Route path='item/:itemId/setting' element={<UpdateItem />} />
@@ -52,7 +53,6 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='sign-up' element={<SignUp />} />
       </Route>
-      <Route path='join/:itk' element={<JoinSpace />} />
     </Routes>
   );
 };
