@@ -1,8 +1,10 @@
 import cs from './joinSpace.module.scss';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useMount } from 'react-use';
 import jwtDecode from 'jwt-decode';
-import { useState } from 'react';
+import { FormEventHandler, useState } from 'react';
+import { joinSpaceWithToken } from '../../service/spaces';
+import { useLogout } from '../../hooks/useLogout';
 
 interface IItkSubject {
   spaceId: number;
@@ -23,6 +25,24 @@ export const JoinSpace = () => {
     }
   });
 
+  const nav = useNavigate();
+  const joinSpaceSuccessHandler = () => {
+    alert(`${itkSub?.spaceTitle} 성공적으로 참여하였습니다!`);
+    nav(`/space/${itkSub?.spaceId}`);
+  };
+
+  const logout = useLogout();
+  const joinSpace: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    if (!itk) {
+      alert('토큰이 올바르지 않습니다.');
+    } else {
+      joinSpaceWithToken(itk)
+        .then(joinSpaceSuccessHandler)
+        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+    }
+  };
+
   if (!itkSub) return <div>로딩중...</div>;
 
   return (
@@ -37,7 +57,7 @@ export const JoinSpace = () => {
           <mark className={cs.highlight}>{`"${itkSub?.spaceTitle}"`}</mark> 스페이스로 초대하셨습니다.
         </p>
         <p>Member 권한으로 참여하시겠습니까?</p>
-        <form className={cs.joinSpaceForm} id='joinSpace'>
+        <form className={cs.joinSpaceForm} id='joinSpace' onSubmit={joinSpace}>
           <button className={cs.joinButton} type='submit' form='joinSpace'>
             참여하기
           </button>
