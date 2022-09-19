@@ -1,7 +1,8 @@
-import cs from './createInviteLink.module.scss';
+import { useLogout } from 'hooks/useLogout';
 import { FormEventHandler, useState } from 'react';
 import { createInviteToken } from 'service/spaces';
-import { useLogout } from '../../../hooks/useLogout';
+
+import cs from './createInviteLink.module.scss';
 
 interface Props {
   spaceId: number;
@@ -21,7 +22,7 @@ export const CreateInviteLink = ({ spaceId }: Props) => {
     createInviteToken(spaceId)
       .then((data) => {
         const link = `http://random-quiz.shop/join/${data.inviteToken}`;
-        saveLinkInClipboard(link);
+        // saveLinkInClipboard(link);
         setInviteLink(link);
         setExistLink((prev) => !prev);
       })
@@ -31,11 +32,7 @@ export const CreateInviteLink = ({ spaceId }: Props) => {
   return (
     <form className={cs.inviteForm} id='createInviteLink' onSubmit={createInviteLink}>
       <input disabled value={inviteLink} />
-      {existLink ? (
-        <button className={cs.button} type='button' onClick={() => saveLinkInClipboard(inviteLink)}>
-          클립보드로 복사
-        </button>
-      ) : (
+      {!existLink && (
         <button className={cs.button} type='submit' form='createInviteLink'>
           초대 링크 생성
         </button>
