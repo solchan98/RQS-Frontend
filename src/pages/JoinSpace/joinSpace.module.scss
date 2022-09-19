@@ -1,0 +1,92 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  box-sizing: border-box;
+  padding: 12px;
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    margin-bottom: 72px;
+
+    .title {
+      font-size: 28px;
+      font-weight: 600;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  .main {
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    padding: 0 12px;
+    font-size: 18px;
+
+    .info {
+      margin-bottom: 24px;
+    }
+
+    > p {
+      font-size: 20px;
+      line-height: 28px;
+      letter-spacing: 0.3px;
+    }
+
+    .highlight {
+      font-weight: 600;
+      background-color: transparent;
+    }
+
+    .joinSpaceForm {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 12px;
+
+      .joinButton {
+        width: 100px;
+        height: 40px;
+        padding: 0;
+        font-size: 16px;
+        color: colors.$BLACK;
+        cursor: pointer;
+        background-color: colors.$THEME;
+        border: 1px solid colors.$THEME;
+        border-radius: 18px;
+      }
+
+      .toHomeButton {
+        width: 100px;
+        height: 40px;
+        font-size: 16px;
+        line-height: 40px;
+        color: colors.$BLACK;
+        text-align: center;
+        cursor: pointer;
+        background-color: colors.$DIVIDE_LINE;
+        border: 1px solid colors.$DIVIDE_LINE;
+        border-radius: 18px;
+      }
+    }
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: calc(100% - 24px);
+    height: 80px;
+    font-size: 12px;
+    color: colors.$GRAY_01;
+  }
+}

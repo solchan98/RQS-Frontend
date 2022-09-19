@@ -15,6 +15,7 @@ import { Space } from 'pages/Space';
 import { UpdateSpace } from 'pages/UpdateSpace';
 import { UpdateItem } from 'pages/UpdateItem';
 import { SignUp } from './components/SignUp';
+import { JoinSpace } from 'pages/JoinSpace';
 
 const App = () => {
   const atk = store.get('atk');
@@ -43,6 +44,7 @@ const App = () => {
     <Routes>
       <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}>
         <Route path='' element={<Main />} />
+        <Route path='join/:itk' element={<JoinSpace />} />
         <Route path='space/:spaceId' element={<Space />} />
         <Route path='space/:spaceId/setting' element={<UpdateSpace />} />
         <Route path='item/:itemId/setting' element={<UpdateItem />} />
