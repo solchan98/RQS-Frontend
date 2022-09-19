@@ -5,6 +5,7 @@ import { reissueAtk } from './member';
 
 const CREATE_NEW_SPACE = '/space';
 const CREATE_INVITE_TOKEN = '/space/invite';
+const JOIN_SPACE_WITH_TOKEN = '/space/join';
 const GET_SPACE = '/space';
 const GET_MY_SPACE_LIST = '/space/all';
 const GET_SPACE_MEMBER_LIST = '/space/spaceMemberList';
@@ -139,4 +140,17 @@ export const createInviteToken = (spaceId: number) => {
   return createInviteTokenApi(spaceId)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => createInviteTokenApi(spaceId)));
+};
+
+const joinSpaceWithTokenApi = (itk: string) => {
+  const atk = store.get('atk');
+  const params = { itk };
+  const headers = { Authorization: `bearer ${atk}` };
+  return baseApi.get(JOIN_SPACE_WITH_TOKEN, { params, headers }).then((res) => res.data);
+};
+
+export const joinSpaceWithToken = (itk: string) => {
+  return joinSpaceWithTokenApi(itk)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => joinSpaceWithTokenApi(itk)));
 };
