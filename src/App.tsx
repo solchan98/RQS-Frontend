@@ -15,6 +15,7 @@ import { Space } from 'pages/Space';
 import { UpdateSpace } from 'pages/UpdateSpace';
 import { UpdateItem } from 'pages/UpdateItem';
 import { SignUp } from './components/SignUp';
+import { JoinSpace } from 'pages/JoinSpace';
 
 const App = () => {
   const atk = store.get('atk');
@@ -51,6 +52,7 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='sign-up' element={<SignUp />} />
       </Route>
+      <Route path='join/:itk' element={<JoinSpace />} />
     </Routes>
   );
 };
