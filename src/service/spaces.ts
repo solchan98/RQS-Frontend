@@ -4,6 +4,7 @@ import { ISpace } from 'types/space';
 import { reissueAtk } from './member';
 
 const CREATE_NEW_SPACE = '/space';
+const CREATE_INVITE_TOKEN = '/space/invite';
 const GET_SPACE = '/space';
 const GET_MY_SPACE_LIST = '/space/all';
 const GET_SPACE_MEMBER_LIST = '/space/spaceMemberList';
@@ -125,4 +126,17 @@ export const deleteSpace = (spaceId: number) => {
   return deleteSpaceApi(spaceId)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => deleteSpaceApi(spaceId)));
+};
+
+const createInviteTokenApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  const params = { spaceId };
+  const headers = { Authorization: `bearer ${atk}` };
+  return baseApi.get(CREATE_INVITE_TOKEN, { params, headers }).then((res) => res.data);
+};
+
+export const createInviteToken = (spaceId: number) => {
+  return createInviteTokenApi(spaceId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => createInviteTokenApi(spaceId)));
 };
