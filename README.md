@@ -1,46 +1,60 @@
-# Getting Started with Create React App
+# 랜덤 퀴즈 박스 (Qiuz-Box)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+> 🚀 [배포링크 (개발중)](https://quiz-box.shop)
 
-## Available Scripts
+## 프로젝트 소개
+```
+여러 질문을 한 공간에 모아 랜덤하게 질문을 뽑아주는 서비스입니다.  
 
-In the project directory, you can run:
+- 면접을 준비하는 모든 사람에게 도움이 되는 서비스.
 
-### `npm start`
+- 질문 리스트를 만들어 공부하는 사람들에게 도움이 되는 서비스.
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- 랜덤으로 어떤 질문이 나올지 예상할 수 없기 때문에 순발력을 기를 수 있는 서비스.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+면접 준비, 질문 리스트, 영어 단어, 개념 정리 등 다방면으로 활용 가능한 서비스입니다.
+하나의 스페이스를 만들어 친구 혹은 동료와 스페이스를 공유하며 함께 이용할 수 있습니다.
+```
 
-### `npm test`
+## 프러젝트 기능
+```
+📀 스페이스 생성
+여러 사람과의 공유 혹은 비공개 스페이스를 만들어 사용할 수 있습니다.
+비공개 스페이스의 경우 초대되어 스페이스에 참여된 멤버만 이용할 수 있으며, 다른 사람들에게 공개되지 않습니다.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+📝 퀴즈(아이템) 생성
+질문과 답변을 작성하여 퀴즈를 생성할 수 있으며, 랜덤 퀴즈 시 힌트로 볼 키워드를 최대 5개 까지 지정할 수 있습니다.
 
-### `npm run build`
+📧 멤버 초대
+스페이스가 비공개인 경우, 일반 멤버들은 해당 스페이스의 랜덤 퀴즈를 이용할 수 없습니다. 따라서 스페이스의 초대를 할 수 있습니다.
+초대는 특정 링크를 발급하여 해당 링크를 통해 참가 가능합니다.
+발급된 초대 링크는 발급 기준 5분 동안 유효합니다.
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+🐬 랜덤 퀴즈
+스페이스에 존재하는 퀴즈를 랜덤으로 뽑아 질문 및 힌트 키워드를 볼 수 있습니다.
+한 번 퀴즈를 뽑은 뒤, 5분 내에 새로운 퀴즈를 뽑지 않으면 중복이 발생할 수 있습니다.
+(퀴즈 하나 당 5분내에 넘기기!)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+📎 스페이스 스크랩 (개발 예정)
+공개 스페이스를 스크랩 하여, 매번 해당 스페이스를 찾을 필요 없이 바로 접근 가능합니다.
+비공개 스페이스의 경우 스크랩할 수 없습니다.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+이하 추가 개발 예정 기능들
+- 프로필 수정 및 관리
+- 로그아웃
+- 전체적인 디자인 변경! (지금 너무너무 못생김)
+```
 
-### `npm run eject`
+## 기술 스택
+- React 18/ TypeScript
+- React-Router-Dome
+- Sass/ Scss
+- React-Query
+- Recoil
+- react-lottie-player
+...
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## 배포 구성도
+<img width="747" alt="image" src="https://user-images.githubusercontent.com/64524916/191670676-167d089a-f975-4970-9213-3ca44a418d73.png">
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
-
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
-
-## Learn More
-
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
-
-To learn React, check out the [React documentation](https://reactjs.org/).
