@@ -55,6 +55,6 @@
 ...
 
 ## 배포 구성도
-<img width="747" alt="image" src="https://user-images.githubusercontent.com/64524916/191670676-167d089a-f975-4970-9213-3ca44a418d73.png">
+<img width="998" alt="image" src="https://user-images.githubusercontent.com/64524916/191671123-128d71c5-045e-4738-a826-06b5ea95c7ac.png">
 
 
