@@ -1,4 +1,4 @@
-# 랜덤 퀴즈 박스 (Quz-Box)
+# 랜덤 퀴즈 박스 (Quiz-Box)
 
 > 🚀 [배포링크 (개발중)](https://quiz-box.shop)
 
