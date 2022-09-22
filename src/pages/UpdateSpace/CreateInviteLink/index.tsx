@@ -22,7 +22,7 @@ export const CreateInviteLink = ({ spaceId }: Props) => {
     createInviteToken(spaceId)
       .then((data) => {
         const link = `http://random-quiz.shop/join/${data.inviteToken}`;
-        // saveLinkInClipboard(link);
+        saveLinkInClipboard(link);
         setInviteLink(link);
         setExistLink((prev) => !prev);
       })
@@ -32,7 +32,11 @@ export const CreateInviteLink = ({ spaceId }: Props) => {
   return (
     <form className={cs.inviteForm} id='createInviteLink' onSubmit={createInviteLink}>
       <input disabled value={inviteLink} />
-      {!existLink && (
+      {existLink ? (
+        <button className={cs.button} type='button' onClick={() => saveLinkInClipboard(inviteLink)}>
+          클립보드로 복사
+        </button>
+      ) : (
         <button className={cs.button} type='submit' form='createInviteLink'>
           초대 링크 생성
         </button>
