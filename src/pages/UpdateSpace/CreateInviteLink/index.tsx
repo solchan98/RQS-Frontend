@@ -21,7 +21,7 @@ export const CreateInviteLink = ({ spaceId }: Props) => {
     e.preventDefault();
     createInviteToken(spaceId)
       .then((data) => {
-        const link = `${process.env.REACT_APP_DOMAIN}/${data.inviteToken}`;
+        const link = `${process.env.REACT_APP_DOMAIN}/join/${data.inviteToken}`;
         saveLinkInClipboard(link);
         setInviteLink(link);
         setExistLink((prev) => !prev);
