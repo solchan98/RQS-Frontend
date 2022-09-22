@@ -39,7 +39,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
         <div className={cx(cs.container, cs.beforeStart)}>
           <div>{space.title}</div>
-          <small className={cs.tip}>(질문이 적은 경우 중복 확률이 높습니다.)</small>
+          <small className={cs.tip}>(5분 내에 새로운 질문을 뽑지 않는 경우, 중복이 발생할 수 있습니다.)</small>
           <StartLottie />
           <button className={cs.startButton} type='button' onClick={getRandomQuiz}>
             시작하기
