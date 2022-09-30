@@ -47,7 +47,7 @@
 
 ## 기술 스택
 - React 18/ TypeScript
-- React-Router-Dome
+- React-Router-Dom
 - Sass/ Scss
 - React-Query
 - Recoil
