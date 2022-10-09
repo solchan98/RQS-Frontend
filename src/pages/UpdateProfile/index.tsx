@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react';
 import store from 'store';
 import jwtDecode from 'jwt-decode';
 import { useMount } from 'react-use';
@@ -27,14 +27,6 @@ export const UpdateProfile = () => {
     const decoded: { exp: number; iat: number; sub: string } = jwtDecode(atk);
     return JSON.parse(decoded.sub);
   };
-  const validate = (subject: { memberId: number }) => {
-    if (subject.memberId !== Number(memberId)) {
-      alert('접근할 수 없습니다.');
-      nav(-1);
-    } else {
-      setIsAccessible(true);
-    }
-  };
 
   const logout = useLogout();
   const setupMember = () => {
@@ -45,8 +37,13 @@ export const UpdateProfile = () => {
 
   useMount(() => {
     const subject = getSubjectInAtk();
-    validate(subject);
-    if (isAccessible) setupMember();
+    if (subject.memberId !== Number(memberId)) {
+      alert('접근할 수 없습니다.');
+      nav(-1);
+    } else {
+      setIsAccessible((prev) => !prev);
+      setupMember();
+    }
   });
 
   const onSuccessUpdateProfile = (data: IMember) => {
