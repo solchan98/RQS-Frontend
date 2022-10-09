@@ -7,12 +7,12 @@ import { memberState } from '../../recoil/atoms/member';
 const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
 export const Layout = () => {
-  const { avatar } = useRecoilValue(memberState);
+  const { avatar, memberId } = useRecoilValue(memberState);
 
   return (
     <div className={cs.layout}>
       <div className={cs.profileWrapper}>
-        <Link className={cs.avatar} to='#'>
+        <Link className={cs.avatar} to={`/profile/${memberId}`}>
           <img src={avatar ?? AVATAR} alt='profile_image' />
         </Link>
       </div>
