@@ -14,7 +14,7 @@ import cs from './updateProfile.module.scss';
 
 export const UpdateProfile = () => {
   const { memberId } = useParams();
-  const [isAccessible, setIsAccessible] = useState(true);
+  const [isAccessible, setIsAccessible] = useState(false);
 
   const setMemberState = useSetRecoilState(memberState);
   const [avatar, setAvatar] = useState('');
@@ -31,6 +31,8 @@ export const UpdateProfile = () => {
     if (subject.memberId !== Number(memberId)) {
       alert('접근할 수 없습니다.');
       nav(-1);
+    } else {
+      setIsAccessible(true);
     }
   };
 
@@ -44,8 +46,7 @@ export const UpdateProfile = () => {
   useMount(() => {
     const subject = getSubjectInAtk();
     validate(subject);
-    setIsAccessible(true);
-    setupMember();
+    if (isAccessible) setupMember();
   });
 
   const onSuccessUpdateProfile = (data: IMember) => {
