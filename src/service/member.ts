@@ -8,6 +8,7 @@ const GET_MEMBER_INFO = '/member';
 const REFRESH_TOKEN = '/member/reissue';
 const SIGN_UP = '/member/sign-up';
 const CHECK_EMAIL_DUPLICATE = '/member/check';
+const UPDATE_MEMBER_INFO = '/member';
 
 export const checkEmail = (email: string) => {
   return baseApi
@@ -50,6 +51,22 @@ export const getMemberInfo = () => {
   return getMemberInfoApi()
     .then((data: IMemberResponse) => data)
     .catch(() => reissueAtk().then(() => getMemberInfoApi()));
+};
+
+const updateMemberInfoApi = (nickname: string) => {
+  const atk = store.get('atk');
+  const data = { nickname };
+  return baseApi
+    .patch(UPDATE_MEMBER_INFO, data, {
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const updateMemberInfo = (nickname: string) => {
+  return updateMemberInfoApi(nickname)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => updateMemberInfoApi(nickname)));
 };
 
 export const reissueAtk = () => {

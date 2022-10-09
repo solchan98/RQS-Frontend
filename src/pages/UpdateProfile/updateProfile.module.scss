@@ -1,0 +1,77 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 12px;
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+    letter-spacing: 0.1px;
+  }
+
+  .label {
+    padding: 0 4px;
+    font-size: 14px;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    opacity: 0.5;
+  }
+
+  .top {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 24px 0;
+
+    > img {
+      width: 120px;
+      height: 120px;
+    }
+
+    .updateAvatar {
+      display: flex;
+      margin: 12px 0;
+    }
+  }
+
+  .middle {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+
+    > form {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 24px 12px;
+      border: 1px solid colors.$DIVIDE_LINE;
+      border-radius: 12px;
+
+      .updateInfoWrapper {
+        display: flex;
+        align-items: center;
+
+        > input {
+          width: 100%;
+          padding: 4px 12px;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: end;
+    margin: 12px 0;
+
+    > button {
+      width: 80px;
+      height: 24px;
+      padding: 4px 2px;
+      line-height: 16px;
+      border: 1px solid colors.$BLACK;
+      border-radius: 12px;
+    }
+  }
+}
