@@ -18,7 +18,7 @@ jobs:
           node-version: 18
 
       - name: Setup Properties
-        run: echo "${{ secrets.ENV_RELEASE }}" > .env
+        run: echo "${{ secrets.ENV }}" > .env
 
       - name: Build
         run: |
@@ -30,19 +30,19 @@ jobs:
         id: 'auth'
         uses: 'google-github-actions/auth@v0'
         with:
-          credentials_json: ${{ secrets.GCP_SA_KEY_RELEASE }}
+          credentials_json: ${{ secrets.GCP_SA_KEY }}
 
       - name: 'Upload to Bucket'
         uses: 'google-github-actions/upload-cloud-storage@v0'
         with:
           path: './build.tar'
-          destination: ${{ secrets.GCP_BUCKET_NAME_RELEASE }}
+          destination: ${{ secrets.GCP_BUCKET_NAME }}
 
       - name: Connect GCE And Execute Deploy Script
         id: 'compute-ssh'
         uses: 'google-github-actions/ssh-compute@v0'
         with:
-          instance_name: 'quiz-box-release'
+          instance_name: 'quizbox'
           zone: 'asia-northeast3-a'
-          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY_RELEASE }}
+          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
           script: "./deploy.sh"
