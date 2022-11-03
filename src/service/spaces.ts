@@ -12,6 +12,7 @@ const GET_SPACE_MEMBER_LIST = '/space/spaceMemberList';
 const UPDATE_SPACE_TITLE = '/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/space/spaceMember/role';
 const DELETE_SPACE = '/space';
+const CHECK_IS_CREATOR = '/space/creator';
 
 const getSpaceApi = (spaceId: number) => {
   const atk = store.get('atk');
@@ -153,4 +154,22 @@ export const joinSpaceWithToken = (itk: string) => {
   return joinSpaceWithTokenApi(itk)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => joinSpaceWithTokenApi(itk)));
+};
+
+const checkIsSpaceCreatorApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  const params = { spaceId };
+  const headers = { Authorization: `bearer ${atk}` };
+  return baseApi
+    .get(CHECK_IS_CREATOR, {
+      params,
+      headers,
+    })
+    .then((res) => res.data);
+};
+
+export const checkIsSpaceCreator = (spaceId: number) => {
+  return checkIsSpaceCreatorApi(spaceId)
+    .then((res) => res)
+    .catch(() => reissueAtk().then(() => checkIsSpaceCreatorApi(spaceId)));
 };

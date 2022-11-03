@@ -1,11 +1,10 @@
 import { AxiosError } from 'axios';
-import { useMount } from 'react-use';
 import { useQuery } from '@tanstack/react-query';
 import { FormEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { deleteSpace, getSpace } from 'service/spaces';
+import { checkIsSpaceCreator, deleteSpace, getSpace } from 'service/spaces';
 import { ISpace } from 'types/space';
 
 import { ManageSpaceMember } from './ManageSpaceMember';
@@ -20,18 +19,24 @@ export const UpdateSpace = () => {
 
   const nav = useNavigate();
   const [hasAccessRole, setHasAccessRole] = useState(false);
-  useMount(() => {});
 
-  const onSuccessGetSpace = (space: ISpace) => {
-    if (space.authority !== 'ADMIN') {
+  const onAccessible = (message: IMessage) => {
+    if (message.message !== '200') {
       nav(-1);
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
-    } else {
-      setSpaceState((prev) => ({ ...prev, ...space, spaceId: Number(spaceId) }));
-      setHasAccessRole((prev) => !prev);
+      return;
     }
+    getSpace(Number(spaceId))
+      .then((res) => onSuccessGetSpace(res.data))
+      .catch((err) => onError(err));
   };
-  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
+
+  const onSuccessGetSpace = (space: ISpace) => {
+    setSpaceState((prev) => ({ ...prev, ...space, spaceId: Number(spaceId) }));
+    setHasAccessRole((prev) => !prev);
+  };
+
+  const onError = (err: AxiosError<{ message: string }>) => {
     if (err.response?.status === 401) {
       logout();
     } else {
@@ -41,10 +46,10 @@ export const UpdateSpace = () => {
   };
 
   const logout = useLogout();
-  useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
-    select: (data): ISpace => data,
-    onSuccess: (data: ISpace) => onSuccessGetSpace(data),
-    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
+  useQuery([`#space_${spaceId}`], () => checkIsSpaceCreator(Number(spaceId)), {
+    select: (data): IMessage => data,
+    onSuccess: (data: IMessage) => onAccessible(data),
+    onError: (err: AxiosError<{ message: string }>) => onError(err),
   });
 
   const [checkDelete, setCheckDelete] = useState(false);
