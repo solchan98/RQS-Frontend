@@ -1,12 +1,10 @@
 import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { useRecoilValue } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useState } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
-import { deleteItem, getSpaceItem, updateSpaceItem } from 'service/items';
-import { memberState } from 'recoil/atoms/member';
+import { checkIsItemCreator, deleteItem, getSpaceItem, updateSpaceItem } from 'service/items';
 import { IItem } from 'types/item';
 
 import cx from 'classnames';
@@ -37,16 +35,27 @@ export const UpdateItem = () => {
   const nav = useNavigate();
   const logout = useLogout();
 
-  const memberValue = useRecoilValue(memberState);
   const [hasAccessRole, setHasAccessRole] = useState(false);
-  const onSuccessGetSpaceItem = (item: IItem) => {
-    const isCreator = item.spaceMemberResponse.email === memberValue.email;
+
+  useQuery([`#item_${itemId}`], () => checkIsItemCreator(Number(itemId)), {
+    select: (data): IMessage => data,
+    onSuccess: (data: IMessage) => onAccessible(data),
+    onError: (err: AxiosError<{ message: string }>) => onError(err),
+  });
+
+  const onAccessible = (message: IMessage) => {
+    const isCreator = message.message === '200';
     if (!isCreator) {
       nav(-1);
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
       return;
     }
-    setHasAccessRole((prev) => !prev);
+    getSpaceItem(Number(itemId))
+      .then((data) => onSuccessGetItem(data))
+      .catch((err) => onError(err));
+  };
+
+  const onSuccessGetItem = (item: IItem) => {
     const { question, answer, hint, spaceId, spaceMemberResponse, createdAt } = item;
     setItemState((prev) => ({
       ...prev,
@@ -58,8 +67,10 @@ export const UpdateItem = () => {
       spaceMemberResponse,
       createdAt,
     }));
+    setHasAccessRole((prev) => !prev);
   };
-  const onErrorGetSpaceItem = (err: AxiosError<{ message: string }>) => {
+
+  const onError = (err: AxiosError<{ message: string }>) => {
     if (err.response?.status === 401) {
       logout();
     } else {
@@ -67,12 +78,6 @@ export const UpdateItem = () => {
       alert(err.response?.data.message);
     }
   };
-
-  useQuery([`#item_${itemId}`], () => getSpaceItem(Number(itemId)), {
-    select: (data): IItem => data,
-    onSuccess: (data: IItem) => onSuccessGetSpaceItem(data),
-    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpaceItem(err),
-  });
 
   const [hint, setHint] = useState('');
   const onChangeHint: ChangeEventHandler<HTMLInputElement> = (e) => setHint(e.currentTarget.value);

@@ -8,6 +8,7 @@ const GET_SPACE_ITEM = '/item';
 const CREATE_SPACE_ITEM = '/item';
 const UPDATE_SPACE_ITEM = '/item';
 const DELETE_SPACE_ITEM = '/item';
+const CHECK_IS_CREATOR = '/item/creator';
 
 const getSpaceItemApi = (itemId: number) => {
   const atk = store.get('atk');
@@ -109,4 +110,21 @@ export const deleteItem = (itemId: number) => {
   return deleteItemApi(itemId)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => deleteItemApi(itemId)));
+};
+
+const checkIsItemCreatorApi = (itemId: number) => {
+  const atk = store.get('atk');
+  const params = { itemId };
+  return baseApi
+    .get(CHECK_IS_CREATOR, {
+      params,
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const checkIsItemCreator = (itemId: number) => {
+  return checkIsItemCreatorApi(itemId)
+    .then((res) => res)
+    .catch(() => reissueAtk().then(() => checkIsItemCreatorApi(itemId)));
 };
