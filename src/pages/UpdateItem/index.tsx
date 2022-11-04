@@ -37,12 +37,6 @@ export const UpdateItem = () => {
 
   const [hasAccessRole, setHasAccessRole] = useState(false);
 
-  useQuery([`#item_${itemId}`], () => checkIsItemCreator(Number(itemId)), {
-    select: (data): IMessage => data,
-    onSuccess: (data: IMessage) => onAccessible(data),
-    onError: (err: AxiosError<{ message: string }>) => onError(err),
-  });
-
   const onAccessible = (message: IMessage) => {
     const isCreator = message.message === '200';
     if (!isCreator) {
@@ -54,6 +48,11 @@ export const UpdateItem = () => {
       .then((data) => onSuccessGetItem(data))
       .catch((err) => onError(err));
   };
+
+  useQuery([`#item_${itemId}`], () => checkIsItemCreator(Number(itemId)), {
+    onSuccess: onAccessible,
+    onError: (err: AxiosError<{ message: string }>) => onError(err),
+  });
 
   const onSuccessGetItem = (item: IItem) => {
     const { question, answer, hint, spaceId, spaceMemberResponse, createdAt } = item;
@@ -117,7 +116,7 @@ export const UpdateItem = () => {
     e.preventDefault();
     if (!checkDataIsEmpty()) return;
     updateSpaceItem(Number(itemId), itemState.question, itemState.answer, itemState.hint)
-      .then(() => updateSpaceItemSuccessHandler())
+      .then(updateSpaceItemSuccessHandler)
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
@@ -133,7 +132,7 @@ export const UpdateItem = () => {
       setCheckDelete((prev) => !prev);
     } else {
       deleteItem(Number(itemId))
-        .then(() => deleteItemSuccessHandler())
+        .then(deleteItemSuccessHandler)
         .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     }
   };
