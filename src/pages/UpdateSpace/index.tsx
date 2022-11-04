@@ -26,9 +26,7 @@ export const UpdateSpace = () => {
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
       return;
     }
-    getSpace(Number(spaceId))
-      .then((res) => onSuccessGetSpace(res.data))
-      .catch((err) => onError(err));
+    getSpace(Number(spaceId)).then(onSuccessGetSpace).catch(onError);
   };
 
   const onSuccessGetSpace = (space: ISpace) => {
@@ -47,9 +45,8 @@ export const UpdateSpace = () => {
 
   const logout = useLogout();
   useQuery([`#space_${spaceId}`], () => checkIsSpaceCreator(Number(spaceId)), {
-    select: (data): IMessage => data,
-    onSuccess: (data: IMessage) => onAccessible(data),
-    onError: (err: AxiosError<{ message: string }>) => onError(err),
+    onSuccess: onAccessible,
+    onError,
   });
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -77,12 +74,10 @@ export const UpdateSpace = () => {
         <span className={cs.label}>Space Name</span>
         <UpdateTitle space={spaceState} />
       </div>
-      {hasAccessRole && (
-        <div className={cs.manageSpaceMemberWrapper}>
-          <span className={cs.label}>Space Member List</span>
-          <ManageSpaceMember space={spaceState} />
-        </div>
-      )}
+      <div className={cs.manageSpaceMemberWrapper}>
+        <span className={cs.label}>Space Member List</span>
+        <ManageSpaceMember space={spaceState} />
+      </div>
       <div className={cs.inviteWrapper}>
         <CreateInviteLink spaceId={Number(spaceId)} />
       </div>
