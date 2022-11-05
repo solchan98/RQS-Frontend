@@ -18,6 +18,7 @@ interface Props {
 
 export const RandomQModal = ({ useModal, space }: Props) => {
   const [startState, setStartState] = useState(false);
+  const [showState, setShowState] = useState(true);
   const [quiz, setQuiz] = useState<IItem>({} as IItem);
 
   const { isOpen, closeModal } = useModal;
@@ -53,8 +54,8 @@ export const RandomQModal = ({ useModal, space }: Props) => {
       <div className={cs.container}>
         <div className={cs.questionWrapper}>
           <div className={cs.question}>
-            <TitleQuestion />
-            <span>{quiz.question}</span>
+            {showState && <TitleQuestion />}
+            <span>{showState ? quiz.question : quiz.answer}</span>
           </div>
         </div>
         <div className={cs.bottom}>
@@ -67,6 +68,9 @@ export const RandomQModal = ({ useModal, space }: Props) => {
               ))}
           </ul>
           <div className={cs.buttonWrapper}>
+            <button className={cs.nextButton} type='button' onClick={() => setShowState((prev) => !prev)}>
+              {showState ? '정답 보기' : '문제 보기'}
+            </button>
             <button className={cs.nextButton} type='button' onClick={getRandomQuiz}>
               다음 문제
             </button>
