@@ -16,9 +16,9 @@ const ToastEditor = forwardRef<Editor, Props>(({ placeHolder }, ref) => {
       hideModeSwitch
       toolbarItems={[
         // 툴바 옵션 설정
-        ['heading', 'bold', 'quote'],
-        ['ul', 'table', 'link'],
-        ['code', 'codeblock'],
+        ['heading', 'bold'],
+        ['ul', 'link'],
+        ['code'],
       ]}
       useCommandShortcut={false} // 키보드 입력 컨트롤 방지 v
     />

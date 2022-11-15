@@ -1,14 +1,16 @@
 import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useState } from 'react';
 
+import { ISpace } from 'types/space';
 import { createSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
-import { ISpace } from 'types/space';
+import ToastEditor from 'components/Editor';
 import { ModalTemplate } from 'components/ModalTemplate';
 
 import { Exit } from 'assets/svgs';
 import cx from 'classnames';
 import cs from './createQModal.module.scss';
+import { Editor } from '@toast-ui/react-editor';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -34,19 +36,11 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
 
   const [question, setQuestion] = useState('');
   const [questionIsEmpty, setQuestionIsEmpty] = useState(false);
-  const [answer, setAnswer] = useState('');
-  const [answerIsEmpty, setAnswerIsEmpty] = useState(false);
   const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
     if (e.currentTarget.value.length !== 0 && questionIsEmpty) {
       setQuestionIsEmpty(false);
     }
     setQuestion(e.currentTarget.value);
-  };
-  const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    if (e.currentTarget.value.length !== 0 && answerIsEmpty) {
-      setAnswerIsEmpty(false);
-    }
-    setAnswer(e.currentTarget.value);
   };
 
   const { isOpen, closeModal } = useModal;
@@ -54,34 +48,30 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
     setHint('');
     setHintList([]);
     setQuestion('');
-    setAnswer('');
     setQuestionIsEmpty(false);
-    setAnswerIsEmpty(false);
   };
-
-  const logout = useLogout();
 
   const checkDataIsEmpty = (): boolean => {
     if (question.length === 0) {
       setQuestionIsEmpty(true);
       return false;
     }
-    if (answer.length === 0) {
-      setAnswerIsEmpty(true);
-      return false;
-    }
     return true;
   };
 
+  const logout = useLogout();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const check = checkDataIsEmpty();
     if (!check) return;
+    const answer = editorRef.current?.getInstance().getMarkdown() ?? '';
     createSpaceItem(space.spaceId, question, answer, hintList)
-      .then(() => refetch())
+      .then(refetch)
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     closeModal(closeModalHandler);
   };
+
+  const editorRef = useRef<Editor>(null);
 
   return (
     <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='createQuestion'>
@@ -101,12 +91,7 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
             onChange={onChangeQuestion}
           />
           <span className={cs.subTitle}>Answer</span>
-          <textarea
-            value={answer}
-            className={cx(cs.textArea, cs.answerTextArea, answerIsEmpty && cs.isEmpty)}
-            placeholder={answerIsEmpty ? '답변은 비어있으면 안됩니다!' : '답변을 작성하세요 :)'}
-            onChange={onChangeAnswer}
-          />
+          <ToastEditor ref={editorRef} placeHolder='답변을 작성하세요 :)' />
         </form>
         <div className={cs.bottom}>
           <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
