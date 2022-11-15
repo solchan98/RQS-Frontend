@@ -22,7 +22,7 @@ jobs:
 
       - name: Build
         run: |
-          npm install
+          npm install -force
           CI="" npm run build
           tar -cvf build.tar build
 
