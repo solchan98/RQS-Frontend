@@ -5,7 +5,7 @@ import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
-import Viewer from 'components/ToastUI/Viewer';
+import ToastViewer from 'components/ToastUI/Viewer';
 import { ModalTemplate } from 'components/ModalTemplate';
 import { StartLottie } from 'components/Lotties/StartLottie';
 
@@ -57,7 +57,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
         <div className={cs.questionWrapper}>
           <div className={cs.question}>
             {showState && <TitleQuestion />}
-            {showState ? <span>{quiz.question}</span> : <Viewer content={quiz.answer} />}
+            {showState ? <span>{quiz.question}</span> : <ToastViewer content={quiz.answer} />}
           </div>
         </div>
         <div className={cs.bottom}>
