@@ -54,12 +54,19 @@ export const RandomQModal = ({ useModal, space }: Props) => {
   return (
     <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
       <div className={cs.container}>
-        <div className={cs.questionWrapper}>
-          <div className={cs.question}>
-            {showState && <TitleQuestion />}
-            {showState ? <span>{quiz.question}</span> : <ToastViewer content={quiz.answer} />}
+        {showState && (
+          <div className={cs.questionWrapper}>
+            <div className={cs.question}>
+              <TitleQuestion />
+              <span>{quiz.question}</span>
+            </div>
           </div>
-        </div>
+        )}
+        {!showState && (
+          <div className={cs.answer}>
+            <ToastViewer content={quiz.answer} />
+          </div>
+        )}
         <div className={cs.bottom}>
           <ul className={cs.hintList}>
             {quiz.hint.length !== 0 &&
