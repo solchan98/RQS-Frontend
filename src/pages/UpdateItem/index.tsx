@@ -1,10 +1,12 @@
 import { AxiosError } from 'axios';
+import { Editor } from '@toast-ui/react-editor';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useMemo, useRef, useState } from 'react';
 
 import { useLogout } from 'hooks/useLogout';
 import { checkIsItemCreator, deleteItem, getSpaceItem, updateSpaceItem } from 'service/items';
+import ToastEditor from 'components/ToastUI/Editor';
 import { IItem } from 'types/item';
 
 import cx from 'classnames';
@@ -21,12 +23,7 @@ export const UpdateItem = () => {
     setItemState((prev) => ({ ...prev, question: value }));
   };
 
-  const [answerIsEmpty, setAnswerIsEmpty] = useState(false);
-  const onChangeAnswer: ChangeEventHandler<HTMLTextAreaElement> = (e) => {
-    const { value } = e.currentTarget;
-    if (value.length !== 0 && answerIsEmpty) setAnswerIsEmpty(false);
-    setItemState((prev) => ({ ...prev, answer: value }));
-  };
+  const editorRef = useRef<Editor>(null);
 
   const hintList = useMemo(() => {
     return itemState.hint?.length === 0 ? [] : itemState.hint?.split(',');
@@ -44,9 +41,7 @@ export const UpdateItem = () => {
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
       return;
     }
-    getSpaceItem(Number(itemId))
-      .then((data) => onSuccessGetItem(data))
-      .catch((err) => onError(err));
+    getSpaceItem(Number(itemId)).then(onSuccessGetItem).catch(onError);
   };
 
   useQuery([`#item_${itemId}`], () => checkIsItemCreator(Number(itemId)), {
@@ -66,6 +61,7 @@ export const UpdateItem = () => {
       spaceMemberResponse,
       createdAt,
     }));
+    editorRef.current?.getInstance().setMarkdown(answer);
     setHasAccessRole((prev) => !prev);
   };
 
@@ -101,10 +97,6 @@ export const UpdateItem = () => {
       setQuestionIsEmpty(true);
       return false;
     }
-    if (itemState.answer.length === 0) {
-      setAnswerIsEmpty(true);
-      return false;
-    }
     return true;
   };
 
@@ -115,9 +107,14 @@ export const UpdateItem = () => {
   const onSubmitUpdateItem: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!checkDataIsEmpty()) return;
-    updateSpaceItem(Number(itemId), itemState.question, itemState.answer, itemState.hint)
+    updateSpaceItem(
+      Number(itemId),
+      itemState.question,
+      editorRef.current?.getInstance().getMarkdown() ?? '',
+      itemState.hint
+    )
       .then(updateSpaceItemSuccessHandler)
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onError);
   };
 
   const deleteItemSuccessHandler = () => {
@@ -131,9 +128,7 @@ export const UpdateItem = () => {
     if (!checkDelete) {
       setCheckDelete((prev) => !prev);
     } else {
-      deleteItem(Number(itemId))
-        .then(deleteItemSuccessHandler)
-        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      deleteItem(Number(itemId)).then(deleteItemSuccessHandler).catch(onError);
     }
   };
 
@@ -153,12 +148,7 @@ export const UpdateItem = () => {
           onChange={onChangeQuestion}
         />
         <span className={cs.subTitle}>Answer</span>
-        <textarea
-          value={itemState.answer}
-          className={cx(cs.textArea, cs.answerTextArea, answerIsEmpty && cs.isEmpty)}
-          placeholder={answerIsEmpty ? '답변은 비어있으면 안됩니다!' : '답변을 작성하세요 :)'}
-          onChange={onChangeAnswer}
-        />
+        <ToastEditor ref={editorRef} placeHolder='답변을 입력하세요' initialContent={itemState.answer} />
       </form>
       <form className={cs.hintWrapper} onSubmit={onSubmitAddHint}>
         <span className={cx(cs.subTitle, cs.hintTitle)}>힌트로 사용할 키워드를 추가해보세요! (최대 5개 )</span>

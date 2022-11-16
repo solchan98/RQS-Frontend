@@ -4,9 +4,10 @@ import { forwardRef } from 'react';
 
 interface Props {
   placeHolder: string;
+  initialContent?: string;
 }
 
-const ToastEditor = forwardRef<Editor, Props>(({ placeHolder }, ref) => {
+const ToastEditor = forwardRef<Editor, Props>(({ placeHolder, initialContent }, ref) => {
   return (
     <Editor
       ref={ref} // DOM 선택용 useRef
@@ -21,6 +22,7 @@ const ToastEditor = forwardRef<Editor, Props>(({ placeHolder }, ref) => {
         ['code'],
       ]}
       useCommandShortcut={false} // 키보드 입력 컨트롤 방지 v
+      initialValue={initialContent}
     />
   );
 });
