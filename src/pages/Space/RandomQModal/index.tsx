@@ -1,12 +1,14 @@
 import { useState } from 'react';
-import { getRandomSpaceItem } from 'service/items';
 
+import { getRandomSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
 import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
+import Viewer from 'components/ToastUI/Viewer';
 import { ModalTemplate } from 'components/ModalTemplate';
 import { StartLottie } from 'components/Lotties/StartLottie';
+
 import { TitleQuestion } from 'assets/svgs';
 import cx from 'classnames';
 import cs from './randomQModal.module.scss';
@@ -25,12 +27,12 @@ export const RandomQModal = ({ useModal, space }: Props) => {
   const closeModalHandler = () => setStartState(false);
 
   const logout = useLogout();
-
   const getRandomQuiz = () => {
     getRandomSpaceItem(Number(space.spaceId))
       .then((data) => {
         setQuiz(data);
         if (!startState) setStartState((prev) => !prev);
+        if (!showState) setShowState((prev) => !prev);
       })
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
@@ -40,7 +42,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
         <div className={cx(cs.container, cs.beforeStart)}>
           <div>{space.title}</div>
-          <small className={cs.tip}>(5분 내에 새로운 질문을 뽑지 않는 경우, 중복이 발생할 수 있습니다.)</small>
+          <small className={cs.tip}>(스페이스에 존재하는 모든 문제가 중복없이 랜덤으로 출제됩니다.)</small>
           <StartLottie />
           <button className={cs.startButton} type='button' onClick={getRandomQuiz}>
             시작하기
@@ -55,7 +57,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
         <div className={cs.questionWrapper}>
           <div className={cs.question}>
             {showState && <TitleQuestion />}
-            <span>{showState ? quiz.question : quiz.answer}</span>
+            {showState ? <span>{quiz.question}</span> : <Viewer content={quiz.answer} />}
           </div>
         </div>
         <div className={cs.bottom}>
