@@ -56,10 +56,10 @@
     margin: 12px 0;
 
     .textArea {
-      box-sizing: border-box;
-      width: inherit;
-      padding: 8px 12px;
+      height: 24px;
+      padding: 8px;
       font-size: 14px;
+      line-height: 24px;
       color: colors.$SUB_TITLE;
       resize: none;
       border: 1px solid colors.$DIVIDE_LINE;
@@ -68,10 +68,6 @@
 
     .textArea::placeholder {
       font-size: 14px;
-    }
-
-    .answerTextArea {
-      height: 240px;
     }
 
     .isEmpty {

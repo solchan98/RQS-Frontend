@@ -4,7 +4,7 @@ import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useSta
 import { ISpace } from 'types/space';
 import { createSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
-import ToastEditor from 'components/Editor';
+import ToastEditor from 'components/ToastUI/Editor';
 import { ModalTemplate } from 'components/ModalTemplate';
 
 import { Exit } from 'assets/svgs';

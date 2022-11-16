@@ -1,0 +1,12 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  > div > div {
+    overflow: hidden;
+    border-radius: 12px;
+
+    > div > div > div > div {
+      background: colors.$WHITE;
+    }
+  }
+}
