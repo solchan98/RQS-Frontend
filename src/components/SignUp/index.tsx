@@ -15,55 +15,57 @@ const EMAIL_REG_EXP = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
 
 export const SignUp = () => {
-  const [email, setEmail] = useState('');
-  const [invalidEmail, setInvalidEmail] = useState(false);
-  const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
-    if (checkDuplicateEmail) setCheckDuplicateEmail((prev) => !prev);
-    setInvalidEmail(!EMAIL_REG_EXP.test(e.currentTarget.value));
-    setEmail(e.currentTarget.value);
-  };
-  const [checkDuplicateEmail, setCheckDuplicateEmail] = useState(false);
-  const onCheckDuplicateEmail = () => {
-    if (email !== '' && !invalidEmail) {
-      checkEmail(email).then((data) => {
-        setCheckDuplicateEmail(!data.exist);
-        if (data.exist) alert('이미 존재하는 이메일입니다.');
-      });
-    }
-  };
-
-  const [nickname, setNickname] = useState('');
-  const [invalidNickname, setInvalidNickname] = useState(false);
-  const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInvalidNickname(e.currentTarget.value === '');
-    setNickname(e.currentTarget.value);
-  };
-
-  const [password, setPassword] = useState('');
-  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
-    setInvalidPassword(!PASSWORD_REG_EXP.test(e.currentTarget.value));
-    setPassword(e.currentTarget.value);
-  };
-  const [invalidPassword, setInvalidPassword] = useState(false);
-
-  const nav = useNavigate();
-  const onSubmitSuccessHandler = () => {
-    alert('회원가입에 성공하였습니다.');
-    nav('/auth/login');
-  };
-
-  const onSubmitFailHandler = (err: AxiosError<{ message: string }>) => {
-    alert(err.response?.data.message ?? 'SERVER ERROR');
-  };
-
-  const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
-    signUp(email, nickname, password)
-      .then(() => onSubmitSuccessHandler())
-      .catch((err) => onSubmitFailHandler(err));
-  };
+  // const [email, setEmail] = useState('');
+  // const [invalidEmail, setInvalidEmail] = useState(false);
+  // const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
+  //   if (checkDuplicateEmail) setCheckDuplicateEmail((prev) => !prev);
+  //   setInvalidEmail(!EMAIL_REG_EXP.test(e.currentTarget.value));
+  //   setEmail(e.currentTarget.value);
+  // };
+  // const [checkDuplicateEmail, setCheckDuplicateEmail] = useState(false);
+  // const onCheckDuplicateEmail = () => {
+  //   if (email !== '' && !invalidEmail) {
+  //     checkEmail(email).then((data) => {
+  //       setCheckDuplicateEmail(!data.exist);
+  //       if (data.exist) alert('이미 존재하는 이메일입니다.');
+  //     });
+  //   }
+  // };
+  //
+  // const [nickname, setNickname] = useState('');
+  // const [invalidNickname, setInvalidNickname] = useState(false);
+  // const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => {
+  //   setInvalidNickname(e.currentTarget.value === '');
+  //   setNickname(e.currentTarget.value);
+  // };
+  //
+  // const [password, setPassword] = useState('');
+  // const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+  //   setInvalidPassword(!PASSWORD_REG_EXP.test(e.currentTarget.value));
+  //   setPassword(e.currentTarget.value);
+  // };
+  // const [invalidPassword, setInvalidPassword] = useState(false);
+  //
+  // const nav = useNavigate();
+  // const onSubmitSuccessHandler = () => {
+  //   alert('회원가입에 성공하였습니다.');
+  //   nav('/auth/login');
+  // };
+  //
+  // const onSubmitFailHandler = (err: AxiosError<{ message: string }>) => {
+  //   alert(err.response?.data.message ?? 'SERVER ERROR');
+  // };
+  //
+  // const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+  //   e.preventDefault();
+  //   signUp(email, nickname, password)
+  //     .then(() => onSubmitSuccessHandler())
+  //     .catch((err) => onSubmitFailHandler(err));
+  // };
 
   /// /////
+
+  const [email, setEmail] = useState('');
 
   const [curIdx, setCurIdx] = useState(0);
 
@@ -73,9 +75,9 @@ export const SignUp = () => {
   };
 
   return (
-    <form className={cs.container} onSubmit={onSubmit}>
+    <form className={cs.container}>
       <Box style={{ position: 'relative' }}>
-        <Email checked={curIdx === 0} nextStep={nextStep} />
+        <Email email={email} setEmail={setEmail} checked={curIdx === 0} nextStep={nextStep} />
         <Nickname checked={curIdx === 1} nextStep={nextStep} />
         <Password checked={curIdx === 2} nextStep={nextStep} />
       </Box>
