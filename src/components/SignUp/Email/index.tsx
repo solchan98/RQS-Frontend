@@ -18,7 +18,6 @@ const EMAIL_REG_EXP = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const Email = ({ email, setEmail, checked, nextStep }: Props) => {
   const [invalidEmail, setInvalidEmail] = useState(true);
   const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
-    // if (checkDuplicateEmail) setCheckDuplicateEmail((prev) => !prev);
     setInvalidEmail(!EMAIL_REG_EXP.test(e.currentTarget.value));
     setEmail(e.currentTarget.value);
   };

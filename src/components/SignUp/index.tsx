@@ -66,6 +66,7 @@ export const SignUp = () => {
   /// /////
 
   const [email, setEmail] = useState('');
+  const [nickname, setNickname] = useState('');
 
   const [curIdx, setCurIdx] = useState(0);
 
@@ -78,7 +79,7 @@ export const SignUp = () => {
     <form className={cs.container}>
       <Box style={{ position: 'relative' }}>
         <Email email={email} setEmail={setEmail} checked={curIdx === 0} nextStep={nextStep} />
-        <Nickname checked={curIdx === 1} nextStep={nextStep} />
+        <Nickname nickname={nickname} setNickname={setNickname} checked={curIdx === 1} nextStep={nextStep} />
         <Password checked={curIdx === 2} nextStep={nextStep} />
       </Box>
       {/* <input className={cs.input} type='email' value={email} placeholder='아이디' onChange={onChangeEmail} /> */}
