@@ -6,6 +6,10 @@ import cx from 'classnames';
 import cs from './signUp.module.scss';
 import { useNavigate } from 'react-router-dom';
 import { AxiosError } from 'axios';
+import { Box } from '@mui/material';
+import Email from './Email';
+import Nickname from './Nickname';
+import Password from './Password';
 
 const EMAIL_REG_EXP = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
@@ -59,31 +63,45 @@ export const SignUp = () => {
       .catch((err) => onSubmitFailHandler(err));
   };
 
+  /// /////
+
+  const [curIdx, setCurIdx] = useState(0);
+
+  const nextStep = () => {
+    if (curIdx + 1 === 3) setCurIdx(0);
+    else setCurIdx((prev) => prev + 1);
+  };
+
   return (
     <form className={cs.container} onSubmit={onSubmit}>
-      <input className={cs.input} type='email' value={email} placeholder='아이디' onChange={onChangeEmail} />
-      <button
-        className={cs.checkEmailBtn}
-        disabled={email === '' || invalidEmail || checkDuplicateEmail}
-        type='button'
-        onClick={onCheckDuplicateEmail}
-      >
-        {checkDuplicateEmail ? '확인 완료 ✅' : '중복체크 ☑️'}
-      </button>
-      <span className={cx(cs.inputInfo, invalidEmail && cs.alert)}>이메일 형식으로 작성해주세요</span>
-      <input className={cs.input} type='text' value={nickname} placeholder='닉네임' onChange={onChangeNickname} />
-      <span className={cx(cs.inputInfo, invalidNickname && cs.alert)}>닉네임은 비어있으면 안됩니다.</span>
-      <input className={cs.input} type='password' value={password} placeholder='비밀번호' onChange={onChangePassword} />
-      <span className={cx(cs.inputInfo, invalidPassword && cs.alert)}>
-        영문과 특수문자 숫자를 포함하며 8자 이상이어야 합니다.
-      </span>
-      <button
-        className={cs.signUpBtn}
-        disabled={invalidEmail || invalidPassword || !checkDuplicateEmail || nickname === ''}
-        type='submit'
-      >
-        회원가입
-      </button>
+      <Box style={{ position: 'relative' }}>
+        <Email checked={curIdx === 0} nextStep={nextStep} />
+        <Nickname checked={curIdx === 1} nextStep={nextStep} />
+        <Password checked={curIdx === 2} nextStep={nextStep} />
+      </Box>
+      {/* <input className={cs.input} type='email' value={email} placeholder='아이디' onChange={onChangeEmail} /> */}
+      {/* <button */}
+      {/*  className={cs.checkEmailBtn} */}
+      {/*  disabled={email === '' || invalidEmail || checkDuplicateEmail} */}
+      {/*  type='button' */}
+      {/*  onClick={onCheckDuplicateEmail} */}
+      {/* > */}
+      {/*  {checkDuplicateEmail ? '확인 완료 ✅' : '중복체크 ☑️'} */}
+      {/* </button> */}
+      {/* <span className={cx(cs.inputInfo, invalidEmail && cs.alert)}>이메일 형식으로 작성해주세요</span> */}
+      {/* <input className={cs.input} type='text' value={nickname} placeholder='닉네임' onChange={onChangeNickname} /> */}
+      {/* <span className={cx(cs.inputInfo, invalidNickname && cs.alert)}>닉네임은 비어있으면 안됩니다.</span> */}
+      {/* <input className={cs.input} type='password' value={password} placeholder='비밀번호' onChange={onChangePassword} /> */}
+      {/* <span className={cx(cs.inputInfo, invalidPassword && cs.alert)}> */}
+      {/*  영문과 특수문자 숫자를 포함하며 8자 이상이어야 합니다. */}
+      {/* </span> */}
+      {/* <button */}
+      {/*  className={cs.signUpBtn} */}
+      {/*  disabled={invalidEmail || invalidPassword || !checkDuplicateEmail || nickname === ''} */}
+      {/*  type='submit' */}
+      {/* > */}
+      {/*  회원가입 */}
+      {/* </button> */}
     </form>
   );
 };
