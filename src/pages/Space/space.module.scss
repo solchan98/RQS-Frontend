@@ -80,7 +80,7 @@
     .quizList {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 12px;
+      gap: 24px;
 
       @include responsive.after('SD') {
         grid-template-columns: 1fr 1fr;

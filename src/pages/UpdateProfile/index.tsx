@@ -1,4 +1,4 @@
-import { ChangeEventHandler, FormEventHandler, useEffect, useState } from 'react';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import store from 'store';
 import jwtDecode from 'jwt-decode';
 import { useMount } from 'react-use';
@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { getMemberInfo, updateMemberInfo } from 'service/member';
+import { updateMemberInfo } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMember } from 'types/member';
 
@@ -30,9 +30,9 @@ export const UpdateProfile = () => {
 
   const logout = useLogout();
   const setupMember = () => {
-    getMemberInfo()
-      .then((data) => setNickname(data.nickname))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+    // getMemberInfo()
+    //   .then((data) => setNickname(data.nickname))
+    //   .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   useMount(() => {

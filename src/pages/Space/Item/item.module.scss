@@ -7,6 +7,13 @@
   padding: 12px 12px 6px;
   background: colors.$WHITE;
   border-radius: 12px;
+  transition: 0.5s;
+
+  &:hover {
+    box-shadow: 3px 6px 12px 1px colors.$DIVIDE_LINE;
+    transition: 0.5s;
+    transform: translateY(-6px) translateX(-3px);
+  }
 
   .top {
     display: flex;

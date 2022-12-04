@@ -2,10 +2,16 @@
 
 .container {
   box-sizing: border-box;
-  width: 200px;
   padding: 12px;
   background-color: colors.$WHITE;
   border-radius: 12px;
+  transition: 0.5s;
+
+  &:hover {
+    box-shadow: 3px 6px 12px 1px colors.$DIVIDE_LINE;
+    transition: 0.5s;
+    transform: translateY(-6px) translateX(-3px);
+  }
 
   .top {
     display: flex;
@@ -51,6 +57,14 @@
       line-height: 4px;
       color: colors.$BASIC_FONT;
       letter-spacing: 0.2px;
+    }
+  }
+
+  .isLoading {
+    background: colors.$GRAY_01;
+
+    .content {
+      display: none;
     }
   }
 

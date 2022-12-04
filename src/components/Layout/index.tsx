@@ -1,24 +1,41 @@
+import { useRecoilValue } from 'recoil';
 import { Link, Outlet } from 'react-router-dom';
 
-import cs from './layout.module.scss';
-import { useRecoilValue } from 'recoil';
-import { memberState } from '../../recoil/atoms/member';
+import { memberState } from 'recoil/atoms/member';
 
-const AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
+import { Avatar } from '../Avatar';
+import { Search } from 'assets/svgs';
+import cs from './layout.module.scss';
 
 export const Layout = () => {
-  const { avatar, memberId } = useRecoilValue(memberState);
+  const { isLoggedIn, memberId } = useRecoilValue(memberState);
 
   return (
-    <div className={cs.layout}>
-      <div className={cs.profileWrapper}>
-        <Link className={cs.avatar} to={`/profile/${memberId}`}>
-          <img src={avatar ?? AVATAR} alt='profile_image' />
+    <div className={cs.container}>
+      <div className={cs.header}>
+        <Link className={cs.logo} to='/'>
+          <span>ℚ𝕦𝕚𝕫 𝔹𝕠𝕩</span>
         </Link>
+        <div className={cs.rightSection}>
+          <form className={cs.searchForm} id='searchSpace'>
+            <Search />
+            <input type='text' form='searchSpace' placeholder='스페이스 검색' />
+          </form>
+          {isLoggedIn ? (
+            <Avatar memberId={memberId} />
+          ) : (
+            <Link to='auth/login'>
+              <button className={cs.signInBtn} type='button'>
+                로그인
+              </button>
+            </Link>
+          )}
+        </div>
       </div>
-      <main>
+      <div>
         <Outlet />
-      </main>
+      </div>
+      <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>
     </div>
   );
 };
