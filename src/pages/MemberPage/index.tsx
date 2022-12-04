@@ -40,10 +40,10 @@ export const MemberPage = () => {
       </div>
       <div className={cs.nav}>
         <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to={`/${memberId}/space`}>
-          나의 스페이스
+          스페이스
         </NavLink>
         <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to={`/${memberId}/scrap`}>
-          나의 스크랩
+          스크랩
         </NavLink>
       </div>
       <Outlet />
