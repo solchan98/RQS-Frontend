@@ -63,4 +63,11 @@
       }
     }
   }
+
+  .footer {
+    padding: 24px 0;
+    font-size: 12px;
+    color: colors.$FOOTER;
+    border-top: 1px solid colors.$DIVIDE_LINE;
+  }
 }

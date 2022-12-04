@@ -35,6 +35,7 @@ export const Layout = () => {
       <div>
         <Outlet />
       </div>
+      <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>
     </div>
   );
 };
