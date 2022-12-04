@@ -4,7 +4,7 @@ import { ISpace } from 'types/space';
 import { reissueAtk } from './member';
 import { tokenChecker } from '../util/token';
 
-const CREATE_NEW_SPACE = '/space';
+const CREATE_NEW_SPACE = '/my/space';
 const CREATE_INVITE_TOKEN = '/my/space/invite';
 const JOIN_SPACE_WITH_TOKEN = '/space/join';
 

@@ -80,12 +80,6 @@ export const Space = () => {
         <div className={cs.mainTop}>
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
-            {isSpaceMember() && (
-              <button className={cs.createQuiz} type='button' onClick={createQuiz.openModal}>
-                <Add />
-              </button>
-            )}
-            {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
           </div>
           <button className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
             <Play />
@@ -94,6 +88,12 @@ export const Space = () => {
         </div>
         {itemList?.pages[0].length === 0 && <EmptyLottie />}
         <ul className={cs.quizList}>
+          {isSpaceMember() && (
+            <button className={cs.addBtn} type='button' onClick={createQuiz.openModal}>
+              <Add />
+            </button>
+          )}
+          {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
           {itemList?.pages.map((page) =>
             page.map((item) => (
               <li key={item.itemId}>

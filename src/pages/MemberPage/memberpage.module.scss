@@ -20,6 +20,22 @@
   @include responsive.after('LD') {
     grid-template-columns: repeat(4, 1fr);
   }
+
+  .addBtn {
+    border: 5px solid colors.$WHITE;
+    border-radius: 12px;
+    transition: 0.5s;
+
+    &:hover {
+      background: colors.$WHITE;
+      transition: 0.5s;
+    }
+
+    > svg {
+      width: 24px;
+      height: 24px;
+    }
+  }
 }
 
 .refetchBtnWrapper {

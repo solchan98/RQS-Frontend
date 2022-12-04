@@ -6,13 +6,17 @@ import { useInfiniteQuery } from '@tanstack/react-query';
 import { getMemberSpaceList } from 'service/spaces';
 import { ISpace } from 'types/space';
 import { Space } from 'components/Space';
+import { useModal } from 'hooks/useModal';
+
+import { Add } from 'assets/svgs';
 import cs from '../memberpage.module.scss';
+import { CreateSpaceModal } from './CreateSpaceModal';
 
 export const MemberSpace = () => {
   const { memberId } = useParams();
 
   const logout = useLogout();
-  const { data, hasNextPage, fetchNextPage } = useInfiniteQuery(
+  const { data, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery(
     [`#spaceList_${memberId}`],
     ({ pageParam = undefined }) => getMemberSpaceList(Number(memberId), pageParam),
     {
@@ -23,9 +27,15 @@ export const MemberSpace = () => {
     }
   );
 
+  const createSpace = useModal();
+
   return (
     <>
       <div className={cs.contentWrapper}>
+        <button className={cs.addBtn} type='button' onClick={createSpace.openModal}>
+          <Add />
+        </button>
+        <CreateSpaceModal useModal={createSpace} refetch={refetch} />
         {data?.pages.map((page) =>
           page.map((space) => (
             <Link to={`/space/${space.spaceId}`} key={`${space.spaceId}_NEWEST`}>
