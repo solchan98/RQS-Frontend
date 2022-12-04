@@ -11,9 +11,12 @@ import { useModal } from 'hooks/useModal';
 import { Add } from 'assets/svgs';
 import cs from '../memberpage.module.scss';
 import { CreateSpaceModal } from './CreateSpaceModal';
+import { useRecoilValue } from 'recoil';
+import { memberState } from '../../../recoil/atoms/member';
 
 export const MemberSpace = () => {
   const { memberId } = useParams();
+  const { memberId: loginMemberId } = useRecoilValue(memberState);
 
   const logout = useLogout();
   const { data, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery(
@@ -32,10 +35,14 @@ export const MemberSpace = () => {
   return (
     <>
       <div className={cs.contentWrapper}>
-        <button className={cs.addBtn} type='button' onClick={createSpace.openModal}>
-          <Add />
-        </button>
-        <CreateSpaceModal useModal={createSpace} refetch={refetch} />
+        {Number(memberId) === loginMemberId && (
+          <>
+            <button className={cs.addBtn} type='button' onClick={createSpace.openModal}>
+              <Add />
+            </button>
+            <CreateSpaceModal useModal={createSpace} refetch={refetch} />
+          </>
+        )}
         {data?.pages.map((page) =>
           page.map((space) => (
             <Link to={`/space/${space.spaceId}`} key={`${space.spaceId}_NEWEST`}>

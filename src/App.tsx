@@ -41,8 +41,10 @@ const App = () => {
     const atk = store.get('atk');
     tokenChecker(atk).then(() => {
       const checkedAtk = store.get('atk');
-      const decoded: { exp: number; iat: number; sub: string } = jwtDecode(checkedAtk);
-      loadMemberInfoSuccessHandler(JSON.parse(decoded.sub));
+      if (checkedAtk) {
+        const decoded: { exp: number; iat: number; sub: string } = jwtDecode(checkedAtk);
+        loadMemberInfoSuccessHandler(JSON.parse(decoded.sub));
+      }
     });
   });
 
