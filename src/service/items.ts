@@ -1,24 +1,29 @@
 import store from 'store';
 import { baseApi } from './index';
 import { reissueAtk } from './member';
+import { tokenChecker } from '../util/token';
 
 const GET_SPACE_ITEM_LIST = '/item/all';
-const GET_RANDOM_SPACE_ITEM = '/item/random';
+const GET_RANDOM_SPACE_ITEM = '/my/item/random';
 const GET_SPACE_ITEM = '/item';
-const CREATE_SPACE_ITEM = '/item';
-const UPDATE_SPACE_ITEM = '/item';
-const DELETE_SPACE_ITEM = '/item';
-const CHECK_IS_CREATOR = '/item/creator';
+const CREATE_SPACE_ITEM = '/my/item';
+const UPDATE_SPACE_ITEM = '/my/item';
+const DELETE_SPACE_ITEM = '/my/item';
+const CHECK_IS_CREATOR = '/my/item/creator';
 
 const getSpaceItemApi = (itemId: number) => {
   const atk = store.get('atk');
-  const params = { itemId };
-  return baseApi
-    .get(GET_SPACE_ITEM, {
-      params,
-      headers: { Authorization: `bearer ${atk}` },
-    })
-    .then((res) => res.data);
+  return tokenChecker(atk).then(() => {
+    const checkedAtk = store.get('atk');
+    const params = { itemId };
+    const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
+    return baseApi
+      .get(GET_SPACE_ITEM, {
+        params,
+        headers,
+      })
+      .then((res) => res.data);
+  });
 };
 
 export const getSpaceItem = (itemId: number) => {
@@ -29,14 +34,17 @@ export const getSpaceItem = (itemId: number) => {
 
 const getSpaceItemListApi = (spaceId: number, lastItemId?: number) => {
   const atk = store.get('atk');
-  const params = lastItemId ? { spaceId, lastItemId } : { spaceId };
-
-  return baseApi
-    .get(GET_SPACE_ITEM_LIST, {
-      params,
-      headers: { Authorization: `bearer ${atk}` },
-    })
-    .then((res) => res.data);
+  return tokenChecker(atk).then(() => {
+    const checkedAtk = store.get('atk');
+    const params = lastItemId ? { spaceId, lastItemId } : { spaceId };
+    const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
+    return baseApi
+      .get(GET_SPACE_ITEM_LIST, {
+        params,
+        headers,
+      })
+      .then((res) => res.data);
+  });
 };
 
 export const getSpaceItemList = (spaceId: number, lastItemId?: number) => {
@@ -64,13 +72,17 @@ export const createSpaceItem = (spaceId: number, question: string, answer: strin
 
 const getRandomSpaceItemApi = (spaceId: number) => {
   const atk = store.get('atk');
-  const params = { spaceId };
-  return baseApi
-    .get(GET_RANDOM_SPACE_ITEM, {
-      params,
-      headers: { Authorization: `bearer ${atk}` },
-    })
-    .then((res) => res.data);
+  return tokenChecker(atk).then(() => {
+    const checkedAtk = store.get('atk');
+    const params = { spaceId };
+    const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
+    return baseApi
+      .get(GET_RANDOM_SPACE_ITEM, {
+        params,
+        headers,
+      })
+      .then((res) => res.data);
+  });
 };
 
 export const getRandomSpaceItem = (spaceId: number) => {

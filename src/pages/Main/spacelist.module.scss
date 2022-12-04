@@ -1,0 +1,40 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.contentWrapper {
+  box-sizing: border-box;
+  display: grid;
+  gap: 24px;
+  width: 100%;
+  padding: 0 12px;
+  margin-top: 12px;
+
+  @include responsive.after('ML') {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @include responsive.after('MD') {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @include responsive.after('LD') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.refetchBtnWrapper {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+
+  .btn {
+    width: 100px;
+    height: 36px;
+    margin: 12px 0 48px;
+    line-height: 36px;
+    color: colors.$WHITE;
+    text-align: center;
+    background: colors.$THEME;
+    border-radius: 18px;
+  }
+}

@@ -4,7 +4,7 @@ import { IMemberResponse } from 'types/member';
 import { AxiosResponse } from 'axios';
 
 const LOGIN = '/member/login';
-const GET_MEMBER_INFO = '/member';
+const GET_MEMBER_INFO = '/member/info';
 const REFRESH_TOKEN = '/member/reissue';
 const SIGN_UP = '/member/sign-up';
 const CHECK_EMAIL_DUPLICATE = '/member/check';
@@ -36,21 +36,14 @@ export const login = (email: string, password: string) => {
     });
 };
 
-const getMemberInfoApi = () => {
-  const atk = store.get('atk');
-  return baseApi
-    .get(GET_MEMBER_INFO, {
-      headers: {
-        Authorization: `bearer ${atk}`,
-      },
-    })
-    .then((res) => res.data);
+const getMemberInfoApi = (memberId: number) => {
+  return baseApi.get(GET_MEMBER_INFO, { params: { memberId } }).then((res) => res.data);
 };
 
-export const getMemberInfo = () => {
-  return getMemberInfoApi()
-    .then((data: IMemberResponse) => data)
-    .catch(() => reissueAtk().then(() => getMemberInfoApi()));
+export const getMemberInfo = (memberId: number) => {
+  return getMemberInfoApi(memberId)
+    .then((data) => data)
+    .catch(() => alert('SERVER ERROR'));
 };
 
 const updateMemberInfoApi = (nickname: string) => {

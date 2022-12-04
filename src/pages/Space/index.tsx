@@ -55,13 +55,22 @@ export const Space = () => {
     }
   );
 
-  const memberValue = useRecoilValue(memberState);
+  const { isLoggedIn, email } = useRecoilValue(memberState);
+  const onRandomQModalHandler = () => {
+    if (isLoggedIn) {
+      randomQuiz.openModal();
+    } else {
+      alert('로그인이 필요합니다.');
+    }
+  };
+  const isSpaceAdmin = () => space?.authority === 'ADMIN';
+  const isSpaceMember = () => space?.authority === 'ADMIN' || space?.authority === 'MEMBER';
 
   return (
     <div className={cs.container}>
       <div className={cs.top}>
         <div className={cs.title}>{space?.title}</div>
-        {space?.authority === 'ADMIN' && (
+        {isSpaceAdmin() && (
           <Link className={cs.setting} to='./setting'>
             <Setting />
           </Link>
@@ -71,12 +80,14 @@ export const Space = () => {
         <div className={cs.mainTop}>
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
-            <button className={cs.createQuiz} type='button' onClick={createQuiz.openModal}>
-              <Add />
-            </button>
+            {isSpaceMember() && (
+              <button className={cs.createQuiz} type='button' onClick={createQuiz.openModal}>
+                <Add />
+              </button>
+            )}
             {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
           </div>
-          <button className={cs.playButton} type='button' onClick={randomQuiz.openModal}>
+          <button className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
             <Play />
           </button>
           {space && <RandomQModal useModal={randomQuiz} space={space} />}
@@ -86,7 +97,7 @@ export const Space = () => {
           {itemList?.pages.map((page) =>
             page.map((item) => (
               <li key={item.itemId}>
-                <Item item={item} isUpdatable={memberValue.email === item.spaceMemberResponse.email} />
+                <Item item={item} isUpdatable={email === item.spaceMemberResponse.email} />
               </li>
             ))
           )}

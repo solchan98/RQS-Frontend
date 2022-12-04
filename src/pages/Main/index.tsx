@@ -1,33 +1,34 @@
-import { useRecoilValue } from 'recoil';
-import { memberState } from 'recoil/atoms/member';
+import { Link, NavLink, Outlet } from 'react-router-dom';
 
-import { SpaceList } from './SpaceList';
-import { ScrapList } from './ScrapList';
-import { Search } from 'assets/svgs';
+import { MainLottie } from 'components/Lotties/MainLottie';
 
 import cs from './main.module.scss';
+import cx from 'classnames';
 
 export const Main = () => {
-  const memberValue = useRecoilValue(memberState);
-
   return (
     <div className={cs.container}>
-      <div className={cs.top}>
-        <h3 className={cs.intro}>{memberValue.nickname}님 반갑습니다.</h3>
-        <form className={cs.searchForm} id='searchSpace'>
-          <Search />
-          <input type='text' form='searchSpace' placeholder='스페이스 검색' />
-        </form>
-      </div>
+      <section className={cs.intro}>
+        <MainLottie />
+        <span className={cs.introText}>질문리스트를 만들어 랜덤 질문을 만나보세요!</span>
+        <Link className={cs.startLink} to='auth/sign-up'>
+          시작하기
+        </Link>
+      </section>
       <main className={cs.main}>
-        <section>
-          <SpaceList />
-        </section>
-        <section>
-          <ScrapList />
-        </section>
+        <div className={cs.contentSelector}>
+          <div className={cs.contentTitle}>스페이스</div>
+          <div className={cs.switch}>
+            <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/trending'>
+              트렌딩
+            </NavLink>
+            <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/newest'>
+              최신순
+            </NavLink>
+          </div>
+        </div>
+        <Outlet />
       </main>
-      <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>
     </div>
   );
 };
