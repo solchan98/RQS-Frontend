@@ -22,6 +22,10 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
     if (value.length !== 0 && errFlag) setErrFlag((prev) => !prev);
   };
 
+  const [content, setContent] = useState('');
+
+  const onChangeContent: ChangeEventHandler<HTMLTextAreaElement> = (e) => setContent(e.currentTarget.value);
+
   const [visibility, setVisibility] = useState(true);
   const onClickVisibility: ChangeEventHandler<HTMLInputElement> = () => setVisibility((prev) => !prev);
 
@@ -41,7 +45,7 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
     if (title.length === 0) {
       setErrFlag(true);
     } else {
-      createSpace(title, visibility)
+      createSpace(title, content, visibility)
         .then(() => refetch())
         .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
       closeModal(closeModalHandler);
@@ -66,6 +70,13 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
             placeholder='스페이스의 제목을 입력하세요. :)'
           />
           {errFlag && <span className={cs.errFlag}>내용이 비어있습니다!</span>}
+          <span className={cs.subTitle}>Space Content</span>
+          <textarea
+            className={cs.input}
+            value={content}
+            onChange={onChangeContent}
+            placeholder='스페이스를 간단하게 설명해주세요. :)'
+          />
         </form>
         <div className={cs.bottom}>
           <div className={cs.visibility}>

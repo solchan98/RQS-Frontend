@@ -13,12 +13,8 @@
     grid-template-columns: repeat(2, 1fr);
   }
 
-  @include responsive.after('MD') {
-    grid-template-columns: repeat(3, 1fr);
-  }
-
   @include responsive.after('LD') {
-    grid-template-columns: repeat(4, 1fr);
+    grid-template-columns: repeat(3, 1fr);
   }
 }
 

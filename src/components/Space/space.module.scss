@@ -1,10 +1,12 @@
 @use '/src/styles/constants/colors';
 
 .container {
-  box-sizing: border-box;
-  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
   background-color: colors.$WHITE;
-  border-radius: 12px;
+  border-radius: 4px;
   transition: 0.5s;
 
   &:hover {
@@ -15,48 +17,69 @@
 
   .top {
     display: flex;
+    flex-direction: column;
     align-items: center;
     justify-content: space-between;
     padding-bottom: 4px;
 
-    .subInfo {
-      display: flex;
-      gap: 4px;
-      align-items: center;
-
-      .role {
-        font-size: 12px;
-        font-weight: 600;
-        color: colors.$SUB_TITLE;
-      }
-
-      > svg {
-        width: 18px;
-        height: 18px;
-        color: colors.$GRAY_01;
-      }
-    }
-
-    .timestamp {
-      font-size: 10px;
-      color: colors.$TIME_STAMP;
-      text-align: start;
+    .thumbnail {
+      max-width: 100%;
     }
   }
 
   .main {
-    height: 36px;
-    padding: 4px;
-    overflow: scroll;
-    border-bottom: 1px solid colors.$DIVIDE_LINE;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    padding: 12px;
 
-    .content {
-      width: 100%;
-      font-size: 14px;
-      font-weight: 600;
-      line-height: 4px;
-      color: colors.$BASIC_FONT;
-      letter-spacing: 0.2px;
+    .contentWrapper {
+      margin: 2px 8px 24px;
+
+      .title {
+        margin-bottom: 8px;
+        font-size: 16px;
+        font-weight: 600;
+        color: colors.$TITLE;
+        letter-spacing: 0.2px;
+      }
+
+      .content {
+        font-size: 14px;
+        color: colors.$CONTENT;
+        letter-spacing: 0.2px;
+      }
+    }
+
+    .mainSub {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+
+      .timestamp {
+        font-size: 12px;
+        color: colors.$TIME_STAMP;
+        text-align: start;
+      }
+
+      .subInfo {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+
+        .role {
+          font-size: 12px;
+          font-weight: 600;
+          color: colors.$SUB_TITLE;
+        }
+
+        > svg {
+          width: 18px;
+          height: 18px;
+          color: colors.$GRAY_01;
+        }
+      }
     }
   }
 
@@ -71,7 +94,8 @@
   .status {
     display: flex;
     gap: 12px;
-    padding: 12px 0 0 4px;
+    padding: 10px 16px;
+    border-top: 1px solid colors.$DIVIDE_LINE;
 
     .cntWrapper {
       display: flex;

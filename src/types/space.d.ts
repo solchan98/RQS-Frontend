@@ -1,6 +1,8 @@
 export interface ISpace {
   spaceId: number;
   title: string;
+  content: string;
+  imageUrl: string;
   visibility: boolean;
   itemCount: number;
   spaceMemberCount: number;

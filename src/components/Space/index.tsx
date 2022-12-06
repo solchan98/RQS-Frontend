@@ -10,18 +10,26 @@ interface Props {
   pub?: boolean;
 }
 
+const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket-4954229_1280.jpg';
+
 export const Space = ({ space, pub = false }: Props) => {
   return (
     <div className={cs.container}>
       <div className={cs.top}>
-        <div className={cs.subInfo}>
-          {!pub && (space.visibility ? <UnLock /> : <Lock />)}
-          {!pub && <span className={cs.role}>{space.authority}</span>}
-        </div>
-        <span className={cs.timestamp}>{timeAgo.format(new Date(space.createdAt))}</span>
+        <img className={cs.thumbnail} src={space.imageUrl ?? DEFAULT_THUMBNAIL} alt='space-thumbnail' />
       </div>
       <div className={cx(cs.main)}>
-        <span className={cs.content}>{space.title}</span>
+        <div className={cs.contentWrapper}>
+          <p className={cs.title}>{space.title}</p>
+          <p className={cs.content}>{space.content}</p>
+        </div>
+        <div className={cs.mainSub}>
+          <div className={cs.subInfo}>
+            {!pub && (space.visibility ? <UnLock /> : <Lock />)}
+            {!pub && <span className={cs.role}>{space.authority}</span>}
+          </div>
+          <p className={cs.timestamp}>{timeAgo.format(new Date(space.createdAt))}</p>
+        </div>
       </div>
       <div className={cs.status}>
         <div className={cs.cntWrapper}>

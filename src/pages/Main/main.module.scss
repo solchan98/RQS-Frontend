@@ -41,13 +41,14 @@
 
     .contentSelector {
       display: flex;
+      flex-direction: column;
       justify-content: space-between;
       padding: 0 12px;
       margin-top: 48px;
 
       .contentTitle {
         font-size: 24px;
-        font-weight: 500;
+        font-weight: 600;
         letter-spacing: 0.5px;
       }
 
@@ -56,12 +57,16 @@
         gap: 8px;
         align-items: center;
 
-        .selected {
-          font-weight: bold;
+        .el {
+          width: 72px;
+          font-size: 18px;
+          font-weight: 500;
+          color: colors.$SUB_TITLE;
+          opacity: 0.8;
         }
 
-        .el {
-          font-size: 14px;
+        .selected {
+          font-weight: bold;
           color: colors.$BLACK;
         }
       }

@@ -112,9 +112,9 @@ export const getSpaceMemberList = (spaceId: number) => {
     .catch(() => reissueAtk().then(() => getSpaceMemberListApi(spaceId)));
 };
 
-const createSpaceApi = (title: string, visibility: boolean) => {
+const createSpaceApi = (title: string, content: string, visibility: boolean) => {
   const atk = store.get('atk');
-  const data = { title, visibility };
+  const data = { title, content, visibility };
   return baseApi
     .post(CREATE_NEW_SPACE, data, {
       headers: { Authorization: `bearer ${atk}` },
@@ -122,10 +122,10 @@ const createSpaceApi = (title: string, visibility: boolean) => {
     .then((res) => res.data);
 };
 
-export const createSpace = (title: string, visibility: boolean) => {
-  return createSpaceApi(title, visibility)
+export const createSpace = (title: string, content: string, visibility: boolean) => {
+  return createSpaceApi(title, content, visibility)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => createSpaceApi(title, visibility)));
+    .catch(() => reissueAtk().then(() => createSpaceApi(title, content, visibility)));
 };
 
 const updateSpaceTitleApi = (spaceId: number, title: string) => {

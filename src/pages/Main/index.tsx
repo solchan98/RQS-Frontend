@@ -17,13 +17,13 @@ export const Main = () => {
       </section>
       <main className={cs.main}>
         <div className={cs.contentSelector}>
-          <div className={cs.contentTitle}>스페이스</div>
+          {/* <div className={cs.contentTitle}>🗺 탐색하기</div> */}
           <div className={cs.switch}>
             <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/trending'>
-              트렌딩
+              🌟 트렌딩
             </NavLink>
             <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/newest'>
-              최신순
+              🔥 최신순
             </NavLink>
           </div>
         </div>
