@@ -13,8 +13,7 @@ import { ISpace } from 'types/space';
 
 import { Item } from './Item';
 import { RandomQModal } from 'pages/Space/RandomQModal';
-import { EmptyLottie } from 'components/Lotties/EmptyLottie';
-import { Add, Play, Setting } from 'assets/svgs';
+import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
 import { CreateQModal } from './CreateQModal';
 
@@ -69,12 +68,27 @@ export const Space = () => {
   return (
     <div className={cs.container}>
       <div className={cs.top}>
-        <div className={cs.title}>{space?.title}</div>
-        {isSpaceAdmin() && (
-          <Link className={cs.setting} to='./setting'>
-            <Setting />
-          </Link>
-        )}
+        <div className={cs.section}>
+          <div className={cs.contentWrapper}>
+            <div className={cs.title}>{space?.title}</div>
+            <div className={cs.content}>{space?.content}</div>
+          </div>
+          {isSpaceAdmin() && (
+            <Link className={cs.setting} to='./setting'>
+              스페이스 수정
+            </Link>
+          )}
+        </div>
+        <div className={cs.status}>
+          <div className={cs.cntWrapper}>
+            <Question />
+            <span>{space?.itemCount}</span>
+          </div>
+          <div className={cs.cntWrapper}>
+            <Members />
+            <span>{space?.spaceMemberCount}</span>
+          </div>
+        </div>
       </div>
       <main className={cs.main}>
         <div className={cs.mainTop}>
@@ -86,7 +100,6 @@ export const Space = () => {
           </button>
           {space && <RandomQModal useModal={randomQuiz} space={space} />}
         </div>
-        {itemList?.pages[0].length === 0 && <EmptyLottie />}
         <ul className={cs.quizList}>
           {isSpaceMember() && (
             <button className={cs.addBtn} type='button' onClick={createQuiz.openModal}>
@@ -103,8 +116,8 @@ export const Space = () => {
           )}
         </ul>
         {hasNextPage && (
-          <div className={cs.showMoreWrapper}>
-            <button type='button' onClick={() => fetchNextPage()}>
+          <div className={cs.refetchBtnWrapper}>
+            <button className={cs.btn} type='button' onClick={() => fetchNextPage()}>
               더보기
             </button>
           </div>

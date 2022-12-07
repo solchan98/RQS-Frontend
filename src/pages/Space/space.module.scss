@@ -3,28 +3,83 @@
 
 .container {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
   padding: 12px;
+  margin-top: 48px;
 
   .top {
     display: flex;
-    align-items: center;
-    justify-content: space-between;
+    flex-direction: column;
+    width: 100%;
 
-    .title {
-      font-size: 24px;
-      font-weight: 600;
-      letter-spacing: 0.1px;
+    @include responsive.after('SD') {
+      width: 90%;
     }
 
-    .setting {
-      width: 24px;
-      height: 24px;
-      color: colors.$GRAY_01;
+    .section {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
 
-      > svg {
-        width: inherit;
-        height: inherit;
+      .contentWrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 18px;
+        margin-bottom: 24px;
+
+        .title {
+          font-size: 24px;
+          font-weight: 600;
+          letter-spacing: 0.1px;
+        }
+
+        .content {
+          margin-bottom: 16px;
+          font-size: 16px;
+          color: colors.$SUB_TITLE;
+        }
+      }
+
+      .setting {
+        width: 100px;
+        height: 36px;
+        margin: 0 12px 12px;
+        line-height: 36px;
+        color: colors.$WHITE;
+        text-align: center;
+        background: colors.$THEME;
+        border-radius: 18px;
+
+        @include responsive.between(M, SD) {
+          width: 80px;
+          height: 24px;
+          margin: 0 12px 12px;
+          font-size: 12px;
+          line-height: 24px;
+        }
+      }
+    }
+
+    .status {
+      display: flex;
+      gap: 12px;
+      padding: 16px 4px;
+      border-top: 1px solid colors.$DIVIDE_LINE;
+
+      .cntWrapper {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        color: colors.$BASIC_FONT;
+
+        > svg {
+          width: 24px;
+          height: 24px;
+          opacity: 0.5;
+        }
       }
     }
   }
@@ -101,11 +156,21 @@
       }
     }
 
-    .showMoreWrapper {
+    .refetchBtnWrapper {
       display: flex;
       justify-content: center;
       width: 100%;
-      margin: 12px 0;
+
+      .btn {
+        width: 100px;
+        height: 36px;
+        margin: 12px 0 48px;
+        line-height: 36px;
+        color: colors.$WHITE;
+        text-align: center;
+        background: colors.$THEME;
+        border-radius: 18px;
+      }
     }
   }
 }
