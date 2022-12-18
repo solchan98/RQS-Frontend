@@ -1,10 +1,11 @@
-import cs from './joinSpace.module.scss';
-import { Link, useNavigate, useParams } from 'react-router-dom';
-import { useMount } from 'react-use';
 import jwtDecode from 'jwt-decode';
+import { useMount } from 'react-use';
 import { FormEventHandler, useState } from 'react';
-import { joinSpaceWithToken } from '../../service/spaces';
-import { useLogout } from '../../hooks/useLogout';
+import { Link, useNavigate, useParams } from 'react-router-dom';
+import { joinSpaceWithToken } from 'service/spaces';
+import { useLogout } from 'hooks/useLogout';
+
+import cs from './joinSpace.module.scss';
 
 interface IItkSubject {
   spaceId: number;

@@ -6,7 +6,7 @@ import { tokenChecker } from '../util/token';
 
 const CREATE_NEW_SPACE = '/my/space';
 const CREATE_INVITE_TOKEN = '/my/space/invite';
-const JOIN_SPACE_WITH_TOKEN = '/space/join';
+const JOIN_SPACE_WITH_TOKEN = '/my/space/join';
 
 const GET_SPACE = '/space';
 const GET_SPACE_LIST = '/space/all';

@@ -21,6 +21,7 @@ import { MemberSpace } from './pages/MemberPage/MemberSpace';
 import { MemberPage } from './pages/MemberPage';
 import { MemberScrap } from './pages/MemberPage/MemberScrap';
 import { tokenChecker } from './util/token';
+import { JoinSpace } from './pages/JoinSpace';
 
 const App = () => {
   const [memberValue, setMemberValue] = useRecoilState(memberState);
@@ -68,6 +69,7 @@ const App = () => {
           <Route path='trending' element={<Trending />} />
           <Route path='newest' element={<Newest />} />
         </Route>
+        <Route path='join/:itk' element={<JoinSpace />} />
         <Route path='space'>
           <Route path=':spaceId' element={<Space />} />
           <Route path=':spaceId/setting' element={<UpdateSpace />} />
