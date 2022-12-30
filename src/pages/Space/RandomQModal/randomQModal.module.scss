@@ -28,7 +28,7 @@
 
   .noticeList {
     margin-top: 12px;
-    font-size: 8px;
+    font-size: 12px;
 
     @include responsive.after('SD') {
       font-size: 14px;
