@@ -2,7 +2,7 @@ import { useState } from 'react';
 
 import { getRandomSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
-import { IItem } from 'types/item';
+import { IRandomItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import ToastViewer from 'components/ToastUI/Viewer';
@@ -12,6 +12,7 @@ import { StartLottie } from 'components/Lotties/StartLottie';
 import { TitleQuestion } from 'assets/svgs';
 import cx from 'classnames';
 import cs from './randomQModal.module.scss';
+import { Timer } from '../../../components/Timer';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -21,7 +22,7 @@ interface Props {
 export const RandomQModal = ({ useModal, space }: Props) => {
   const [startState, setStartState] = useState(false);
   const [showState, setShowState] = useState(true);
-  const [quiz, setQuiz] = useState<IItem>({} as IItem);
+  const [quiz, setQuiz] = useState<IRandomItem>({} as IRandomItem);
 
   const { isOpen, closeModal } = useModal;
   const closeModalHandler = () => setStartState(false);
@@ -41,8 +42,19 @@ export const RandomQModal = ({ useModal, space }: Props) => {
     return (
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
         <div className={cx(cs.container, cs.beforeStart)}>
-          <div>{space.title}</div>
-          <small className={cs.tip}>(스페이스에 존재하는 모든 문제가 중복없이 랜덤으로 출제됩니다.)</small>
+          <p className={cs.title}>{space.title}</p>
+          <ul className={cs.noticeList}>
+            <li>
+              스페이스에 존재하는 모든 문제가 <mark>중복없이 랜덤으로 출제</mark>됩니다.
+            </li>
+            <li>
+              오른쪽 상단에는 <mark>중복 없이</mark> 문제를 뽑을 수 있는 <mark>시간</mark>이 존재합니다.
+            </li>
+            <li>
+              시간은 <mark>문제를 뽑을 때 마다 초기화</mark> 됩니다.
+            </li>
+            <li>실수로 창을 닫아도 해당 시간 내에는 유지됩니다.</li>
+          </ul>
           <StartLottie />
           <button className={cs.startButton} type='button' onClick={getRandomQuiz}>
             시작하기
@@ -54,23 +66,32 @@ export const RandomQModal = ({ useModal, space }: Props) => {
   return (
     <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
       <div className={cs.container}>
+        <div className={cs.statusWrapper}>
+          <div className={cs.remainingWord}>
+            <p>남은 문제</p>
+            <p>{quiz.remainingWordCnt}개</p>
+          </div>
+          <div className={cs.remainingExpiredTime}>
+            남은 시간 <Timer date={Date.now() + quiz.remainingExpireTime} />
+          </div>
+        </div>
         {showState && (
           <div className={cs.questionWrapper}>
             <div className={cs.question}>
               <TitleQuestion />
-              <span>{quiz.question}</span>
+              <span>{quiz.itemResponse.question}</span>
             </div>
           </div>
         )}
         {!showState && (
           <div className={cs.answer}>
-            <ToastViewer content={quiz.answer} />
+            <ToastViewer content={quiz.itemResponse.answer} />
           </div>
         )}
         <div className={cs.bottom}>
           <ul className={cs.hintList}>
-            {quiz.hint.length !== 0 &&
-              quiz.hint.split(',').map((hint) => (
+            {quiz.itemResponse.hint.length !== 0 &&
+              quiz.itemResponse.hint.split(',').map((hint) => (
                 <li key={hint} className={cs.hint}>
                   {hint}
                 </li>
