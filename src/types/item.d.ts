@@ -9,3 +9,9 @@ export interface IItem {
   createdAt: string;
   spaceMemberResponse: ISpaceMember;
 }
+
+export interface IRandomItem {
+  remainingWordCnt: number;
+  remainingExpireTime: number;
+  itemResponse: IItem;
+}

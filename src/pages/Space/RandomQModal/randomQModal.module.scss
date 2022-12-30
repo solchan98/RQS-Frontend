@@ -21,6 +21,49 @@
     width: 40vw;
   }
 
+  .title {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .noticeList {
+    margin-top: 12px;
+    font-size: 8px;
+
+    @include responsive.after('SD') {
+      font-size: 14px;
+    }
+
+    li {
+      margin: 6px 0;
+
+      &::before {
+        color: colors.$THEME;
+        content: '✲ ';
+      }
+
+      mark {
+        font-weight: bold;
+        background: transparent;
+      }
+    }
+  }
+
+  .statusWrapper {
+    display: flex;
+    width: 100%;
+
+    .remainingWord {
+      margin-left: auto;
+      text-align: center;
+    }
+
+    .remainingExpiredTime {
+      margin-left: auto;
+      text-align: center;
+    }
+  }
+
   .questionWrapper {
     display: flex;
     align-items: center;
