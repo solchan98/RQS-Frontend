@@ -6,14 +6,14 @@
   justify-content: space-between;
   height: 100%;
   overflow: hidden;
-  background-color: colors.$WHITE;
-  border-radius: 4px;
+  background: colors.$BACKGROUND_GRAY;
+  border: 1px solid colors.$DIVIDE_LINE;
+  border-radius: 8px;
   transition: 0.5s;
 
   &:hover {
-    box-shadow: 3px 6px 12px 1px colors.$DIVIDE_LINE;
     transition: 0.5s;
-    transform: translateY(-6px) translateX(-3px);
+    transform: translateY(-2px) translateX(-2px);
   }
 
   .top {

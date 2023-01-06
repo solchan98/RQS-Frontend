@@ -14,7 +14,7 @@ export const Layout = () => {
     <div className={cs.container}>
       <div className={cs.header}>
         <Link className={cs.logo} to='/'>
-          <span>ℚ𝕦𝕚𝕫 𝔹𝕠𝕩</span>
+          <span className={cs.title}>Quiz Box</span>
         </Link>
         <div className={cs.rightSection}>
           <form className={cs.searchForm} id='searchSpace'>
@@ -32,7 +32,7 @@ export const Layout = () => {
           )}
         </div>
       </div>
-      <div>
+      <div className={cs.body}>
         <Outlet />
       </div>
       <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>

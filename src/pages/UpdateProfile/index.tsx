@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { updateMemberInfo } from 'service/member';
+import { getMemberInfo, updateMemberInfo } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMember } from 'types/member';
 
@@ -30,9 +30,9 @@ export const UpdateProfile = () => {
 
   const logout = useLogout();
   const setupMember = () => {
-    // getMemberInfo()
-    //   .then((data) => setNickname(data.nickname))
-    //   .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+    getMemberInfo(Number(memberId))
+      .then((data) => setNickname(data.nickname))
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
   useMount(() => {
