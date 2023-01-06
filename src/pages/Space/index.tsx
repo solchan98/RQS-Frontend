@@ -83,7 +83,7 @@ export const Space = () => {
           </div>
           {isSpaceAdmin() && (
             <Link className={cs.setting} to='./setting'>
-              스페이스 수정
+              수정
             </Link>
           )}
         </div>
