@@ -32,7 +32,7 @@ export const Layout = () => {
           )}
         </div>
       </div>
-      <div>
+      <div className={cs.body}>
         <Outlet />
       </div>
       <footer className={cs.footer}>Copyright 2022. RQS all rights reserved.</footer>

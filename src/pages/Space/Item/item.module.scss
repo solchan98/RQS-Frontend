@@ -1,31 +1,42 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .container {
   box-sizing: border-box;
-  width: inherit;
+  width: 100%;
   height: 100%;
-  padding: 12px 12px 6px;
-  background: colors.$WHITE;
+  padding: 24px;
+  background: colors.$BACKGROUND_GRAY;
+  border: 1px solid colors.$DIVIDE_LINE2;
   border-radius: 12px;
   transition: 0.5s;
 
   &:hover {
-    box-shadow: 3px 6px 12px 1px colors.$DIVIDE_LINE;
     transition: 0.5s;
-    transform: translateY(-6px) translateX(-3px);
+    transform: translateY(-2px) translateX(-2px);
   }
 
   .top {
     display: flex;
+    align-items: center;
     width: 100%;
     height: 32px;
     padding-bottom: 4px;
     border-bottom: 1px solid colors.$DIVIDE_LINE;
 
+    @include responsive.after('SD') {
+      height: 60px;
+    }
+
     .avatar {
       width: 32px;
       height: 32px;
       border-radius: 50px;
+
+      @include responsive.after('SD') {
+        width: 48px;
+        height: 48px;
+      }
 
       > img {
         width: inherit;
@@ -48,12 +59,20 @@
         font-size: 14px;
         font-weight: 600;
         color: colors.$SUB_TITLE;
+
+        @include responsive.after('SD') {
+          font-size: 18px;
+        }
       }
 
       .timestamp {
         font-size: 10px;
         color: colors.$TIME_STAMP;
         text-align: start;
+
+        @include responsive.after('SD') {
+          font-size: 12px;
+        }
       }
 
       .setting {
@@ -78,6 +97,11 @@
     font-size: 14px;
     color: colors.$BASIC_FONT;
     text-align: start;
+
+    @include responsive.after('SD') {
+      padding: 24px 4px;
+      font-size: 16px;
+    }
   }
 
   .bottom {
@@ -89,6 +113,7 @@
       flex-wrap: wrap;
       gap: 6px;
       width: inherit;
+      margin-bottom: 12px;
 
       .hint {
         padding: 4px 8px;
@@ -97,6 +122,19 @@
         background-color: colors.$THEME; // TODO: 색 이상해
         border-radius: 12px;
       }
+    }
+  }
+
+  .answer {
+    .textarea {
+      width: 100%;
+      padding-top: 12px;
+      font-size: 14px;
+      line-height: 20px;
+      color: colors.$CONTENT;
+      background: none;
+      border: none;
+      border-top: 1px solid colors.$DIVIDE_LINE2;
     }
   }
 }

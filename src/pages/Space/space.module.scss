@@ -5,18 +5,19 @@
   box-sizing: border-box;
   display: flex;
   flex-direction: column;
-  align-items: center;
   width: 100%;
-  padding: 12px;
-  margin-top: 48px;
 
   .top {
+    box-sizing: border-box;
     display: flex;
     flex-direction: column;
     width: 100%;
+    padding: 24px;
+    background: colors.$BACKGROUND_GRAY;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
 
     @include responsive.after('SD') {
-      width: 90%;
+      padding: 12px 18%;
     }
 
     .section {
@@ -26,20 +27,39 @@
 
       .contentWrapper {
         display: flex;
-        flex-direction: column;
-        gap: 18px;
-        margin-bottom: 24px;
+        gap: 24px;
+        align-items: center;
+        padding-bottom: 24px;
 
-        .title {
-          font-size: 24px;
-          font-weight: 600;
-          letter-spacing: 0.1px;
+        .leftContent {
+          display: flex;
+
+          .image {
+            display: none;
+
+            @include responsive.after('SD') {
+              display: block;
+              border-radius: 24px;
+            }
+          }
         }
 
-        .content {
-          margin-bottom: 16px;
-          font-size: 16px;
-          color: colors.$SUB_TITLE;
+        .rightContent {
+          display: flex;
+          flex-direction: column;
+          gap: 18px;
+
+          .title {
+            font-size: 24px;
+            font-weight: 600;
+            letter-spacing: 0.1px;
+          }
+
+          .content {
+            margin-bottom: 16px;
+            font-size: 16px;
+            color: colors.$SUB_TITLE;
+          }
         }
       }
 
@@ -85,8 +105,13 @@
   }
 
   .main {
+    box-sizing: border-box;
     width: 100%;
-    margin: 24px 0;
+    padding: 24px;
+
+    @include responsive.after('SD') {
+      padding: 12px 18%;
+    }
 
     .mainTop {
       display: flex;
@@ -101,8 +126,8 @@
         align-items: center;
 
         .subTitle {
-          font-size: 18px;
-          font-weight: 600;
+          font-size: 24px;
+          font-weight: bold;
           color: colors.$SUB_TITLE;
           letter-spacing: 0.3px;
         }
@@ -122,33 +147,16 @@
     }
 
     .quizList {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 24px;
-
-      @include responsive.after('SD') {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      @include responsive.after('LD') {
-        grid-template-columns: 1fr 1fr 1fr;
-      }
-
-      @include responsive.after('HD') {
-        grid-template-columns: 1fr 1fr 1fr 1fr;
-      }
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
     }
 
     .addBtn {
       min-height: 72px;
-      border: 5px solid colors.$WHITE;
+      background: colors.$BACKGROUND_GRAY;
+      border: 1px solid colors.$DIVIDE_LINE2;
       border-radius: 12px;
-      transition: 0.5s;
-
-      &:hover {
-        background: colors.$WHITE;
-        transition: 0.5s;
-      }
 
       > svg {
         width: 24px;

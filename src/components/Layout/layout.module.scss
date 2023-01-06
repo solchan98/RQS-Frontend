@@ -2,13 +2,9 @@
 @use '/src/styles/mixins/responsive';
 
 .container {
-
-  @include responsive.after('LD') {
-    display: flex;
-    flex-direction: column;
-    max-width: 80%;
-    margin: 0 auto;
-  }
+  display: flex;
+  flex-direction: column;
+  height: 100%;
 
   .header {
     display: flex;
@@ -16,10 +12,11 @@
     justify-content: space-between;
     height: 36px;
     padding: 12px;
-    background: colors.$WHITE;
+    background: colors.$BACKGROUND_GRAY;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
 
-    @include responsive.after('LD') {
-      background: colors.$BACKGROUND_GRAY;
+    @include responsive.after('SD') {
+      padding: 12px 18%;
     }
 
     .logo {
@@ -64,11 +61,17 @@
     }
   }
 
+  .body {
+    flex-grow: 1;
+    background: colors.$WHITE;
+  }
+
   .footer {
+    max-height: 32px;
     padding: 24px 0;
-    margin-bottom: 48px;
     font-size: 12px;
     color: colors.$FOOTER;
+    background: colors.$BACKGROUND_GRAY;
     border-top: 1px solid colors.$DIVIDE_LINE;
   }
 }

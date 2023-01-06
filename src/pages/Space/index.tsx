@@ -16,6 +16,9 @@ import { RandomQModal } from 'pages/Space/RandomQModal';
 import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
 import { CreateQModal } from './CreateQModal';
+import { Image } from '@chakra-ui/react';
+
+const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket-4954229_1280.jpg';
 
 export const Space = () => {
   const { spaceId } = useParams();
@@ -70,8 +73,13 @@ export const Space = () => {
       <div className={cs.top}>
         <div className={cs.section}>
           <div className={cs.contentWrapper}>
-            <div className={cs.title}>{space?.title}</div>
-            <div className={cs.content}>{space?.content}</div>
+            <div className={cs.leftContent}>
+              <Image className={cs.image} boxSize='180px' src={space?.imageUrl ?? DEFAULT_THUMBNAIL} />
+            </div>
+            <div className={cs.rightContent}>
+              <div className={cs.title}>{space?.title}</div>
+              <div className={cs.content}>{space?.content}</div>
+            </div>
           </div>
           {isSpaceAdmin() && (
             <Link className={cs.setting} to='./setting'>

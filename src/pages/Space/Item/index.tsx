@@ -5,6 +5,7 @@ import { IItem } from 'types/item';
 
 import cs from './item.module.scss';
 import { Setting } from 'assets/svgs';
+import { Box, Collapse, Textarea, useDisclosure } from '@chakra-ui/react';
 
 const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
@@ -14,8 +15,10 @@ interface Props {
 }
 
 export const Item = ({ item, isUpdatable }: Props) => {
+  const { isOpen, onToggle } = useDisclosure();
+
   return (
-    <div className={cs.container}>
+    <button type='button' onClick={onToggle} className={cs.container}>
       <div className={cs.top}>
         <Link className={cs.avatar} to='#'>
           <img src={item.spaceMemberResponse?.avatar ?? TEMP_AVATAR} alt='profile_img' />
@@ -30,9 +33,7 @@ export const Item = ({ item, isUpdatable }: Props) => {
           )}
         </div>
       </div>
-      <button type='button' className={cs.main}>
-        {item.question}
-      </button>
+      <div className={cs.main}>{item.question}</div>
       <div className={cs.bottom}>
         <ul className={cs.hintList}>
           {item.hint.length !== 0 &&
@@ -43,6 +44,11 @@ export const Item = ({ item, isUpdatable }: Props) => {
             ))}
         </ul>
       </div>
-    </div>
+      <Collapse className={cs.answer} in={isOpen} animateOpacity>
+        <Box display='flex'>
+          <Textarea className={cs.textarea} rows={item.answer.split('\n').length - 1} value={item.answer} isReadOnly />
+        </Box>
+      </Collapse>
+    </button>
   );
 };
