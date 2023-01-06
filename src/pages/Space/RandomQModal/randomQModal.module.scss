@@ -7,7 +7,7 @@
   align-items: center;
   justify-content: center;
   width: 80vw;
-  max-height: 50vh;
+  max-height: 70vh;
 
   @include responsive.after('SD') {
     width: 60vw;
