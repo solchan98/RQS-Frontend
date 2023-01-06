@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useMemo, useState } from 'react';
 
 import { getRandomSpaceItem } from 'service/items';
 import { useLogout } from 'hooks/useLogout';
@@ -38,6 +38,8 @@ export const RandomQModal = ({ useModal, space }: Props) => {
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
+  const date = useMemo(() => Date.now() + quiz.remainingExpireTime, [quiz]);
+
   if (!startState)
     return (
       <ModalTemplate isOpen={isOpen} closeModal={() => closeModal(closeModalHandler)} portalClassName='randomQuestion'>
@@ -72,7 +74,7 @@ export const RandomQModal = ({ useModal, space }: Props) => {
             <p>{quiz.remainingWordCnt}개</p>
           </div>
           <div className={cs.remainingExpiredTime}>
-            남은 시간 <Timer date={Date.now() + quiz.remainingExpireTime} />
+            남은 시간 <Timer date={date} />
           </div>
         </div>
         {showState && (
