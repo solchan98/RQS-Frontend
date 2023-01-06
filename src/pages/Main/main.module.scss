@@ -17,6 +17,7 @@
     background-image: url('https://images.unsplash.com/photo-1522441815192-d9f04eb0615c?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=627&q=80');
     background-repeat: no-repeat;
     background-size: cover;
+    border-radius: 8px;
 
     .introText {
       font-size: 18px;
@@ -41,13 +42,15 @@
     flex-direction: column;
     gap: 12px;
     width: 100%;
+    margin-top: 24px;
+    border-top: 1px solid colors.$DIVIDE_LINE;
 
     .contentSelector {
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       padding: 0 12px;
-      margin-top: 48px;
+      margin-top: 24px;
 
       .contentTitle {
         font-size: 24px;

@@ -17,7 +17,6 @@ export const Main = () => {
       </section>
       <main className={cs.main}>
         <div className={cs.contentSelector}>
-          {/* <div className={cs.contentTitle}>🗺 탐색하기</div> */}
           <div className={cs.switch}>
             <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/trending'>
               🌟 트렌딩

@@ -21,6 +21,11 @@
 
     .logo {
       color: colors.$BLACK;
+
+      .title {
+        font-size: 18px;
+        font-weight: 400;
+      }
     }
 
     .rightSection {

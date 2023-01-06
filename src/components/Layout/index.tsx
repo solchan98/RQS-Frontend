@@ -14,7 +14,7 @@ export const Layout = () => {
     <div className={cs.container}>
       <div className={cs.header}>
         <Link className={cs.logo} to='/'>
-          <span>ℚ𝕦𝕚𝕫 𝔹𝕠𝕩</span>
+          <span className={cs.title}>Quiz Box</span>
         </Link>
         <div className={cs.rightSection}>
           <form className={cs.searchForm} id='searchSpace'>
