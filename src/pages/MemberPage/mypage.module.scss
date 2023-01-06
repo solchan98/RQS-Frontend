@@ -9,9 +9,13 @@
   .content {
     display: flex;
     justify-content: space-between;
-    padding: 32px 18%;
+    padding: 18px;
     background: colors.$BACKGROUND_GRAY;
     border-bottom: 1px solid colors.$DIVIDE_LINE;
+
+    @include responsive.after('SD') {
+      padding: 32px 18%;
+    }
 
     @include responsive.between(M, SD) {
       > div > div > a > img {

@@ -1,10 +1,15 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 24px 18%;
+  padding: 12px;
+
+  @include responsive.after('SD') {
+    padding: 12px 18%;
+  }
 
   .intro {
     box-sizing: border-box;
