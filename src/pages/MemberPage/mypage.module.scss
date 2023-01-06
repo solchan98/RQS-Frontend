@@ -2,14 +2,16 @@
 @use '/src/styles/mixins/responsive';
 
 .container {
+  box-sizing: border-box;
   width: 100%;
   margin: 0 auto;
 
   .content {
     display: flex;
     justify-content: space-between;
-    padding-bottom: 24px;
-    margin: 90px 12px 0;
+    padding: 32px 18%;
+    background: colors.$BACKGROUND_GRAY;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
 
     @include responsive.between(M, SD) {
       > div > div > a > img {
@@ -67,9 +69,10 @@
   }
 
   .nav {
+    box-sizing: border-box;
     display: flex;
     justify-content: space-around;
-    border-bottom: 2px solid colors.$DIVIDE_LINE;
+    padding: 12px 18%;
 
     .el {
       width: 100%;

@@ -67,6 +67,8 @@
   }
 
   .footer {
+    display: flex;
+    justify-content: center;
     max-height: 32px;
     padding: 24px 0;
     font-size: 12px;
