@@ -19,6 +19,7 @@ export const JoinSpace = () => {
 
   const [itkSub, setItkSub] = useState<IItkSubject | undefined>();
 
+  const nav = useNavigate();
   useMount(() => {
     if (itk) {
       const decoded: { exp: number; iat: number; sub: string } = jwtDecode(itk);
@@ -26,13 +27,17 @@ export const JoinSpace = () => {
     }
   });
 
-  const nav = useNavigate();
   const joinSpaceSuccessHandler = () => {
     alert(`${itkSub?.spaceTitle} 성공적으로 참여하였습니다!`);
     nav(`/space/${itkSub?.spaceId}`);
   };
 
   const logout = useLogout();
+  const authErrorHandler = () => {
+    logout();
+    alert('로그인이 필요합니다.');
+    nav('/auth/login');
+  };
   const joinSpace: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!itk) {
@@ -40,7 +45,7 @@ export const JoinSpace = () => {
     } else {
       joinSpaceWithToken(itk)
         .then(joinSpaceSuccessHandler)
-        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+        .catch((err) => (err.response.status === 401 ? authErrorHandler() : alert(err.response.data.message)));
     }
   };
 
