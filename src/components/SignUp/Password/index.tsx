@@ -10,7 +10,7 @@ interface Props {
   checked: boolean;
 }
 
-const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@!%*#?&])[A-Za-z\d$@!%*#?&]{8,}$/;
+const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
 
 const Password = ({ password, setPassword, checked }: Props) => {
   const [invalidPassword, setInvalidPassword] = useState(true);
@@ -31,7 +31,7 @@ const Password = ({ password, setPassword, checked }: Props) => {
             placeholder='비밀번호를 입력해주세요.'
             onChange={onChangePassword}
           />
-          {invalidPassword && <p className={cms.alert}>영문과 특수문자 숫자를 포함하며 8자 이상이어야 합니다.</p>}
+          {invalidPassword && <p className={cms.alert}>영문과 숫자를 포함하여 8자 이상이어야 합니다.</p>}
           <div className={cms.btnWrapper}>
             <button
               type='submit'
