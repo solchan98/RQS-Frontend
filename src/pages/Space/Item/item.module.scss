@@ -94,13 +94,13 @@
   .main {
     width: 100%;
     padding: 12px 4px;
-    font-size: 14px;
+    font-size: 16px;
     color: colors.$BASIC_FONT;
     text-align: start;
 
     @include responsive.after('SD') {
       padding: 24px 4px;
-      font-size: 16px;
+      font-size: 18px;
     }
   }
 
@@ -126,15 +126,18 @@
   }
 
   .answer {
-    .textarea {
-      width: 100%;
-      padding-top: 12px;
-      font-size: 14px;
-      line-height: 20px;
-      color: colors.$CONTENT;
-      background: none;
-      border: none;
+    text-align: start;
+
+    .viewerBox {
       border-top: 1px solid colors.$DIVIDE_LINE2;
+
+      p {
+        font-size: 14px;
+
+        @include responsive.after('SD') {
+          font-size: 16px;
+        }
+      }
     }
   }
 }

@@ -5,7 +5,8 @@ import { IItem } from 'types/item';
 
 import cs from './item.module.scss';
 import { Setting } from 'assets/svgs';
-import { Box, Collapse, Textarea, useDisclosure } from '@chakra-ui/react';
+import { Box, Collapse, useDisclosure } from '@chakra-ui/react';
+import ToastViewer from '../../../components/ToastUI/Viewer';
 
 const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
@@ -45,8 +46,8 @@ export const Item = ({ item, isUpdatable }: Props) => {
         </ul>
       </div>
       <Collapse className={cs.answer} in={isOpen} animateOpacity>
-        <Box display='flex'>
-          <Textarea className={cs.textarea} rows={item.answer.split('\n').length - 1} value={item.answer} isReadOnly />
+        <Box className={cs.viewerBox}>
+          <ToastViewer content={item.answer} />
         </Box>
       </Collapse>
     </button>
