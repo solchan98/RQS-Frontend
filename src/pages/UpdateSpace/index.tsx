@@ -11,7 +11,6 @@ import { ManageSpaceMember } from './ManageSpaceMember';
 import { UpdateTitle } from './UpdateTitle';
 import cs from './updateSpace.module.scss';
 import cx from 'classnames';
-import { CreateInviteLink } from './CreateInviteLink';
 
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
@@ -77,9 +76,6 @@ export const UpdateSpace = () => {
       <div className={cs.manageSpaceMemberWrapper}>
         <span className={cs.label}>Space Member List</span>
         <ManageSpaceMember space={spaceState} />
-      </div>
-      <div className={cs.inviteWrapper}>
-        <CreateInviteLink spaceId={Number(spaceId)} />
       </div>
       <div className={cs.bottom}>
         <form id='spaceDelete' onSubmit={onSubmitSpaceDelete}>

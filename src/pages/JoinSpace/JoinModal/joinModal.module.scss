@@ -1,0 +1,78 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 80vw;
+
+  @include responsive.after('SD') {
+    width: 60vw;
+  }
+
+  @include responsive.after('LD') {
+    width: 40vw;
+  }
+
+  @include responsive.after('HD') {
+    width: 40vw;
+  }
+
+  .top {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 12px;
+    font-size: 24px;
+    border-bottom: 1px solid colors.$DIVIDE_LINE;
+  }
+
+  .main {
+    .label {
+      font-size: 14px;
+      font-weight: bold;
+      letter-spacing: 0.3px;
+    }
+
+    p {
+      margin: 4px 0 6px;
+      font-size: 16px;
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: space-between;
+
+    .spaceStatus {
+      display: flex;
+      gap: 12px;
+
+      .cntWrapper {
+        display: flex;
+        gap: 2px;
+        align-items: center;
+        color: colors.$BASIC_FONT;
+
+        > svg {
+          width: 18px;
+          height: 18px;
+          opacity: 0.5;
+        }
+
+        > span {
+          font-size: 14px;
+          font-weight: 500;
+          opacity: 0.8;
+        }
+      }
+    }
+
+    .button {
+      width: 60px;
+      height: 36px;
+      background: colors.$THEME;
+      border-radius: 12px;
+    }
+  }
+}

@@ -24,6 +24,9 @@ export const Main = () => {
             <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/newest'>
               🔥 최신순
             </NavLink>
+            <Link className={cs.joinLink} to='/join'>
+              코드로 참여하기
+            </Link>
           </div>
         </div>
         <Outlet />
