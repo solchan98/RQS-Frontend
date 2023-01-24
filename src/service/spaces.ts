@@ -6,6 +6,7 @@ import { tokenChecker } from '../util/token';
 
 const CREATE_NEW_SPACE = '/my/space';
 const JOIN_SPACE_WITH_TOKEN = '/my/space/join';
+const CHECK_JOIN_SPACE = '/space/join';
 
 const GET_SPACE = '/space';
 const GET_SPACE_LIST = '/space/all';
@@ -177,17 +178,28 @@ export const deleteSpace = (spaceId: number) => {
     .catch(() => reissueAtk().then(() => deleteSpaceApi(spaceId)));
 };
 
-const joinSpaceWithTokenApi = (spaceId: number, joinCode: string) => {
+const checkJoinSpaceApi = (spaceId: string, code: string) => {
+  const params = { spaceId, code };
+  return baseApi.get(CHECK_JOIN_SPACE, { params }).then((res) => res.data);
+};
+
+export const checkJoinSpace = (spaceId: string, code: string) => {
+  return checkJoinSpaceApi(spaceId, code)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => checkJoinSpaceApi(spaceId, code)));
+};
+
+const joinSpaceWithCodeApi = (spaceId: number, code: string) => {
   const atk = store.get('atk');
-  const params = { spaceId, joinCode };
+  const params = { spaceId, code };
   const headers = { Authorization: `bearer ${atk}` };
   return baseApi.get(JOIN_SPACE_WITH_TOKEN, { params, headers }).then((res) => res.data);
 };
 
-export const joinSpaceWithToken = (spaceId: number, joinCode: string) => {
-  return joinSpaceWithTokenApi(spaceId, joinCode)
+export const joinSpaceWithCode = (spaceId: number, code: string) => {
+  return joinSpaceWithCodeApi(spaceId, code)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => joinSpaceWithTokenApi(spaceId, joinCode)));
+    .catch(() => reissueAtk().then(() => joinSpaceWithCodeApi(spaceId, code)));
 };
 
 const checkIsSpaceCreatorApi = (spaceId: number) => {
