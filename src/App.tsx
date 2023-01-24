@@ -69,7 +69,7 @@ const App = () => {
           <Route path='trending' element={<Trending />} />
           <Route path='newest' element={<Newest />} />
         </Route>
-        <Route path='join/:itk' element={<JoinSpace />} />
+        <Route path='join' element={<JoinSpace />} />
         <Route path='space'>
           <Route path=':spaceId' element={<Space />} />
           <Route path=':spaceId/setting' element={<UpdateSpace />} />

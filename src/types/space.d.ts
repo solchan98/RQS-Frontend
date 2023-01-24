@@ -20,3 +20,13 @@ export interface ISpaceMember {
   joinedAt: string;
   role: string;
 }
+
+export interface IJoinSpace {
+  spaceId: number;
+  title: string;
+  content: string;
+  spaceMemberCount: number;
+  itemCount: number;
+  visibility: boolean;
+  spaceRole: string;
+}
