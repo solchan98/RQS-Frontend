@@ -184,9 +184,7 @@ const checkJoinSpaceApi = (spaceId: string, code: string) => {
 };
 
 export const checkJoinSpace = (spaceId: string, code: string) => {
-  return checkJoinSpaceApi(spaceId, code)
-    .then((data) => data)
-    .catch(() => reissueAtk().then(() => checkJoinSpaceApi(spaceId, code)));
+  return checkJoinSpaceApi(spaceId, code).then((data) => data);
 };
 
 const joinSpaceWithCodeApi = (spaceId: number, code: string) => {

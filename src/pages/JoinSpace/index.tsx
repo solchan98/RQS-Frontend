@@ -26,7 +26,7 @@ export const JoinSpace = () => {
     e.preventDefault();
     checkJoinSpace(spaceId, joinCode)
       .then(onSuccessGetJoinSpaceHandle)
-      .catch((err) => alert(err.response.data.message));
+      .catch((err) => alert(err.response.data.message ?? '요청 데이터를 확인하세요.'));
   };
 
   return (
