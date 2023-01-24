@@ -1,11 +1,12 @@
 import { MouseEventHandler } from 'react';
-import { IJoinSpace } from 'types/space';
+import { useNavigate } from 'react-router-dom';
 import { joinSpaceWithCode } from 'service/spaces';
 
-import cs from './joinModal.module.scss';
 import { ModalTemplate } from 'components/ModalTemplate';
+import { IJoinSpace } from 'types/space';
+import { useLogout } from 'hooks/useLogout';
 import { Members, Question } from 'assets/svgs';
-import { useNavigate } from 'react-router-dom';
+import cs from './joinModal.module.scss';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -18,6 +19,12 @@ export const JoinModal = ({ useModal, joinSpace, joinCode }: Props) => {
 
   const closeModalHandler = () => {};
 
+  const logout = useLogout();
+  const onJoinFailureHandler = () => {
+    logout();
+    alert('로그인이 필요합니다.');
+  };
+
   const nav = useNavigate();
   const join: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
@@ -25,7 +32,7 @@ export const JoinModal = ({ useModal, joinSpace, joinCode }: Props) => {
       .then(() => {
         nav(`/space/${joinSpace.spaceId}`);
       })
-      .catch((err) => alert(err.response.data.message));
+      .catch((err) => (err.response?.status === 401 ? onJoinFailureHandler() : alert(err.response?.data.message)));
   };
 
   return (
