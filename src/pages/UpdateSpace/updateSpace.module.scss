@@ -44,6 +44,15 @@
     gap: 8px;
   }
 
+  .visibilityWrapper {
+    display: flex;
+    gap: 24px;
+
+    .select {
+      font-weight: bold;
+    }
+  }
+
   .bottom {
     display: flex;
     align-items: center;
