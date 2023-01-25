@@ -16,8 +16,9 @@ const GET_MY_SPACE_LIST = '/my/space/all';
 const GET_SPACE_MEMBER_LIST = '/my/space/spaceMemberList';
 const UPDATE_SPACE_TITLE = '/my/space';
 const UPDATE_SPACE_MEMBER_ROLE = '/my/space/spaceMember/role';
+const UPDATE_SPACE_VISIBILITY = '/my/space/visibility';
 const DELETE_SPACE = '/my/space';
-const CHECK_IS_CREATOR = '/my/space/creator';
+const CHECK_IS_CREATOR = '/my/space/updatable';
 
 const getSpaceApi = (spaceId: number) => {
   const atk = store.get('atk');
@@ -216,4 +217,18 @@ export const checkIsSpaceCreator = (spaceId: number) => {
   return checkIsSpaceCreatorApi(spaceId)
     .then((res) => res)
     .catch(() => reissueAtk().then(() => checkIsSpaceCreatorApi(spaceId)));
+};
+
+const changeVisibilityApi = (spaceId: number, open: boolean) => {
+  const atk = store.get('atk');
+  const params = { spaceId, open };
+  const headers = { Authorization: `bearer ${atk}` };
+
+  return baseApi.patch(UPDATE_SPACE_VISIBILITY, {}, { params, headers }).then((res) => res.data);
+};
+
+export const changeVisibility = (spaceId: number, open: boolean) => {
+  return changeVisibilityApi(spaceId, open)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => changeVisibilityApi(spaceId, open)));
 };
