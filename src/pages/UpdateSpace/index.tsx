@@ -1,10 +1,10 @@
 import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { FormEventHandler, useState } from 'react';
+import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { checkIsSpaceCreator, deleteSpace, getSpace } from 'service/spaces';
+import { changeVisibility, checkIsSpaceCreator, deleteSpace, getSpace } from 'service/spaces';
 import { ISpace } from 'types/space';
 
 import { ManageSpaceMember } from './ManageSpaceMember';
@@ -62,6 +62,20 @@ export const UpdateSpace = () => {
 
   const onClickExit = () => nav(-1);
 
+  const changeVisibilityHandler = (visibility: boolean) => {
+    alert('상태가 변경되었습니다.');
+    setSpaceState((prev) => ({
+      ...prev,
+      visibility,
+    }));
+  };
+  const onClickChangeVisibility: MouseEventHandler<HTMLButtonElement> = (e) => {
+    const visibility: boolean = e.currentTarget.dataset.id === 'show';
+    changeVisibility(spaceState.spaceId, visibility)
+      .then(() => changeVisibilityHandler(visibility))
+      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+  };
+
   if (!hasAccessRole) return <div>권한 확인중...</div>;
 
   return (
@@ -76,6 +90,24 @@ export const UpdateSpace = () => {
       <div className={cs.manageSpaceMemberWrapper}>
         <span className={cs.label}>Space Member List</span>
         <ManageSpaceMember space={spaceState} />
+      </div>
+      <div className={cs.visibilityWrapper}>
+        <button
+          type='button'
+          className={cx(spaceState.visibility && cs.select)}
+          data-id='show'
+          onClick={onClickChangeVisibility}
+        >
+          공개
+        </button>
+        <button
+          type='button'
+          className={cx(!spaceState.visibility && cs.select)}
+          data-id='hidden'
+          onClick={onClickChangeVisibility}
+        >
+          비공개
+        </button>
       </div>
       <div className={cs.bottom}>
         <form id='spaceDelete' onSubmit={onSubmitSpaceDelete}>
