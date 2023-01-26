@@ -30,3 +30,9 @@ export interface IJoinSpace {
   visibility: boolean;
   spaceRole: string;
 }
+
+export interface IJoinCodes {
+  spaceId: number;
+  adminCode: string;
+  memberCode: string;
+}

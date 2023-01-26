@@ -44,6 +44,30 @@
     gap: 8px;
   }
 
+  .joinCodesWrapper {
+    margin: 12px 0;
+
+    .codesWrapper {
+      display: flex;
+      gap: 12px;
+      padding-top: 6px;
+
+      .codeWrapper {
+        display: flex;
+        gap: 6px;
+        padding: 8px 12px;
+        border: 1px solid colors.$DIVIDE_LINE;
+        border-radius: 8px;
+
+        .code {
+          font-size: 15px;
+          font-weight: 500;
+          letter-spacing: 0.5px;
+        }
+      }
+    }
+  }
+
   .visibilityWrapper {
     display: flex;
     gap: 24px;

@@ -5,7 +5,7 @@ import { reissueAtk } from './member';
 import { tokenChecker } from '../util/token';
 
 const CREATE_NEW_SPACE = '/my/space';
-const JOIN_SPACE_WITH_TOKEN = '/my/space/join';
+const JOIN_SPACE = '/my/space/join';
 const CHECK_JOIN_SPACE = '/space/join';
 
 const GET_SPACE = '/space';
@@ -188,11 +188,24 @@ export const checkJoinSpace = (spaceId: string, code: string) => {
   return checkJoinSpaceApi(spaceId, code).then((data) => data);
 };
 
+const getSpaceJoinCodesApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  const params = { spaceId };
+  const headers = { Authorization: `bearer ${atk}` };
+  return baseApi.get(JOIN_SPACE, { params, headers }).then((res) => res.data);
+};
+
+export const getSpaceJoinCodes = (spaceId: number) => {
+  return getSpaceJoinCodesApi(spaceId)
+    .then((data) => data)
+    .catch(() => reissueAtk().then(() => getSpaceJoinCodesApi(spaceId)));
+};
+
 const joinSpaceWithCodeApi = (spaceId: number, code: string) => {
   const atk = store.get('atk');
   const params = { spaceId, code };
   const headers = { Authorization: `bearer ${atk}` };
-  return baseApi.get(JOIN_SPACE_WITH_TOKEN, { params, headers }).then((res) => res.data);
+  return baseApi.post(JOIN_SPACE, { params, headers }).then((res) => res.data);
 };
 
 export const joinSpaceWithCode = (spaceId: number, code: string) => {

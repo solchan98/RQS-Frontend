@@ -4,8 +4,8 @@ import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { changeVisibility, checkIsSpaceCreator, deleteSpace, getSpace } from 'service/spaces';
-import { ISpace } from 'types/space';
+import { changeVisibility, checkIsSpaceCreator, deleteSpace, getSpace, getSpaceJoinCodes } from 'service/spaces';
+import { IJoinCodes, ISpace } from 'types/space';
 
 import { ManageSpaceMember } from './ManageSpaceMember';
 import { UpdateTitle } from './UpdateTitle';
@@ -15,6 +15,7 @@ import cx from 'classnames';
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
   const [spaceState, setSpaceState] = useState<ISpace>({} as ISpace);
+  const [joinCodes, setJoinCodes] = useState<IJoinCodes>({} as IJoinCodes);
 
   const nav = useNavigate();
   const [hasAccessRole, setHasAccessRole] = useState(false);
@@ -26,11 +27,21 @@ export const UpdateSpace = () => {
       return;
     }
     getSpace(Number(spaceId)).then(onSuccessGetSpace).catch(onError);
+    getSpaceJoinCodes(Number(spaceId)).then(onSuccessGetJoinCodes).catch(onError);
   };
 
   const onSuccessGetSpace = (space: ISpace) => {
     setSpaceState((prev) => ({ ...prev, ...space, spaceId: Number(spaceId) }));
     setHasAccessRole((prev) => !prev);
+  };
+
+  const onSuccessGetJoinCodes = ({ spaceId: sid, adminCode, memberCode }: IJoinCodes) => {
+    setJoinCodes((prev) => ({
+      ...prev,
+      spaceId: sid,
+      adminCode,
+      memberCode,
+    }));
   };
 
   const onError = (err: AxiosError<{ message: string }>) => {
@@ -90,6 +101,17 @@ export const UpdateSpace = () => {
       <div className={cs.manageSpaceMemberWrapper}>
         <span className={cs.label}>Space Member List</span>
         <ManageSpaceMember space={spaceState} />
+      </div>
+      <div className={cs.joinCodesWrapper}>
+        <span className={cs.label}>{`참여 코드 <관리자 / 멤버>`}</span>
+        <div className={cs.codesWrapper}>
+          <div className={cs.codeWrapper}>
+            <span className={cs.code}>{joinCodes.adminCode}</span>
+          </div>
+          <div className={cs.codeWrapper}>
+            <span className={cs.code}>{joinCodes.memberCode}</span>
+          </div>
+        </div>
       </div>
       <div className={cs.visibilityWrapper}>
         <button
