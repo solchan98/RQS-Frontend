@@ -29,10 +29,8 @@ export const JoinModal = ({ useModal, joinSpace, joinCode }: Props) => {
   const join: MouseEventHandler<HTMLButtonElement> = (e) => {
     e.preventDefault();
     joinSpaceWithCode(joinSpace.spaceId, joinCode)
-      .then(() => {
-        nav(`/space/${joinSpace.spaceId}`);
-      })
-      .catch((err) => (err.response?.status === 401 ? onJoinFailureHandler() : alert(err.response?.data.message)));
+      .then(() => nav(`/space/${joinSpace.spaceId}`))
+      .catch((err) => (err.response.status === 401 ? onJoinFailureHandler() : alert(err.response?.data.message)));
   };
 
   return (

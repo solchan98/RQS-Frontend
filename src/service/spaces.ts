@@ -205,7 +205,7 @@ const joinSpaceWithCodeApi = (spaceId: number, code: string) => {
   const atk = store.get('atk');
   const params = { spaceId, code };
   const headers = { Authorization: `bearer ${atk}` };
-  return baseApi.post(JOIN_SPACE, { params, headers }).then((res) => res.data);
+  return baseApi.post(JOIN_SPACE, {}, { params, headers }).then((res) => res.data);
 };
 
 export const joinSpaceWithCode = (spaceId: number, code: string) => {
