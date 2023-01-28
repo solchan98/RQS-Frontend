@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { getMemberInfo, updateMemberInfo } from 'service/member';
+import { getMemberInfo, updateMemberNickname } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMember } from 'types/member';
 
@@ -55,7 +55,7 @@ export const UpdateProfile = () => {
 
   const onSubmitMemberUpdate: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    updateMemberInfo(nickname)
+    updateMemberNickname(nickname)
       .then((data) => onSuccessUpdateProfile(data))
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };

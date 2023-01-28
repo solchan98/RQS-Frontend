@@ -1,5 +1,6 @@
 import { useRecoilValue } from 'recoil';
 import { useQuery } from '@tanstack/react-query';
+import { memberState } from 'recoil/atoms/member';
 import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 
 import { Avatar } from 'components/Avatar';
@@ -7,7 +8,6 @@ import { IMemberSubject } from 'types/member';
 import { getMemberInfo } from 'service/member';
 import cx from 'classnames';
 import cs from './mypage.module.scss';
-import { memberState } from 'recoil/atoms/member';
 
 export const MemberPage = () => {
   const { memberId } = useParams();
@@ -32,7 +32,7 @@ export const MemberPage = () => {
         </div>
         <div className={cs.rightSection}>
           {Number(memberId) === loginMemberId && (
-            <Link className={cs.profileLink} to={`/profile/${memberId}`}>
+            <Link className={cs.profileLink} to={`/update/member/${memberId}`}>
               프로필 수정
             </Link>
           )}

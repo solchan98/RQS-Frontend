@@ -22,6 +22,7 @@ import { MemberPage } from './pages/MemberPage';
 import { MemberScrap } from './pages/MemberPage/MemberScrap';
 import { tokenChecker } from './util/token';
 import { JoinSpace } from './pages/JoinSpace';
+import { UpdateProfile } from './pages/UpdateProfile';
 
 const App = () => {
   const [memberValue, setMemberValue] = useRecoilState(memberState);
@@ -51,18 +52,6 @@ const App = () => {
 
   return (
     <Routes>
-      {/* <Route path='' element={atk || memberValue.isLoggedIn ? <Layout /> : <Navigate to='auth/login' />}> */}
-      {/*  <Route path='' element={<Main />} /> */}
-      {/*  <Route path='join/:itk' element={<JoinSpace />} /> */}
-      {/*  <Route path='space/:spaceId' element={<Space />} /> */}
-      {/*  <Route path='space/:spaceId/setting' element={<UpdateSpace />} /> */}
-      {/*  <Route path='item/:itemId/setting' element={<UpdateItem />} /> */}
-      {/*  <Route path='profile/:memberId' element={<UpdateProfile />} /> */}
-      {/* </Route> */}
-      {/* <Route path='auth' element={atk || memberValue.isLoggedIn ? <Navigate to='/' /> : <AuthWrapper />}> */}
-      {/*  <Route path='login' element={<Login />} /> */}
-      {/*  <Route path='sign-up' element={<SignUp />} /> */}
-      {/* </Route> */}
       <Route path='/' element={<Layout />}>
         <Route path='' element={<Main />}>
           <Route path='' element={<Navigate to='trending' />} />
@@ -82,6 +71,7 @@ const App = () => {
           <Route path='space' element={<MemberSpace />} />
           <Route path='scrap' element={<MemberScrap />} />
         </Route>
+        <Route path='update/member/:memberId' element={<UpdateProfile />} />
       </Route>
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='' element={<Navigate to='login' />} />
