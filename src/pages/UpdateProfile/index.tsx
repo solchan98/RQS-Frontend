@@ -6,7 +6,7 @@ import { useSetRecoilState } from 'recoil';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
-import { getMemberInfo, updateMemberNickname } from 'service/member';
+import { getMemberInfo, updateMember } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMember } from 'types/member';
 
@@ -19,8 +19,10 @@ export const UpdateProfile = () => {
   const setMemberState = useSetRecoilState(memberState);
   const [avatar, setAvatar] = useState('');
   const [nickname, setNickname] = useState(''); // TODO: api call the GET_MEMBER_INFO
-
   const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => setNickname(e.currentTarget.value);
+
+  const [description, setDescription] = useState('');
+  const onChangeDescription: ChangeEventHandler<HTMLInputElement> = (e) => setDescription(e.currentTarget.value);
   const nav = useNavigate();
   const getSubjectInAtk = () => {
     const atk = store.get('atk');
@@ -28,10 +30,15 @@ export const UpdateProfile = () => {
     return JSON.parse(decoded.sub);
   };
 
+  const onSuccessGetMemberInfo = (data: IMember) => {
+    setNickname(data.nickname);
+    setDescription(data.description);
+  };
+
   const logout = useLogout();
   const setupMember = () => {
     getMemberInfo(Number(memberId))
-      .then((data) => setNickname(data.nickname))
+      .then(onSuccessGetMemberInfo)
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
 
@@ -48,6 +55,7 @@ export const UpdateProfile = () => {
 
   const onSuccessUpdateProfile = (data: IMember) => {
     setNickname(data.nickname);
+    setDescription(data.description);
     setMemberState(data);
     alert('프로필이 변경되었습니다.');
     nav(-1);
@@ -55,7 +63,7 @@ export const UpdateProfile = () => {
 
   const onSubmitMemberUpdate: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    updateMemberNickname(nickname)
+    updateMember(nickname, description)
       .then((data) => onSuccessUpdateProfile(data))
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
   };
@@ -81,6 +89,14 @@ export const UpdateProfile = () => {
           <div className={cs.updateInfoWrapper}>
             <span className={cs.label}>Nickname</span>
             <input type='text' value={nickname} onChange={onChangeNickname} />
+          </div>
+        </form>
+      </div>
+      <div className={cs.middle}>
+        <form id='updateProfile' onSubmit={onSubmitMemberUpdate}>
+          <div className={cs.updateInfoWrapper}>
+            <span className={cs.label}>Description</span>
+            <input type='text' value={description} onChange={onChangeDescription} />
           </div>
         </form>
       </div>
