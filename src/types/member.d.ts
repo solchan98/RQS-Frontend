@@ -16,5 +16,6 @@ export interface IMemberSubject {
   memberId: number;
   email: string;
   nickname: string;
+  description: string;
   avatar: string;
 }

@@ -28,6 +28,7 @@ export const MemberPage = () => {
           <div className={cs.info}>
             <div className={cs.name}>{memberInfo?.nickname}</div>
             <div className={cs.email}>{memberInfo?.email}</div>
+            <div className={cs.description}>{memberInfo?.description}</div>
           </div>
         </div>
         <div className={cs.rightSection}>
