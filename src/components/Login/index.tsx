@@ -61,12 +61,12 @@ export const Login = () => {
           Kakao
         </button>
       </div>
-      <span className={cs.divideLine} />
+      <div className={cs.divideLine} />
       <div className={cs.inputSection}>
         <input type='text' value={email} placeholder='Email' onChange={onChangeEmail} />
         <input type='password' value={password} placeholder='Password' onChange={onChangePassword} />
       </div>
-      {err !== '' && <span>{err}</span>}
+      <div className={cs.loginAlert}>{err !== '' && <span>{err}</span>}</div>
       <button className={cs.loginBtn} type='submit'>
         Log in
       </button>
