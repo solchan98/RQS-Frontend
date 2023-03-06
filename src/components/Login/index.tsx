@@ -1,12 +1,14 @@
 import { useSetRecoilState } from 'recoil';
-import { useNavigate } from 'react-router-dom';
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
 import { login } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMemberResponse, IMemberSubject } from 'types/member';
 
+import { GoogleLogin, KakaoLogin } from 'assets/svgs';
 import cs from './login.module.scss';
+import cx from 'classnames';
 import jwtDecode from 'jwt-decode';
 
 export const Login = () => {
@@ -18,6 +20,7 @@ export const Login = () => {
   const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => setEmail(e.currentTarget.value);
   const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => setPassword(e.currentTarget.value);
 
+  const nav = useNavigate();
   const onLoginSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     setErr('');
@@ -39,19 +42,33 @@ export const Login = () => {
       .catch((error) => setErr(error.response.data?.message ?? 'Server Error'));
   };
 
-  const nav = useNavigate();
-  const onClickSignUp: MouseEventHandler<HTMLButtonElement> = () => nav('/auth/sign-up');
-
   return (
     <form className={cs.loginForm} onSubmit={onLoginSubmit}>
-      <input type='text' value={email} placeholder='아이디' onChange={onChangeEmail} />
-      <input type='password' value={password} placeholder='비밀번호' onChange={onChangePassword} />
+      <div className={cs.top}>
+        <strong>Log in</strong>
+        <div className={cs.subTop}>
+          <span>New to QuizBox?</span>
+          <Link to='/auth/sign-up'>Create an account</Link>
+        </div>
+      </div>
+      <div className={cs.oauth}>
+        <button type='button' className={cx(cs.oauthBtn, cs.google)}>
+          <GoogleLogin width='32px' height='32px' />
+          Google
+        </button>
+        <button type='button' className={cx(cs.oauthBtn, cs.kakao)}>
+          <KakaoLogin width='32px' height='32px' />
+          Kakao
+        </button>
+      </div>
+      <span className={cs.divideLine} />
+      <div className={cs.inputSection}>
+        <input type='text' value={email} placeholder='Email' onChange={onChangeEmail} />
+        <input type='password' value={password} placeholder='Password' onChange={onChangePassword} />
+      </div>
       {err !== '' && <span>{err}</span>}
       <button className={cs.loginBtn} type='submit'>
-        로그인
-      </button>
-      <button type='button' className={cs.signUpSpan} onClick={onClickSignUp}>
-        아직 회원이 아니신가요?
+        Log in
       </button>
     </form>
   );

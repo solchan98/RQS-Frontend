@@ -1,22 +1,57 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .authWrapper {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
   width: 100%;
-  height: 100%;
+
+  @include responsive.after('SD') {
+    position: relative;
+    flex-direction: row;
+    justify-content: center;
+    height: 100vh;
+
+    .lottie {
+      width: 100%;
+    }
+  }
 
   .authHeader {
     display: flex;
-    align-items: center;
     justify-content: center;
-    width: inherit;
-    height: 120px;
-    font-size: 22px;
-    font-weight: bold;
-    color: colors.$SUB_TITLE;
-    text-align: center;
+    width: 100%;
+    margin: 36px 0;
+
+    @include responsive.after('SD') {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: auto;
+      margin: 24px 12px;
+    }
+
+    .title {
+      font-size: 28px;
+      font-weight: bold;
+      color: colors.$BLACK;
+      letter-spacing: 0.2px;
+    }
+  }
+
+  .main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  .footer {
+    position: absolute;
+    bottom: 0;
+    height: 48px;
+    font-size: 12px;
+    color: colors.$FOOTER;
   }
 }
