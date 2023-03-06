@@ -1,26 +1,35 @@
 import { AxiosError } from 'axios';
-import { Box } from '@mui/material';
-import { useNavigate } from 'react-router-dom';
-import { FormEventHandler, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
-import { signUp } from 'service/member';
-import Email from './Email';
-import Nickname from './Nickname';
-import Password from './Password';
+import { checkEmail, signUp } from 'service/member';
 
 import cs from './signUp.module.scss';
+import loginCs from '../Login/login.module.scss';
+import cx from 'classnames';
+import { GoogleLogin, KakaoLogin } from 'assets/svgs';
 
-const PROCESS_CNT = 3;
+const EMAIL_REG_EXP = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
+const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
 
 export const SignUp = () => {
   const [email, setEmail] = useState('');
   const [nickname, setNickname] = useState('');
   const [password, setPassword] = useState('');
 
-  const [curIdx, setCurIdx] = useState(0);
-  const nextStep = () => {
-    if (curIdx + 1 === PROCESS_CNT) setCurIdx(0);
-    else setCurIdx((prev) => prev + 1);
+  const [validEmail, setValidEmail] = useState(false);
+  const [validPassword, setValidPassword] = useState(false);
+
+  const onChangeEmail: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setValidEmail(EMAIL_REG_EXP.test(e.currentTarget.value));
+    setEmail(e.currentTarget.value);
+  };
+
+  const onChangeNickname: ChangeEventHandler<HTMLInputElement> = (e) => setNickname(e.currentTarget.value);
+
+  const onChangePassword: ChangeEventHandler<HTMLInputElement> = (e) => {
+    setValidPassword(PASSWORD_REG_EXP.test(e.currentTarget.value));
+    setPassword(e.currentTarget.value);
   };
 
   const nav = useNavigate();
@@ -33,18 +42,56 @@ export const SignUp = () => {
     alert(err.response?.data.message ?? 'SERVER ERROR');
   };
 
-  const onSubmitSignUp: FormEventHandler<HTMLFormElement> = (e) => {
-    e.preventDefault();
+  const onCheckDupEmailSuccess = () => {
     signUp(email, nickname, password).then(onSubmitSuccessHandler).catch(onSubmitFailHandler);
   };
 
+  const onSubmitSignUp: FormEventHandler<HTMLFormElement> = (e) => {
+    e.preventDefault();
+    checkEmail(email).then((data) => (!data.exist ? onCheckDupEmailSuccess() : alert('중복된 이메일입니다!')));
+  };
+
   return (
-    <form id='signUp' className={cs.container} onSubmit={onSubmitSignUp}>
-      <Box>
-        <Email email={email} setEmail={setEmail} checked={curIdx === 0} nextStep={nextStep} />
-        <Nickname nickname={nickname} setNickname={setNickname} checked={curIdx === 1} nextStep={nextStep} />
-        <Password password={password} setPassword={setPassword} checked={curIdx === 2} />
-      </Box>
+    <form id='signUp' className={loginCs.loginForm} onSubmit={onSubmitSignUp}>
+      <div className={loginCs.top}>
+        <strong>Create an account</strong>
+        <div className={loginCs.subTop}>
+          <span>Already have an account?</span>
+          <Link to='/auth/login'>Login</Link>
+        </div>
+      </div>
+      <div className={loginCs.oauth}>
+        <button type='button' className={cx(loginCs.oauthBtn, loginCs.google)}>
+          <GoogleLogin width='32px' height='32px' />
+          Google
+        </button>
+        <button type='button' className={cx(loginCs.oauthBtn, loginCs.kakao)}>
+          <KakaoLogin width='32px' height='32px' />
+          Kakao
+        </button>
+      </div>
+      <div className={loginCs.divideLine} />
+      <div className={loginCs.inputSection}>
+        <div className={cs.commonInput}>
+          <input type='text' value={email} placeholder='Email' onChange={onChangeEmail} />
+          <div className={cs.alert}>{!validEmail && <p>이메일 형식으로 작성해주세요</p>}</div>
+        </div>
+        <div className={cs.commonInput} style={{ marginBottom: '4px' }}>
+          <input type='text' value={nickname} placeholder='Nickname' onChange={onChangeNickname} />
+        </div>
+        <div className={cs.commonInput}>
+          <input type='password' value={password} placeholder='Password' onChange={onChangePassword} />
+          <div className={cs.alert}>{!validPassword && <p>영문과 숫자를 포함하여 8자 이상이어야 합니다.</p>}</div>
+        </div>
+      </div>
+      <button
+        type='submit'
+        className={cx(loginCs.loginBtn, cs.signUpBtn)}
+        disabled={!validEmail || !validPassword}
+        form='signUp'
+      >
+        Sign up
+      </button>
     </form>
   );
 };
