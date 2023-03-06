@@ -1,4 +1,5 @@
 @use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
 .loginForm {
   display: flex;
@@ -6,37 +7,93 @@
   gap: 2px;
   align-items: center;
   justify-content: center;
-  padding: 12px;
+  min-width: 320px;
+  max-width: 320px;
+  height: 100%;
+  padding: 52px 48px 36px;
+  background: colors.$WHITE;
+  border-radius: 8px;
 
-  > input {
-    width: 240px;
-    padding: 12px 8px;
-    font-size: 16px;
-    border: 1px solid colors.$GRAY_01;
-    border-radius: 4px;
+  @include responsive.after('SD') {
+    display: block;
+  }
 
-    &:focus {
-      border: 1px solid colors.$THEME;
+  .top {
+    width: 100%;
+
+    > strong {
+      font-size: 28px;
+      font-weight: bold;
+      letter-spacing: 0.4px;
+    }
+
+    .subTop {
+      padding: 14px 0 0;
+      font-size: 14px;
+
+      > span {
+        padding-right: 4px;
+        letter-spacing: 0.1px;
+      }
+
+      > a {
+        color: colors.$THEME;
+        letter-spacing: 0.1px;
+      }
     }
   }
 
-  > span {
-    margin-top: 12px;
-    font-size: 12px;
-    color: colors.$ALERT;
+  .divideLine {
+    width: 100%;
+    margin: 0;
+    border: 0.5px solid colors.$DIVIDE_LINE;
+  }
+
+  .inputSection {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+    width: 100%;
+    margin: 24px 0 0;
+
+    input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 12px 8px;
+      font-size: 15px;
+      letter-spacing: 0.2px;
+      background: colors.$BACKGROUND_GRAY;
+      border: 0.5px solid colors.$GRAY_01;
+      border-radius: 6px;
+
+      &:focus {
+        border: 0.5px solid colors.$THEME;
+      }
+    }
+  }
+
+  .loginAlert {
+    width: 100%;
+    height: 18px;
+    margin: 8px 0 24px 4px;
+
+    > span {
+      margin-top: 12px;
+      font-size: 12px;
+      color: colors.$ALERT;
+    }
   }
 
   .loginBtn {
-    width: 100px;
-    height: 32px;
-    margin: 24px 0 12px;
+    width: 100%;
+    height: 46px;
+    font-size: 14px;
+    font-weight: bold;
+    color: colors.$WHITE;
     background-color: colors.$THEME;
-    border-radius: 4px;
-    opacity: 0.8;
-
-    &:hover {
-      opacity: 1;
-    }
+    border-radius: 6px;
+    opacity: 1;
   }
 
   .signUpSpan {

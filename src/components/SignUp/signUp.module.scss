@@ -1,8 +1,20 @@
 @use 'src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
 
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-  padding: 12px;
+.alert {
+  width: 100%;
+  margin-top: 4px;
+  color: colors.$ALERT;
+
+  > p {
+    font-size: 13px;
+  }
+}
+
+.commonInput {
+  width: 100%;
+}
+
+.signUpBtn {
+  margin-top: 24px;
 }
