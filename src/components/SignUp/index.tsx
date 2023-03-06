@@ -4,10 +4,10 @@ import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 
 import { checkEmail, signUp } from 'service/member';
 
+import { Oauth } from '../Oauth';
 import cs from './signUp.module.scss';
 import loginCs from '../Login/login.module.scss';
 import cx from 'classnames';
-import { GoogleLogin, KakaoLogin } from 'assets/svgs';
 
 const EMAIL_REG_EXP = /^[a-zA-Z0-9+-_.]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$/;
 const PASSWORD_REG_EXP = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d~!@#$%^&*()+|=]{8,20}$/;
@@ -60,16 +60,7 @@ export const SignUp = () => {
           <Link to='/auth/login'>Login</Link>
         </div>
       </div>
-      <div className={loginCs.oauth}>
-        <button type='button' className={cx(loginCs.oauthBtn, loginCs.google)}>
-          <GoogleLogin width='32px' height='32px' />
-          Google
-        </button>
-        <button type='button' className={cx(loginCs.oauthBtn, loginCs.kakao)}>
-          <KakaoLogin width='32px' height='32px' />
-          Kakao
-        </button>
-      </div>
+      <Oauth />
       <div className={loginCs.divideLine} />
       <div className={loginCs.inputSection}>
         <div className={cs.commonInput}>

@@ -1,3 +1,4 @@
+import jwtDecode from 'jwt-decode';
 import { useSetRecoilState } from 'recoil';
 import { Link, useNavigate } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
@@ -6,10 +7,8 @@ import { login } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
 import { IMemberResponse, IMemberSubject } from 'types/member';
 
-import { GoogleLogin, KakaoLogin } from 'assets/svgs';
+import { Oauth } from '../Oauth';
 import cs from './login.module.scss';
-import cx from 'classnames';
-import jwtDecode from 'jwt-decode';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
@@ -51,16 +50,7 @@ export const Login = () => {
           <Link to='/auth/sign-up'>Create an account</Link>
         </div>
       </div>
-      <div className={cs.oauth}>
-        <button type='button' className={cx(cs.oauthBtn, cs.google)}>
-          <GoogleLogin width='32px' height='32px' />
-          Google
-        </button>
-        <button type='button' className={cx(cs.oauthBtn, cs.kakao)}>
-          <KakaoLogin width='32px' height='32px' />
-          Kakao
-        </button>
-      </div>
+      <Oauth />
       <div className={cs.divideLine} />
       <div className={cs.inputSection}>
         <input type='text' value={email} placeholder='Email' onChange={onChangeEmail} />

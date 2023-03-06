@@ -1,0 +1,31 @@
+@use '/src/styles/constants/colors';
+
+.oauth {
+  display: flex;
+  gap: 12px;
+  justify-content: space-around;
+  width: 100%;
+  margin: 24px 0;
+
+  .oauthBtn {
+    display: flex;
+    gap: 4px;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 52px;
+    border-radius: 8px;
+  }
+
+  .google {
+    letter-spacing: 0.1px;
+    background: colors.$WHITE;
+    border: 1px solid colors.$DIVIDE_LINE;
+  }
+
+  .kakao {
+    letter-spacing: 0.1px;
+    background: colors.$KAKAO;
+    border: 1px solid colors.$KAKAO;
+  }
+}
