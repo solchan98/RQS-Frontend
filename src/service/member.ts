@@ -9,6 +9,7 @@ const REFRESH_TOKEN = '/member/reissue';
 const SIGN_UP = '/member/sign-up';
 const CHECK_EMAIL_DUPLICATE = '/member/check';
 const UPDATE_MEMBER_INFO = '/member';
+const OAUTH = '/member/oauth';
 
 export const checkEmail = (email: string) => {
   return baseApi
@@ -60,6 +61,21 @@ export const updateMember = (nickname: string, description: string) => {
   return updateMemberApi(nickname, description)
     .then((data) => data)
     .catch(() => reissueAtk().then(() => updateMemberApi(nickname, description)));
+};
+
+const oauthLoginApi = (code: string, type: string) => {
+  const url = `${OAUTH}/${type}?code=${code}`;
+  return baseApi.post(url).then((res) => res.data);
+};
+
+export const oauthLogin = (code: string, type: string) => {
+  return oauthLoginApi(code, type)
+    .then((data: { atk: string; rtk: string }) => {
+      store.set('atk', data.atk);
+      store.set('rtk', data.rtk);
+      return data;
+    })
+    .catch((err) => err);
 };
 
 export const reissueAtk = () => {
