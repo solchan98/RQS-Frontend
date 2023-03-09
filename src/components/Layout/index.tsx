@@ -8,7 +8,7 @@ import { Search } from 'assets/svgs';
 import cs from './layout.module.scss';
 
 export const Layout = () => {
-  const { isLoggedIn, memberId } = useRecoilValue(memberState);
+  const { isLoggedIn, memberId, avatar } = useRecoilValue(memberState);
 
   return (
     <div className={cs.container}>
@@ -22,7 +22,7 @@ export const Layout = () => {
             <input type='text' form='searchSpace' placeholder='스페이스 검색' />
           </form>
           {isLoggedIn ? (
-            <Avatar memberId={memberId} />
+            <Avatar memberId={memberId} src={avatar} />
           ) : (
             <Link to='auth/login'>
               <button className={cs.signInBtn} type='button'>
