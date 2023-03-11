@@ -1,7 +1,7 @@
 import store from 'store';
 import { useMount } from 'react-use';
 import jwtDecode from 'jwt-decode';
-import { useRecoilState } from 'recoil';
+import { useSetRecoilState } from 'recoil';
 import { Navigate, Route, Routes } from 'react-router-dom';
 
 import { memberState } from 'recoil/atoms/member';
@@ -23,9 +23,10 @@ import { MemberScrap } from './pages/MemberPage/MemberScrap';
 import { tokenChecker } from './util/token';
 import { JoinSpace } from './pages/JoinSpace';
 import { UpdateProfile } from './pages/UpdateProfile';
+import { Oauth } from './pages/Oauth';
 
 const App = () => {
-  const [memberValue, setMemberValue] = useRecoilState(memberState);
+  const setMemberValue = useSetRecoilState(memberState);
 
   const loadMemberInfoSuccessHandler = (data: IMemberSubject) => {
     const { memberId, email, nickname, avatar } = data;
@@ -78,6 +79,7 @@ const App = () => {
         <Route path='login' element={<Login />} />
         <Route path='sign-up' element={<SignUp />} />
       </Route>
+      <Route path='oauth/:type' element={<Oauth />} />
     </Routes>
   );
 };

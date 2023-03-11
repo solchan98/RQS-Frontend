@@ -18,12 +18,16 @@
   }
 
   .google {
+    font-size: 14px;
+    color: colors.$BLACK;
     letter-spacing: 0.1px;
     background: colors.$WHITE;
     border: 1px solid colors.$DIVIDE_LINE;
   }
 
   .kakao {
+    font-size: 14px;
+    color: colors.$WHITE;
     letter-spacing: 0.1px;
     background: colors.$KAKAO;
     border: 1px solid colors.$KAKAO;
