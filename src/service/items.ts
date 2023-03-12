@@ -10,6 +10,7 @@ const CREATE_SPACE_ITEM = '/my/item';
 const UPDATE_SPACE_ITEM = '/my/item';
 const DELETE_SPACE_ITEM = '/my/item';
 const CHECK_IS_CREATOR = '/my/item/creator';
+const QUIZ_STATUS = '/quiz/progress';
 
 const getSpaceItemApi = (itemId: number) => {
   const atk = store.get('atk');
@@ -139,4 +140,19 @@ export const checkIsItemCreator = (itemId: number) => {
   return checkIsItemCreatorApi(itemId)
     .then((res) => res)
     .catch(() => reissueAtk().then(() => checkIsItemCreatorApi(itemId)));
+};
+
+const getQuizStatusApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  return baseApi
+    .get(`${QUIZ_STATUS}/${spaceId}`, {
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const getQuizStatus = (spaceId: number) => {
+  return getQuizStatusApi(spaceId)
+    .then((res) => res)
+    .catch(() => reissueAtk().then(() => getQuizStatusApi(spaceId)));
 };
