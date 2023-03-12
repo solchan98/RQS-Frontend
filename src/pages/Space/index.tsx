@@ -12,7 +12,6 @@ import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import { Item } from './Item';
-import { RandomQModal } from 'pages/Space/RandomQModal';
 import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
 import { CreateQModal } from './CreateQModal';
@@ -23,7 +22,6 @@ const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket
 export const Space = () => {
   const { spaceId } = useParams();
 
-  const randomQuiz = useModal();
   const createQuiz = useModal();
 
   const nav = useNavigate();
@@ -58,9 +56,9 @@ export const Space = () => {
   );
 
   const { isLoggedIn, email } = useRecoilValue(memberState);
-  const onRandomQModalHandler = () => {
+  const onQuizStartHandler = () => {
     if (isLoggedIn) {
-      randomQuiz.openModal();
+      nav(`/quiz/${spaceId}`);
     } else {
       alert('로그인이 필요합니다.');
     }
@@ -103,10 +101,9 @@ export const Space = () => {
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
           </div>
-          <button className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
+          <button className={cs.playButton} type='button' onClick={onQuizStartHandler}>
             <Play />
           </button>
-          {space && <RandomQModal useModal={randomQuiz} space={space} />}
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (

@@ -4,12 +4,13 @@ import { reissueAtk } from './member';
 import { tokenChecker } from '../util/token';
 
 const GET_SPACE_ITEM_LIST = '/item/all';
-const GET_RANDOM_SPACE_ITEM = '/my/item/random';
+const GET_RANDOM_SPACE_ITEM = '/quiz/random';
 const GET_SPACE_ITEM = '/item';
 const CREATE_SPACE_ITEM = '/my/item';
 const UPDATE_SPACE_ITEM = '/my/item';
 const DELETE_SPACE_ITEM = '/my/item';
 const CHECK_IS_CREATOR = '/my/item/creator';
+const QUIZ_STATUS = '/quiz/progress';
 
 const getSpaceItemApi = (itemId: number) => {
   const atk = store.get('atk');
@@ -74,11 +75,9 @@ const getRandomSpaceItemApi = (spaceId: number) => {
   const atk = store.get('atk');
   return tokenChecker(atk).then(() => {
     const checkedAtk = store.get('atk');
-    const params = { spaceId };
     const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
     return baseApi
-      .get(GET_RANDOM_SPACE_ITEM, {
-        params,
+      .get(`${GET_RANDOM_SPACE_ITEM}/${spaceId}`, {
         headers,
       })
       .then((res) => res.data);
@@ -139,4 +138,19 @@ export const checkIsItemCreator = (itemId: number) => {
   return checkIsItemCreatorApi(itemId)
     .then((res) => res)
     .catch(() => reissueAtk().then(() => checkIsItemCreatorApi(itemId)));
+};
+
+const getQuizStatusApi = (spaceId: number) => {
+  const atk = store.get('atk');
+  return baseApi
+    .get(`${QUIZ_STATUS}/${spaceId}`, {
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const getQuizStatus = (spaceId: number) => {
+  return getQuizStatusApi(spaceId)
+    .then((res) => res)
+    .catch(() => reissueAtk().then(() => getQuizStatusApi(spaceId)));
 };

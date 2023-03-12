@@ -1,0 +1,54 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+
+  .message {
+    font-size: 22px;
+    font-weight: 500;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    gap: 24px;
+    justify-content: center;
+    width: 80%;
+
+    .button {
+      width: 120px;
+      height: 48px;
+      font-size: 14px;
+      font-weight: 500;
+      border: 1px solid colors.$DIVIDE_LINE;
+      border-radius: 8px;
+    }
+
+    .active {
+      background: colors.$THEME;
+      transition: 0.5s background-color;
+    }
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 48px;
+    color: colors.$BLACK;
+    background-color: colors.$KAKAO;
+    border: 1px solid colors.$DIVIDE_LINE;
+    border-radius: 8px;
+    opacity: 0.7;
+    transition: 0.5s opacity;
+  }
+
+  :hover {
+    opacity: 1;
+    transition: 0.5s opacity;
+  }
+}
