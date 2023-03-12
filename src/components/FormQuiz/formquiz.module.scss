@@ -57,5 +57,9 @@
     display: flex;
     justify-content: space-between;
     min-width: inherit;
+
+    > button {
+      font-size: 18px;
+    }
   }
 }

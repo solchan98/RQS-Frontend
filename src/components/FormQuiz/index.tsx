@@ -86,7 +86,7 @@ export const FormQuiz = () => {
           {type ? '정답보기' : '문제보기'}
         </button>
         <button className={cs.next} type='button' onClick={onNextQuiz}>
-          Click
+          다음문제
         </button>
       </div>
     </div>
