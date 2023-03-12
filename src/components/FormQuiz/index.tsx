@@ -41,15 +41,15 @@ export const FormQuiz = () => {
       alert(err.response?.data.message);
     }
   };
-  const { data: quiz, refetch: refetchQuiz } = useQuery(
-    [`#random_quiz_${spaceId}`],
-    () => getRandomSpaceItem(Number(spaceId)),
-    {
-      select: (data): IItem => data,
-      onSuccess: fetchQuizStatus,
-      onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
-    }
-  );
+  const {
+    data: quiz,
+    isFetching,
+    refetch: refetchQuiz,
+  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomSpaceItem(Number(spaceId)), {
+    select: (data): IItem => data,
+    onSuccess: fetchQuizStatus,
+    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
+  });
 
   const nav = useNavigate();
   const onNextQuiz: MouseEventHandler<HTMLButtonElement> = () => {
@@ -73,22 +73,26 @@ export const FormQuiz = () => {
           {quizStatus.total - quizStatus.left} / {quizStatus.total}
         </span>
       </div>
-      <main className={cs.content}>
-        {type && <span className={cs.question}>{quiz?.question}</span>}
-        {!type && (
-          <div className={cs.toastViewerWrapper}>
-            <ToastViewer content={quiz?.answer ?? ''} />
-          </div>
-        )}
-      </main>
-      <div className={cs.buttonsWrapper}>
-        <button className={cs.show} type='button' onClick={changeType}>
-          {type ? '정답보기' : '문제보기'}
-        </button>
-        <button className={cs.next} type='button' onClick={onNextQuiz}>
-          다음문제
-        </button>
-      </div>
+      {!isFetching && (
+        <main className={cs.content}>
+          {type && <span className={cs.question}>{quiz?.question}</span>}
+          {!type && (
+            <div className={cs.toastViewerWrapper}>
+              <ToastViewer content={quiz?.answer ?? ''} />
+            </div>
+          )}
+        </main>
+      )}
+      {!isFetching && (
+        <div className={cs.buttonsWrapper}>
+          <button className={cs.show} type='button' onClick={changeType}>
+            {type ? '정답보기' : '문제보기'}
+          </button>
+          <button className={cs.next} type='button' onClick={onNextQuiz}>
+            다음문제
+          </button>
+        </div>
+      )}
     </div>
   );
 };

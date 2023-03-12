@@ -22,7 +22,6 @@ const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket
 export const Space = () => {
   const { spaceId } = useParams();
 
-  const randomQuiz = useModal();
   const createQuiz = useModal();
 
   const nav = useNavigate();
@@ -57,9 +56,9 @@ export const Space = () => {
   );
 
   const { isLoggedIn, email } = useRecoilValue(memberState);
-  const onRandomQModalHandler = () => {
+  const onQuizStartHandler = () => {
     if (isLoggedIn) {
-      randomQuiz.openModal();
+      nav(`/quiz/${spaceId}`);
     } else {
       alert('로그인이 필요합니다.');
     }
@@ -102,9 +101,9 @@ export const Space = () => {
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
           </div>
-          <Link to={`/quiz/${spaceId}`} className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
+          <button className={cs.playButton} type='button' onClick={onQuizStartHandler}>
             <Play />
-          </Link>
+          </button>
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (
