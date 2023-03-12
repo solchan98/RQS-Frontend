@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { AxiosError } from 'axios';
 import { ISpace } from 'types/space';
-import { Link, Outlet, useNavigate, useParams } from 'react-router-dom';
+import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
 import { getSpace } from 'service/spaces';
@@ -9,6 +9,7 @@ import { IQuizStatus } from 'types/quiz';
 import { useLogout } from 'hooks/useLogout';
 import { getQuizStatus } from 'service/items';
 import cs from './quiz.module.scss';
+import { QuizIntro } from '../../components/QuizIntro';
 
 export const Quiz = () => {
   const [quizStatus, setQuizStatus] = useState({ status: false } as IQuizStatus);
@@ -33,20 +34,6 @@ export const Quiz = () => {
     select: setQuizStatus,
   });
 
-  if (quizStatus.status) {
-    return (
-      <div className={cs.container}>
-        <div className={cs.title}>{space?.title}</div>
-        <div>현재 퀴즈가 진행중입니다.</div>
-        <div>전체 문제 : {quizStatus.total}</div>
-        <div>남은 문제 : {quizStatus.left}</div>
-        <Link className={cs.link} to={`./${spaceId}/form`}>
-          이어서 진행하기
-        </Link>
-      </div>
-    );
-  }
-
   return (
     <div className={cs.container}>
       <div className={cs.title}>{space?.title}</div>
@@ -57,7 +44,17 @@ export const Quiz = () => {
         </ul>
       </div>
       <main>
-        <Outlet />
+        {!quizStatus.status && <QuizIntro />}
+        {quizStatus.status && (
+          <div className={cs.container}>
+            <div>현재 퀴즈가 진행중입니다.</div>
+            <div>전체 문제 : {quizStatus.total}</div>
+            <div>남은 문제 : {quizStatus.left}</div>
+            <Link className={cs.link} to='./form'>
+              이어서 진행하기
+            </Link>
+          </div>
+        )}
       </main>
     </div>
   );

@@ -21,7 +21,8 @@
     .button {
       width: 120px;
       height: 48px;
-      font-size: 18px;
+      font-size: 14px;
+      font-weight: 500;
       border: 1px solid colors.$DIVIDE_LINE;
       border-radius: 8px;
     }
@@ -39,7 +40,15 @@
     width: 60%;
     height: 48px;
     color: colors.$BLACK;
-    background-color: #61dafb;
+    background-color: colors.$KAKAO;
+    border: 1px solid colors.$DIVIDE_LINE;
     border-radius: 8px;
+    opacity: 0.7;
+    transition: 0.5s opacity;
+  }
+
+  :hover {
+    opacity: 1;
+    transition: 0.5s opacity;
   }
 }

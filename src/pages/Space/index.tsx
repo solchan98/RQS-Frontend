@@ -12,7 +12,6 @@ import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import { Item } from './Item';
-import { RandomQModal } from 'pages/Space/RandomQModal';
 import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
 import { CreateQModal } from './CreateQModal';
@@ -103,10 +102,9 @@ export const Space = () => {
           <div className={cs.infoWrapper}>
             <h3 className={cs.subTitle}>퀴즈 리스트</h3>
           </div>
-          <button className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
+          <Link to={`/quiz/${spaceId}`} className={cs.playButton} type='button' onClick={onRandomQModalHandler}>
             <Play />
-          </button>
-          {space && <RandomQModal useModal={randomQuiz} space={space} />}
+          </Link>
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (

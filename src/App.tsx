@@ -25,7 +25,7 @@ import { JoinSpace } from './pages/JoinSpace';
 import { UpdateProfile } from './pages/UpdateProfile';
 import { Oauth } from './pages/Oauth';
 import { Quiz } from './pages/Quiz';
-import { QuizIntro } from './components/QuizIntro';
+import { FormQuiz } from './components/FormQuiz';
 
 const App = () => {
   const setMemberValue = useSetRecoilState(memberState);
@@ -76,9 +76,8 @@ const App = () => {
         </Route>
         <Route path='update/member/:memberId' element={<UpdateProfile />} />
       </Route>
-      <Route path='quiz' element={<Quiz />}>
-        <Route path=':spaceId' element={<QuizIntro />} />
-      </Route>
+      <Route path='quiz/:spaceId' element={<Quiz />} />
+      <Route path='quiz/:spaceId/form' element={<FormQuiz />} />
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='' element={<Navigate to='login' />} />
         <Route path='login' element={<Login />} />
