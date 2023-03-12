@@ -1,0 +1,29 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+  padding: 12px 24px;
+
+  .title {
+    font-size: 24px;
+    font-weight: 600;
+  }
+
+  .link {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+    height: 48px;
+    color: colors.$BLACK;
+    background-color: #61dafb;
+    border-radius: 8px;
+  }
+}

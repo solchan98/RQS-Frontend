@@ -24,6 +24,8 @@ import { tokenChecker } from './util/token';
 import { JoinSpace } from './pages/JoinSpace';
 import { UpdateProfile } from './pages/UpdateProfile';
 import { Oauth } from './pages/Oauth';
+import { Quiz } from './pages/Quiz';
+import { QuizIntro } from './components/QuizIntro';
 
 const App = () => {
   const setMemberValue = useSetRecoilState(memberState);
@@ -73,6 +75,9 @@ const App = () => {
           <Route path='scrap' element={<MemberScrap />} />
         </Route>
         <Route path='update/member/:memberId' element={<UpdateProfile />} />
+      </Route>
+      <Route path='quiz' element={<Quiz />}>
+        <Route path=':spaceId' element={<QuizIntro />} />
       </Route>
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='' element={<Navigate to='login' />} />
