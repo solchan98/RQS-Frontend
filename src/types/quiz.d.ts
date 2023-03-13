@@ -5,7 +5,7 @@ export interface IQuiz {
   spaceId: number;
   question: string;
   type: string;
-  answer: string;
+  answerResponses: IAnswer[];
   hint: string;
   createdAt: string;
   spaceMemberResponse: ISpaceMember;
@@ -21,6 +21,13 @@ export interface IAnswer {
 export interface ICreateAnswer {
   answer: string;
   isCorrect: boolean;
+}
+
+export interface IUpdateAnswer {
+  question: string;
+  answers: ICreateAnswer[];
+  type: string;
+  hint: '';
 }
 
 export interface IQuizStatus {

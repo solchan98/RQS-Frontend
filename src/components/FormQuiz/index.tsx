@@ -77,7 +77,7 @@ export const FormQuiz = () => {
           {type && <span className={cs.question}>{quiz?.question}</span>}
           {!type && (
             <div className={cs.toastViewerWrapper}>
-              <ToastViewer content={quiz?.answer ?? ''} />
+              <ToastViewer content={quiz?.answerResponses[0].answer ?? ''} />
             </div>
           )}
         </main>

@@ -40,10 +40,10 @@ export const CreateQuiz = () => {
       } as ICreateAnswer;
       return [data];
     }
-
     const answers: ICreateAnswer[] = [answers1, answers2, answers3, answers4];
     return answers.filter((answer) => answer.answer !== '');
   };
+
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     createQuiz(Number(spaceId), question, calAnswers(), type, [])
