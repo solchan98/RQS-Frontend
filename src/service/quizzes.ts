@@ -9,18 +9,16 @@ const GET_SPACE_QUIZ = '/quiz';
 const CREATE_SPACE_QUIZ = '/my/quiz';
 const UPDATE_SPACE_QUIZ = '/my/quiz';
 const DELETE_SPACE_QUIZ = '/my/quiz';
-const CHECK_IS_CREATOR = '/my/quiz/creator';
+const CHECK_IS_CREATOR = '/my/quiz/isCreator';
 const QUIZ_STATUS = '/quiz/progress';
 
 const getQuizApi = (quizId: number) => {
   const atk = store.get('atk');
   return tokenChecker(atk).then(() => {
     const checkedAtk = store.get('atk');
-    const params = { quizId };
     const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
     return baseApi
-      .get(GET_SPACE_QUIZ, {
-        params,
+      .get(`${GET_SPACE_QUIZ}/${quizId}`, {
         headers,
       })
       .then((res) => res.data);
@@ -94,7 +92,7 @@ const updateQuizApi = (quizId: number, question: string, answer: string, hint: s
   const atk = store.get('atk');
   const data = { quizId, question, answer, hint };
   return baseApi
-    .put(UPDATE_SPACE_QUIZ, data, {
+    .put(`${UPDATE_SPACE_QUIZ}/${quizId}`, data, {
       headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
@@ -108,10 +106,8 @@ export const updateQuiz = (quizId: number, question: string, answer: string, hin
 
 const deleteQuizApi = (quizId: number) => {
   const atk = store.get('atk');
-  const params = { quizId };
   return baseApi
-    .delete(DELETE_SPACE_QUIZ, {
-      params,
+    .delete(`${DELETE_SPACE_QUIZ}/${quizId}`, {
       headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
@@ -125,10 +121,8 @@ export const deleteQuiz = (quizId: number) => {
 
 const checkIsQuizCreatorApi = (quizId: number) => {
   const atk = store.get('atk');
-  const params = { quizId };
   return baseApi
-    .get(CHECK_IS_CREATOR, {
-      params,
+    .get(`${CHECK_IS_CREATOR}/${quizId}`, {
       headers: { Authorization: `bearer ${atk}` },
     })
     .then((res) => res.data);
