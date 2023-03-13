@@ -6,7 +6,6 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 import { memberState } from 'recoil/atoms/member';
 import { getSpace } from 'service/spaces';
 import { getQuizzes } from 'service/quizzes';
-import { useModal } from 'hooks/useModal';
 import { useLogout } from 'hooks/useLogout';
 import { ISpace } from 'types/space';
 
@@ -91,7 +90,7 @@ export const Space = () => {
       <main className={cs.main}>
         <div className={cs.mainTop}>
           <div className={cs.infoWrapper}>
-            <h3 className={cs.subTitle}>퀴즈 리스트</h3>
+            <h3 className={cs.subTitle}>Quizzes</h3>
           </div>
           <button className={cs.playButton} type='button' onClick={onQuizStartHandler}>
             <Play />
