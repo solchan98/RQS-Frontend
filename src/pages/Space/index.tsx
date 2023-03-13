@@ -5,10 +5,9 @@ import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
 import { memberState } from 'recoil/atoms/member';
 import { getSpace } from 'service/spaces';
-import { getSpaceItemList } from 'service/items';
+import { getQuizzes } from 'service/quizzes';
 import { useModal } from 'hooks/useModal';
 import { useLogout } from 'hooks/useLogout';
-import { IItem } from 'types/item';
 import { ISpace } from 'types/space';
 
 import { Item } from './Item';
@@ -16,6 +15,7 @@ import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
 import { CreateQModal } from './CreateQModal';
 import { Image } from '@chakra-ui/react';
+import { IQuiz } from 'types/quiz';
 
 const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket-4954229_1280.jpg';
 
@@ -40,25 +40,21 @@ export const Space = () => {
   });
 
   const {
-    data: itemList,
+    data: quizzes,
     hasNextPage,
     fetchNextPage,
     refetch,
-  } = useInfiniteQuery(
-    [`#itemList_${spaceId}`],
-    ({ pageParam = undefined }) => getSpaceItemList(Number(spaceId), pageParam),
-    {
-      getNextPageParam: (itemListResponse: IItem[]) =>
-        itemListResponse.length !== 0 && itemListResponse[itemListResponse.length - 1].itemId,
-      onError: (err: AxiosError<{ message: string }>) =>
-        err.response?.status === 401 ? logout() : alert(err.response?.data.message),
-    }
-  );
+  } = useInfiniteQuery([`#quizzes_${spaceId}`], ({ pageParam = undefined }) => getQuizzes(Number(spaceId), pageParam), {
+    getNextPageParam: (quizzesResponse: IQuiz[]) =>
+      quizzesResponse.length !== 0 && quizzesResponse[quizzesResponse.length - 1].quizId,
+    onError: (err: AxiosError<{ message: string }>) =>
+      err.response?.status === 401 ? logout() : alert(err.response?.data.message),
+  });
 
   const { isLoggedIn, email } = useRecoilValue(memberState);
   const onQuizStartHandler = () => {
     if (isLoggedIn) {
-      nav(`/quiz/${spaceId}`);
+      nav(`/space/${spaceId}/quiz `);
     } else {
       alert('로그인이 필요합니다.');
     }
@@ -88,7 +84,7 @@ export const Space = () => {
         <div className={cs.status}>
           <div className={cs.cntWrapper}>
             <Question />
-            <span>{space?.itemCount}</span>
+            <span>{space?.quizCount}</span>
           </div>
           <div className={cs.cntWrapper}>
             <Members />
@@ -112,10 +108,10 @@ export const Space = () => {
             </button>
           )}
           {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
-          {itemList?.pages.map((page) =>
-            page.map((item) => (
-              <li key={item.itemId}>
-                <Item item={item} isUpdatable={email === item.spaceMemberResponse.email} />
+          {quizzes?.pages.map((page) =>
+            page.map((quiz) => (
+              <li key={quiz.quizId}>
+                <Item quiz={quiz} isUpdatable={email === quiz.spaceMemberResponse.email} />
               </li>
             ))
           )}

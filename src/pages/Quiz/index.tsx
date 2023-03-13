@@ -4,12 +4,12 @@ import { ISpace } from 'types/space';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
+import { QuizIntro } from 'components/QuizIntro';
 import { getSpace } from 'service/spaces';
 import { IQuizStatus } from 'types/quiz';
 import { useLogout } from 'hooks/useLogout';
-import { getQuizStatus } from 'service/items';
+import { getQuizStatus } from 'service/quizzes';
 import cs from './quiz.module.scss';
-import { QuizIntro } from '../../components/QuizIntro';
 
 export const Quiz = () => {
   const [quizStatus, setQuizStatus] = useState({ status: false } as IQuizStatus);

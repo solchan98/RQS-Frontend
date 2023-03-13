@@ -2,7 +2,7 @@ import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useState } from 'react';
 
 import { ISpace } from 'types/space';
-import { createSpaceItem } from 'service/items';
+import { createQuiz } from 'service/quizzes';
 import { useLogout } from 'hooks/useLogout';
 import ToastEditor from 'components/ToastUI/Editor';
 import { ModalTemplate } from 'components/ModalTemplate';
@@ -25,13 +25,13 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
   const [hintList, setHintList] = useState<string[]>([]);
   const onSubmitAddHint: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    const exist = hintList.find((item) => item === hint);
+    const exist = hintList.find((quiz) => quiz === hint);
     if (!exist) setHintList((prev) => [...prev, hint]);
     setHint('');
   };
   const onClickDeleteHint: MouseEventHandler<HTMLButtonElement> = (e) => {
     const target = e.currentTarget.dataset.id;
-    setHintList((prev) => prev.filter((item) => item !== target));
+    setHintList((prev) => prev.filter((quiz) => quiz !== target));
   };
 
   const [question, setQuestion] = useState('');
@@ -65,7 +65,7 @@ export const CreateQModal = ({ useModal, space, refetch }: Props) => {
     const check = checkDataIsEmpty();
     if (!check) return;
     const answer = editorRef.current?.getInstance().getMarkdown() ?? '';
-    createSpaceItem(space.spaceId, question, answer, hintList)
+    createQuiz(space.spaceId, question, answer, hintList)
       .then(refetch)
       .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
     closeModal(closeModalHandler);

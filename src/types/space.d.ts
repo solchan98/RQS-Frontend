@@ -4,7 +4,7 @@ export interface ISpace {
   content: string;
   imageUrl: string;
   visibility: boolean;
-  itemCount: number;
+  quizCount: number;
   spaceMemberCount: number;
   authority: string;
   memberJoinedAt: string;
@@ -26,7 +26,7 @@ export interface IJoinSpace {
   title: string;
   content: string;
   spaceMemberCount: number;
-  itemCount: number;
+  quizCount: number;
   visibility: boolean;
   spaceRole: string;
 }

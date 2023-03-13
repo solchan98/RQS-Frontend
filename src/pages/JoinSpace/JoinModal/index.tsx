@@ -47,7 +47,7 @@ export const JoinModal = ({ useModal, joinSpace, joinCode }: Props) => {
           <div className={cs.spaceStatus}>
             <div className={cs.cntWrapper}>
               <Question />
-              <span>{joinSpace.itemCount}</span>
+              <span>{joinSpace.quizCount}</span>
             </div>
             <div className={cs.cntWrapper}>
               <Members />

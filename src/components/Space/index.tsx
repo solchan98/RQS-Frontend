@@ -34,7 +34,7 @@ export const Space = ({ space, pub = false }: Props) => {
       <div className={cs.status}>
         <div className={cs.cntWrapper}>
           <Question />
-          <span>{space.itemCount}</span>
+          <span>{space.quizCount}</span>
         </div>
         <div className={cs.cntWrapper}>
           <Members />

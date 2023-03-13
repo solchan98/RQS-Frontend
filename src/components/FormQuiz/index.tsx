@@ -1,15 +1,14 @@
 import { useQuery } from '@tanstack/react-query';
-import { getQuizStatus, getRandomSpaceItem } from 'service/items';
+import { getQuizStatus, getRandomQuiz } from 'service/quizzes';
 import { MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { IQuizStatus } from 'types/quiz';
+import { IQuiz, IQuizStatus } from 'types/quiz';
 
 import cx from 'classnames';
 import cs from './formquiz.module.scss';
 import ToastViewer from '../ToastUI/Viewer';
-import { IItem } from 'types/item';
-import { useLogout } from '../../hooks/useLogout';
+import { useLogout } from 'hooks/useLogout';
 import { AxiosError } from 'axios';
 
 export const FormQuiz = () => {
@@ -45,8 +44,8 @@ export const FormQuiz = () => {
     data: quiz,
     isFetching,
     refetch: refetchQuiz,
-  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomSpaceItem(Number(spaceId)), {
-    select: (data): IItem => data,
+  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId)), {
+    select: (data): IQuiz => data,
     onSuccess: fetchQuizStatus,
     onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
   });

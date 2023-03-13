@@ -11,7 +11,7 @@ import { Login } from 'components/Login';
 import AuthWrapper from 'pages/AuthWapper';
 import { Space } from 'pages/Space';
 import { UpdateSpace } from 'pages/UpdateSpace';
-import { UpdateItem } from 'pages/UpdateItem';
+import { UpdateQuiz } from 'pages/UpdateQuiz';
 import { SignUp } from './components/SignUp';
 import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
@@ -66,8 +66,14 @@ const App = () => {
           <Route path=':spaceId' element={<Space />} />
           <Route path=':spaceId/setting' element={<UpdateSpace />} />
         </Route>
-        <Route path='item'>
-          <Route path=':itemId/setting' element={<UpdateItem />} />
+        <Route path='quiz'>
+          <Route path='setting/:quizId' element={<UpdateQuiz />} />
+        </Route>
+        <Route path='space'>
+          <Route path=':spaceId/quiz'>
+            <Route path='' element={<Quiz />} />
+            <Route path='form' element={<FormQuiz />} />
+          </Route>
         </Route>
         <Route path=':memberId' element={<MemberPage />}>
           <Route path='' element={<Navigate to='./space' />} />
@@ -76,8 +82,6 @@ const App = () => {
         </Route>
         <Route path='update/member/:memberId' element={<UpdateProfile />} />
       </Route>
-      <Route path='quiz/:spaceId' element={<Quiz />} />
-      <Route path='quiz/:spaceId/form' element={<FormQuiz />} />
       <Route path='auth' element={<AuthWrapper />}>
         <Route path='' element={<Navigate to='login' />} />
         <Route path='login' element={<Login />} />
