@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 
 import cs from './item.module.scss';
 import { Setting } from 'assets/svgs';
-import { Box, Collapse, useDisclosure } from '@chakra-ui/react';
 import { IQuiz } from 'types/quiz';
 
 const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
@@ -14,10 +13,8 @@ interface Props {
 }
 
 export const Item = ({ quiz, isUpdatable }: Props) => {
-  const { isOpen, onToggle } = useDisclosure();
-
   return (
-    <button type='button' onClick={onToggle} className={cs.container}>
+    <div className={cs.container}>
       <div className={cs.top}>
         <Link className={cs.avatar} to='#'>
           <img src={quiz.spaceMemberResponse?.avatar ?? TEMP_AVATAR} alt='profile_img' />
@@ -43,9 +40,6 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
             ))}
         </ul>
       </div>
-      <Collapse className={cs.answer} in={isOpen} animateOpacity>
-        <Box className={cs.viewerBox}>{/* <ToastViewer content={quiz.answer} /> */}</Box>
-      </Collapse>
-    </button>
+    </div>
   );
 };
