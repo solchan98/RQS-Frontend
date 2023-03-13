@@ -106,7 +106,13 @@ export const UpdateQuiz = () => {
   const onSubmitUpdateQuiz: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (!checkDataIsEmpty()) return;
-    updateQuiz(Number(quizId), quizState.question, editorRef.current?.getInstance().getMarkdown() ?? '', quizState.hint)
+    updateQuiz(
+      Number(quizId),
+      quizState.question,
+      quizState.type,
+      editorRef.current?.getInstance().getMarkdown() ?? '',
+      quizState.hint
+    )
       .then(updateQuizSuccessHandler)
       .catch(onError);
   };

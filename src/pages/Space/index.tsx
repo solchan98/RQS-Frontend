@@ -13,7 +13,6 @@ import { ISpace } from 'types/space';
 import { Item } from './Item';
 import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
-import { CreateQModal } from './CreateQModal';
 import { Image } from '@chakra-ui/react';
 import { IQuiz } from 'types/quiz';
 
@@ -21,8 +20,6 @@ const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket
 
 export const Space = () => {
   const { spaceId } = useParams();
-
-  const createQuiz = useModal();
 
   const nav = useNavigate();
   const logout = useLogout();
@@ -43,7 +40,6 @@ export const Space = () => {
     data: quizzes,
     hasNextPage,
     fetchNextPage,
-    refetch,
   } = useInfiniteQuery([`#quizzes_${spaceId}`], ({ pageParam = undefined }) => getQuizzes(Number(spaceId), pageParam), {
     getNextPageParam: (quizzesResponse: IQuiz[]) =>
       quizzesResponse.length !== 0 && quizzesResponse[quizzesResponse.length - 1].quizId,
@@ -103,11 +99,10 @@ export const Space = () => {
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (
-            <button className={cs.addBtn} type='button' onClick={createQuiz.openModal}>
+            <button className={cs.addBtn} type='button' onClick={() => nav('./quiz/create')}>
               <Add />
             </button>
           )}
-          {space && <CreateQModal useModal={createQuiz} space={space} refetch={refetch} />}
           {quizzes?.pages.map((page) =>
             page.map((quiz) => (
               <li key={quiz.quizId}>

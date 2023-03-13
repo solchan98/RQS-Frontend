@@ -2,15 +2,16 @@ import store from 'store';
 import { baseApi } from './index';
 import { reissueAtk } from './member';
 import { tokenChecker } from 'util/token';
+import { ICreateAnswer } from 'types/quiz';
 
 const GET_SPACE_QUIZ_LIST = '/quiz/all';
-const GET_RANDOM_QUIZ = '/quiz/random';
+const GET_RANDOM_QUIZ = '/quizgame/random';
 const GET_SPACE_QUIZ = '/quiz';
 const CREATE_SPACE_QUIZ = '/my/quiz';
 const UPDATE_SPACE_QUIZ = '/my/quiz';
 const DELETE_SPACE_QUIZ = '/my/quiz';
 const CHECK_IS_CREATOR = '/my/quiz/isCreator';
-const QUIZ_STATUS = '/quiz/progress';
+const QUIZ_STATUS = '/quizgame/progress';
 
 const getQuizApi = (quizId: number) => {
   const atk = store.get('atk');
@@ -52,10 +53,16 @@ export const getQuizzes = (spaceId: number, lastQuizId?: number) => {
     .catch(() => reissueAtk().then(() => getQuizzesApi(spaceId, lastQuizId)));
 };
 
-const createQuizApi = (spaceId: number, question: string, answer: string, hintList: string[]) => {
+const createQuizApi = (
+  spaceId: number,
+  question: string,
+  createAnswers: ICreateAnswer[],
+  type: string,
+  hintList: string[]
+) => {
   const atk = store.get('atk');
   const hint = hintList.join(',');
-  const data = { spaceId, question, answer, hint };
+  const data = { spaceId, question, createAnswers, type, hint };
   return baseApi
     .post(CREATE_SPACE_QUIZ, data, {
       headers: { Authorization: `bearer ${atk}` },
@@ -63,34 +70,40 @@ const createQuizApi = (spaceId: number, question: string, answer: string, hintLi
     .then((res) => res.data);
 };
 
-export const createQuiz = (spaceId: number, question: string, answer: string, hintList: string[]) => {
-  return createQuizApi(spaceId, question, answer, hintList)
+export const createQuiz = (
+  spaceId: number,
+  question: string,
+  createAnswers: ICreateAnswer[],
+  type: string,
+  hintList: string[]
+) => {
+  return createQuizApi(spaceId, question, createAnswers, type, hintList)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => createQuizApi(spaceId, question, answer, hintList)));
+    .catch(() => reissueAtk().then(() => createQuizApi(spaceId, question, createAnswers, type, hintList)));
 };
 
-const getRandomQuizApi = (spaceId: number) => {
+const getRandomQuizApi = (spaceId: number, type: string) => {
   const atk = store.get('atk');
   return tokenChecker(atk).then(() => {
     const checkedAtk = store.get('atk');
     const headers = checkedAtk && { Authorization: `bearer ${checkedAtk}` };
     return baseApi
-      .get(`${GET_RANDOM_QUIZ}/${spaceId}`, {
+      .get(`${GET_RANDOM_QUIZ}/${spaceId}/${type}`, {
         headers,
       })
       .then((res) => res.data);
   });
 };
 
-export const getRandomQuiz = (spaceId: number) => {
-  return getRandomQuizApi(spaceId)
+export const getRandomQuiz = (spaceId: number, type: string) => {
+  return getRandomQuizApi(spaceId, type)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => getRandomQuizApi(spaceId)));
+    .catch(() => reissueAtk().then(() => getRandomQuizApi(spaceId, type)));
 };
 
-const updateQuizApi = (quizId: number, question: string, answer: string, hint: string) => {
+const updateQuizApi = (quizId: number, question: string, type: string, answer: string, hint: string) => {
   const atk = store.get('atk');
-  const data = { quizId, question, answer, hint };
+  const data = { quizId, question, type, answer, hint };
   return baseApi
     .put(`${UPDATE_SPACE_QUIZ}/${quizId}`, data, {
       headers: { Authorization: `bearer ${atk}` },
@@ -98,10 +111,10 @@ const updateQuizApi = (quizId: number, question: string, answer: string, hint: s
     .then((res) => res.data);
 };
 
-export const updateQuiz = (quizId: number, question: string, answer: string, hint: string) => {
-  return updateQuizApi(quizId, question, answer, hint)
+export const updateQuiz = (quizId: number, question: string, type: string, answer: string, hint: string) => {
+  return updateQuizApi(quizId, question, type, answer, hint)
     .then((data) => data)
-    .catch(() => reissueAtk().then(() => updateQuizApi(quizId, question, answer, hint)));
+    .catch(() => reissueAtk().then(() => updateQuizApi(quizId, question, type, answer, hint)));
 };
 
 const deleteQuizApi = (quizId: number) => {

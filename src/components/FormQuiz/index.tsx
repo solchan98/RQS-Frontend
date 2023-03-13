@@ -44,7 +44,7 @@ export const FormQuiz = () => {
     data: quiz,
     isFetching,
     refetch: refetchQuiz,
-  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId)), {
+  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId), 'form'), {
     select: (data): IQuiz => data,
     onSuccess: fetchQuizStatus,
     onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),

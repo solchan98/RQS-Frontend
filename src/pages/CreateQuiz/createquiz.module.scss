@@ -1,0 +1,105 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  padding: 0 12px;
+
+  @include responsive.after('SD') {
+    padding: 12px 18%;
+  }
+
+  .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin: 12px 0 24px;
+
+    .title {
+      font-size: 24px;
+      font-weight: 600;
+      letter-spacing: 0.1px;
+    }
+  }
+
+  .main {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+
+    .label {
+      padding: 0 4px;
+      font-size: 14px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      opacity: 0.5;
+    }
+
+    .title {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .question {
+        height: 24px;
+        padding: 8px;
+        font-size: 14px;
+        line-height: 24px;
+        color: colors.$SUB_TITLE;
+        resize: none;
+        border: 1px solid colors.$DIVIDE_LINE;
+        border-radius: 12px;
+      }
+    }
+
+    .typeWrapper {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+
+      .typeBtnWrapper {
+        display: flex;
+        gap: 12px;
+
+        > button {
+          width: 80px;
+          height: 36px;
+          font-weight: 500;
+          border: 1px solid colors.$DIVIDE_LINE;
+          border-radius: 8px;
+        }
+
+        .active {
+          color: colors.$WHITE;
+          background: colors.$THEME;
+          transition: 0.5s all;
+        }
+      }
+    }
+  }
+
+  .bottom {
+    display: flex;
+    justify-content: end;
+    margin: 12px 0;
+
+    > button {
+      width: 80px;
+      height: 36px;
+      color: colors.$WHITE;
+      background: colors.$THEME;
+      border-radius: 8px;
+    }
+  }
+
+  .multiAnswerWrapper {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+
+    @include responsive.after('HD') {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+}

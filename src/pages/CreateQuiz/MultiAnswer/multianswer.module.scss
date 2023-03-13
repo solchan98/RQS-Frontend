@@ -1,0 +1,43 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  width: 100%;
+
+  > input {
+    box-sizing: border-box;
+    width: 100%;
+    padding: 24px;
+    background: colors.$BACKGROUND_GRAY;
+    border-radius: 8px;
+    transition: 0.5s all;
+  }
+
+  .buttonWrapper {
+    display: flex;
+    gap: 4px;
+    margin-top: 4px;
+
+    > button {
+      width: 48px;
+      height: 24px;
+      font-weight: 500;
+      border: 1px solid colors.$DIVIDE_LINE;
+      border-radius: 8px;
+    }
+
+    .active {
+      color: colors.$WHITE;
+      background: colors.$THEME;
+      transition: 0.5s all;
+    }
+  }
+}
+
+.usingAnswer {
+  > input {
+    font-weight: 500;
+    color: colors.$WHITE;
+    background: colors.$GOOGLE1;
+    transition: 0.5s background-color;
+  }
+}
