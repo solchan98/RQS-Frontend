@@ -25,8 +25,9 @@ import { JoinSpace } from './pages/JoinSpace';
 import { UpdateProfile } from './pages/UpdateProfile';
 import { Oauth } from './pages/Oauth';
 import { Quiz } from './pages/Quiz';
-import { FormQuiz } from './components/FormQuiz';
+import { FormQuiz } from './pages/Quiz/FormQuiz';
 import { CreateQuiz } from './pages/CreateQuiz';
+import { MultiQuiz } from './pages/Quiz/MultiQuiz';
 
 const App = () => {
   const setMemberValue = useSetRecoilState(memberState);
@@ -74,6 +75,7 @@ const App = () => {
           <Route path=':spaceId/quiz'>
             <Route path='' element={<Quiz />} />
             <Route path='form' element={<FormQuiz />} />
+            <Route path='multi' element={<MultiQuiz />} />
             <Route path='create' element={<CreateQuiz />} />
           </Route>
         </Route>

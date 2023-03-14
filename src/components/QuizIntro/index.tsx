@@ -33,7 +33,7 @@ export const QuizIntro = () => {
           4지 선다
         </button>
       </div>
-      <Link className={cs.link} to='./form'>
+      <Link className={cs.link} to={`./${quizType}`}>
         Let&apos;s Quiz
       </Link>
     </div>

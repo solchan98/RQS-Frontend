@@ -1,15 +1,16 @@
+import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
 import { getQuizStatus, getRandomQuiz } from 'service/quizzes';
 import { MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
+import { useLogout } from 'hooks/useLogout';
 import { IQuiz, IQuizStatus } from 'types/quiz';
+import ToastViewer from 'components/ToastUI/Viewer';
 
 import cx from 'classnames';
 import cs from './formquiz.module.scss';
-import ToastViewer from '../ToastUI/Viewer';
-import { useLogout } from 'hooks/useLogout';
-import { AxiosError } from 'axios';
+import qs from '../quiz.module.scss';
 
 export const FormQuiz = () => {
   const { spaceId } = useParams();
@@ -32,6 +33,7 @@ export const FormQuiz = () => {
   const changeType = () => setType((prev) => !prev);
 
   const logout = useLogout();
+  const nav = useNavigate();
   const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
     if (err.response?.status === 401) {
       logout();
@@ -50,7 +52,6 @@ export const FormQuiz = () => {
     onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
   });
 
-  const nav = useNavigate();
   const onNextQuiz: MouseEventHandler<HTMLButtonElement> = () => {
     if (quizStatus.left === 0) {
       alert('퀴즈가 종료되었습니다.');
@@ -61,10 +62,10 @@ export const FormQuiz = () => {
   };
 
   return (
-    <div className={cs.container}>
-      <div className={cs.progressWrapper}>
+    <div className={qs.quizContainer}>
+      <div className={qs.progressWrapper}>
         <progress
-          className={cx(cs.progress, cs.progressB)}
+          className={cx(qs.progress, qs.progressB)}
           value={quizStatus.total - quizStatus.left}
           max={quizStatus.total}
         />
@@ -73,8 +74,8 @@ export const FormQuiz = () => {
         </span>
       </div>
       {!isFetching && (
-        <main className={cs.content}>
-          {type && <span className={cs.question}>{quiz?.question}</span>}
+        <main className={qs.content}>
+          {type && <span className={qs.question}>{quiz?.question}</span>}
           {!type && (
             <div className={cs.toastViewerWrapper}>
               <ToastViewer content={quiz?.answerResponses[0].answer ?? ''} />
@@ -83,11 +84,11 @@ export const FormQuiz = () => {
         </main>
       )}
       {!isFetching && (
-        <div className={cs.buttonsWrapper}>
-          <button className={cs.show} type='button' onClick={changeType}>
+        <div className={qs.buttonsWrapper}>
+          <button className={qs.show} type='button' onClick={changeType}>
             {type ? '정답보기' : '문제보기'}
           </button>
-          <button className={cs.next} type='button' onClick={onNextQuiz}>
+          <button className={qs.next} type='button' onClick={onNextQuiz}>
             다음문제
           </button>
         </div>
