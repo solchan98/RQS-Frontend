@@ -7,7 +7,7 @@ import { IQuiz, IQuizStatus } from 'types/quiz';
 
 import cx from 'classnames';
 import cs from './formquiz.module.scss';
-import ToastViewer from '../ToastUI/Viewer';
+import ToastViewer from '../../../components/ToastUI/Viewer';
 import { useLogout } from 'hooks/useLogout';
 import { AxiosError } from 'axios';
 
