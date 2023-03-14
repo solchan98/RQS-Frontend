@@ -50,7 +50,7 @@ export const Quiz = () => {
             <div>현재 퀴즈가 진행중입니다.</div>
             <div>전체 문제 : {quizStatus.total}</div>
             <div>남은 문제 : {quizStatus.left}</div>
-            <Link className={cs.link} to='./form'>
+            <Link className={cs.link} to={`./${quizStatus.type}`}>
               이어서 진행하기
             </Link>
           </div>

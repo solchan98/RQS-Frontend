@@ -1,22 +1,42 @@
 import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { getQuizStatus, getRandomQuiz } from 'service/quizzes';
 import { MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
 import { useLogout } from 'hooks/useLogout';
 import { IQuiz, IQuizStatus } from 'types/quiz';
-import ToastViewer from 'components/ToastUI/Viewer';
+import { getQuizStatus, getRandomQuiz } from 'service/quizzes';
 
 import cx from 'classnames';
-import cs from './formquiz.module.scss';
+import cs from './multiquiz.module.scss';
 import qs from '../quiz.module.scss';
 
-export const FormQuiz = () => {
+export const MultiQuiz = () => {
   const { spaceId } = useParams();
   const [quizStatus, setQuizStatus] = useState({ status: false, left: 0, total: 0 } as IQuizStatus);
 
+  const [showCorrect, setShowCorrect] = useState(false);
+  const onShowCorrect: MouseEventHandler<HTMLButtonElement> = () => {
+    setSelectedAnswerIds([]);
+    setShowCorrect((prev) => !prev);
+  };
+
+  const [selectedAnswerIds, setSelectedAnswerIds] = useState<number[]>([]);
+  const onClickAnswer: MouseEventHandler<HTMLButtonElement> = (e) => {
+    if (showCorrect) {
+      return;
+    }
+    const { id } = e.currentTarget.dataset;
+    if (selectedAnswerIds.includes(Number(id))) {
+      setSelectedAnswerIds((prev) => prev.filter((answerId) => answerId !== Number(id)));
+    } else {
+      setSelectedAnswerIds((prev) => [...prev, Number(id)]);
+    }
+  };
+
   const fetchQuizStatus = () => {
+    setShowCorrect(false);
+    setSelectedAnswerIds([]);
     getQuizStatus(Number(spaceId)).then((data) => {
       if (data.left !== 0) {
         setQuizStatus(data);
@@ -29,9 +49,6 @@ export const FormQuiz = () => {
     });
   };
 
-  const [type, setType] = useState(true);
-  const changeType = () => setType((prev) => !prev);
-
   const logout = useLogout();
   const nav = useNavigate();
   const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
@@ -42,11 +59,12 @@ export const FormQuiz = () => {
       alert(err.response?.data.message);
     }
   };
+
   const {
     data: quiz,
     isFetching,
     refetch: refetchQuiz,
-  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId), 'form'), {
+  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId), 'multi'), {
     select: (data): IQuiz => data,
     onSuccess: fetchQuizStatus,
     onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
@@ -56,9 +74,9 @@ export const FormQuiz = () => {
     if (quizStatus.left === 0) {
       alert('퀴즈가 종료되었습니다.');
       nav(`/space/${spaceId}`);
-    } else {
-      refetchQuiz().then(() => setType(true));
+      return;
     }
+    refetchQuiz().then();
   };
 
   return (
@@ -73,20 +91,33 @@ export const FormQuiz = () => {
           {quizStatus.total - quizStatus.left} / {quizStatus.total}
         </span>
       </div>
+      <main className={qs.content}>
+        <span className={qs.question}>{quiz?.question}</span>
+      </main>
       {!isFetching && (
-        <main className={qs.content}>
-          {type && <span className={qs.question}>{quiz?.question}</span>}
-          {!type && (
-            <div className={cs.toastViewerWrapper}>
-              <ToastViewer content={quiz?.answerResponses[0].answer ?? ''} />
-            </div>
-          )}
-        </main>
+        <div className={cs.answerWrapper}>
+          {quiz?.answerResponses.map((answer) => (
+            <button
+              type='button'
+              className={cx(
+                cs.answer,
+                selectedAnswerIds.includes(Number(answer.answerId)) && cs.selectAnswer,
+                showCorrect && answer.isCorrect && cs.showCorrect,
+                showCorrect && !answer.isCorrect && cs.showInCorrect
+              )}
+              data-id={answer.answerId}
+              key={answer.answerId}
+              onClick={onClickAnswer}
+            >
+              {answer.answer}
+            </button>
+          ))}
+        </div>
       )}
       {!isFetching && (
         <div className={qs.buttonsWrapper}>
-          <button className={qs.show} type='button' onClick={changeType}>
-            {type ? '정답보기' : '문제보기'}
+          <button className={qs.show} type='button' onClick={onShowCorrect}>
+            {!showCorrect ? '정답보기' : '문제보기'}
           </button>
           <button className={qs.next} type='button' onClick={onNextQuiz}>
             다음문제
