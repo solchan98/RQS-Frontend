@@ -37,12 +37,12 @@ jobs:
         with:
           path: './build.tar'
           destination: ${{ secrets.GCP_BUCKET_NAME }}
-
-      - name: Connect GCE And Execute Deploy Script
-        id: 'compute-ssh'
-        uses: 'google-github-actions/ssh-compute@v0'
-        with:
-          instance_name: 'main'
-          zone: 'asia-northeast3-a'
-          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
-          script: "./deploy.sh"
+#
+#      - name: Connect GCE And Execute Deploy Script
+#        id: 'compute-ssh'
+#        uses: 'google-github-actions/ssh-compute@v0'
+#        with:
+#          instance_name: 'main'
+#          zone: 'asia-northeast3-a'
+#          ssh_private_key: ${{ secrets.GCP_SSH_PRIVATE_KEY }}
+#          script: "./deploy.sh"
