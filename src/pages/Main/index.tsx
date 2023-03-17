@@ -1,9 +1,8 @@
-import { Link, NavLink, Outlet } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
 
 import { MainLottie } from 'components/Lotties/MainLottie';
 
 import cs from './main.module.scss';
-import cx from 'classnames';
 
 export const Main = () => {
   return (
@@ -17,13 +16,8 @@ export const Main = () => {
       </section>
       <main className={cs.main}>
         <div className={cs.contentSelector}>
-          <div className={cs.switch}>
-            <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/trending'>
-              🌟 트렌딩
-            </NavLink>
-            <NavLink className={({ isActive }) => cx(cs.el, isActive && cs.selected)} to='/newest'>
-              🔥 최신순
-            </NavLink>
+          <div className={cs.infoWrapper}>
+            <h3 className={cs.subTitle}>spaces</h3>
             <Link className={cs.joinLink} to='/join'>
               코드로 참여하기
             </Link>

@@ -52,32 +52,20 @@
     .contentSelector {
       display: flex;
       flex-direction: column;
-      justify-content: space-between;
+      justify-content: center;
       padding: 0 12px;
       margin-top: 24px;
 
-      .contentTitle {
-        font-size: 24px;
-        font-weight: 600;
-        letter-spacing: 0.5px;
-      }
-
-      .switch {
+      .infoWrapper {
         display: flex;
-        gap: 8px;
         align-items: center;
+        justify-content: space-between;
 
-        .el {
-          width: 72px;
-          font-size: 18px;
-          font-weight: 500;
-          color: colors.$SUB_TITLE;
-          opacity: 0.8;
-        }
-
-        .selected {
+        .subTitle {
+          font-size: 24px;
           font-weight: bold;
-          color: colors.$BLACK;
+          color: colors.$SUB_TITLE;
+          letter-spacing: 0.3px;
         }
 
         .joinLink {

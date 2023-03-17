@@ -16,7 +16,6 @@ import { SignUp } from './components/SignUp';
 import { Layout } from './components/Layout';
 import { Main } from './pages/Main';
 import { Trending } from './pages/Main/Trending';
-import { Newest } from './pages/Main/Newest';
 import { MemberSpace } from './pages/MemberPage/MemberSpace';
 import { MemberPage } from './pages/MemberPage';
 import { MemberScrap } from './pages/MemberPage/MemberScrap';
@@ -61,7 +60,6 @@ const App = () => {
         <Route path='' element={<Main />}>
           <Route path='' element={<Navigate to='trending' />} />
           <Route path='trending' element={<Trending />} />
-          <Route path='newest' element={<Newest />} />
         </Route>
         <Route path='join' element={<JoinSpace />} />
         <Route path='space'>
