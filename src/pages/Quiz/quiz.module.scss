@@ -76,11 +76,25 @@
 
   .buttonsWrapper {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
     min-width: inherit;
 
     > button {
+      padding: 12px 24px;
       font-size: 18px;
+      font-weight: 500;
+    }
+
+    .showAnswer {
+      color: colors.$WHITE;
+      background: colors.$GOOGLE3;
+      border-radius: 22px;
+    }
+
+    .nextQuiz {
+      color: colors.$WHITE;
+      background: colors.$GOOGLE1;
+      border-radius: 22px;
     }
   }
 }

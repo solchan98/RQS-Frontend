@@ -116,12 +116,15 @@ export const MultiQuiz = () => {
       )}
       {!isFetching && (
         <div className={qs.buttonsWrapper}>
-          <button className={qs.show} type='button' onClick={onShowCorrect}>
-            {!showCorrect ? '정답보기' : '문제보기'}
-          </button>
-          <button className={qs.next} type='button' onClick={onNextQuiz}>
-            다음문제
-          </button>
+          {!showCorrect ? (
+            <button className={qs.showAnswer} type='button' onClick={onShowCorrect}>
+              정답보기
+            </button>
+          ) : (
+            <button className={qs.nextQuiz} type='button' onClick={onNextQuiz}>
+              다음문제
+            </button>
+          )}
         </div>
       )}
     </div>
