@@ -4,6 +4,8 @@ import { Link } from 'react-router-dom';
 import cs from './item.module.scss';
 import { Setting } from 'assets/svgs';
 import { IQuiz } from 'types/quiz';
+import { MouseEventHandler, useState } from 'react';
+import { ChildQuiz } from './ChildQuiz';
 
 const TEMP_AVATAR = 'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png';
 
@@ -13,6 +15,8 @@ interface Props {
 }
 
 export const Item = ({ quiz, isUpdatable }: Props) => {
+  const [showChild, setShowChild] = useState(false);
+  const onShowChild: MouseEventHandler<HTMLButtonElement> = () => setShowChild((prev) => !prev);
   return (
     <div className={cs.container}>
       <div className={cs.top}>
@@ -27,18 +31,16 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
               <Setting />
             </Link>
           )}
+          {quiz.childId && (
+            <button type='button' onClick={onShowChild}>
+              꼬리 퀴즈
+            </button>
+          )}
         </div>
       </div>
       <div className={cs.main}>{quiz.question}</div>
       <div className={cs.bottom}>
-        <ul className={cs.hintList}>
-          {quiz.hint.length !== 0 &&
-            quiz.hint.split(',').map((hint) => (
-              <li key={hint} className={cs.hint}>
-                {hint}
-              </li>
-            ))}
-        </ul>
+        <ChildQuiz quizId={quiz.childId} show={showChild} updatable={isUpdatable} />
       </div>
     </div>
   );

@@ -9,10 +9,10 @@
   background: colors.$BACKGROUND_GRAY;
   border: 1px solid colors.$DIVIDE_LINE2;
   border-radius: 12px;
-  transition: 0.5s;
+  transition: all 0.5s;
 
   &:hover {
-    transition: 0.5s;
+    transition: all 0.5s;
     transform: translateY(-2px) translateX(-2px);
   }
 
@@ -107,22 +107,6 @@
   .bottom {
     display: flex;
     gap: 6px;
-
-    .hintList {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      width: inherit;
-      margin-bottom: 12px;
-
-      .hint {
-        padding: 4px 8px;
-        font-size: 12px;
-        color: colors.$SUB_TITLE;
-        background-color: colors.$THEME; // TODO: 색 이상해
-        border-radius: 12px;
-      }
-    }
   }
 
   .answer {

@@ -1,0 +1,24 @@
+@use '/src/styles/constants/colors';
+
+.container {
+  box-sizing: border-box;
+  width: 100%;
+  border: 1px solid colors.$GOOGLE1;
+  border-radius: 8px;
+}
+
+.defaultShow {
+  max-height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  opacity: 0;
+  transition: all 0.2s;
+}
+
+.show {
+  max-height: 700px;
+  padding: 8px 2px 2px 8px;
+  visibility: visible;
+  opacity: 1;
+  transition: all 0.2s;
+}
