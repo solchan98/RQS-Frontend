@@ -13,9 +13,10 @@ interface Props {
   quizId: number;
   parentId: number;
   show: boolean;
+  isUpdatable: boolean;
 }
 
-export const ChildQuiz = ({ quizId, parentId, show }: Props) => {
+export const ChildQuiz = ({ quizId, parentId, show, isUpdatable }: Props) => {
   const [showChild, setShowChild] = useState(false);
   const onShowChild: MouseEventHandler<HTMLButtonElement> = () => setShowChild((prev) => !prev);
 
@@ -29,22 +30,32 @@ export const ChildQuiz = ({ quizId, parentId, show }: Props) => {
       <main className={cs.contentWrapper}>
         <span className={cs.question}>{quiz?.question}</span>
         <div className={cs.side}>
-          {quiz?.childId ? (
+          {quiz?.childId && (
             <button type='button' onClick={onShowChild}>
               {showChild ? <ArrowUp /> : <ArrowDown />}
             </button>
-          ) : (
-            <Link style={{ color: 'black' }} to={`./quiz/${parentId}/new`}>
+          )}
+          {isUpdatable && !quiz?.childId && (
+            <Link style={{ color: 'black' }} to={`/quiz/${quiz?.quizId}/new`}>
               <Add />
             </Link>
           )}
-          <Link className={cs.setting} to={`/quiz/setting/${quiz?.quizId}`}>
-            <Setting />
-          </Link>
+          {isUpdatable && (
+            <Link className={cs.setting} to={`/quiz/setting/${quiz?.quizId}`}>
+              <Setting />
+            </Link>
+          )}
         </div>
       </main>
       <div className={cx(cs.defaultShow, showChild && cs.show)}>
-        {quiz?.childId && <ChildQuiz quizId={Number(quiz?.childId)} parentId={quiz?.quizId} show={showChild} />}
+        {quiz?.childId && (
+          <ChildQuiz
+            quizId={Number(quiz?.childId)}
+            parentId={quiz?.quizId}
+            show={showChild}
+            isUpdatable={isUpdatable}
+          />
+        )}
       </div>
     </div>
   );

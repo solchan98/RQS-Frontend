@@ -27,26 +27,27 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
           <span className={cs.nickname}>{quiz.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(quiz.createdAt))}</span>
         </div>
-        {isUpdatable && (
-          <div className={cs.topRightSide}>
-            {quiz.childId ? (
-              <button type='button' onClick={onShowChild}>
-                {showChild ? <ArrowUp /> : <ArrowDown />}
-              </button>
-            ) : (
-              <Link style={{ color: 'black' }} to={`/quiz/${quiz.quizId}/new`}>
-                <Add />
-              </Link>
-            )}
+        <div className={cs.topRightSide}>
+          {quiz.childId && (
+            <button type='button' onClick={onShowChild}>
+              {showChild ? <ArrowUp /> : <ArrowDown />}
+            </button>
+          )}
+          {isUpdatable && !quiz.childId && (
+            <Link style={{ color: 'black' }} to={`/quiz/${quiz.quizId}/new`}>
+              <Add />
+            </Link>
+          )}
+          {isUpdatable && (
             <Link className={cs.setting} to={`/quiz/setting/${quiz.quizId}`}>
               <Setting />
             </Link>
-          </div>
-        )}
+          )}
+        </div>
       </div>
       <div className={cs.main}>{quiz.question}</div>
       <div className={cs.bottom}>
-        <ChildQuiz quizId={quiz.childId} parentId={quiz.quizId} show={showChild} />
+        <ChildQuiz quizId={quiz.childId} parentId={quiz.quizId} show={showChild} isUpdatable={isUpdatable} />
       </div>
     </div>
   );
