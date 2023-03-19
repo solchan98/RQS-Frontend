@@ -98,7 +98,7 @@ export const Space = () => {
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (
-            <button className={cs.addBtn} type='button' onClick={() => nav('./quiz/create')}>
+            <button className={cs.addBtn} type='button' onClick={() => nav('./quiz/new')}>
               <Add />
             </button>
           )}

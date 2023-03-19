@@ -11,11 +11,11 @@ import { Add, ArrowDown, ArrowUp, Setting } from 'assets/svgs';
 
 interface Props {
   quizId: number;
+  parentId: number;
   show: boolean;
-  updatable: boolean;
 }
 
-export const ChildQuiz = ({ quizId, show, updatable }: Props) => {
+export const ChildQuiz = ({ quizId, parentId, show }: Props) => {
   const [showChild, setShowChild] = useState(false);
   const onShowChild: MouseEventHandler<HTMLButtonElement> = () => setShowChild((prev) => !prev);
 
@@ -34,7 +34,7 @@ export const ChildQuiz = ({ quizId, show, updatable }: Props) => {
               {showChild ? <ArrowUp /> : <ArrowDown />}
             </button>
           ) : (
-            <Link style={{ color: 'black' }} to='#'>
+            <Link style={{ color: 'black' }} to={`./quiz/${parentId}/new`}>
               <Add />
             </Link>
           )}
@@ -44,7 +44,7 @@ export const ChildQuiz = ({ quizId, show, updatable }: Props) => {
         </div>
       </main>
       <div className={cx(cs.defaultShow, showChild && cs.show)}>
-        {quiz?.childId && <ChildQuiz quizId={Number(quiz?.childId)} show={showChild} updatable={updatable} />}
+        {quiz?.childId && <ChildQuiz quizId={Number(quiz?.childId)} parentId={quiz?.quizId} show={showChild} />}
       </div>
     </div>
   );

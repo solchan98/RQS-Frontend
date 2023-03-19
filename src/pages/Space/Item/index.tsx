@@ -34,7 +34,7 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
                 {showChild ? <ArrowUp /> : <ArrowDown />}
               </button>
             ) : (
-              <Link style={{ color: 'black' }} to='#'>
+              <Link style={{ color: 'black' }} to={`/quiz/${quiz.quizId}/new`}>
                 <Add />
               </Link>
             )}
@@ -46,7 +46,7 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
       </div>
       <div className={cs.main}>{quiz.question}</div>
       <div className={cs.bottom}>
-        <ChildQuiz quizId={quiz.childId} show={showChild} updatable={isUpdatable} />
+        <ChildQuiz quizId={quiz.childId} parentId={quiz.quizId} show={showChild} />
       </div>
     </div>
   );

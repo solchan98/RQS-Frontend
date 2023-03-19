@@ -74,7 +74,7 @@ const App = () => {
             <Route path='' element={<Quiz />} />
             <Route path='form' element={<FormQuiz />} />
             <Route path='multi' element={<MultiQuiz />} />
-            <Route path='create' element={<CreateQuiz />} />
+            <Route path='new' element={<CreateQuiz />} />
           </Route>
         </Route>
         <Route path=':memberId' element={<MemberPage />}>

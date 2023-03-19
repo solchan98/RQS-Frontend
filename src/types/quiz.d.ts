@@ -5,6 +5,7 @@ export interface IQuiz {
   spaceId: number;
   childId: number;
   question: string;
+  isRoot: boolean;
   type: string;
   answerResponses: IAnswer[];
   hint: string;
