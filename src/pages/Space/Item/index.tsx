@@ -2,7 +2,7 @@ import timeAgo from 'util/timaAgo';
 import { Link } from 'react-router-dom';
 
 import cs from './item.module.scss';
-import { Setting } from 'assets/svgs';
+import { Add, ArrowDown, ArrowUp, Setting } from 'assets/svgs';
 import { IQuiz } from 'types/quiz';
 import { MouseEventHandler, useState } from 'react';
 import { ChildQuiz } from './ChildQuiz';
@@ -26,17 +26,23 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
         <div className={cs.topSide}>
           <span className={cs.nickname}>{quiz.spaceMemberResponse.nickname}</span>
           <span className={cs.timestamp}>{timeAgo.format(new Date(quiz.createdAt))}</span>
-          {isUpdatable && (
+        </div>
+        {isUpdatable && (
+          <div className={cs.topRightSide}>
+            {quiz.childId ? (
+              <button type='button' onClick={onShowChild}>
+                {showChild ? <ArrowUp /> : <ArrowDown />}
+              </button>
+            ) : (
+              <Link style={{ color: 'black' }} to='#'>
+                <Add />
+              </Link>
+            )}
             <Link className={cs.setting} to={`/quiz/setting/${quiz.quizId}`}>
               <Setting />
             </Link>
-          )}
-          {quiz.childId && (
-            <button type='button' onClick={onShowChild}>
-              꼬리 퀴즈
-            </button>
-          )}
-        </div>
+          </div>
+        )}
       </div>
       <div className={cs.main}>{quiz.question}</div>
       <div className={cs.bottom}>

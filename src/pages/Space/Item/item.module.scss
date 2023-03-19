@@ -74,19 +74,33 @@
           font-size: 12px;
         }
       }
+    }
 
-      .setting {
-        position: absolute;
-        top: 0;
-        right: 0;
-        width: 20px;
-        height: 20px;
+    .topRightSide {
+      display: flex;
+      gap: 8px;
+
+      button,
+      a {
+        width: 24px;
+        height: 24px;
         color: colors.$GRAY_01;
+      }
 
-        > svg {
-          width: inherit;
-          height: inherit;
-        }
+      svg {
+        width: 24px;
+        height: 24px;
+        opacity: 0.5;
+        transition: opacity 0.5s;
+      }
+
+      :hover {
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+
+      button {
+        padding: 0;
       }
     }
   }

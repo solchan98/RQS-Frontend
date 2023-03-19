@@ -2,9 +2,53 @@
 
 .container {
   box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 100%;
-  border: 1px solid colors.$GOOGLE1;
+  background: colors.$WHITE;
+  border: 1px solid colors.$DIVIDE_LINE;
   border-radius: 8px;
+
+  .contentWrapper {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    .question {
+      padding-left: 8px;
+      font-size: 14px;
+      color: colors.$BASIC_FONT;
+    }
+
+    .side {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+
+      button,
+      a {
+        width: 20px;
+        height: 20px;
+        color: colors.$GRAY_01;
+      }
+
+      svg {
+        width: 20px;
+        height: 20px;
+        opacity: 0.5;
+        transition: opacity 0.5s;
+      }
+
+      :hover {
+        opacity: 1;
+        transition: opacity 0.5s;
+      }
+
+      button {
+        padding: 0;
+      }
+    }
+  }
 }
 
 .defaultShow {
@@ -16,8 +60,10 @@
 }
 
 .show {
+  display: flex;
+  justify-content: center;
   max-height: 700px;
-  padding: 8px 2px 2px 8px;
+  padding: 6px 4px;
   visibility: visible;
   opacity: 1;
   transition: all 0.2s;

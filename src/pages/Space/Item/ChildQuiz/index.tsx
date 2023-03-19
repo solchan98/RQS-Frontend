@@ -1,10 +1,13 @@
+import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
+import { MouseEventHandler, useState } from 'react';
+
 import { getQuiz } from 'service/quizzes';
 import { IQuiz } from 'types/quiz';
 
 import cx from 'classnames';
 import cs from './childquiz.module.scss';
-import { MouseEventHandler, useState } from 'react';
+import { Add, ArrowDown, ArrowUp, Setting } from 'assets/svgs';
 
 interface Props {
   quizId: number;
@@ -23,14 +26,23 @@ export const ChildQuiz = ({ quizId, show, updatable }: Props) => {
 
   return (
     <div className={cx(cs.container, cs.defaultShow, show && cs.show)}>
-      <div>
-        {quiz?.question}
-        {quiz?.childId && (
-          <button type='button' onClick={onShowChild}>
-            꼬리 퀴즈
-          </button>
-        )}
-      </div>
+      <main className={cs.contentWrapper}>
+        <span className={cs.question}>{quiz?.question}</span>
+        <div className={cs.side}>
+          {quiz?.childId ? (
+            <button type='button' onClick={onShowChild}>
+              {showChild ? <ArrowUp /> : <ArrowDown />}
+            </button>
+          ) : (
+            <Link style={{ color: 'black' }} to='#'>
+              <Add />
+            </Link>
+          )}
+          <Link className={cs.setting} to={`/quiz/setting/${quiz?.quizId}`}>
+            <Setting />
+          </Link>
+        </div>
+      </main>
       <div className={cx(cs.defaultShow, showChild && cs.show)}>
         {quiz?.childId && <ChildQuiz quizId={Number(quiz?.childId)} show={showChild} updatable={updatable} />}
       </div>
