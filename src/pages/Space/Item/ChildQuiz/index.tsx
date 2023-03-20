@@ -36,7 +36,7 @@ export const ChildQuiz = ({ quizId, parentId, show, isUpdatable }: Props) => {
             </button>
           )}
           {isUpdatable && !quiz?.childId && (
-            <Link style={{ color: 'black' }} to={`/quiz/${quiz?.quizId}/new`}>
+            <Link style={{ color: 'black' }} to={`./quiz/${quiz?.quizId}/new`}>
               <Add />
             </Link>
           )}

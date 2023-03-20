@@ -82,6 +82,39 @@ export const createQuiz = (
     .catch(() => reissueAtk().then(() => createQuizApi(spaceId, question, createAnswers, type, hintList)));
 };
 
+const createChildQuizApi = (
+  spaceId: number,
+  parentId: number,
+  question: string,
+  createAnswers: ICreateAnswer[],
+  type: string,
+  hintList: string[]
+) => {
+  const atk = store.get('atk');
+  const hint = hintList.join(',');
+  const data = { spaceId, question, createAnswers, type, hint };
+  return baseApi
+    .post(`${CREATE_SPACE_QUIZ}/${parentId}/child`, data, {
+      headers: { Authorization: `bearer ${atk}` },
+    })
+    .then((res) => res.data);
+};
+
+export const createChildQuiz = (
+  spaceId: number,
+  parentId: number,
+  question: string,
+  createAnswers: ICreateAnswer[],
+  type: string,
+  hintList: string[]
+) => {
+  return createChildQuizApi(spaceId, parentId, question, createAnswers, type, hintList)
+    .then((data) => data)
+    .catch(() =>
+      reissueAtk().then(() => createChildQuizApi(spaceId, parentId, question, createAnswers, type, hintList))
+    );
+};
+
 const updateQuizApi = (quizId: number, question: string, type: string, answers: ICreateAnswer[], hint: string) => {
   const atk = store.get('atk');
   const data = { quizId, question, type, answers, hint };
