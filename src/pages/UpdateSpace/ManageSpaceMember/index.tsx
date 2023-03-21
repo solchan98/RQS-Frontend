@@ -1,9 +1,9 @@
 import { useQuery } from '@tanstack/react-query';
 import { FormEventHandler, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
-import { changeSpaceMemberRole, getSpaceMemberList } from 'service/spaces';
 import { ISpace, ISpaceMember } from 'types/space';
+import { useFetchError } from 'hooks/useFetchError';
+import { changeSpaceMemberRole, getSpaceMemberList } from 'service/spaces';
 
 import cx from 'classnames';
 import cs from './manageSpaceMember.module.scss';
@@ -13,7 +13,6 @@ interface Props {
 }
 
 export const ManageSpaceMember = ({ space }: Props) => {
-  const logout = useLogout();
   const [spaceMemberList, setSpaceMemberList] = useState<ISpaceMember[]>([]);
 
   useQuery([`#spaceMemberList_in_spaceId_${space.spaceId}`], () => getSpaceMemberList(Number(space.spaceId)), {
@@ -25,13 +24,15 @@ export const ManageSpaceMember = ({ space }: Props) => {
       prev.map((spaceMember) => (spaceMember.spaceMemberId === data.spaceMemberId ? data : spaceMember))
     );
   };
+
+  const onFetchError = useFetchError();
   const onSubmitChangeRole: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     const { id, role } = e.currentTarget.dataset;
     if (!role) return;
     changeSpaceMemberRole(Number(space.spaceId), Number(id), role)
       .then((data: ISpaceMember) => changeRoleSuccessHandler(data))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
   return (
     <ul className={cs.container}>

@@ -1,33 +1,24 @@
 import { useState } from 'react';
-import { AxiosError } from 'axios';
-import { ISpace } from 'types/space';
-import { Link, useNavigate, useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 
-import { QuizIntro } from 'components/QuizIntro';
-import { getSpace } from 'service/spaces';
+import { ISpace } from 'types/space';
 import { IQuizStatus } from 'types/quiz';
-import { useLogout } from 'hooks/useLogout';
+import { getSpace } from 'service/spaces';
 import { getQuizStatus } from 'service/quizzes';
+import { QuizIntro } from 'components/QuizIntro';
+import { useFetchError } from 'hooks/useFetchError';
+
 import cs from './quiz.module.scss';
 
 export const Quiz = () => {
   const [quizStatus, setQuizStatus] = useState({ status: false } as IQuizStatus);
   const { spaceId } = useParams();
 
-  const nav = useNavigate();
-  const logout = useLogout();
-  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
-    if (err.response?.status === 401) {
-      logout();
-    } else {
-      nav(-1);
-      alert(err.response?.data.message);
-    }
-  };
+  const onFetchError = useFetchError();
   const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
     select: (data): ISpace => data,
-    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
+    onError: onFetchError,
   });
 
   useQuery([`#quiz_status_${spaceId}`], () => getQuizStatus(Number(spaceId)), {

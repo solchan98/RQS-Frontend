@@ -11,3 +11,5 @@ export { ReactComponent as Lock } from './lock.svg';
 export { ReactComponent as UnLock } from './lock-open.svg';
 export { ReactComponent as GoogleLogin } from './google-icon.svg';
 export { ReactComponent as KakaoLogin } from './kakaotalk-logo.svg';
+export { ReactComponent as ArrowUp } from './arrow-up.svg';
+export { ReactComponent as ArrowDown } from './arrow-down.svg';

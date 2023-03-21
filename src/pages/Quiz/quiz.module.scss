@@ -76,6 +76,7 @@
 
   .buttonsWrapper {
     display: flex;
+    gap: 12px;
     justify-content: center;
     min-width: inherit;
 
@@ -94,6 +95,12 @@
     .nextQuiz {
       color: colors.$WHITE;
       background: colors.$GOOGLE1;
+      border-radius: 22px;
+    }
+
+    .childQuiz {
+      color: colors.$WHITE;
+      background: colors.$GOOGLE4;
       border-radius: 22px;
     }
   }

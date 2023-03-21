@@ -1,13 +1,12 @@
-import { AxiosError } from 'axios';
 import { Editor } from '@toast-ui/react-editor';
 import { useQuery } from '@tanstack/react-query';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
-import { checkIsQuizCreator, deleteQuiz, getQuiz, updateQuiz } from 'service/quizzes';
-import ToastEditor from 'components/ToastUI/Editor';
 import { ICreateAnswer, IQuiz } from 'types/quiz';
+import { useFetchError } from 'hooks/useFetchError';
+import ToastEditor from 'components/ToastUI/Editor';
+import { checkIsQuizCreator, deleteQuiz, getQuiz, updateQuiz } from 'service/quizzes';
 
 import cx from 'classnames';
 import cs from './updatequiz.module.scss';
@@ -29,6 +28,9 @@ export const UpdateQuiz = () => {
   const editorRef = useRef<Editor>(null);
 
   const [hasAccessRole, setHasAccessRole] = useState(false);
+
+  const nav = useNavigate();
+  const onFetchError = useFetchError();
   const onAccessible = (message: IMessage) => {
     const isCreator = message.message === '200';
     if (!isCreator) {
@@ -36,12 +38,12 @@ export const UpdateQuiz = () => {
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
       return;
     }
-    getQuiz(Number(quizId)).then(onSuccessGetQuiz).catch(onError);
+    getQuiz(Number(quizId)).then(onSuccessGetQuiz).catch(onFetchError);
   };
 
   useQuery([`#quiz_${quizId}`], () => checkIsQuizCreator(Number(quizId)), {
     onSuccess: onAccessible,
-    onError: (err: AxiosError<{ message: string }>) => onError(err),
+    onError: onFetchError,
   });
 
   const onSuccessGetQuiz = (quiz: IQuiz) => {
@@ -56,18 +58,6 @@ export const UpdateQuiz = () => {
       setAnswers4(quiz.answerResponses[3] ?? { answer: '', isCorrect: false });
     }
     setHasAccessRole((prev) => !prev);
-  };
-
-  const nav = useNavigate();
-  const logout = useLogout();
-  const onError = (err: AxiosError<{ message: string }>) => {
-    console.log(err);
-    if (err.response?.status === 401) {
-      logout();
-    } else {
-      nav(-1);
-      alert(err.response?.data.message);
-    }
   };
 
   const calAnswers = () => {
@@ -88,7 +78,7 @@ export const UpdateQuiz = () => {
 
   const onSubmitUpdateQuiz: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    updateQuiz(Number(quizId), question, type, calAnswers(), '').then(updateQuizSuccessHandler).catch(onError);
+    updateQuiz(Number(quizId), question, type, calAnswers(), '').then(updateQuizSuccessHandler).catch(onFetchError);
   };
 
   const deleteQuizSuccessHandler = () => {
@@ -102,7 +92,7 @@ export const UpdateQuiz = () => {
     if (!checkDelete) {
       setCheckDelete((prev) => !prev);
     } else {
-      deleteQuiz(Number(quizId)).then(deleteQuizSuccessHandler).catch(onError);
+      deleteQuiz(Number(quizId)).then(deleteQuizSuccessHandler).catch(onFetchError);
     }
   };
 

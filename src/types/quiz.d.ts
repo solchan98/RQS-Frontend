@@ -3,7 +3,9 @@ import { ISpaceMember } from 'space';
 export interface IQuiz {
   quizId: number;
   spaceId: number;
+  childId: number;
   question: string;
+  isRoot: boolean;
   type: string;
   answerResponses: IAnswer[];
   hint: string;

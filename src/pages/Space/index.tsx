@@ -1,38 +1,28 @@
-import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
+import { Image } from '@chakra-ui/react';
+import { memberState } from 'recoil/atoms/member';
 import { Link, useNavigate, useParams } from 'react-router-dom';
 import { useInfiniteQuery, useQuery } from '@tanstack/react-query';
 
-import { memberState } from 'recoil/atoms/member';
+import { IQuiz } from 'types/quiz';
+import { ISpace } from 'types/space';
 import { getSpace } from 'service/spaces';
 import { getQuizzes } from 'service/quizzes';
-import { useLogout } from 'hooks/useLogout';
-import { ISpace } from 'types/space';
+import { useFetchError } from 'hooks/useFetchError';
 
 import { Item } from './Item';
-import { Add, Members, Play, Question } from 'assets/svgs';
 import cs from './space.module.scss';
-import { Image } from '@chakra-ui/react';
-import { IQuiz } from 'types/quiz';
+import { Add, Members, Play, Question } from 'assets/svgs';
 
 const DEFAULT_THUMBNAIL = 'https://cdn.pixabay.com/photo/2020/03/21/14/45/rocket-4954229_1280.jpg';
 
 export const Space = () => {
   const { spaceId } = useParams();
 
-  const nav = useNavigate();
-  const logout = useLogout();
-  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
-    if (err.response?.status === 401) {
-      logout();
-    } else {
-      nav(-1);
-      alert(err.response?.data.message);
-    }
-  };
+  const onFetchError = useFetchError();
   const { data: space } = useQuery([`#space_${spaceId}`], () => getSpace(Number(spaceId)), {
     select: (data): ISpace => data,
-    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
+    onError: onFetchError,
   });
 
   const {
@@ -42,11 +32,11 @@ export const Space = () => {
   } = useInfiniteQuery([`#quizzes_${spaceId}`], ({ pageParam = undefined }) => getQuizzes(Number(spaceId), pageParam), {
     getNextPageParam: (quizzesResponse: IQuiz[]) =>
       quizzesResponse.length !== 0 && quizzesResponse[quizzesResponse.length - 1].quizId,
-    onError: (err: AxiosError<{ message: string }>) =>
-      err.response?.status === 401 ? logout() : alert(err.response?.data.message),
+    onError: onFetchError,
   });
 
   const { isLoggedIn, email } = useRecoilValue(memberState);
+  const nav = useNavigate();
   const onQuizStartHandler = () => {
     if (isLoggedIn) {
       nav(`/space/${spaceId}/quiz `);
@@ -98,7 +88,7 @@ export const Space = () => {
         </div>
         <ul className={cs.quizList}>
           {isSpaceMember() && (
-            <button className={cs.addBtn} type='button' onClick={() => nav('./quiz/create')}>
+            <button className={cs.addBtn} type='button' onClick={() => nav('./quiz/new')}>
               <Add />
             </button>
           )}

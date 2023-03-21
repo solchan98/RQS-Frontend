@@ -1,16 +1,15 @@
-import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { FormEventHandler, MouseEventHandler, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
+import { FormEventHandler, MouseEventHandler, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
-import { changeVisibility, checkIsSpaceCreator, deleteSpace, getSpace, getSpaceJoinCodes } from 'service/spaces';
 import { IJoinCodes, ISpace } from 'types/space';
+import { useFetchError } from 'hooks/useFetchError';
+import { changeVisibility, checkIsSpaceCreator, deleteSpace, getSpace, getSpaceJoinCodes } from 'service/spaces';
 
-import { ManageSpaceMember } from './ManageSpaceMember';
-import { UpdateTitle } from './UpdateTitle';
-import cs from './updateSpace.module.scss';
 import cx from 'classnames';
+import cs from './updateSpace.module.scss';
+import { UpdateTitle } from './UpdateTitle';
+import { ManageSpaceMember } from './ManageSpaceMember';
 
 export const UpdateSpace = () => {
   const { spaceId } = useParams();
@@ -20,14 +19,15 @@ export const UpdateSpace = () => {
   const nav = useNavigate();
   const [hasAccessRole, setHasAccessRole] = useState(false);
 
+  const onFetchError = useFetchError();
   const onAccessible = (message: IMessage) => {
     if (message.message !== '200') {
       nav(-1);
       alert('권한이 존재하지 않아 접근할 수 없습니다.');
       return;
     }
-    getSpace(Number(spaceId)).then(onSuccessGetSpace).catch(onError);
-    getSpaceJoinCodes(Number(spaceId)).then(onSuccessGetJoinCodes).catch(onError);
+    getSpace(Number(spaceId)).then(onSuccessGetSpace).catch(onFetchError);
+    getSpaceJoinCodes(Number(spaceId)).then(onSuccessGetJoinCodes).catch(onFetchError);
   };
 
   const onSuccessGetSpace = (space: ISpace) => {
@@ -44,19 +44,9 @@ export const UpdateSpace = () => {
     }));
   };
 
-  const onError = (err: AxiosError<{ message: string }>) => {
-    if (err.response?.status === 401) {
-      logout();
-    } else {
-      nav(-1);
-      alert(err.response?.data.message);
-    }
-  };
-
-  const logout = useLogout();
   useQuery([`#space_${spaceId}`], () => checkIsSpaceCreator(Number(spaceId)), {
     onSuccess: onAccessible,
-    onError,
+    onError: onFetchError,
   });
 
   const [checkDelete, setCheckDelete] = useState(false);
@@ -67,12 +57,11 @@ export const UpdateSpace = () => {
     } else {
       deleteSpace(Number(spaceId))
         .then(() => nav('/'))
-        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+        .catch(onFetchError);
     }
   };
 
   const onClickExit = () => nav(-1);
-
   const changeVisibilityHandler = (visibility: boolean) => {
     alert('상태가 변경되었습니다.');
     setSpaceState((prev) => ({
@@ -84,7 +73,7 @@ export const UpdateSpace = () => {
     const visibility: boolean = e.currentTarget.dataset.id === 'show';
     changeVisibility(spaceState.spaceId, visibility)
       .then(() => changeVisibilityHandler(visibility))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
 
   if (!hasAccessRole) return <div>권한 확인중...</div>;

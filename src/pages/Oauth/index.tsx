@@ -22,7 +22,7 @@ export const Oauth = () => {
     const type = String(params.type);
     oauthLogin(code, type)
       .then((data: IMemberResponse) => loginSuccess(data))
-      .catch((err) => console.log(err));
+      .catch(console.log);
   });
   return (
     <div className={cs.container}>

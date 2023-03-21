@@ -1,14 +1,14 @@
-import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import store from 'store';
 import jwtDecode from 'jwt-decode';
 import { useMount } from 'react-use';
 import { useSetRecoilState } from 'recoil';
-import { useNavigate, useParams } from 'react-router-dom';
-
-import { useLogout } from 'hooks/useLogout';
-import { getMemberInfo, updateMember } from 'service/member';
 import { memberState } from 'recoil/atoms/member';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+
 import { IMember } from 'types/member';
+import { useFetchError } from 'hooks/useFetchError';
+import { getMemberInfo, updateMember } from 'service/member';
 
 import cs from './updateProfile.module.scss';
 
@@ -35,11 +35,9 @@ export const UpdateProfile = () => {
     setDescription(data.description);
   };
 
-  const logout = useLogout();
+  const onFetchError = useFetchError();
   const setupMember = () => {
-    getMemberInfo(Number(memberId))
-      .then(onSuccessGetMemberInfo)
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+    getMemberInfo(Number(memberId)).then(onSuccessGetMemberInfo).catch(onFetchError);
   };
 
   useMount(() => {
@@ -65,7 +63,7 @@ export const UpdateProfile = () => {
     e.preventDefault();
     updateMember(nickname, description)
       .then((data) => onSuccessUpdateProfile(data))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
 
   if (!isAccessible) return <div>권한 확인중...</div>;
