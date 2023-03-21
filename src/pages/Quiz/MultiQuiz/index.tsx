@@ -1,10 +1,10 @@
-import { AxiosError } from 'axios';
 import { useQuery } from '@tanstack/react-query';
-import { MouseEventHandler, useState } from 'react';
+import { MouseEventHandler, useMemo, useState } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 
-import { useLogout } from 'hooks/useLogout';
 import { IQuiz, IQuizStatus } from 'types/quiz';
+import { useFetchError } from 'hooks/useFetchError';
+import { useChildQuizFetch } from 'hooks/useChildQuizFetch';
 import { getQuizStatus, getRandomQuiz } from 'service/quizzes';
 
 import cx from 'classnames';
@@ -49,26 +49,19 @@ export const MultiQuiz = () => {
     });
   };
 
-  const logout = useLogout();
-  const nav = useNavigate();
-  const onErrorGetSpace = (err: AxiosError<{ message: string }>) => {
-    if (err.response?.status === 401) {
-      logout();
-    } else {
-      nav(-1);
-      alert(err.response?.data.message);
-    }
-  };
+  const onFechError = useFetchError();
 
-  const {
-    data: quiz,
-    isFetching,
-    refetch: refetchQuiz,
-  } = useQuery([`#random_quiz_${spaceId}`], () => getRandomQuiz(Number(spaceId), 'multi'), {
-    select: (data): IQuiz => data,
-    onSuccess: fetchQuizStatus,
-    onError: (err: AxiosError<{ message: string }>) => onErrorGetSpace(err),
-  });
+  const nav = useNavigate();
+  const [quiz, setQuiz] = useState({} as IQuiz);
+  const { isFetching, refetch: refetchQuiz } = useQuery(
+    [`#random_quiz_${spaceId}`],
+    () => getRandomQuiz(Number(spaceId), 'multi'),
+    {
+      select: setQuiz,
+      onSuccess: fetchQuizStatus,
+      onError: onFechError,
+    }
+  );
 
   const onNextQuiz: MouseEventHandler<HTMLButtonElement> = () => {
     if (quizStatus.left === 0) {
@@ -78,6 +71,9 @@ export const MultiQuiz = () => {
     }
     refetchQuiz().then();
   };
+
+  const { isChildQuizFetch, onFetchChildQuiz } = useChildQuizFetch({ setShowCorrect, setQuiz, quiz });
+  const isCustomFetching = useMemo(() => !isFetching && isChildQuizFetch, [isFetching, isChildQuizFetch]);
 
   return (
     <div className={qs.quizContainer}>
@@ -114,19 +110,23 @@ export const MultiQuiz = () => {
           ))}
         </div>
       )}
-      {!isFetching && (
-        <div className={qs.buttonsWrapper}>
-          {!showCorrect ? (
-            <button className={qs.showAnswer} type='button' onClick={onShowCorrect}>
-              정답보기
-            </button>
-          ) : (
-            <button className={qs.nextQuiz} type='button' onClick={onNextQuiz}>
-              다음문제
-            </button>
-          )}
-        </div>
-      )}
+      <div className={qs.buttonsWrapper}>
+        {!isCustomFetching && !showCorrect && (
+          <button className={qs.showAnswer} type='button' onClick={onShowCorrect}>
+            정답보기
+          </button>
+        )}
+        {!isCustomFetching && showCorrect && quiz.childId && (
+          <button className={qs.childQuiz} type='button' onClick={onFetchChildQuiz}>
+            꼬리 질문
+          </button>
+        )}
+        {!isCustomFetching && showCorrect && (
+          <button className={qs.nextQuiz} type='button' onClick={onNextQuiz}>
+            다음문제
+          </button>
+        )}
+      </div>
     </div>
   );
 };
