@@ -1,20 +1,19 @@
 import { useMount } from 'react-use';
-import { AxiosError } from 'axios';
 import { useRecoilValue } from 'recoil';
-import { useLogout } from 'hooks/useLogout';
-
+import { memberState } from 'recoil/atoms/member';
 import { Link, useParams } from 'react-router-dom';
 import { useInfiniteQuery } from '@tanstack/react-query';
-import { getMemberSpaceList } from 'service/spaces';
-import { ISpace } from 'types/space';
 
-import { Space } from 'components/Space';
+import { ISpace } from 'types/space';
 import { useModal } from 'hooks/useModal';
 import { useCheckToken } from 'hooks/useCheckToken';
+import { useFetchError } from 'hooks/useFetchError';
+import { getMemberSpaceList } from 'service/spaces';
+
 import { Add } from 'assets/svgs';
+import { Space } from 'components/Space';
 import cs from '../memberpage.module.scss';
 import { CreateSpaceModal } from './CreateSpaceModal';
-import { memberState } from 'recoil/atoms/member';
 
 export const MemberSpace = () => {
   const { memberId } = useParams();
@@ -23,15 +22,14 @@ export const MemberSpace = () => {
 
   useMount(checkToken);
 
-  const logout = useLogout();
+  const onFetchError = useFetchError();
   const { data, hasNextPage, fetchNextPage, refetch } = useInfiniteQuery(
     [`#spaceList_${memberId}`],
     ({ pageParam = undefined }) => getMemberSpaceList(Number(memberId), pageParam),
     {
       getNextPageParam: (spaceListResponse: ISpace[]) =>
         spaceListResponse.length !== 0 && spaceListResponse[spaceListResponse.length - 1].memberJoinedAt,
-      onError: (err: AxiosError<{ message: string }>) =>
-        err.response?.status === 401 ? logout() : alert(err.response?.data.message),
+      onError: onFetchError,
       enabled: tokenChecked,
     }
   );

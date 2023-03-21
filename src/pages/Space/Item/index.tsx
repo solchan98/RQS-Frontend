@@ -47,7 +47,7 @@ export const Item = ({ quiz, isUpdatable }: Props) => {
       </div>
       <div className={cs.main}>{quiz.question}</div>
       <div className={cs.bottom}>
-        <ChildQuiz quizId={quiz.childId} parentId={quiz.quizId} show={showChild} isUpdatable={isUpdatable} />
+        <ChildQuiz quizId={quiz.childId} show={showChild} isUpdatable={isUpdatable} />
       </div>
     </div>
   );

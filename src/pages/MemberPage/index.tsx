@@ -6,6 +6,8 @@ import { Link, NavLink, Outlet, useParams } from 'react-router-dom';
 import { Avatar } from 'components/Avatar';
 import { IMemberSubject } from 'types/member';
 import { getMemberInfo } from 'service/member';
+import { useFetchError } from 'hooks/useFetchError';
+
 import cx from 'classnames';
 import cs from './mypage.module.scss';
 
@@ -14,8 +16,10 @@ export const MemberPage = () => {
 
   const { memberId: loginMemberId } = useRecoilValue(memberState);
 
+  const onFetchError = useFetchError();
   const { data: memberInfo } = useQuery([`#member_${memberId}`], () => getMemberInfo(Number(memberId)), {
     select: (data): IMemberSubject => data,
+    onError: onFetchError,
   });
 
   return (

@@ -1,12 +1,13 @@
 import { checkJoinSpace } from 'service/spaces';
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
+import { HStack, Input, PinInput, PinInputField } from '@chakra-ui/react';
 
-import { useModal } from 'hooks/useModal';
 import { IJoinSpace } from 'types/space';
+import { useModal } from 'hooks/useModal';
+import { useFetchError } from 'hooks/useFetchError';
 
 import { JoinModal } from './JoinModal';
 import cs from './joinSpace.module.scss';
-import { HStack, Input, PinInput, PinInputField } from '@chakra-ui/react';
 
 export const JoinSpace = () => {
   const [spaceId, setSpaceId] = useState('');
@@ -22,11 +23,11 @@ export const JoinSpace = () => {
     setJoinSpace(data);
     joinModal.openModal();
   };
+
+  const onFetchError = useFetchError();
   const getJoinSpace: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
-    checkJoinSpace(spaceId, joinCode)
-      .then(onSuccessGetJoinSpaceHandle)
-      .catch((err) => alert(err.response.data.message ?? '요청 데이터를 확인하세요.'));
+    checkJoinSpace(spaceId, joinCode).then(onSuccessGetJoinSpaceHandle).catch(onFetchError);
   };
 
   return (

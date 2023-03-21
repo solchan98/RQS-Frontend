@@ -1,13 +1,13 @@
 import { ChangeEventHandler, FormEventHandler, useState } from 'react';
 import { RefetchOptions, RefetchQueryFilters } from '@tanstack/react-query';
 
-import { useLogout } from 'hooks/useLogout';
 import { createSpace } from 'service/spaces';
-import { ModalTemplate } from 'components/ModalTemplate';
+import { useFetchError } from 'hooks/useFetchError';
 
 import { Exit } from 'assets/svgs';
 import cx from 'classnames';
 import cs from './createSpaceModal.module.scss';
+import { ModalTemplate } from 'components/ModalTemplate';
 
 interface Props {
   useModal: { isOpen: boolean; openModal: () => void; closeModal: (handler: Function) => void };
@@ -38,8 +38,7 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
     setVisibility(true);
   };
 
-  const logout = useLogout();
-
+  const onFetchError = useFetchError();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     if (title.length === 0) {
@@ -47,7 +46,7 @@ export const CreateSpaceModal = ({ useModal, refetch }: Props) => {
     } else {
       createSpace(title, content, visibility)
         .then(() => refetch())
-        .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+        .catch(onFetchError);
       closeModal(closeModalHandler);
     }
   };

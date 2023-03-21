@@ -1,14 +1,15 @@
-import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useState } from 'react';
-import ToastEditor from 'components/ToastUI/Editor';
 import { Editor } from '@toast-ui/react-editor';
+import { useNavigate, useParams } from 'react-router-dom';
+import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useRef, useState } from 'react';
+
 import { ICreateAnswer } from 'types/quiz';
 import { createQuiz } from 'service/quizzes';
-import { useNavigate, useParams } from 'react-router-dom';
-import { useLogout } from 'hooks/useLogout';
+import { useFetchError } from 'hooks/useFetchError';
 
 import cx from 'classnames';
 import cs from './createquiz.module.scss';
 import { MultiAnswer } from './MultiAnswer';
+import ToastEditor from 'components/ToastUI/Editor';
 
 export const CreateQuiz = () => {
   const { spaceId } = useParams();
@@ -29,9 +30,6 @@ export const CreateQuiz = () => {
 
   const editorRef = useRef<Editor>(null);
 
-  const nav = useNavigate();
-  const logout = useLogout();
-
   const calAnswers = () => {
     if (type === 'form') {
       const data = {
@@ -44,11 +42,13 @@ export const CreateQuiz = () => {
     return answers.filter((answer) => answer.answer !== '');
   };
 
+  const nav = useNavigate();
+  const onFetchError = useFetchError();
   const onSubmit: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     createQuiz(Number(spaceId), question, calAnswers(), type, [])
       .then(() => nav(`/space/${spaceId}`))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
 
   return (

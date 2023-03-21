@@ -1,13 +1,13 @@
 import { useMount } from 'react-use';
 import { Editor } from '@toast-ui/react-editor';
-import ToastEditor from 'components/ToastUI/Editor';
 import { useNavigate, useParams } from 'react-router-dom';
 import { ChangeEventHandler, FormEventHandler, useRef, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
 import { ICreateAnswer, IQuiz } from 'types/quiz';
-import { createChildQuiz, getQuiz } from 'service/quizzes';
+import ToastEditor from 'components/ToastUI/Editor';
+import { useFetchError } from 'hooks/useFetchError';
 import { MultiAnswer } from '../CreateQuiz/MultiAnswer';
+import { createChildQuiz, getQuiz } from 'service/quizzes';
 
 import cx from 'classnames';
 import cs from '../CreateQuiz/createquiz.module.scss';
@@ -20,11 +20,10 @@ export const CreateChildQuiz = () => {
   const onChangeQuestion: ChangeEventHandler<HTMLTextAreaElement> = (e) => setQuestion(e.currentTarget.value);
 
   const nav = useNavigate();
-  const logout = useLogout();
+  const onFetchError = useFetchError();
+
   useMount(() => {
-    getQuiz(Number(parentId))
-      .then(setParentQuiz)
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+    getQuiz(Number(parentId)).then(setParentQuiz).catch(onFetchError);
   });
 
   const [answers1, setAnswers1] = useState<ICreateAnswer>({ answer: '', isCorrect: false });
@@ -49,7 +48,7 @@ export const CreateChildQuiz = () => {
     e.preventDefault();
     createChildQuiz(Number(spaceId), Number(parentId), question, calAnswers(), parentQuiz.type, [])
       .then(() => nav(`/space/${spaceId}`))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
 
   return (

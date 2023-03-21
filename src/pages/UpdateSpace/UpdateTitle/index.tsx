@@ -1,8 +1,8 @@
 import { ChangeEventHandler, FormEventHandler, MouseEventHandler, useState } from 'react';
 
-import { useLogout } from 'hooks/useLogout';
-import { updateSpaceTitle } from 'service/spaces';
 import { ISpace } from 'types/space';
+import { updateSpaceTitle } from 'service/spaces';
+import { useFetchError } from 'hooks/useFetchError';
 
 import cx from 'classnames';
 import cs from './updateTitle.module.scss';
@@ -18,12 +18,12 @@ export const UpdateTitle = ({ space }: Props) => {
   const [title, setTitle] = useState(space.title);
   const onChangeTitle: ChangeEventHandler<HTMLInputElement> = (e) => setTitle(e.currentTarget.value);
 
-  const logout = useLogout();
+  const onFetchError = useFetchError();
   const onSubmitTitleUpdate: FormEventHandler<HTMLFormElement> = (e) => {
     e.preventDefault();
     updateSpaceTitle(Number(space.spaceId), title)
       .then(() => setIsTitleUpdate(false))
-      .catch((err) => (err.response?.status === 401 ? logout() : alert(err.response?.data.message)));
+      .catch(onFetchError);
   };
 
   if (isTitleUpdate)

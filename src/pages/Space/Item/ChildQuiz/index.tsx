@@ -11,16 +11,15 @@ import { Add, ArrowDown, ArrowUp, Setting } from 'assets/svgs';
 
 interface Props {
   quizId: number;
-  parentId: number;
   show: boolean;
   isUpdatable: boolean;
 }
 
-export const ChildQuiz = ({ quizId, parentId, show, isUpdatable }: Props) => {
+export const ChildQuiz = ({ quizId, show, isUpdatable }: Props) => {
   const [showChild, setShowChild] = useState(false);
   const onShowChild: MouseEventHandler<HTMLButtonElement> = () => setShowChild((prev) => !prev);
 
-  const { data: quiz, isFetching } = useQuery([`#child_quiz_${quizId}`], () => getQuiz(quizId), {
+  const { data: quiz } = useQuery([`#child_quiz_${quizId}`], () => getQuiz(quizId), {
     select: (data: IQuiz) => data,
     enabled: show,
   });
@@ -48,14 +47,7 @@ export const ChildQuiz = ({ quizId, parentId, show, isUpdatable }: Props) => {
         </div>
       </main>
       <div className={cx(cs.defaultShow, showChild && cs.show)}>
-        {quiz?.childId && (
-          <ChildQuiz
-            quizId={Number(quiz?.childId)}
-            parentId={quiz?.quizId}
-            show={showChild}
-            isUpdatable={isUpdatable}
-          />
-        )}
+        {quiz?.childId && <ChildQuiz quizId={Number(quiz?.childId)} show={showChild} isUpdatable={isUpdatable} />}
       </div>
     </div>
   );
