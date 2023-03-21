@@ -49,7 +49,7 @@ export const MultiQuiz = () => {
     });
   };
 
-  const onFechError = useFetchError();
+  const onFetchError = useFetchError();
 
   const nav = useNavigate();
   const [quiz, setQuiz] = useState({} as IQuiz);
@@ -59,7 +59,7 @@ export const MultiQuiz = () => {
     {
       select: setQuiz,
       onSuccess: fetchQuizStatus,
-      onError: onFechError,
+      onError: onFetchError,
     }
   );
 
@@ -92,7 +92,7 @@ export const MultiQuiz = () => {
       </main>
       {!isFetching && (
         <div className={cs.answerWrapper}>
-          {quiz?.answerResponses.map((answer) => (
+          {quiz?.answerResponses?.map((answer) => (
             <button
               type='button'
               className={cx(

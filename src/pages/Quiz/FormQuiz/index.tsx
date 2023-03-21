@@ -74,7 +74,7 @@ export const FormQuiz = () => {
           {!showCorrect && <span className={qs.question}>{quiz?.question}</span>}
           {showCorrect && (
             <div className={cs.toastViewerWrapper}>
-              <ToastViewer content={quiz?.answerResponses[0].answer ?? ''} />
+              <ToastViewer content={quiz?.answerResponses[0]?.answer ?? ''} />
             </div>
           )}
         </main>
