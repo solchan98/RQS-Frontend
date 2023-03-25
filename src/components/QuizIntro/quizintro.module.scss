@@ -22,14 +22,16 @@
       width: 120px;
       height: 48px;
       font-size: 14px;
-      font-weight: 500;
+      font-weight: bold;
+      color: colors.$SUB_TITLE;
       border: 1px solid colors.$DIVIDE_LINE;
       border-radius: 8px;
     }
 
     .active {
+      color: colors.$WHITE;
       background: colors.$THEME;
-      transition: 0.5s background-color;
+      transition: 0.5s;
     }
   }
 

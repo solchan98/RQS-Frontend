@@ -3,7 +3,7 @@ import { ISpaceMember } from 'space';
 export interface IQuiz {
   quizId: number;
   spaceId: number;
-  childId: number;
+  childId: number | null;
   question: string;
   isRoot: boolean;
   type: string;

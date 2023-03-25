@@ -28,6 +28,9 @@ import { FormQuiz } from './pages/Quiz/FormQuiz';
 import { CreateQuiz } from './pages/CreateQuiz';
 import { MultiQuiz } from './pages/Quiz/MultiQuiz';
 import { CreateChildQuiz } from './pages/CreateChildQuiz';
+import { ExampleQuizzes } from './pages/ExampleQuizzes';
+import { ExampleMultiQuiz } from './pages/ExampleQuizzes/MultiQuiz';
+import { ExampleFormQuiz } from './pages/ExampleQuizzes/FormQuiz';
 
 const App = () => {
   const setMemberValue = useSetRecoilState(memberState);
@@ -78,6 +81,11 @@ const App = () => {
             <Route path=':parentId/new' element={<CreateChildQuiz />} />
             <Route path='new' element={<CreateQuiz />} />
           </Route>
+        </Route>
+        <Route path='examples'>
+          <Route path='' element={<ExampleQuizzes />} />
+          <Route path='form' element={<ExampleFormQuiz />} />
+          <Route path='multi' element={<ExampleMultiQuiz />} />
         </Route>
         <Route path=':memberId' element={<MemberPage />}>
           <Route path='' element={<Navigate to='./space' />} />

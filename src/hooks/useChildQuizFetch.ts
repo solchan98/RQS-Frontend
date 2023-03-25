@@ -17,7 +17,7 @@ export const useChildQuizFetch = ({ setShowCorrect, setQuiz, quiz }: IProps) => 
   const onFetchChildQuiz: MouseEventHandler<HTMLButtonElement> = () => {
     setIsChildQuizFetch(true);
     setShowCorrect(false);
-    getQuiz(quiz.childId)
+    getQuiz(Number(quiz.childId))
       .then((data) => {
         setQuiz(data);
         setIsChildQuizFetch(false);
