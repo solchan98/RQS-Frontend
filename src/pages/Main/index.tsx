@@ -10,8 +10,8 @@ export const Main = () => {
       <section className={cs.intro}>
         <MainLottie />
         <span className={cs.introText}>질문리스트를 만들어 랜덤 질문을 만나보세요!</span>
-        <Link className={cs.startLink} to='auth/sign-up'>
-          시작하기
+        <Link className={cs.startLink} to='examples'>
+          만나보기
         </Link>
       </section>
       <main className={cs.main}>
