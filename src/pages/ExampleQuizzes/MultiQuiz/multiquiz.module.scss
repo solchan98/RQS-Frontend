@@ -1,0 +1,54 @@
+@use '/src/styles/constants/colors';
+@use '/src/styles/mixins/responsive';
+
+.answerWrapper {
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  width: 80%;
+
+  @include responsive.after('HD') {
+    grid-template-columns: repeat(4, 1fr);
+  }
+
+  .answer {
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-height: 150px;
+    padding: 24px;
+    overflow-x: auto;
+    font-size: 13px;
+    font-weight: 500;
+    text-overflow: ellipsis;
+    border: 1px solid colors.$GRAY_01;
+    border-radius: 8px;
+    transition: 0.3s all;
+
+    @include responsive.after('SD') {
+      font-size: 16px;
+    }
+  }
+}
+
+.showCorrect {
+  color: colors.$WHITE;
+  background: colors.$THEME;
+  border: 1px solid colors.$THEME !important;
+  transition: 0.3s background;
+}
+
+.showInCorrect {
+  border: 1px solid colors.$ALERT !important;
+  transition: 0.3s border;
+}
+
+.selectAnswer {
+  color: colors.$WHITE;
+  background: colors.$GOOGLE1;
+  border: 1px solid colors.$GOOGLE1 !important;
+  transition: 0.3s all;
+}
