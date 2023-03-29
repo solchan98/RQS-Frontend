@@ -388,13 +388,13 @@ export const FORM_CHILD_QUIZ = [
     quizId: 103,
     spaceId: 1,
     childId: null,
-    question: '프로세스와 스레드가 매우 비슷한 것 같은에 어떤 차이를 가지고 있나요?',
+    question: '프로세스와 스레드가 매우 비슷한 것 같은데 어떤 차이를 가지고 있나요?',
     isRoot: false,
     type: 'form',
     answerResponses: [
       {
         answer:
-          '프로세스는 상호 간의 데이터 공유가 불가능합니다. 이에 반에 스레드는 같은 프로세스 내 스레드 간 데이터 공유가 가능합니다.',
+          '프로세스는 상호 간의 데이터 공유가 불가능합니다. 이에 반해 스레드는 같은 프로세스 내 스레드 간 데이터 공유가 가능합니다.',
         answerId: 96,
         isCorrect: true,
         quizId: 103,
