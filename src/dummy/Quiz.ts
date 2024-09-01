@@ -7,20 +7,6 @@ const quizPack = {
     quizIds: [1, 3, 6]
 }
 
-export const getNextQuiz = (quizId: number): IQuiz => {
-    const indexOfLastQuiz = quizPack.quizIds.indexOf(quizId);
-    return getQuizById(quizPack.quizIds.at(indexOfLastQuiz + 1) ?? 0);
-}
-
-export const getQuizById = (quizId: number): IQuiz => {
-    const quiz = Quizzes.find(quiz => quiz.quizId === quizId);
-    if (!quiz) {
-        return defaultQuiz;
-    }
-
-    return quiz;
-}
-
 export const getTailQuizzesByParentId = (quizId: number): IQuiz[] => {
     return Quizzes.filter(quiz => quiz.parentId === quizId);
 }

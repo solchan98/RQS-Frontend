@@ -3,7 +3,7 @@ import {useCallback} from 'react';
 import {styled} from '@mui/material/styles';
 import Box from '@mui/material/Box';
 import Button from "@mui/material/Button";
-import {IQuiz} from "../types/Quiz";
+import {IQuiz} from "../../../types/Quiz";
 
 interface Props {
     quizzes: IQuiz[],

@@ -2,7 +2,7 @@
  * QuizPlay 관련 상태 처리를 통합하여 관리
  * View 부분은 useQuizPlay를 활용하여 데이터 사용 및 관리 하는 구조
  */
-import {IQuiz} from "../types/Quiz";
+import {IQuiz} from "../../../types/Quiz";
 import {useState} from "react";
 import {RecoilLoadable} from "recoil";
 

@@ -1,12 +1,12 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
-import {QuizContent} from "./QuizContent";
-import {QuizPlayStepper} from "./QuizPlayStepper";
+import {QuizContent} from "./component/QuizContent";
+import {QuizPlayStepper} from "./component/QuizPlayStepper";
 import {useRecoilValue} from "recoil";
-import {quizzesState} from "../recoli/Quiz";
-import {TailQuizzes} from "./TailQuizzes";
-import {getTailQuizzesByParentId} from "../dummy/Quiz";
-import {useQuizPlay} from "../hooks/useQuizPlay";
+import {quizzesState} from "../../recoli/Quiz";
+import {TailQuizzes} from "./component/TailQuizzes";
+import {getTailQuizzesByParentId} from "../../dummy/Quiz";
+import {useQuizPlay} from "./hooks/useQuizPlay";
 
 export function QuizPlay() {
 
@@ -28,10 +28,9 @@ export function QuizPlay() {
             <QuizContent description={getCurrentQuiz().content}/>
             <TailQuizzes quizzes={getTailQuizzesByParentId(getCurrentQuiz().quizId)} onClickTailQuiz={onClickTailQuiz}
                          isSelectedTailsQuiz={isSelectedTailsQuiz}/>
-            <QuizPlayStepper basicQuizSize={getBasicQuizSize()}
-                             quizType={getCurrentQuizType()}
-                             onClickBackQuiz={onClickBackQuiz}
-                             activeStep={getCurrentStep()} onClickNextQuiz={onClickNextQuiz}/>
+            <QuizPlayStepper basicQuizSize={getBasicQuizSize()} quizType={getCurrentQuizType()}
+                             onClickBackQuiz={onClickBackQuiz} activeStep={getCurrentStep()}
+                             onClickNextQuiz={onClickNextQuiz}/>
         </Box>
     );
 }

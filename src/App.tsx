@@ -1,5 +1,5 @@
 import React from 'react';
-import {QuizPlay} from "./component/QuizPlay";
+import {QuizPlay} from "./page/QuizPlay/QuizPlay";
 
 const App: React.FC = () => {
     return (

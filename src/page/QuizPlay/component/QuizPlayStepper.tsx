@@ -5,7 +5,7 @@ import MobileStepper from "@mui/material/MobileStepper";
 import * as React from "react";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {IQuiz} from "../types/Quiz";
+import {IQuiz} from "../../../types/Quiz";
 
 interface Props {
     basicQuizSize: number,
