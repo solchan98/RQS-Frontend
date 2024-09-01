@@ -48,7 +48,15 @@ export const useQuizPlay = ({allQuizzes}: props) => {
             .findIndex(value => value === remainQuizzes[0]) ?? 0;
     }
 
-    const onClickNextQuiz = (): void => {
+    const isLastQuiz = (): boolean => {
+        return remainQuizzes.length === 1;
+    }
+
+    const onClickNextQuiz = (exitHandler: () => void): void => {
+        if (isLastQuiz()) {
+            exitHandler();
+            return;
+        }
         setRemainQuizzes(prev => {
             const currentQuiz = prev[0];
             if (currentQuiz !== undefined) {
@@ -102,7 +110,8 @@ export const useQuizPlay = ({allQuizzes}: props) => {
         onClickTailQuiz,
         getCurrentQuizType,
         getBasicQuizSize,
-        isSelectedTailsQuiz
+        isSelectedTailsQuiz,
+        isLastQuiz
     };
 
 }

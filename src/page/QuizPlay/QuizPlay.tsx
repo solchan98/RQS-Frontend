@@ -19,7 +19,8 @@ export function QuizPlay() {
         onClickTailQuiz,
         getCurrentQuizType,
         getBasicQuizSize,
-        isSelectedTailsQuiz
+        isSelectedTailsQuiz,
+        isLastQuiz
     } = useQuizPlay({allQuizzes: quizzes});
 
     return (
@@ -30,7 +31,7 @@ export function QuizPlay() {
                          isSelectedTailsQuiz={isSelectedTailsQuiz}/>
             <QuizPlayStepper basicQuizSize={getBasicQuizSize()} quizType={getCurrentQuizType()}
                              onClickBackQuiz={onClickBackQuiz} activeStep={getCurrentStep()}
-                             onClickNextQuiz={onClickNextQuiz}/>
+                             onClickNextQuiz={onClickNextQuiz} isLastQuiz={isLastQuiz}/>
         </Box>
     );
 }

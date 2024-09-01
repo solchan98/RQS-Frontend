@@ -5,14 +5,14 @@ import MobileStepper from "@mui/material/MobileStepper";
 import * as React from "react";
 import {useTheme} from "@mui/material/styles";
 import Box from "@mui/material/Box";
-import {IQuiz} from "../../../types/Quiz";
 
 interface Props {
     basicQuizSize: number,
     quizType: 'basic' | 'tail'
     activeStep: number,
+    isLastQuiz: () => boolean,
     onClickBackQuiz: () => void,
-    onClickNextQuiz: () => void
+    onClickNextQuiz: (exitHandler: () => void) => void
 }
 
 export const QuizPlayStepper = (props: Props) => {
@@ -39,9 +39,12 @@ export const QuizPlayStepper = (props: Props) => {
                 activeStep={props.activeStep}
                 sx={{flexGrow: 1}}
                 nextButton={
-                    <Button size="small" onClick={props.onClickNextQuiz}
-                            disabled={props.activeStep === props.basicQuizSize - 1}>
-                        Next
+                    <Button size="small" onClick={() => props.onClickNextQuiz(() => {
+                        console.log('exit');
+                    })}
+                            // disabled={props.activeStep === props.basicQuizSize - 1}
+                    >
+                        {`${props.isLastQuiz() ? 'Exit' : 'Next'}`}
                         {theme.direction === 'rtl' ? (
                             <KeyboardArrowLeft/>
                         ) : (

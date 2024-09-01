@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/QuizContent.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/QuizContent.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/QuizPlay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/QuizPlay.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/QuizPlayStepper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/QuizPlayStepper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/component/TailQuizzes.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/TailQuizzes.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/QuizPlay.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/QuizPlay.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/component/QuizPlayStepper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/component/QuizPlayStepper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/hooks/useQuizPlay.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/QuizPlay/hooks/useQuizPlay.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,23 +26,23 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "develop",
-    "last_opened_file_path": "/Users/hmc2940243/Desktop/quizbox-fe",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.stylelint": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "ts.external.directory.path": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/hmc2940243/Desktop/quizbox-fe&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/hmc2940243/Desktop/quizbox-fe/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/page/QuizPlay" />
