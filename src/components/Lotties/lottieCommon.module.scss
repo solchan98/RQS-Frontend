@@ -1,9 +1,0 @@
-@use '/src/styles/mixins/responsive';
-
-.lottie {
-  display: none;
-
-  @include responsive.after('SD') {
-    display: block;
-  }
-}

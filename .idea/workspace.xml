@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/component/QuizContent.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/QuizPlay.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/QuizPlayStepper.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/component/TailQuizzes.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/dummy/Quiz.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/recoli/Quiz.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/Quiz.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.eslintignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.github/workflows/develop.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.prettierrc.yml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.stylelintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/eslintrc.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/favicon.ico" beforeDir="false" afterPath="$PROJECT_DIR$/public/favicon.ico" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/public/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/lottie/empty.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/lottie/login.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/lottie/main.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/lottie/start.json" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/add-alt.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/arrow-down.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/arrow-up.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/exit.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/google-icon.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/kakaotalk-logo.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/lock-open.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/lock.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/members.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/notification.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/play.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/question.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/question_title.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/search.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/assets/svgs/setting.svg" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Avatar/avatar.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Avatar/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/layout.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Login/login.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lotties/EmptyLottie.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lotties/LoginLottie.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lotties/MainLottie.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lotties/StartLottie.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Lotties/lottieCommon.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ModalTemplate/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Oauth/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Oauth/oauth.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/QuizIntro/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/QuizIntro/quizintro.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/Email/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/Nickname/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/Password/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/SignUp/signUp.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Space/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Space/space.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Timer/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ToastUI/Editor/editor.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ToastUI/Editor/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ToastUI/Viewer/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dummy/quizzes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useCheckToken.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useChildQuizFetch.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useFetchError.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useLoginSuccess.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useLogout.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/hooks/useModal.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AuthWapper/authWrapper.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/AuthWapper/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateChildQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateQuiz/MultiAnswer/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateQuiz/MultiAnswer/multianswer.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateQuiz/createquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/CreateQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExampleQuizzes/FormQuiz/formquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExampleQuizzes/FormQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExampleQuizzes/MultiQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExampleQuizzes/MultiQuiz/multiquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/ExampleQuizzes/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/JoinSpace/JoinModal/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/JoinSpace/JoinModal/joinModal.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/JoinSpace/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/JoinSpace/joinSpace.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/Trending/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/main.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Main/spacelist.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/MemberScrap/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/MemberSpace/CreateSpaceModal/createSpaceModal.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/MemberSpace/CreateSpaceModal/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/MemberSpace/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/memberpage.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/MemberPage/mypage.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Oauth/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Oauth/oauthPage.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/FormQuiz/formquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/FormQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/MultiQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/MultiQuiz/multiquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Quiz/quiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/Item/ChildQuiz/childquiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/Item/ChildQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/Item/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/Item/item.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/Space/space.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateProfile/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateProfile/updateProfile.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateQuiz/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateQuiz/updatequiz.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/ManageSpaceMember/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/ManageSpaceMember/manageSpaceMember.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/UpdateTitle/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/UpdateTitle/updateTitle.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/index.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/pages/UpdateSpace/updateSpace.module.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recoil/atoms/member.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/member.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/quizzes.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/service/spaces.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/base/_fonts.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/base/_more.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/base/_reset.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/constants/_colors.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/index.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/styles/mixins/_responsive.scss" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/common.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/member.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/quiz.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/space.d.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/timaAgo/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/util/token/index.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="2lPOmUH4yK8oQ9E3tZPBuIiUaXv" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "git-widget-placeholder": "develop",
+    "last_opened_file_path": "/Users/hmc2940243/Desktop/quizbox-fe",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "ts.external.directory.path": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/typescript/lib",
+    "vue.rearranger.settings.migration": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="" />
+      <created>1725078404384</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1725078404384</updated>
+      <workItem from="1725078406816" duration="649000" />
+      <workItem from="1725079206682" duration="24299000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="3" />
+  </component>
+</project>

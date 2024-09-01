@@ -1,7 +1,0 @@
-jsxSingleQuote: true
-semi: true
-printWidth: 120
-proseWrap: never
-singleQuote: true
-htmlWhitespaceSensitivity: "css"
-endOfLine: "lf"
