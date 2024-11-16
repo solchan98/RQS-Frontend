@@ -1,10 +1,10 @@
 import React from 'react';
-import {QuizPlay} from "./page/QuizPlay/QuizPlay";
+import {Home} from "./page/home/Home";
 
 const App: React.FC = () => {
     return (
         <div>
-            <QuizPlay />
+            <Home />
         </div>
     );
 };
