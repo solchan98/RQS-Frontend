@@ -17,31 +17,33 @@ export const HomeHeaderIcons = styled.div`
     display: flex;
     gap: 8px;
 `
-export const HomeSubSection = styled.header`
+
+export const HomeContinueQuiz = styled.section`
     display: flex;
     flex-direction: column;
     gap: 8px;
     border-radius: 14px;
     background: #ffffff;
+
     padding: 12px 18px;
 `
 
-export const HomeMainSection = styled.section`
+export const HomeContinueQuizMiddle = styled.div`
+    flex-grow: 1;
     display: flex;
     flex-direction: column;
+    justify-content: space-between;
+`
+export const HomeContinueQuizBottom = styled.div`
+    display: flex;
     gap: 8px;
-    border-radius: 14px;
-    background: #ffffff;
-    padding: 12px 18px;
+    justify-content: space-between;
+    align-items: center;
+
+    height: 48px;
 `
 
-export const HomeMainSectionPlayingQuiz = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 12px;
-`
-
-export const HomeMainSectionProgressBarCount = styled.div`
+export const HomeContinueQuizProgressBarCount = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
@@ -49,9 +51,45 @@ export const HomeMainSectionProgressBarCount = styled.div`
     font-weight: bold;
 `
 
-export const HomeMainSectionProgressBar = styled.div`
+export const HomeInterestTopics = styled.article`
     display: flex;
-    gap: 8px;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    border-radius: 14px;
+    background: #ffffff;
+
+    padding: 12px 18px;
+`
+
+export const HomeInterestTopicsLeft = styled.section`
+    display: flex;
+    flex-direction: column;
+`
+
+export const HomeInterestTopicsTags = styled.section`
+    display: flex;
+    gap: 4px;
+
+    padding-top: 14px;
+`
+
+export const HomePastQuizPacks = styled.article`
+    display: flex;
+    flex-direction: column;
+    gap: 8px
+`
+
+export const HomePastQuizPack = styled.div`
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    border-radius: 14px;
+    background: #ffffff;
+
+    padding: 12px 18px;
+`
+
+export const HomePastQuizPackTimeAgo = styled.span`
+    font-size: 12px;
 `

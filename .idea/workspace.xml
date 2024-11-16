@@ -4,19 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축">
-      <change afterPath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Label/Label.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/NickName/NickName.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Tag/Tag.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Title/Title.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/home/Home.styles.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/home/Home.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 중간 커밋">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/Home.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/Home.styles.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/Home.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -78,7 +70,7 @@
       <updated>1725078404384</updated>
       <workItem from="1725078406816" duration="649000" />
       <workItem from="1725079206682" duration="27258000" />
-      <workItem from="1731735150640" duration="8895000" />
+      <workItem from="1731735150640" duration="14569000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -94,7 +86,15 @@
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="feat: 중간 커밋">
+      <option name="closed" value="true" />
+      <created>1731744706891</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1731744706891</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -103,6 +103,7 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="feat: 질문 및 꼬리질문 플레이 증간 커밋" />
     <MESSAGE value="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축" />
+    <MESSAGE value="feat: 중간 커밋" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 중간 커밋" />
   </component>
 </project>
