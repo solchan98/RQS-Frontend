@@ -4,22 +4,37 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 중간 커밋">
-      <change afterPath="$PROJECT_DIR$/src/components/Layout/NavContainer/NavContainer.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/myquizzes/index.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: react-router-dom 적용">
+      <change afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/AddedTopicsQuiz.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/AddedTopicsQuiz.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/Home.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/Home.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/OnGoingQuizGame.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/OnGoingQuizGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPack/PastQuizPack.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPack/PastQuizPack.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPack/PastQuizPacks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Label/Label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Label/Label.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Layout/NavContainer/NavContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/NavContainer/NavContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NickName/NickName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NickName/NickName.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Tag/Tag.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Tag/Tag.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Title/Title.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Title/Title.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/dummy/Quiz.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/QuizPlay.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/component/QuizContent.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/component/QuizPlayStepper.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/component/TailQuizzes.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/QuizPlay/hooks/useQuizPlay.ts" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.styles.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/AddedTopicsQuiz/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.styles.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/OnGoingQuizGame/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.styles.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/PastQuizPack.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/PastQuizPacks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/PastQuizPacks/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/index.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.styles.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/myquizzes/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/myquizzes/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tsconfig.json" beforeDir="false" afterPath="$PROJECT_DIR$/tsconfig.json" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,9 +47,9 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 6
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 6
+}</component>
   <component name="ProjectId" id="2lPOmUH4yK8oQ9E3tZPBuIiUaXv" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
@@ -48,12 +63,16 @@
     "git-widget-placeholder": "develop",
     "last_opened_file_path": "/Users/sol/Desktop/RQS-Frontend",
     "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.standard": "true",
     "node.js.detected.package.stylelint": "true",
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.standard": "",
     "node.js.selected.package.stylelint": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint",
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
+    "prettierjs.PrettierConfiguration.Package": "/Users/sol/Desktop/RQS-Frontend/node_modules/prettier",
+    "settings.editor.selected.configurable": "settings.javascript.prettier",
     "ts.external.directory.path": "/Users/sol/Desktop/RQS-Frontend/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
@@ -81,7 +100,10 @@
       <updated>1725078404384</updated>
       <workItem from="1725078406816" duration="649000" />
       <workItem from="1725079206682" duration="27258000" />
-      <workItem from="1731735150640" duration="22142000" />
+      <workItem from="1731735150640" duration="22991000" />
+      <workItem from="1731926538912" duration="917000" />
+      <workItem from="1731927459814" duration="133000" />
+      <workItem from="1731927595122" duration="359000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -121,7 +143,15 @@
       <option name="project" value="LOCAL" />
       <updated>1731923404242</updated>
     </task>
-    <option name="localTasksCounter" value="6" />
+    <task id="LOCAL-00006" summary="feat: react-router-dom 적용">
+      <option name="closed" value="true" />
+      <created>1731925719088</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1731925719088</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -131,6 +161,7 @@
     <MESSAGE value="feat: 질문 및 꼬리질문 플레이 증간 커밋" />
     <MESSAGE value="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축" />
     <MESSAGE value="feat: 중간 커밋" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 중간 커밋" />
+    <MESSAGE value="feat: react-router-dom 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: react-router-dom 적용" />
   </component>
 </project>

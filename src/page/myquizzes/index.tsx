@@ -1,7 +1,3 @@
 export const MyQuizzes = () => {
-    return (
-        <>
-            <div>Hello</div>
-        </>
-    );
-}
+  return <div>Hello</div>;
+};
