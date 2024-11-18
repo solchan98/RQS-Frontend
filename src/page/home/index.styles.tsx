@@ -4,7 +4,7 @@ export const HomeLayout = styled.div`
     display: flex;
     flex-direction: column;
     gap: 12px;
-    background: #e1f4e1;
+    background: #f3f5ff;
     padding: 12px;
 `
 export const HomeHeader = styled.header`

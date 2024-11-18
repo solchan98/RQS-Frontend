@@ -4,7 +4,7 @@ import {ProgressBar} from "../../../components/ProgressBar/ProgressBar";
 import {Icon} from "../../../components/Icon/Icon";
 import {FaArrowRight} from "react-icons/fa";
 import React from "react";
-import {OnGoingQuizGameBottom, OnGoingQuizGameMiddle, OnGoingQuizGameProgressBarCount} from "./OnGoingQuizGame.styles";
+import {OnGoingQuizGameBottom, OnGoingQuizGameMiddle, OnGoingQuizGameProgressBarCount} from "./index.styles";
 
 const dummyOnGoingQuizGame = {
     title: '다양한 서버 모니터링 방법',

@@ -4,7 +4,7 @@ import {Tag} from "../../../components/Tag/Tag";
 import React from "react";
 import {Icon} from "../../../components/Icon/Icon";
 import {FaArrowRight} from "react-icons/fa";
-import {AddedTopicsQuizContent, AddedTopicsQuizTags} from "./AddedTopicsQuiz.styles";
+import {AddedTopicsQuizContent, AddedTopicsQuizTags} from "./index.styles";
 import {ITag} from "../../../types/common/tag";
 
 const dummyAddedTopicsQuiz: {

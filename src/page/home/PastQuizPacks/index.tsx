@@ -1,4 +1,4 @@
-import {HomePastQuizPack} from "../Home.styles";
+import {HomePastQuizPack} from "../index.styles";
 import {PastQuizPack} from "./PastQuizPack";
 import React from "react";
 import {IPastQuizPack} from "../../../types/home/pastquizpack";
