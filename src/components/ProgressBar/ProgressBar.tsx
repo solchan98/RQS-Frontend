@@ -8,7 +8,7 @@ interface ProgressBarProps {
 
 export const ProgressBar = ({currentProgress, totalCount}: ProgressBarProps) => {
 
-    const progress: number = useMemo(() => totalCount / currentProgress, [currentProgress, totalCount]);
+    const progress: number = useMemo(() => currentProgress / totalCount * 100, [currentProgress, totalCount]);
 
     return (
         <div style={{flexGrow: 1}}>
