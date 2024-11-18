@@ -16,3 +16,13 @@ code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
+
+html, body {
+  overscroll-behavior: none; /* 스크롤 한계를 넘어서지 않도록 제한 */
+  height: 100%;
+  overflow: hidden;
+}
+
+body {
+  overflow-y: auto; /* 세로 스크롤만 활성화 */
+}
