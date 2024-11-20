@@ -2,14 +2,14 @@ import { BottomNavigation, BottomNavigationAction } from '@mui/material';
 import React, { useState } from 'react';
 import { Outlet, useNavigate } from 'react-router-dom';
 
-type NavigationValueType = '' | 'my-quizzes';
+type NavigationValueType = '' | 'settings';
 
 export const NavContainer = () => {
   const [value, setValue] = useState<NavigationValueType>('');
   const navigate = useNavigate();
 
   return (
-    <div style={{ width: '100%', height: '100%' }}>
+    <div style={{ width: '100%' }}>
       <div style={{ paddingBottom: 56 }}>
         <Outlet />
       </div>
@@ -29,7 +29,7 @@ export const NavContainer = () => {
         }}
       >
         <BottomNavigationAction label='Home' value='' />
-        <BottomNavigationAction label='My Quizzes' value='my-quizzes' />
+        <BottomNavigationAction label='Settings' value='settings' />
       </BottomNavigation>
     </div>
   );

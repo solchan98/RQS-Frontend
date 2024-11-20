@@ -4,21 +4,11 @@ export const HomeLayout = styled.div`
   display: flex;
   flex-direction: column;
   gap: 12px;
-  background: #f3f5ff;
-  padding: 12px;
-`;
-export const HomeHeader = styled.header`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 24px 4px;
-`;
-export const HomeHeaderIcons = styled.div`
-  display: flex;
-  gap: 8px;
+  padding: 66px 12px 12px;
+  height: 100%;
 `;
 
-export const OnGoingQuizPackContainer = styled.section`
+export const HomeLayoutContainer = styled.article`
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -26,6 +16,25 @@ export const OnGoingQuizPackContainer = styled.section`
   background: #ffffff;
 
   padding: 12px 18px;
+`;
+
+export const HomeHeader = styled.header`
+  position: fixed;
+  background: #ededed;
+  z-index: 999;
+  display: flex;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 54px;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px;
+`;
+
+export const HomeHeaderIcons = styled.div`
+  display: flex;
+  gap: 8px;
 `;
 
 export const AddedTopicsQuizContainer = styled.article`
@@ -38,18 +47,13 @@ export const AddedTopicsQuizContainer = styled.article`
 
   padding: 12px 18px;
 `;
-export const PastQuizPacksContainer = styled.article`
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-`;
 
 export const HomePastQuizPack = styled.div`
   display: flex;
   flex-direction: column;
   gap: 8px;
   border-radius: 14px;
-  background: #ffffff;
+  background: #ededed;
 
   padding: 12px 18px;
 `;
