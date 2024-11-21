@@ -1,12 +1,14 @@
-import { useBlockCalender } from './useBlockCalender';
+import { ICellDateType, useBlockCalender } from './useBlockCalender';
 import {
   BlockCalenderCell,
   BlockCalenderColumnContainer,
   BlockCalenderContainer,
   BlockCellsColumn,
+  CellHoverContainer,
+  CellHoverText,
   ColumnLabel,
 } from './BlockCalender.styles';
-import { useEffect, useRef } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 const dummy = [
   { key: '11/1', count: 1 },
@@ -19,6 +21,7 @@ const dummy = [
 
 export const BlockCalender = () => {
   const { columnsState, getMonthName, getColor } = useBlockCalender(6);
+  const [hoverCellState, setHoverCellState] = useState<string>('');
 
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
@@ -35,6 +38,17 @@ export const BlockCalender = () => {
     return () => clearTimeout(timeoutId);
   }, []);
 
+  const isHover = useCallback(
+    (date: ICellDateType) => {
+      return hoverCellState === `${date.month}/${date.day}`;
+    },
+    [hoverCellState],
+  );
+
+  const getCountByDate = (date: ICellDateType) => {
+    return dummy.find((v) => v.key === `${date.month}/${date.day}`)?.count ?? 0;
+  };
+
   return (
     <BlockCalenderContainer ref={scrollContainerRef}>
       {columnsState.map((item) => {
@@ -44,9 +58,19 @@ export const BlockCalender = () => {
             <BlockCellsColumn key={item.columnIndex}>
               {item.dates.map((date) => (
                 <BlockCalenderCell
-                  style={{ background: getColor(dummy.find((v) => v.key === `${date.month}/${date.day}`)?.count ?? 0) }}
+                  style={{
+                    background: getColor(getCountByDate(date)),
+                  }}
                   key={`${date.month}/${date.day}`}
-                />
+                  onMouseEnter={() => setHoverCellState(`${date.month}/${date.day}`)}
+                  onMouseLeave={() => setHoverCellState('')}
+                >
+                  {isHover(date) ? (
+                    <CellHoverContainer>
+                      <CellHoverText>{`count : ${getCountByDate(date)}, ${date.month}/${date.day}`}</CellHoverText>
+                    </CellHoverContainer>
+                  ) : null}
+                </BlockCalenderCell>
               ))}
             </BlockCellsColumn>
           </BlockCalenderColumnContainer>

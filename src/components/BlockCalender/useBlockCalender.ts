@@ -1,17 +1,17 @@
 import { useEffect, useMemo, useState } from 'react';
 
-interface IColumnType {
+export interface IColumnType {
   columnIndex: number;
   dates: ICellDateType[];
   showLabel: boolean;
 }
 
-interface ICellDateType {
+export interface ICellDateType {
   month: number;
   day: number;
 }
 
-interface IUseBlockCalender {
+export interface IUseBlockCalender {
   columnsState: IColumnType[];
   getMonthName: (monthIndex: number) => string;
   getColor: (count: number) => string;
