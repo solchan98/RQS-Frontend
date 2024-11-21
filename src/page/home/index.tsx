@@ -7,6 +7,7 @@ import { NickName } from 'components/NickName/NickName';
 import { Icon } from 'components/Icon/Icon';
 import { OnGoingQuizGame } from './OnGoingQuizGame';
 import { AddedTopicsQuiz } from './AddedTopicsQuiz';
+import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 
 export const Home = () => {
   return (
@@ -55,10 +56,8 @@ export const Home = () => {
           </div>
         </div>
       </HomeLayoutContainer>
-      <HomeLayoutContainer style={{ height: 240 }}>
-        <span>리포팅 영역</span>
-        <span>7일간 나의 게임 평균</span>
-        <span>리토링은 커스터마징 가능하도록</span>
+      <HomeLayoutContainer>
+        <BlockCalender />
       </HomeLayoutContainer>
     </HomeLayout>
   );
