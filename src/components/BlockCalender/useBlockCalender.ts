@@ -49,41 +49,43 @@ const getColor = (count: number): string => {
 /**
  * Hook: BlockCalender
  */
-export const useBlockCalender = (startMonth: number, period: number): IUseBlockCalender => {
+export const useBlockCalender = (period: number): IUseBlockCalender => {
   const [columnsState, setColumnsState] = useState<IColumnType[]>([]);
 
   const resultColumns = useMemo(() => {
-    const currentYear = new Date().getFullYear();
+    const currentDate = new Date();
+    const currentYear = currentDate.getFullYear();
+    const currentMonth = currentDate.getMonth(); // 0부터 시작하는 월 (0 = Jan, 1 = Feb, ...)
+    const currentDay = currentDate.getDate();
+
     let totalDays = 0;
 
-    // 총 일 수 계산
+    // 총 일 수 계산 (역으로 period 기간만큼)
     for (let i = 0; i < period; i += 1) {
-      const month = ((startMonth + i - 1) % 12) + 1;
-      const year = currentYear + Math.floor((startMonth + i - 1) / 12);
-      totalDays += getDaysInMonth(year, month);
+      const month = (currentMonth - i + 12) % 12; // 역으로 계산, 0~11 범위로
+      const year = currentYear - Math.floor((currentMonth - i) / 12); // 역으로 연도 계산
+      totalDays += getDaysInMonth(year, month + 1); // 해당 월의 일 수 계산
     }
 
-    // 7의 배수로 맞추기
-    if (totalDays % 7 !== 0) {
-      totalDays += 7 - (totalDays % 7);
-    }
-
-    // 날짜 목록 생성
+    // 날짜 목록 생성 (역으로 period 기간만큼)
     const dates: ICellDateType[] = [];
-    const startDate = new Date(currentYear, startMonth - 1, 1);
+    const endDate = new Date(currentYear, currentMonth, currentDay); // 오늘 날짜를 끝으로
+    const startDate = new Date(endDate);
+    startDate.setDate(endDate.getDate() - totalDays + 1); // 시작 날짜는 총 일 수만큼 역으로
 
+    // 역으로 날짜 생성
     for (let i = 0; i < totalDays; i += 1) {
       const newDate = new Date(startDate);
-      newDate.setDate(startDate.getDate() + i);
+      newDate.setDate(startDate.getDate() + i); // 시작 날짜부터 i만큼 더함
       dates.push({
-        month: newDate.getMonth() + 1,
+        month: newDate.getMonth() + 1, // 월을 1~12로 설정
         day: newDate.getDate(),
       });
     }
 
     // 열 그룹화 (7일씩 묶기)
     const columns = dates.reduce<IColumnType[]>((acc, curr, idx) => {
-      const groupIndex = Math.floor(idx / 7);
+      const groupIndex = Math.floor(idx / 7); // 7개씩 묶는 그룹 인덱스
       if (!acc[groupIndex]) {
         acc[groupIndex] = { columnIndex: groupIndex + 1, dates: [], showLabel: false };
       }
@@ -106,7 +108,7 @@ export const useBlockCalender = (startMonth: number, period: number): IUseBlockC
     });
 
     return columns;
-  }, [startMonth, period]);
+  }, [period]);
 
   useEffect(() => {
     setColumnsState(resultColumns);

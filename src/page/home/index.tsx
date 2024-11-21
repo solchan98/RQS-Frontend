@@ -8,6 +8,7 @@ import { Icon } from 'components/Icon/Icon';
 import { OnGoingQuizGame } from './OnGoingQuizGame';
 import { AddedTopicsQuiz } from './AddedTopicsQuiz';
 import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
+import { Label } from '../../components/Label/Label';
 
 export const Home = () => {
   return (
@@ -30,7 +31,7 @@ export const Home = () => {
       </HomeLayoutContainer>
       <HomeLayoutContainer>
         <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-          <span style={{ fontSize: 12 }}>11월 20일 수요일</span>
+          <Label title='11월 20일 수요일' />
           <Icon icon={IoSettingsOutline} size={18} />
         </div>
         <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -57,6 +58,7 @@ export const Home = () => {
         </div>
       </HomeLayoutContainer>
       <HomeLayoutContainer>
+        <Label title='My Study Timeline' size={14} />
         <BlockCalender />
       </HomeLayoutContainer>
     </HomeLayout>

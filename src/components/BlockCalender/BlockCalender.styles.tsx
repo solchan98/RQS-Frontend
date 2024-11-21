@@ -24,10 +24,6 @@ export const BlockCellsColumn = styled.div`
   gap: 4px;
 `;
 
-export interface ICellColor {
-  color: 'gray' | 'lawngreen' | 'limegreen' | 'green';
-}
-
 export const BlockCalenderCell = styled.div`
   width: 16px;
   height: 16px;
