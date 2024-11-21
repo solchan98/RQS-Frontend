@@ -46,7 +46,6 @@ export const CellHoverContainer = styled.div`
   padding: 2px;
   border-radius: 4px;
   z-index: 999;
-  overflow: visible;
 `;
 
 export const CellHoverText = styled.span`
