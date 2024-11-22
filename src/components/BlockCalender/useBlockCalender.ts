@@ -1,21 +1,5 @@
-import { useEffect, useMemo, useState } from 'react';
-
-export interface IColumnType {
-  columnIndex: number;
-  dates: ICellDateType[];
-  showLabel: boolean;
-}
-
-export interface ICellDateType {
-  month: number;
-  day: number;
-}
-
-export interface IUseBlockCalender {
-  columnsState: IColumnType[];
-  getMonthName: (monthIndex: number) => string;
-  getColor: (count: number) => string;
-}
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import { ICellDateType, IColumnType, IMousePosition, IUseBlockCalender } from './BlockCalender.type';
 
 const formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 
@@ -51,6 +35,27 @@ const getColor = (count: number): string => {
  */
 export const useBlockCalender = (period: number): IUseBlockCalender => {
   const [columnsState, setColumnsState] = useState<IColumnType[]>([]);
+  const [hoverCellState, setHoverCellState] = useState<string>('');
+  const [mousePositionState, setMousePositionState] = useState<IMousePosition>({ x: 0, y: 0 });
+
+  const isHover = useCallback(
+    (cellKey: string) => {
+      return hoverCellState === cellKey;
+    },
+    [hoverCellState],
+  );
+  const onLeaveCellHandler = useCallback(() => {
+    setHoverCellState('');
+  }, []);
+
+  const onEnterCellHandler = useCallback((event: React.MouseEvent<HTMLDivElement>, cellKey: string) => {
+    setMousePositionState((prev) => ({
+      ...prev,
+      x: event.clientX,
+      y: event.clientY,
+    }));
+    setHoverCellState(cellKey);
+  }, []);
 
   const resultColumns = useMemo(() => {
     const currentDate = new Date();
@@ -114,5 +119,5 @@ export const useBlockCalender = (period: number): IUseBlockCalender => {
     setColumnsState(resultColumns);
   }, [resultColumns]);
 
-  return { columnsState, getMonthName, getColor };
+  return { columnsState, getMonthName, getColor, isHover, mousePositionState, onEnterCellHandler, onLeaveCellHandler };
 };

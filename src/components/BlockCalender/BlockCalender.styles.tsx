@@ -1,10 +1,12 @@
 import styled from 'styled-components';
+import { ICellMousePosition } from './BlockCalender.type';
 
 export const BlockCalenderContainer = styled.div`
   position: relative;
   display: flex;
   gap: 4px;
 
+  padding: 0 12px;
   overflow-x: scroll;
 `;
 
@@ -34,13 +36,12 @@ export const BlockCalenderCell = styled.div`
   border-radius: 4px;
 `;
 
-export const CellHoverContainer = styled.div`
+export const CellHoverContainer = styled.div<ICellMousePosition>`
   display: flex;
   justify-content: center;
-  position: absolute;
-  bottom: 120%;
-  left: 50%;
-  transform: translateX(-50%);
+  position: fixed;
+  top: ${(props) => `${props.position.y - 40}px`};
+  left: ${(props) => `${props.position.x - 50}px`};
   background-color: #505050;
   color: #ffffff;
   padding: 2px;
