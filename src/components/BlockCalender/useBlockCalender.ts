@@ -4,11 +4,6 @@ import { ICellDateType, IColumnType, IMousePosition, IUseBlockCalender } from '.
 const formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 
 /**
- * 특정 월의 일 수 계산
- */
-const getDaysInMonth = (year: number, month: number): number => new Date(year, month, 0).getDate();
-
-/**
  * 월 이름 반환
  */
 const getMonthName = (monthIndex: number): string =>
@@ -63,28 +58,22 @@ export const useBlockCalender = (period: number): IUseBlockCalender => {
     const currentMonth = currentDate.getMonth(); // 0부터 시작하는 월 (0 = Jan, 1 = Feb, ...)
     const currentDay = currentDate.getDate();
 
-    let totalDays = 0;
-
-    // 총 일 수 계산 (역으로 period 기간만큼)
-    for (let i = 0; i < period; i += 1) {
-      const month = (currentMonth - i + 12) % 12; // 역으로 계산, 0~11 범위로
-      const year = currentYear - Math.floor((currentMonth - i) / 12); // 역으로 연도 계산
-      totalDays += getDaysInMonth(year, month + 1); // 해당 월의 일 수 계산
-    }
-
-    // 날짜 목록 생성 (역으로 period 기간만큼)
+    // 날짜 목록 생성 (6개월 전 월의 1일부터 오늘까지)
     const dates: ICellDateType[] = [];
-    const endDate = new Date(currentYear, currentMonth, currentDay); // 오늘 날짜를 끝으로
-    const startDate = new Date(endDate);
-    startDate.setDate(endDate.getDate() - totalDays + 1); // 시작 날짜는 총 일 수만큼 역으로
+    const endDate = new Date(currentYear, currentMonth, currentDay); // 오늘 날짜
+    const startDate = new Date(endDate); // 6개월 전의 1일로 초기화
+    startDate.setMonth(startDate.getMonth() - 6); // 6개월 전으로 설정
+    startDate.setDate(1); // 6개월 전 해당 월의 1일로 설정
 
-    // 역으로 날짜 생성
-    for (let i = 0; i < totalDays; i += 1) {
-      const newDate = new Date(startDate);
-      newDate.setDate(startDate.getDate() + i); // 시작 날짜부터 i만큼 더함
+    // 시작 날짜부터 종료 날짜까지 반복
+    for (
+      const date = new Date(startDate);
+      date <= endDate;
+      date.setDate(date.getDate() + 1) // 하루씩 증가
+    ) {
       dates.push({
-        month: newDate.getMonth() + 1, // 월을 1~12로 설정
-        day: newDate.getDate(),
+        month: date.getMonth() + 1, // 월을 1~12로 설정
+        day: date.getDate(),
       });
     }
 
@@ -113,7 +102,7 @@ export const useBlockCalender = (period: number): IUseBlockCalender => {
     });
 
     return columns;
-  }, [period]);
+  }, []);
 
   useEffect(() => {
     setColumnsState(resultColumns);

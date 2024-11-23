@@ -6,7 +6,7 @@ export const BlockCalenderContainer = styled.div`
   display: flex;
   gap: 4px;
 
-  padding: 0 12px;
+  margin: 0 12px;
   overflow-x: scroll;
 `;
 
