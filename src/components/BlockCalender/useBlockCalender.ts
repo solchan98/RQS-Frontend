@@ -58,12 +58,12 @@ export const useBlockCalender = (period: number): IUseBlockCalender => {
     const currentMonth = currentDate.getMonth(); // 0부터 시작하는 월 (0 = Jan, 1 = Feb, ...)
     const currentDay = currentDate.getDate();
 
-    // 날짜 목록 생성 (6개월 전 월의 1일부터 오늘까지)
+    // 날짜 목록 생성 (N개월 전 월의 1일부터 오늘까지)
     const dates: ICellDateType[] = [];
     const endDate = new Date(currentYear, currentMonth, currentDay); // 오늘 날짜
-    const startDate = new Date(endDate); // 6개월 전의 1일로 초기화
-    startDate.setMonth(startDate.getMonth() - 6); // 6개월 전으로 설정
-    startDate.setDate(1); // 6개월 전 해당 월의 1일로 설정
+    const startDate = new Date(endDate); // N개월 전의 1일로 초기화
+    startDate.setMonth(startDate.getMonth() - period); // N개월 전으로 설정
+    startDate.setDate(1); // N개월 전 해당 월의 1일로 설정
 
     // 시작 날짜부터 종료 날짜까지 반복
     for (
