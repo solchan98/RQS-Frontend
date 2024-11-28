@@ -4,9 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 잔디 cell 계산 로직 수정">
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 잔디 cell 계산 로직 기간 로직 수정">
+      <change afterPath="$PROJECT_DIR$/src/page/game/index.styles.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/page/game/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/BlockCalender/useBlockCalender.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BlockCalender/useBlockCalender.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -76,7 +79,8 @@
       <workItem from="1731926538912" duration="917000" />
       <workItem from="1731927459814" duration="133000" />
       <workItem from="1731927595122" duration="35292000" />
-      <workItem from="1732354534126" duration="1284000" />
+      <workItem from="1732354534126" duration="1898000" />
+      <workItem from="1732786812260" duration="2890000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -196,7 +200,15 @@
       <option name="project" value="LOCAL" />
       <updated>1732355756938</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="feat: 잔디 cell 계산 로직 기간 로직 수정">
+      <option name="closed" value="true" />
+      <created>1732355822382</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1732355822382</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -216,6 +228,7 @@
     <MESSAGE value="feat: 잔디 호버 z-index 수정" />
     <MESSAGE value="feat: 잔디 컴포넌트 호버 기능 개선 및 구조 수정" />
     <MESSAGE value="feat: 잔디 cell 계산 로직 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 잔디 cell 계산 로직 수정" />
+    <MESSAGE value="feat: 잔디 cell 계산 로직 기간 로직 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 잔디 cell 계산 로직 기간 로직 수정" />
   </component>
 </project>
