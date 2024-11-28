@@ -5,6 +5,7 @@ import { Icon } from '../../../components/Icon/Icon';
 import { FaArrowRight } from 'react-icons/fa';
 import React from 'react';
 import { OnGoingQuizGameBottom, OnGoingQuizGameMiddle, OnGoingQuizGameProgressBarCount } from './index.styles';
+import { useProgressBarState } from '../../../components/ProgressBar/useProgressBarState';
 
 const dummyOnGoingQuizGame = {
   title: '다양한 서버 모니터링 방법',
@@ -14,6 +15,8 @@ const dummyOnGoingQuizGame = {
 };
 
 export const OnGoingQuizGame = () => {
+  const { progressState } = useProgressBarState({ current: 1, totalCount: dummyOnGoingQuizGame.quizCount });
+
   return (
     <>
       <OnGoingQuizGameMiddle>
@@ -22,7 +25,7 @@ export const OnGoingQuizGame = () => {
       </OnGoingQuizGameMiddle>
       <OnGoingQuizGameBottom>
         <OnGoingQuizGameProgressBarCount>{`${dummyOnGoingQuizGame.pastQuizCount} / ${dummyOnGoingQuizGame.quizCount}`}</OnGoingQuizGameProgressBarCount>
-        <ProgressBar currentProgress={dummyOnGoingQuizGame.pastQuizCount} totalCount={dummyOnGoingQuizGame.quizCount} />
+        <ProgressBar progressState={progressState} />
         <Icon icon={FaArrowRight} size={14} color='#878787' />
       </OnGoingQuizGameBottom>
     </>

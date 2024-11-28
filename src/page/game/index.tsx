@@ -2,6 +2,7 @@ import { useParams } from 'react-router-dom';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 import React, { useState } from 'react';
 import { QuizGameContainer, QuizGameProgressBarContainer, QuizGameQuizContainer } from './index.styles';
+import { useProgressBarState } from '../../components/ProgressBar/useProgressBarState';
 
 interface IAnswer {
   id: number;
@@ -12,11 +13,6 @@ interface IGameQuiz {
   quizId: number;
   content: string;
   answers: IAnswer[];
-}
-
-interface IProgressState {
-  current: number;
-  total: number;
 }
 
 const dummy: IGameQuiz[] = [
@@ -68,26 +64,27 @@ const dummy: IGameQuiz[] = [
 
 export const QuizGame = () => {
   const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
-  const [progressState, setProgressState] = useState<IProgressState>({ current: 1, total: 2 });
+  const { progressState, next } = useProgressBarState({ current: 1, totalCount: dummy.length });
+
   const { quizGameId } = useParams();
 
   const pick = () => {
-    const quiz: IGameQuiz = dummy[progressState.current];
+    const quiz: IGameQuiz = dummy[progressState.current ?? 1];
     console.log(quiz);
 
     if (quiz == null) {
       alert('모든 퀴즈를 진행하였습니다.');
       return;
     }
-    setProgressState((prev) => ({ current: prev.current + 1, total: prev.total }));
+    next();
     setCurrentQuizState(quiz);
   };
 
   return (
     <QuizGameContainer>
       <QuizGameProgressBarContainer>
-        <span>{`${progressState.current} / ${progressState.total}`}</span>
-        <ProgressBar currentProgress={progressState.current} totalCount={progressState.total} />
+        <span>{`${progressState.current} / ${progressState.totalCount}`}</span>
+        <ProgressBar progressState={progressState} />
       </QuizGameProgressBarContainer>
       <QuizGameQuizContainer>
         <span>{currentQuizState?.content}</span>

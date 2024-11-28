@@ -1,14 +1,14 @@
 import React, { useMemo } from 'react';
 import { LinearProgress } from '@mui/material';
+import { IProgressBarState } from './useProgressBarState';
 
 interface ProgressBarProps {
   width?: number | string;
-  currentProgress: number;
-  totalCount: number;
+  progressState: IProgressBarState;
 }
 
-export const ProgressBar = ({ width = '100%', currentProgress, totalCount }: ProgressBarProps) => {
-  const progress: number = useMemo(() => (currentProgress / totalCount) * 100, [currentProgress, totalCount]);
+export const ProgressBar = ({ width = '100%', progressState }: ProgressBarProps) => {
+  const progress: number = useMemo(() => (progressState.current / progressState.totalCount) * 100, [progressState]);
   const resolvedWidth = typeof width === 'number' ? `${width}px` : width;
 
   return (
