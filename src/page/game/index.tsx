@@ -1,6 +1,7 @@
 import { useParams } from 'react-router-dom';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
-import React, { useState } from 'react';
+import { useState } from 'react';
+
 import {
   NextQuizButtonContainer,
   QuizGameContainer,
@@ -12,6 +13,7 @@ import {
 import { useProgressBarState } from '../../components/ProgressBar/useProgressBarState';
 import { QuizOption } from '../../components/QuizOption/QuizOption';
 import { useSubmitOption } from '../../components/QuizOption/useSubmitOption';
+import { Button } from '@mui/material';
 
 export interface IAnswer {
   id: number;
@@ -75,14 +77,19 @@ export const QuizGame = () => {
   const { quizGameId } = useParams();
 
   const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
-  const { progressState, next, isEnd } = useProgressBarState({ current: 1, totalCount: dummy.length });
+  const { progressState, isLast, next } = useProgressBarState({ current: 1, totalCount: dummy.length });
   const { submitOptions, onClickOption, clearSubmitOption } = useSubmitOption();
 
   const pick = () => {
     const quiz: IGameQuiz = dummy[progressState.current ?? 1];
     console.log(submitOptions);
 
-    if (isEnd()) {
+    if (submitOptions.size === 0) {
+      alert('정답은 최소 1개 이상 선택하여야합니다.');
+      return;
+    }
+
+    if (isLast()) {
       alert('모든 퀴즈를 진행하였습니다.');
       return;
     }
@@ -106,15 +113,9 @@ export const QuizGame = () => {
         ))}
       </QuizOptionsContainer>
       <NextQuizButtonContainer>
-        {isEnd() ? (
-          <button type='button' onClick={pick}>
-            제출하고 퀴즈 종료
-          </button>
-        ) : (
-          <button type='button' onClick={pick}>
-            다음 퀴즈
-          </button>
-        )}
+        <Button type='button' onClick={pick}>
+          {`${isLast() ? '제출하고 퀴즈 종료' : '다음 퀴즈'}`}
+        </Button>
       </NextQuizButtonContainer>
     </QuizGameContainer>
   );

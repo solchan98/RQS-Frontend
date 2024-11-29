@@ -4,7 +4,7 @@ interface IUseProgressBar {
   progressState: IProgressBarState;
   previous: () => void;
   next: () => void;
-  isEnd: () => boolean;
+  isLast: () => boolean;
 }
 
 export interface IProgressBarState {
@@ -31,9 +31,9 @@ export const useProgressBarState = ({ current, totalCount }: IProgressBarState):
     setProgressState((prev) => ({ current: prev.current - 1, totalCount }));
   };
 
-  const isEnd = () => {
+  const isLast = () => {
     return progressState.current >= totalCount;
   };
 
-  return { progressState, previous, next, isEnd };
+  return { progressState, previous, next, isLast };
 };
