@@ -1,10 +1,19 @@
 import { useParams } from 'react-router-dom';
 import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
 import React, { useState } from 'react';
-import { QuizGameContainer, QuizGameProgressBarContainer, QuizGameQuizContainer } from './index.styles';
+import {
+  NextQuizButtonContainer,
+  QuizGameContainer,
+  QuizGameProgressBarContainer,
+  QuizGameQuizContainer,
+  QuizOptionsContainer,
+  QuizTitleContainer,
+} from './index.styles';
 import { useProgressBarState } from '../../components/ProgressBar/useProgressBarState';
+import { QuizOption } from '../../components/QuizOption/QuizOption';
+import { useSubmitOption } from '../../components/QuizOption/useSubmitOption';
 
-interface IAnswer {
+export interface IAnswer {
   id: number;
   content: string;
 }
@@ -18,7 +27,7 @@ interface IGameQuiz {
 const dummy: IGameQuiz[] = [
   {
     quizId: 1,
-    content: '다음 중 JPA의 주요 기능이 아닌 것은 무엇인가요?',
+    content: '다음 중 JPA의 주요 기능이 아닌 것은 무엇인가요? ',
     answers: [
       {
         id: 1,
@@ -63,21 +72,23 @@ const dummy: IGameQuiz[] = [
 ];
 
 export const QuizGame = () => {
-  const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
-  const { progressState, next } = useProgressBarState({ current: 1, totalCount: dummy.length });
-
   const { quizGameId } = useParams();
+
+  const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
+  const { progressState, next, isEnd } = useProgressBarState({ current: 1, totalCount: dummy.length });
+  const { submitOptions, onClickOption, clearSubmitOption } = useSubmitOption();
 
   const pick = () => {
     const quiz: IGameQuiz = dummy[progressState.current ?? 1];
-    console.log(quiz);
+    console.log(submitOptions);
 
-    if (quiz == null) {
+    if (isEnd()) {
       alert('모든 퀴즈를 진행하였습니다.');
       return;
     }
     next();
     setCurrentQuizState(quiz);
+    clearSubmitOption();
   };
 
   return (
@@ -87,11 +98,24 @@ export const QuizGame = () => {
         <ProgressBar progressState={progressState} />
       </QuizGameProgressBarContainer>
       <QuizGameQuizContainer>
-        <span>{currentQuizState?.content}</span>
-        <button type='button' onClick={pick}>
-          NEXT
-        </button>
+        <QuizTitleContainer>{currentQuizState.content}</QuizTitleContainer>
       </QuizGameQuizContainer>
+      <QuizOptionsContainer>
+        {currentQuizState.answers.map((answer) => (
+          <QuizOption key={answer.id} answer={answer} onClickOption={onClickOption} />
+        ))}
+      </QuizOptionsContainer>
+      <NextQuizButtonContainer>
+        {isEnd() ? (
+          <button type='button' onClick={pick}>
+            제출하고 퀴즈 종료
+          </button>
+        ) : (
+          <button type='button' onClick={pick}>
+            다음 퀴즈
+          </button>
+        )}
+      </NextQuizButtonContainer>
     </QuizGameContainer>
   );
 };
