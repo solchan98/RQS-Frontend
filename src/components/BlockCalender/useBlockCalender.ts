@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useMemo, useState } from 'react';
-import { ICellDateType, IColumnType, IMousePosition, IUseBlockCalender } from './BlockCalender.type';
+import { ICellDateType, IColumnType, IMousePosition, IUseBlockCalender } from './BlockCalender.types';
 
 const formatter = new Intl.DateTimeFormat('en-US', { month: 'short' });
 

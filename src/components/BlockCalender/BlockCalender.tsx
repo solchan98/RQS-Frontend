@@ -8,7 +8,7 @@ import {
   ColumnLabel,
 } from './BlockCalender.styles';
 import React, { useEffect, useRef } from 'react';
-import { ICellDateType } from './BlockCalender.type';
+import { ICellDateType } from './BlockCalender.types';
 import { useBlockCalender } from './useBlockCalender';
 
 const dummy = [

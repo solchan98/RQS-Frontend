@@ -2,7 +2,7 @@ import { Tag } from '../../../components/Tag/Tag';
 import React from 'react';
 import { Title } from '../../../components/Title/Title';
 import { PastQuizPackTimeAgo, PastQuizPackTopicsTags } from './PastQuizPack.styles';
-import { IPastQuizPack } from '../../../types/home/pastquizpack';
+import { IPastQuizPack } from './PastQuizPacks.types';
 
 interface IPastQuizPackProps {
   pastQuizPack: IPastQuizPack;

@@ -1,10 +1,6 @@
-interface NickNameProps {
-  name: string;
-  size: number;
-  color?: string;
-}
+import { INickNameProps } from './NickName.types';
 
-export const NickName = ({ name, size, color = 'black' }: NickNameProps) => {
+export const NickName = ({ name, size, color = 'black' }: INickNameProps) => {
   return (
     <div style={{ fontSize: `${size}px`, fontWeight: 'bold', color }}>
       <text>{name}</text>

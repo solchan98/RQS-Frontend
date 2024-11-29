@@ -5,8 +5,8 @@ import React from 'react';
 import { AddedTopicsQuizContainer, HomeHeader, HomeHeaderIcons, HomeLayout, HomeLayoutContainer } from './index.styles';
 import { NickName } from 'components/NickName/NickName';
 import { Icon } from 'components/Icon/Icon';
-import { OnGoingQuizGame } from './OnGoingQuizGame';
-import { AddedTopicsQuiz } from './AddedTopicsQuiz';
+import { OnGoingQuizGame } from './OnGoingQuizGame/OnGoingQuizGame';
+import { AddedTopicsQuiz } from './AddedTopicsQuiz/AddedTopicsQuiz';
 import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 import { Label } from '../../components/Label/Label';
 

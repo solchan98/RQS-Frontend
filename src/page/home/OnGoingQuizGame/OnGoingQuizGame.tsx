@@ -4,7 +4,11 @@ import { ProgressBar } from '../../../components/ProgressBar/ProgressBar';
 import { Icon } from '../../../components/Icon/Icon';
 import { FaArrowRight } from 'react-icons/fa';
 import React from 'react';
-import { OnGoingQuizGameBottom, OnGoingQuizGameMiddle, OnGoingQuizGameProgressBarCount } from './index.styles';
+import {
+  OnGoingQuizGameBottom,
+  OnGoingQuizGameMiddle,
+  OnGoingQuizGameProgressBarCount,
+} from './OnGoingQuizGame.styles';
 import { useProgressBarState } from '../../../components/ProgressBar/useProgressBarState';
 
 const dummyOnGoingQuizGame = {

@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { ICellMousePosition } from './BlockCalender.type';
+import { ICellMousePosition } from './BlockCalender.types';
 
 export const BlockCalenderContainer = styled.div`
   position: relative;

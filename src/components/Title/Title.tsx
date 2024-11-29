@@ -1,10 +1,6 @@
-interface TitleProps {
-  title: string;
-  size?: number;
-  color?: string;
-}
+import { ITitleProps } from './Title.types';
 
-export const Title = ({ title, size = 18, color = 'black' }: TitleProps) => {
+export const Title = ({ title, size = 18, color = 'black' }: ITitleProps) => {
   return (
     <div>
       <text style={{ fontSize: size, fontWeight: 'bold', color }}>{title}</text>

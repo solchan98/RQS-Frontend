@@ -14,23 +14,13 @@ import { useProgressBarState } from '../../components/ProgressBar/useProgressBar
 import { QuizOption } from '../../components/QuizOption/QuizOption';
 import { useSubmitOption } from '../../components/QuizOption/useSubmitOption';
 import { Button } from '@mui/material';
-
-export interface IAnswer {
-  id: number;
-  content: string;
-}
-
-interface IGameQuiz {
-  quizId: number;
-  content: string;
-  answers: IAnswer[];
-}
+import { IGameQuiz } from './index.types';
 
 const dummy: IGameQuiz[] = [
   {
     quizId: 1,
     content: '다음 중 JPA의 주요 기능이 아닌 것은 무엇인가요? ',
-    answers: [
+    options: [
       {
         id: 1,
         content: '엔티티의 영속성 관리',
@@ -52,7 +42,7 @@ const dummy: IGameQuiz[] = [
   {
     quizId: 2,
     content: '@Entity 어노테이션을 사용할 때 필수적으로 필요한 조건은 무엇인가요?',
-    answers: [
+    options: [
       {
         id: 5,
         content: '반드시 @Id를 지정해야 한다.',
@@ -108,8 +98,8 @@ export const QuizGame = () => {
         <QuizTitleContainer>{currentQuizState.content}</QuizTitleContainer>
       </QuizGameQuizContainer>
       <QuizOptionsContainer>
-        {currentQuizState.answers.map((answer) => (
-          <QuizOption key={answer.id} answer={answer} onClickOption={onClickOption} />
+        {currentQuizState.options.map((option) => (
+          <QuizOption key={option.id} option={option} onClickOption={onClickOption} />
         ))}
       </QuizOptionsContainer>
       <NextQuizButtonContainer>

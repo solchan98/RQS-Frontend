@@ -1,10 +1,5 @@
 import { useState } from 'react';
-
-export interface IUseSubmitOption {
-  submitOptions: Set<number>;
-  onClickOption: (answerId: number, callback: () => void) => void;
-  clearSubmitOption: () => void;
-}
+import { IUseSubmitOption } from './QuizOption.types';
 
 export const useSubmitOption = (): IUseSubmitOption => {
   const [submitOptionState, setSubmitOptionState] = useState<Set<number>>(new Set());

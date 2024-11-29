@@ -1,7 +1,7 @@
 import { HomePastQuizPack } from '../index.styles';
 import { PastQuizPack } from './PastQuizPack';
 import React from 'react';
-import { IPastQuizPack } from '../../../types/home/pastquizpack';
+import { IPastQuizPack } from './PastQuizPacks.types';
 
 const dummyPastQuizPacks: IPastQuizPack[] = [
   {

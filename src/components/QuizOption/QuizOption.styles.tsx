@@ -1,8 +1,5 @@
 import styled from 'styled-components';
-
-interface IQuizOptionStyles {
-  selected: boolean;
-}
+import { IQuizOptionStyles } from './QuizOption.types';
 
 export const QuizOptionButton = styled.button<IQuizOptionStyles>`
   max-width: 80%;

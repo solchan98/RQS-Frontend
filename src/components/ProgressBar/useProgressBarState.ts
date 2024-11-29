@@ -1,16 +1,5 @@
 import { useState } from 'react';
-
-interface IUseProgressBar {
-  progressState: IProgressBarState;
-  previous: () => void;
-  next: () => void;
-  isLast: () => boolean;
-}
-
-export interface IProgressBarState {
-  current: number;
-  totalCount: number;
-}
+import { IProgressBarState, IUseProgressBar } from './ProgressBar.types';
 
 export const useProgressBarState = ({ current, totalCount }: IProgressBarState): IUseProgressBar => {
   const [progressState, setProgressState] = useState<IProgressBarState>({ current, totalCount });

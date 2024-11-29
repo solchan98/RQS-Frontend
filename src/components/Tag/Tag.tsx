@@ -1,12 +1,7 @@
 import styled from 'styled-components';
+import { ITagProps } from './Tag.types';
 
-interface TagProps {
-  name: string;
-  size: number;
-  color?: string;
-}
-
-export const Tag = ({ name, size, color = '#555050' }: TagProps) => {
+export const Tag = ({ name, size, color = '#555050' }: ITagProps) => {
   return (
     <div>
       <TagText size={size} color={color}>

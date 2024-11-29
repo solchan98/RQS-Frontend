@@ -1,23 +1,18 @@
 import { QuizOptionButton } from './QuizOption.styles';
-import { IAnswer } from '../../page/game';
 import { useOptionState } from './useOptionState';
+import { IQuizOptionProps } from './QuizOption.types';
 
-export interface IQuizOptionProps {
-  answer: IAnswer;
-  onClickOption: (answerId: number, callback: () => void) => void;
-}
-
-export const QuizOption = ({ answer, onClickOption }: IQuizOptionProps) => {
+export const QuizOption = ({ option, onClickOption }: IQuizOptionProps) => {
   const { selectedState, changeSelectedState } = useOptionState();
 
   return (
     <QuizOptionButton
-      key={answer.id}
+      key={option.id}
       type='button'
       selected={selectedState}
-      onClick={() => onClickOption(answer.id, changeSelectedState)}
+      onClick={() => onClickOption(option.id, changeSelectedState)}
     >
-      {answer.content}
+      {option.content}
     </QuizOptionButton>
   );
 };
