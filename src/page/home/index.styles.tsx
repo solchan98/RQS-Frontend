@@ -20,7 +20,6 @@ export const HomeLayoutContainer = styled.article`
 
 export const HomeHeader = styled.header`
   position: fixed;
-  background: #ededed;
   z-index: 999;
   display: flex;
   top: 0;

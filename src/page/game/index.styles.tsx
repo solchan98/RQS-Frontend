@@ -29,7 +29,6 @@ export const QuizGameQuizContainer = styled.div`
   width: 100%;
   height: 50%;
   padding: 24px;
-  background: aqua;
 `;
 
 export const QuizTitleContainer = styled.span`
@@ -43,8 +42,6 @@ export const QuizOptionsContainer = styled.div`
   flex-direction: column;
   gap: 12px;
   align-items: center;
-
-  background-color: blanchedalmond;
 `;
 
 export const NextQuizButtonContainer = styled.div`
