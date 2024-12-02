@@ -4,6 +4,8 @@ import { Home } from './page/home';
 import { NavContainer } from './components/Layout/NavContainer/NavContainer';
 import { MyQuizzes } from './page/myquizzes';
 import { QuizGame } from './page/game';
+import { EasyQuizCreate } from './page/quizcreate/EasyQuizCreate';
+import { QuizCreateIntro } from './page/quizcreate';
 
 const App = () => {
   return (
@@ -15,6 +17,10 @@ const App = () => {
         </Route>
         <Route path='game'>
           <Route path=':quizGameId' element={<QuizGame />} />
+        </Route>
+        <Route path='new-quizzes'>
+          <Route path='' element={<QuizCreateIntro />} />
+          <Route path='easy' element={<EasyQuizCreate />} />
         </Route>
       </Routes>
     </BrowserRouter>
