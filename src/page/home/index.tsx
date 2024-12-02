@@ -5,8 +5,8 @@ import React from 'react';
 import { AddedTopicsQuizContainer, HomeHeader, HomeHeaderIcons, HomeLayout, HomeLayoutContainer } from './index.styles';
 import { NickName } from 'components/NickName/NickName';
 import { Icon } from 'components/Icon/Icon';
-import { OnGoingQuizGame } from './OnGoingQuizGame/OnGoingQuizGame';
-import { AddedTopicsQuiz } from './AddedTopicsQuiz/AddedTopicsQuiz';
+import { OnGoingQuizGame } from './components/OnGoingQuizGame/OnGoingQuizGame';
+import { AddedTopicsQuiz } from './components/AddedTopicsQuiz/AddedTopicsQuiz';
 import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 import { Label } from '../../components/Label/Label';
 
@@ -23,8 +23,8 @@ export const Home = () => {
         <AddedTopicsQuiz />
       </AddedTopicsQuizContainer>
       <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between' }}>
-        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈 만들기</HomeLayoutContainer>
-        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈 탐색하기</HomeLayoutContainer>
+        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈 바로생성</HomeLayoutContainer>
+        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈팩 탐색</HomeLayoutContainer>
       </div>
       <HomeLayoutContainer>
         <OnGoingQuizGame />

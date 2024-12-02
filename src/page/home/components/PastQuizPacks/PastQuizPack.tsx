@@ -1,6 +1,6 @@
-import { Tag } from '../../../components/Tag/Tag';
+import { Tag } from '../../../../components/Tag/Tag';
 import React from 'react';
-import { Title } from '../../../components/Title/Title';
+import { Title } from '../../../../components/Title/Title';
 import { PastQuizPackTimeAgo, PastQuizPackTopicsTags } from './PastQuizPack.styles';
 import { IPastQuizPack } from './PastQuizPacks.types';
 

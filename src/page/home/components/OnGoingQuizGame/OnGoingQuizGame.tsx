@@ -1,7 +1,7 @@
-import { Title } from '../../../components/Title/Title';
-import { Label } from '../../../components/Label/Label';
-import { ProgressBar } from '../../../components/ProgressBar/ProgressBar';
-import { Icon } from '../../../components/Icon/Icon';
+import { Title } from '../../../../components/Title/Title';
+import { Label } from '../../../../components/Label/Label';
+import { ProgressBar } from '../../../../components/ProgressBar/ProgressBar';
+import { Icon } from '../../../../components/Icon/Icon';
 import { FaArrowRight } from 'react-icons/fa';
 import React from 'react';
 import {
@@ -9,7 +9,7 @@ import {
   OnGoingQuizGameMiddle,
   OnGoingQuizGameProgressBarCount,
 } from './OnGoingQuizGame.styles';
-import { useProgressBarState } from '../../../components/ProgressBar/useProgressBarState';
+import { useProgressBarState } from '../../../../components/ProgressBar/useProgressBarState';
 
 const dummyOnGoingQuizGame = {
   title: '다양한 서버 모니터링 방법',

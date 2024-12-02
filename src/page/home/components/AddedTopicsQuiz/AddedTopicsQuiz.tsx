@@ -1,11 +1,11 @@
-import { Title } from '../../../components/Title/Title';
-import { Label } from '../../../components/Label/Label';
-import { Tag } from '../../../components/Tag/Tag';
+import { Title } from '../../../../components/Title/Title';
+import { Label } from '../../../../components/Label/Label';
+import { Tag } from '../../../../components/Tag/Tag';
 import React from 'react';
-import { Icon } from '../../../components/Icon/Icon';
+import { Icon } from '../../../../components/Icon/Icon';
 import { FaArrowRight } from 'react-icons/fa';
 import { AddedTopicsQuizContent, AddedTopicsQuizTags } from './AddedTopicsQuiz.styles';
-import { ITag } from '../../../types/common/tag';
+import { ITag } from '../../../../types/common/tag';
 
 const dummyAddedTopicsQuiz: {
   tags: ITag[];
