@@ -4,14 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 홈 퀴즈 생성 버튼 라우팅 추가">
-      <change afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/game/Results/index.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈게임 라우팅 구조 설계">
+      <change afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.stypes.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.types.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/index.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/index.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -86,7 +84,7 @@
       <workItem from="1731927595122" duration="35292000" />
       <workItem from="1732354534126" duration="1898000" />
       <workItem from="1732786812260" duration="3898000" />
-      <workItem from="1732872635560" duration="13652000" />
+      <workItem from="1732872635560" duration="16071000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -286,7 +284,15 @@
       <option name="project" value="LOCAL" />
       <updated>1733299708639</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="feat: 퀴즈게임 라우팅 구조 설계">
+      <option name="closed" value="true" />
+      <created>1733301309593</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1733301309593</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -316,6 +322,7 @@
     <MESSAGE value="feat: 페이지 별 컴포넌트 관리 구조 수정" />
     <MESSAGE value="feat: 퀴즈 생성 라우터 설정" />
     <MESSAGE value="feat: 홈 퀴즈 생성 버튼 라우팅 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 홈 퀴즈 생성 버튼 라우팅 추가" />
+    <MESSAGE value="feat: 퀴즈게임 라우팅 구조 설계" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈게임 라우팅 구조 설계" />
   </component>
 </project>
