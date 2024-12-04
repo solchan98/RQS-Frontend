@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { ProgressBar } from '../../components/ProgressBar/ProgressBar';
+import { ProgressBar } from '../../../components/ProgressBar/ProgressBar';
 import { useState } from 'react';
 
 import {
@@ -10,9 +10,9 @@ import {
   QuizOptionsContainer,
   QuizTitleContainer,
 } from './index.styles';
-import { useProgressBarState } from '../../components/ProgressBar/useProgressBarState';
-import { QuizOption } from '../../components/QuizOption/QuizOption';
-import { useSubmitOption } from '../../components/QuizOption/useSubmitOption';
+import { useProgressBarState } from '../../../components/ProgressBar/useProgressBarState';
+import { QuizOption } from '../../../components/QuizOption/QuizOption';
+import { useSubmitOption } from '../../../components/QuizOption/useSubmitOption';
 import { Button } from '@mui/material';
 import { IGameQuiz } from './index.types';
 
@@ -63,7 +63,7 @@ const dummy: IGameQuiz[] = [
   },
 ];
 
-export const QuizGame = () => {
+export const PlayQuizGame = () => {
   const { quizGameId } = useParams();
 
   const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
