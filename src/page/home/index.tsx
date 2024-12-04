@@ -9,8 +9,12 @@ import { OnGoingQuizGame } from './components/OnGoingQuizGame/OnGoingQuizGame';
 import { AddedTopicsQuiz } from './components/AddedTopicsQuiz/AddedTopicsQuiz';
 import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 import { Label } from '../../components/Label/Label';
+import { Button } from '@mui/material';
+import { useNavigate } from 'react-router-dom';
 
 export const Home = () => {
+  const navigate = useNavigate();
+
   return (
     <HomeLayout>
       <HomeHeader>
@@ -23,8 +27,14 @@ export const Home = () => {
         <AddedTopicsQuiz />
       </AddedTopicsQuizContainer>
       <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between' }}>
-        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈 바로생성</HomeLayoutContainer>
-        <HomeLayoutContainer style={{ width: '100%' }}>퀴즈팩 탐색</HomeLayoutContainer>
+        <HomeLayoutContainer style={{ width: '100%' }}>
+          <Button type='button' onClick={() => navigate('/new-quizzes')}>
+            퀴즈 바로생성
+          </Button>
+        </HomeLayoutContainer>
+        <HomeLayoutContainer style={{ width: '100%' }}>
+          <Button type='button'>퀴즈팩 탐색</Button>
+        </HomeLayoutContainer>
       </div>
       <HomeLayoutContainer>
         <OnGoingQuizGame />

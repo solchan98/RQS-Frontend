@@ -19,7 +19,7 @@ const dummyOnGoingQuizGame = {
 };
 
 export const OnGoingQuizGame = () => {
-  const { progressState } = useProgressBarState({ current: 1, totalCount: dummyOnGoingQuizGame.quizCount });
+  const { progressState } = useProgressBarState({ current: 9, totalCount: dummyOnGoingQuizGame.quizCount });
 
   return (
     <>
