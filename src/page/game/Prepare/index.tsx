@@ -7,23 +7,56 @@ import {
   PrepareQuizGameTitle,
   PrepareQuizGameTopContainer,
 } from './index.stypes';
-import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { useEffect, useState } from 'react';
+import { CircularProgress, Skeleton } from '@mui/material';
 
 const dummy: IPrepareQuizPack = {
   quizPackId: 1,
-  title: 'JPA 이해도 확인하기JPA 이해도 확인하기JPA',
+  title: 'JPA 이해도 확인하기',
   quizCount: 4,
   tags: ['JPA', 'Hibernate', 'Spring Data JPA', 'ORM'],
 };
 
 export const PrepareQuizGame = () => {
+  const [prepareQuizPackState, setPrepareQuizPackState] = useState<IPrepareQuizPack>();
+
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setTimeout(() => {
+      setPrepareQuizPackState(dummy);
+    }, 2000);
+  }, []);
 
   const onClickStartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     // TODO: call game start api -> get quiz-game-id
     navigate(`../play/${1234}`);
   };
+
+  if (!prepareQuizPackState) {
+    return (
+      <PrepareQuizGameContainer>
+        <PrepareQuizGameTopContainer>
+          <PrepareQuizGameTitle>
+            <Skeleton variant='rounded' width='80vw' height='48px' animation='wave' />
+          </PrepareQuizGameTitle>
+          <PrepareQuizGameTagsContainer>
+            <Skeleton variant='rounded' width='48px' height='24px' animation='wave' />
+            <Skeleton variant='rounded' width='48px' height='24px' animation='wave' />
+            <Skeleton variant='rounded' width='48px' height='24px' animation='wave' />
+            <Skeleton variant='rounded' width='48px' height='24px' animation='wave' />
+            <Skeleton variant='rounded' width='48px' height='24px' animation='wave' />
+          </PrepareQuizGameTagsContainer>
+          <PrepareQuizGameQuizCount>
+            <Skeleton variant='rounded' width='80px' height='48px' animation='wave' />
+          </PrepareQuizGameQuizCount>
+        </PrepareQuizGameTopContainer>
+        <span>퀴즈팩 정보를 불러오고 있어요!</span>
+        <CircularProgress size='48px' style={{ marginTop: '12px' }} />
+      </PrepareQuizGameContainer>
+    );
+  }
 
   return (
     <PrepareQuizGameContainer>

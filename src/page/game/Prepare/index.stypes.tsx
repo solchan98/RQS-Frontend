@@ -2,6 +2,7 @@ import styled from 'styled-components';
 import { Button } from '@mui/material';
 
 export const PrepareQuizGameContainer = styled.div`
+  width: 100vw;
   height: 100vh;
 
   display: flex;
@@ -23,11 +24,13 @@ export const PrepareQuizGameTopContainer = styled.div`
 
 export const PrepareQuizGameTagsContainer = styled.div`
   display: flex;
-  gap: 4px;
+  gap: 8px;
+
+  padding-top: 28px;
 `;
 
 export const PrepareQuizGameQuizCount = styled.span`
-  padding-top: 48px;
+  padding-top: 36px;
   font-size: 24px;
   font-weight: 500;
 `;
