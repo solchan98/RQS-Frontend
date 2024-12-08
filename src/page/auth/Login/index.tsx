@@ -10,12 +10,15 @@ import {
   LoginTitleContainer,
 } from './index.styles';
 import { IoIosLogIn } from 'react-icons/io';
+import { useCommonAlert } from '../../../components/Alert/useCommonAlert';
+import { CommonAlert } from '../../../components/Alert/CommonAlert';
 
 export const Login = () => {
   const { value: email, onChange: onChangeEmail } = useInput();
   const { value: password, onChange: onChangePassword } = useInput();
 
-  const { login } = useLogin();
+  const { alertState, onAlert } = useCommonAlert();
+  const { login } = useLogin({ onAlert });
 
   const onSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -25,6 +28,7 @@ export const Login = () => {
 
   return (
     <LoginContainer>
+      {alertState.active && <CommonAlert type='error' message={alertState.message} />}
       <LoginTitleContainer>Quiz Box</LoginTitleContainer>
       <LoginInputContainer>
         <LoginInputForm onSubmit={onSubmitForm}>

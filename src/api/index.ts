@@ -1,4 +1,9 @@
-import axios, { AxiosRequestConfig, AxiosResponse } from 'axios';
+import axios, { AxiosError, AxiosRequestConfig, AxiosResponse } from 'axios';
+
+export type IRequestFailResponse = {
+  status: number | undefined;
+  message: string;
+};
 
 export const apiClient = axios.create({
   baseURL: 'http://localhost:8080',
@@ -16,7 +21,7 @@ const handleApiRequest = async <T>(
   url: string,
   data?: any,
   config?: AxiosRequestConfig,
-): Promise<AxiosResponse<T> | null> => {
+): Promise<AxiosResponse<T> | IRequestFailResponse> => {
   try {
     let response: AxiosResponse<T>;
 
@@ -28,12 +33,27 @@ const handleApiRequest = async <T>(
 
     return response;
   } catch (error) {
-    console.error('API Request failed:', error);
-    return null;
+    if (error instanceof AxiosError) {
+      const status = error.response?.status;
+      const errorMessage = error.response?.data?.message || error.message;
+
+      return {
+        status,
+        message: errorMessage ?? 'An unknown error occurred',
+      };
+    }
+
+    return {
+      status: 500,
+      message: 'An unknown error occurred',
+    };
   }
 };
 
-export const getRequest = async <T>(url: string, config?: AxiosRequestConfig): Promise<AxiosResponse<T> | null> => {
+export const getRequest = async <T>(
+  url: string,
+  config?: AxiosRequestConfig,
+): Promise<AxiosResponse<T> | IRequestFailResponse> => {
   return handleApiRequest<T>('GET', url, undefined, config);
 };
 
@@ -41,7 +61,7 @@ export const postRequest = async <T>(
   url: string,
   data: any,
   config?: AxiosRequestConfig,
-): Promise<AxiosResponse<T> | null> => {
+): Promise<AxiosResponse<T> | IRequestFailResponse> => {
   return handleApiRequest<T>('POST', url, data, config);
 };
 

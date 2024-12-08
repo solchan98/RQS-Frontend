@@ -1,4 +1,9 @@
-import { postRequest } from '../../../api';
+import { IRequestFailResponse, postRequest } from '../../../api';
+import { useNavigate } from 'react-router-dom';
+
+interface IUseLoginProps {
+  onAlert: (message: string) => void;
+}
 
 interface ILogin {
   email: string;
@@ -15,15 +20,21 @@ interface ILoginSuccessToken {
   refreshToken: string;
 }
 
-export const useLogin = () => {
+function isRequestFailResponse(res: any): res is IRequestFailResponse {
+  return res && typeof res.status === 'number' && typeof res.message === 'string';
+}
+
+export const useLogin = ({ onAlert }: IUseLoginProps) => {
+  const navigate = useNavigate();
+
   const login = async ({ email, password }: ILogin) => {
     const res = await postRequest<ILoginSuccessResponse>('/login', {
       email,
       password,
     });
 
-    if (res === null) {
-      // TODO exception handling
+    if (isRequestFailResponse(res)) {
+      onAlert(res.message);
       return;
     }
 
@@ -31,6 +42,8 @@ export const useLogin = () => {
 
     localStorage.setItem('assessToken', JSON.stringify(tokens.accessToken));
     localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
+
+    navigate('/');
   };
 
   return { login };
