@@ -8,6 +8,7 @@ import { EasyQuizCreate } from './page/quizcreate/EasyQuizCreate';
 import { QuizCreateIntro } from './page/quizcreate';
 import { PrepareQuizGame } from './page/game/Prepare';
 import { ResultsQuizGame } from './page/game/Results';
+import { Login } from './page/auth/Login';
 
 const App = () => {
   return (
@@ -16,6 +17,9 @@ const App = () => {
         <Route path='' element={<NavContainer />}>
           <Route path='' element={<Home />} />
           <Route path='settings' element={<MyQuizzes />} />
+        </Route>
+        <Route path='auth'>
+          <Route path='login' element={<Login />} />
         </Route>
         <Route path='game'>
           <Route path='' element={<Navigate to='../' />} />
