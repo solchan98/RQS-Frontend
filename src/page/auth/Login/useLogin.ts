@@ -21,7 +21,7 @@ interface ILoginSuccessToken {
 }
 
 function isRequestFailResponse(res: any): res is IRequestFailResponse {
-  return res && typeof res.status === 'number' && typeof res.message === 'string';
+  return res && (typeof res.status === 'number' || res.status === undefined) && typeof res.message === 'string';
 }
 
 export const useLogin = ({ onAlert }: IUseLoginProps) => {
