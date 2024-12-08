@@ -4,13 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈게임 준비 화면 스켈레톤 적용">
-      <change afterPath="$PROJECT_DIR$/src/hooks/useInput.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현">
+      <change afterPath="$PROJECT_DIR$/src/page/auth/Login/index.styles.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,7 +86,7 @@
       <workItem from="1733304552033" duration="41000" />
       <workItem from="1733304825159" duration="2260000" />
       <workItem from="1733641779595" duration="3729000" />
-      <workItem from="1733646093034" duration="1278000" />
+      <workItem from="1733646093034" duration="2575000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -313,14 +310,21 @@
       <option name="project" value="LOCAL" />
       <updated>1733306475869</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현">
+      <option name="closed" value="true" />
+      <created>1733647445674</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1733647445674</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: useQuizPlay 커스텀 훅 생성&#10;- 퀴즈 플레이 관련 상태 관리 로직을 한 곳으로 응축" />
     <MESSAGE value="feat: 중간 커밋" />
     <MESSAGE value="feat: react-router-dom 적용" />
     <MESSAGE value="feat: lint 적용" />
@@ -345,6 +349,7 @@
     <MESSAGE value="feat: 퀴즈게임 라우팅 구조 설계" />
     <MESSAGE value="feat: 퀴즈게임 준비 화면 구성" />
     <MESSAGE value="feat: 퀴즈게임 준비 화면 스켈레톤 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈게임 준비 화면 스켈레톤 적용" />
+    <MESSAGE value="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현" />
   </component>
 </project>

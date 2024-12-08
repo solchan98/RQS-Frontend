@@ -1,6 +1,15 @@
-import { FormEvent } from 'react';
+import React, { FormEvent } from 'react';
 import { useLogin } from './useLogin';
 import { useInput } from '../../../hooks/useInput';
+import {
+  LoginButton,
+  LoginContainer,
+  LoginInput,
+  LoginInputContainer,
+  LoginInputForm,
+  LoginTitleContainer,
+} from './index.styles';
+import { IoIosLogIn } from 'react-icons/io';
 
 export const Login = () => {
   const { value: email, onChange: onChangeEmail } = useInput();
@@ -15,13 +24,24 @@ export const Login = () => {
   };
 
   return (
-    <>
-      <h1>Login</h1>
-      <form onSubmit={onSubmitForm}>
-        <input type='email' value={email} placeholder='email' onChange={onChangeEmail} />
-        <input type='password' value={password} placeholder='Password' onChange={onChangePassword} />
-        <button type='submit'>Login</button>
-      </form>
-    </>
+    <LoginContainer>
+      <LoginTitleContainer>Quiz Box</LoginTitleContainer>
+      <LoginInputContainer>
+        <LoginInputForm onSubmit={onSubmitForm}>
+          <LoginInput label='Email' type='email' required variant='outlined' value={email} onChange={onChangeEmail} />
+          <LoginInput
+            label='Password'
+            required
+            type='password'
+            variant='outlined'
+            value={password}
+            onChange={onChangePassword}
+          />
+          <LoginButton type='submit' startIcon={<IoIosLogIn />}>
+            Login
+          </LoginButton>
+        </LoginInputForm>
+      </LoginInputContainer>
+    </LoginContainer>
   );
 };
