@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 간단 로그인 페이지 UI 구성">
-      <change afterPath="$PROJECT_DIR$/src/components/Alert/CommonAlert.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Alert/useCommonAlert.ts" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Alert/CommonAlert.tsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Alert/useCommonAlert.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useCommonAlert.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" afterDir="false" />
     </list>
@@ -55,11 +54,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/hooks" />
       <recent name="$PROJECT_DIR$/src/page/game/Playing" />
       <recent name="$PROJECT_DIR$/src/page/quizcreate/EasyQuizCreate" />
       <recent name="$PROJECT_DIR$/src/page/game/components" />
       <recent name="$PROJECT_DIR$/src/page/home/components" />
-      <recent name="$PROJECT_DIR$/src/components" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -89,7 +88,8 @@
       <workItem from="1733304552033" duration="41000" />
       <workItem from="1733304825159" duration="2260000" />
       <workItem from="1733641779595" duration="3729000" />
-      <workItem from="1733646093034" duration="4885000" />
+      <workItem from="1733646093034" duration="6200000" />
+      <workItem from="1733706765353" duration="3251000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -329,16 +329,37 @@
       <option name="project" value="LOCAL" />
       <updated>1733648706969</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="feat: 로그인 성공 및 실패 핸들링 로직 추가">
+      <option name="closed" value="true" />
+      <created>1733651084949</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1733651084949</updated>
+    </task>
+    <task id="LOCAL-00032" summary="feat: Network Error 핸들링 가능하도록 수정">
+      <option name="closed" value="true" />
+      <created>1733651595537</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1733651595537</updated>
+    </task>
+    <task id="LOCAL-00033" summary="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정">
+      <option name="closed" value="true" />
+      <created>1733651627225</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1733651627225</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: react-router-dom 적용" />
-    <MESSAGE value="feat: lint 적용" />
-    <MESSAGE value="feat: 스크롤 바운싱 방지 추가" />
     <MESSAGE value="feat: Home 구성 변경" />
     <MESSAGE value="feat: 잔디 캘린더 구현" />
     <MESSAGE value="feat: 잔디 캘린더 방식 수정&#10;- 오늘 기준 이전 6개월치 잔디 생성하도록 수정" />
@@ -361,6 +382,9 @@
     <MESSAGE value="feat: 퀴즈게임 준비 화면 스켈레톤 적용" />
     <MESSAGE value="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현" />
     <MESSAGE value="feat: 간단 로그인 페이지 UI 구성" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 간단 로그인 페이지 UI 구성" />
+    <MESSAGE value="feat: 로그인 성공 및 실패 핸들링 로직 추가" />
+    <MESSAGE value="feat: Network Error 핸들링 가능하도록 수정" />
+    <MESSAGE value="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정" />
   </component>
 </project>

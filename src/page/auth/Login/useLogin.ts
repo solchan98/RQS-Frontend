@@ -2,7 +2,7 @@ import { IRequestFailResponse, postRequest } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 
 interface IUseLoginProps {
-  onAlert: (message: string) => void;
+  onAlert: (message: string, period?: number) => void;
 }
 
 interface ILogin {

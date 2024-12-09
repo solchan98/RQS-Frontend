@@ -10,8 +10,8 @@ import {
   LoginTitleContainer,
 } from './index.styles';
 import { IoIosLogIn } from 'react-icons/io';
-import { useCommonAlert } from '../../../components/Alert/useCommonAlert';
-import { CommonAlert } from '../../../components/Alert/CommonAlert';
+import { useCommonAlert } from '../../../hooks/useCommonAlert';
+import { Alert } from '@mui/material';
 
 export const Login = () => {
   const { value: email, onChange: onChangeEmail } = useInput();
@@ -28,7 +28,7 @@ export const Login = () => {
 
   return (
     <LoginContainer>
-      {alertState.active && <CommonAlert type='error' message={alertState.message} />}
+      {alertState.active && <Alert severity='error'>{alertState.message}</Alert>}
       <LoginTitleContainer>Quiz Box</LoginTitleContainer>
       <LoginInputContainer>
         <LoginInputForm onSubmit={onSubmitForm}>
