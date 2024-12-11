@@ -40,7 +40,7 @@ export const useLogin = ({ onAlert }: IUseLoginProps) => {
 
     const tokens = res.data.data;
 
-    localStorage.setItem('assessToken', JSON.stringify(tokens.accessToken));
+    localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
     localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
 
     navigate('/');
