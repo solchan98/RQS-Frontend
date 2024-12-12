@@ -10,7 +10,12 @@ import { ITag } from '../../../../types/common/tag';
 const dummyAddedTopicsQuiz: {
   tags: ITag[];
 } = {
-  tags: [{ name: '모니터링' }, { name: 'Backend' }, { name: 'CI/CD' }, { name: 'ELK' }],
+  tags: [
+    { id: 1, name: '모니터링' },
+    { id: 2, name: 'Backend' },
+    { id: 3, name: 'CI/CD' },
+    { id: 4, name: 'ELK' },
+  ],
 };
 export const AddedTopicsQuiz = () => {
   return (

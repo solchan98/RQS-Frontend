@@ -10,6 +10,7 @@ import { PrepareQuizGame } from './page/game/Prepare';
 import { ResultsQuizGame } from './page/game/Results';
 import { Login } from './page/auth/Login';
 import { AuthLayout } from './components/Layout/AuthLayout/AuthLayer';
+import { QuizPacks } from './page/quizpacks';
 
 const App = () => {
   return (
@@ -39,6 +40,7 @@ const App = () => {
             <Route path='' element={<QuizCreateIntro />} />
             <Route path='easy' element={<EasyQuizCreate />} />
           </Route>
+          <Route path='quiz-packs' element={<QuizPacks />} />
         </Route>
         <Route path='auth'>
           <Route path='login' element={<Login />} />

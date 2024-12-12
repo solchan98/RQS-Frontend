@@ -33,7 +33,9 @@ export const Home = () => {
           </Button>
         </HomeLayoutContainer>
         <HomeLayoutContainer style={{ width: '100%' }}>
-          <Button type='button'>퀴즈팩 탐색</Button>
+          <Button type='button' onClick={() => navigate('/quiz-packs')}>
+            퀴즈팩 탐색
+          </Button>
         </HomeLayoutContainer>
       </div>
       <HomeLayoutContainer>
