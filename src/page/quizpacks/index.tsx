@@ -29,7 +29,13 @@ export const QuizPacks = () => {
     setLoadingState(true);
 
     getQuizPacks(paginationState, setErrorState).then((result) => {
-      setQuizPacksState(result.data);
+      setQuizPacksState(result.data ?? []);
+      setPaginationState(result.pagination);
+      setLoadingState(false);
+    });
+
+    getQuizPacks(paginationState, setErrorState).then((result) => {
+      setQuizPacksState(result.data ?? []);
       setPaginationState(result.pagination);
       setLoadingState(false);
     });
@@ -71,7 +77,7 @@ export const QuizPacks = () => {
 
   return (
     <QuizPacksContainer>
-      {errorsState['quiz-packs'] && <Alert severity='error'>{errorsState['quiz-packs']?.message}</Alert>}
+      {errorsState['quiz-packs'] && <Alert severity='error'>{errorsState['quiz-packs'].message}</Alert>}
       <QuizPacksTopContainer>
         <Label title='Quiz packs' size={24} />
         <QuizPacksTypeDropdown

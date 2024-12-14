@@ -1,6 +1,6 @@
 import { IQuizPack } from '../../../types/quizpacks';
 import { authGetRequest } from '../../index';
-import { AxiosError, AxiosResponse } from 'axios';
+import { AxiosError } from 'axios';
 import { IRequestError } from '../../../recoil/error';
 import { IResponseError } from '../../../types/error';
 import { PaginationData } from '../../../types/common/response';
@@ -22,31 +22,13 @@ export const getQuizPacks = async (
       const axiosError = error as AxiosError;
       const responseError = axiosError.response?.data as IResponseError;
 
-      setErrorState({ key: 'quiz-packs', message: responseError?.message, status: responseError?.status });
+      setErrorState({
+        key: 'quiz-packs',
+        message: responseError?.message ?? error?.message,
+        status: responseError?.status ?? error?.status,
+      });
 
       // 에러 발생 시 빈 배열 반환
       return { data: [], pagination: paginationState };
     });
-
-  // try {
-  //   // authGetRequest 호출 및 결과 처리
-  //   const response = await authGetRequest<PaginationData<IQuizPack[]>>('quiz-packs', {
-  //     params: { lastId: paginationState.lastId, chunk: paginationState.chunk },
-  //   });
-  //
-  //   // response가 없거나 data가 undefined인 경우 빈 배열 반환
-  //   const data = response?.data.data ?? []; // 빈 배열로 기본값 설정
-  //   const pagination = response?.data.pagination ?? paginationState;
-  //
-  //   console.log(`hello`);
-  //   return { data, pagination };
-  // } catch (error) {
-  //   const axiosError = error as AxiosError;
-  //   const responseError = axiosError.response?.data as IResponseError;
-  //
-  //   setErrorState({ key: 'quiz-packs', message: responseError?.message, status: responseError?.status });
-  //
-  //   // 에러 발생 시 빈 배열 반환
-  //   return { data: [], pagination: paginationState };
-  // }
 };
