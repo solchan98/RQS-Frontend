@@ -1,4 +1,4 @@
-import { IRequestFailResponse, postRequest } from '../../../api';
+import { IRequestFailResponse, isRequestFailResponse, postRequest } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 
 interface IUseLoginProps {
@@ -18,10 +18,6 @@ interface ILoginSuccessResponse {
 interface ILoginSuccessToken {
   accessToken: string;
   refreshToken: string;
-}
-
-function isRequestFailResponse(res: any): res is IRequestFailResponse {
-  return res && (typeof res.status === 'number' || res.status === undefined) && typeof res.message === 'string';
 }
 
 export const useLogin = ({ onAlert }: IUseLoginProps) => {

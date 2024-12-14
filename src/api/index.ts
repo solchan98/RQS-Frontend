@@ -82,9 +82,8 @@ const handleAuthApiRequest = async <T>(
 
     return response;
   } catch (error) {
-    console.error('Auth API Request failed:', error);
-    // 예외 처리 후 null 반환 또는 원하는 값 반환
-    return null;
+    console.error(error);
+    throw error;
   }
 };
 
@@ -98,4 +97,8 @@ export const authPostRequest = async <T>(
   config?: AxiosRequestConfig,
 ): Promise<AxiosResponse<T> | null> => {
   return handleAuthApiRequest<T>('POST', url, data, config);
+};
+
+export const isRequestFailResponse = (res: any): res is IRequestFailResponse => {
+  return res && (typeof res.status === 'number' || res.status === undefined) && typeof res.message === 'string';
 };

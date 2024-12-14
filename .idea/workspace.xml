@@ -4,19 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 로그인 여부에 따른 리다이텍션 요구사항 추가&#10;- 추가 레이어를 두어 토큰에 따른 분기 처리 적용">
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/QuizPackCard/QuizPackCard.styles.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/QuizPackCard/QuizPackCard.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/QuizPacksSearchBar/QuizPacksSearchBar.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/QuizPacksTypeDropdown/QuizPackTypeDropdown.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/index.styles.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈팩 리스트 조회 페이지 구현">
+      <change afterPath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/useErrorRequest.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/hooks/usePagination.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/recoil/error/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/common/request/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/common/response/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/error/index.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/types/quizpacks/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/components/AddedTopicsQuiz/AddedTopicsQuiz.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/components/AddedTopicsQuiz/AddedTopicsQuiz.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/common/tag/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/common/tag/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Label/Label.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Label/Label.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/NickName/NickName.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/NickName/NickName.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Title/Title.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Title/Title.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/recoli/Quiz.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/recoil/Quiz.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -61,11 +65,11 @@
 }</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/types/quizpacks" />
       <recent name="$PROJECT_DIR$/src/hooks" />
       <recent name="$PROJECT_DIR$/src/page/game/Playing" />
       <recent name="$PROJECT_DIR$/src/page/quizcreate/EasyQuizCreate" />
       <recent name="$PROJECT_DIR$/src/page/game/components" />
-      <recent name="$PROJECT_DIR$/src/page/home/components" />
     </key>
   </component>
   <component name="SharedIndexes">
@@ -98,7 +102,8 @@
       <workItem from="1733646093034" duration="6200000" />
       <workItem from="1733706765353" duration="5255000" />
       <workItem from="1733914423149" duration="5379000" />
-      <workItem from="1733995275057" duration="5042000" />
+      <workItem from="1733995275057" duration="11531000" />
+      <workItem from="1734156524641" duration="6844000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -378,14 +383,21 @@
       <option name="project" value="LOCAL" />
       <updated>1733917049441</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="feat: 퀴즈팩 리스트 조회 페이지 구현">
+      <option name="closed" value="true" />
+      <created>1734000367935</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1734000367935</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 잔디 캘린더 방식 수정&#10;- 오늘 기준 이전 6개월치 잔디 생성하도록 수정" />
     <MESSAGE value="feat: 잔디 캘린더 방식 수정&#10;- 잔디 클릭 시, 호버 텍스트 추가" />
     <MESSAGE value="feat: 잔디 호버 z-index 수정" />
     <MESSAGE value="feat: 잔디 컴포넌트 호버 기능 개선 및 구조 수정" />
@@ -410,6 +422,7 @@
     <MESSAGE value="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정" />
     <MESSAGE value="feat: 불필요 Alert 컴포넌트 제거" />
     <MESSAGE value="feat: 로그인 여부에 따른 리다이텍션 요구사항 추가&#10;- 추가 레이어를 두어 토큰에 따른 분기 처리 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 로그인 여부에 따른 리다이텍션 요구사항 추가&#10;- 추가 레이어를 두어 토큰에 따른 분기 처리 적용" />
+    <MESSAGE value="feat: 퀴즈팩 리스트 조회 페이지 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈팩 리스트 조회 페이지 구현" />
   </component>
 </project>
