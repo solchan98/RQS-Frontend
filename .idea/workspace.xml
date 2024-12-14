@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 페이지네이션 틀 작성 및 요청 에러 캐치하여 alert 처리 로직 작성">
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: N개 요청 401 응답 시, 하나의 토큰 재발급 요청으로 통합 처리하도록 로직 작성">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/types/quizpacks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/quizpacks/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -91,7 +90,7 @@
       <workItem from="1733706765353" duration="5255000" />
       <workItem from="1733914423149" duration="5379000" />
       <workItem from="1733995275057" duration="11531000" />
-      <workItem from="1734156524641" duration="13491000" />
+      <workItem from="1734156524641" duration="14409000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -387,14 +386,21 @@
       <option name="project" value="LOCAL" />
       <updated>1734163892969</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="feat: N개 요청 401 응답 시, 하나의 토큰 재발급 요청으로 통합 처리하도록 로직 작성">
+      <option name="closed" value="true" />
+      <created>1734180944440</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1734180944440</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 잔디 호버 z-index 수정" />
     <MESSAGE value="feat: 잔디 컴포넌트 호버 기능 개선 및 구조 수정" />
     <MESSAGE value="feat: 잔디 cell 계산 로직 수정" />
     <MESSAGE value="feat: 잔디 cell 계산 로직 기간 로직 수정" />
@@ -419,6 +425,7 @@
     <MESSAGE value="feat: 로그인 여부에 따른 리다이텍션 요구사항 추가&#10;- 추가 레이어를 두어 토큰에 따른 분기 처리 적용" />
     <MESSAGE value="feat: 퀴즈팩 리스트 조회 페이지 구현" />
     <MESSAGE value="feat: 페이지네이션 틀 작성 및 요청 에러 캐치하여 alert 처리 로직 작성" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 페이지네이션 틀 작성 및 요청 에러 캐치하여 alert 처리 로직 작성" />
+    <MESSAGE value="feat: N개 요청 401 응답 시, 하나의 토큰 재발급 요청으로 통합 처리하도록 로직 작성" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: N개 요청 401 응답 시, 하나의 토큰 재발급 요청으로 통합 처리하도록 로직 작성" />
   </component>
 </project>

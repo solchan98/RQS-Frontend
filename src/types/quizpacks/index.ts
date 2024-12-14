@@ -2,7 +2,7 @@ import { ITag } from '../common/tag';
 
 export interface IQuizPack {
   quizPackId: number;
-  title: string;
+  quizPackTitle: string;
   memberCount: number;
   quizCount: number;
   tags: ITag[];

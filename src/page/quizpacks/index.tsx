@@ -98,7 +98,7 @@ export const QuizPacks = () => {
         {quizPacksState.map((value) => (
           <QuizPackCard
             key={value.quizPackId}
-            title={value.title}
+            title={value.quizPackTitle}
             memberCount={value.memberCount}
             quizCount={value.quizCount}
             tags={value.tags}
