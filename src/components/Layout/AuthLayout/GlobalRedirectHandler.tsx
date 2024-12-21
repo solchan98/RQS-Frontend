@@ -1,12 +1,16 @@
 import { useNavigate } from 'react-router-dom';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Alert } from '@mui/material';
+import { useCommonAlert } from '../../../hooks/useCommonAlert';
 
 export const GlobalRedirectHandler = () => {
+  const { alertState, onAlert } = useCommonAlert();
   const navigate = useNavigate();
 
   useEffect(() => {
     const handleRedirect = () => {
       navigate('/auth/login');
+      onAlert('인증 정보가 만료되었습니다.');
     };
 
     window.addEventListener('redirectToLogin', handleRedirect);
@@ -16,5 +20,5 @@ export const GlobalRedirectHandler = () => {
     };
   }, [navigate]);
 
-  return null;
+  return <div>{alertState.active && <Alert severity='error'>{alertState.message}</Alert>}</div>;
 };
