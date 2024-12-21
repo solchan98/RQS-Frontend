@@ -10,7 +10,7 @@ import { Label } from '../../components/Label/Label';
 import { QuizPacksSearchBar } from './QuizPacksSearchBar/QuizPacksSearchBar';
 import { useInput } from '../../hooks/useInput';
 import { QuizPackCard } from './QuizPackCard/QuizPackCard';
-import { Alert, Skeleton } from '@mui/material';
+import { Alert, Button, Skeleton } from '@mui/material';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
 import { IQuizPack } from '../../types/quizpacks';
 import { getQuizPacks } from '../../api/reader/quizpacks';
@@ -18,7 +18,7 @@ import { usePagination } from '../../hooks/usePagination';
 
 export const QuizPacks = () => {
   const { errorsState, setErrorState } = useErrorRequest();
-  const { paginationState, setPaginationState } = usePagination(20);
+  const { paginationState, setPaginationState } = usePagination(10);
   const [loadingState, setLoadingState] = useState<boolean>(true);
 
   const [quizPacksState, setQuizPacksState] = useState<IQuizPack[]>([]);
@@ -27,13 +27,22 @@ export const QuizPacks = () => {
 
   useEffect(() => {
     setLoadingState(true);
-
-    getQuizPacks(paginationState, searchTypeState, setErrorState).then((result) => {
-      setQuizPacksState(result.data ?? []);
-      setPaginationState(result.pagination);
-      setLoadingState(false);
-    });
+    loadQuizPacks();
   }, []);
+
+  const loadQuizPacks = () => {
+    getQuizPacks(paginationState, searchTypeState, setErrorState).then((result) => {
+      const lastQuizPack = result.data.slice(-1)[0];
+      setQuizPacksState(result.data ?? []);
+      // setLoadingState(false);
+      if (!lastQuizPack) {
+        setPaginationState((prev) => ({ ...prev, finish: true }));
+        return;
+      }
+
+      setPaginationState((prev) => ({ lastId: lastQuizPack.quizPackId, chunk: prev.chunk, finish: false }));
+    });
+  };
 
   const onChangeSearchType = (type: 'MY' | 'ALL', callback: () => void) => {
     setSearchTypeState(type);
@@ -44,30 +53,6 @@ export const QuizPacks = () => {
     // TODO ...
     callback();
   };
-
-  if (loadingState) {
-    return (
-      <QuizPacksContainer>
-        <QuizPacksTopContainer>
-          <Label title='Quiz packs' size={24} />
-          <QuizPacksTypeDropdown disabled searchTypeState={searchTypeState} onChangeSearchType={onChangeSearchType} />
-        </QuizPacksTopContainer>
-        <QuizPacksSearchContainer>
-          <QuizPacksSearchBar
-            disabled
-            searchInputState={searchInputState}
-            onChangeSearchInputState={onChange}
-            onSearch={onSearch}
-          />
-        </QuizPacksSearchContainer>
-        <QuizPacksBodyContainer>
-          <Skeleton style={{ borderRadius: '18px' }} variant='rounded' height='140px' animation='wave' />
-          <Skeleton style={{ borderRadius: '18px' }} variant='rounded' height='140px' animation='wave' />
-          <Skeleton style={{ borderRadius: '18px' }} variant='rounded' height='140px' animation='wave' />
-        </QuizPacksBodyContainer>
-      </QuizPacksContainer>
-    );
-  }
 
   return (
     <QuizPacksContainer>
@@ -99,7 +84,13 @@ export const QuizPacks = () => {
             createdAt={value.createdAt}
           />
         ))}
+        {loadingState && (
+          <Skeleton style={{ borderRadius: '18px' }} variant='rounded' height='140px' animation='wave' />
+        )}
       </QuizPacksBodyContainer>
+      <Button type='button' onClick={loadQuizPacks}>
+        load more
+      </Button>
     </QuizPacksContainer>
   );
 };

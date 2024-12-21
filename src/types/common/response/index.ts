@@ -1,6 +1,3 @@
-import { IUsePagination } from '../request';
-
-export interface PaginationData<T> {
+export interface CommonResponse<T> {
   data: T;
-  pagination: IUsePagination;
 }
