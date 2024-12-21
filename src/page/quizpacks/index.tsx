@@ -31,23 +31,38 @@ export const QuizPacks = () => {
   }, []);
 
   const loadQuizPacks = () => {
+    if (paginationState.finish) {
+      return;
+    }
+
     getQuizPacks(paginationState, searchTypeState, setErrorState).then((result) => {
       const lastQuizPack = result.data.slice(-1)[0];
-      setQuizPacksState(result.data ?? []);
-      // setLoadingState(false);
+      const finish = result.data.length < paginationState.chunk;
+      setQuizPacksState((prev) => [...prev, ...result.data]);
+      setLoadingState(false);
       if (!lastQuizPack) {
-        setPaginationState((prev) => ({ ...prev, finish: true }));
+        setPaginationState((prev) => ({ ...prev, finish }));
         return;
       }
 
-      setPaginationState((prev) => ({ lastId: lastQuizPack.quizPackId, chunk: prev.chunk, finish: false }));
+      setPaginationState((prev) => ({ lastId: lastQuizPack.quizPackId, chunk: prev.chunk, finish }));
     });
   };
 
   const onChangeSearchType = (type: 'MY' | 'ALL', callback: () => void) => {
     setSearchTypeState(type);
+    setPaginationState((prev) => ({ lastId: null, chunk: prev.chunk, finish: false }));
+    setQuizPacksState([]);
     callback();
   };
+
+  useEffect(() => {
+    const stateChangeCompletionForSearch =
+      searchTypeState !== null && paginationState.lastId === null && quizPacksState.length === 0;
+    if (stateChangeCompletionForSearch) {
+      loadQuizPacks();
+    }
+  }, [searchTypeState, paginationState, quizPacksState]);
 
   const onSearch = (callback: () => void) => {
     // TODO ...
@@ -88,9 +103,11 @@ export const QuizPacks = () => {
           <Skeleton style={{ borderRadius: '18px' }} variant='rounded' height='140px' animation='wave' />
         )}
       </QuizPacksBodyContainer>
-      <Button type='button' onClick={loadQuizPacks}>
-        load more
-      </Button>
+      {!paginationState.finish && (
+        <Button type='button' onClick={loadQuizPacks}>
+          load more
+        </Button>
+      )}
     </QuizPacksContainer>
   );
 };
