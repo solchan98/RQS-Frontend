@@ -100,6 +100,11 @@ authApiClient.interceptors.response.use(
             failedRequests.forEach(({ reject }) => reject(err)); // 재발급 실패한 요청을 처리
             failedRequests = [];
             isRefreshing = false;
+
+            localStorage.removeItem('accessToken');
+            localStorage.removeItem('refreshToken');
+
+            window.dispatchEvent(new CustomEvent('redirectToLogin'));
           });
       }
 

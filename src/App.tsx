@@ -11,10 +11,12 @@ import { ResultsQuizGame } from './page/game/Results';
 import { Login } from './page/auth/Login';
 import { AuthLayout } from './components/Layout/AuthLayout/AuthLayer';
 import { QuizPacks } from './page/quizpacks';
+import { GlobalRedirectHandler } from './components/Layout/AuthLayout/GlobalRedirectHandler';
 
 const App = () => {
   return (
     <BrowserRouter>
+      <GlobalRedirectHandler />
       <Routes>
         <Route element={<AuthLayout />}>
           <Route path='' element={<NavContainer />}>
