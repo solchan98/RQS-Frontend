@@ -8,10 +8,11 @@ import { IUsePagination } from '../../../types/common/request';
 
 export const getQuizPacks = async (
   paginationState: IUsePagination,
+  searchType: 'MY' | 'ALL',
   setErrorState: (error: IRequestError, clearTime?: number) => void,
 ): Promise<PaginationData<IQuizPack[]>> => {
   return authGetRequest<PaginationData<IQuizPack[]>>('quiz-packs', {
-    params: { lastId: paginationState.lastId, chunk: paginationState.chunk },
+    params: { lastId: paginationState.lastId, chunk: paginationState.chunk, searchType },
   })
     .then((response) => {
       const data = response?.data.data ?? []; // 빈 배열로 기본값 설정

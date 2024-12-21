@@ -28,13 +28,7 @@ export const QuizPacks = () => {
   useEffect(() => {
     setLoadingState(true);
 
-    getQuizPacks(paginationState, setErrorState).then((result) => {
-      setQuizPacksState(result.data ?? []);
-      setPaginationState(result.pagination);
-      setLoadingState(false);
-    });
-
-    getQuizPacks(paginationState, setErrorState).then((result) => {
+    getQuizPacks(paginationState, searchTypeState, setErrorState).then((result) => {
       setQuizPacksState(result.data ?? []);
       setPaginationState(result.pagination);
       setLoadingState(false);
