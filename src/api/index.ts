@@ -95,6 +95,7 @@ authApiClient.interceptors.response.use(
                 reject(err); // 실패한 요청은 reject 처리
               }
             }
+            failedRequests = []; // 실패 요청들 초기화
           })
           .catch((err) => {
             failedRequests.forEach(({ reject }) => reject(err)); // 재발급 실패한 요청을 처리
