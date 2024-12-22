@@ -9,8 +9,10 @@ export const useErrorRequest = () => {
       const updatedErrors = { ...prevErrors, [error.key]: error };
 
       setTimeout(() => {
-        const { [error.key]: _, ...remainingErrors } = updatedErrors;
-        setErrorsState(remainingErrors);
+        setErrorsState((currentErrors) => {
+          const { [error.key]: _, ...remainingErrors } = currentErrors;
+          return remainingErrors;
+        });
       }, clearTime);
 
       return updatedErrors;

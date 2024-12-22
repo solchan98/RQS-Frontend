@@ -10,14 +10,14 @@ import { Label } from '../../components/Label/Label';
 import { QuizPacksSearchBar } from './components/QuizPacksSearchBar/QuizPacksSearchBar';
 import { useInput } from '../../hooks/useInput';
 import { QuizPackCard } from './components/QuizPackCard/QuizPackCard';
-import { Alert, Button, Skeleton } from '@mui/material';
+import { Button, Skeleton } from '@mui/material';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
 import { IQuizPackStatus } from '../../types/quizpacks';
 import { getQuizPacks } from '../../api/reader/quizpacks';
 import { usePagination } from '../../hooks/usePagination';
 
 export const QuizPacks = () => {
-  const { errorsState, setErrorState } = useErrorRequest();
+  const { setErrorState } = useErrorRequest();
   const { paginationState, setPaginationState } = usePagination(10);
   const [loadingState, setLoadingState] = useState<boolean>(true);
 
@@ -71,7 +71,6 @@ export const QuizPacks = () => {
 
   return (
     <QuizPacksContainer>
-      {errorsState['quiz-packs'] && <Alert severity='error'>{errorsState['quiz-packs'].message}</Alert>}
       <QuizPacksTopContainer>
         <Label title='Quiz packs' size={24} />
         <QuizPacksTypeDropdown

@@ -1,4 +1,4 @@
-import React, { FormEvent } from 'react';
+import React, { FormEvent, useEffect } from 'react';
 import { useLogin } from './useLogin';
 import { useInput } from '../../../hooks/useInput';
 import {
@@ -10,15 +10,15 @@ import {
   LoginTitleContainer,
 } from './index.styles';
 import { IoIosLogIn } from 'react-icons/io';
-import { useCommonAlert } from '../../../hooks/useCommonAlert';
 import { Alert } from '@mui/material';
+import { useErrorRequest } from '../../../hooks/useErrorRequest';
 
 export const Login = () => {
   const { value: email, onChange: onChangeEmail } = useInput();
   const { value: password, onChange: onChangePassword } = useInput();
+  const { errorsState, setErrorState } = useErrorRequest();
 
-  const { alertState, onAlert } = useCommonAlert();
-  const { login } = useLogin({ onAlert });
+  const { login } = useLogin({ setErrorState });
 
   const onSubmitForm = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -28,7 +28,14 @@ export const Login = () => {
 
   return (
     <LoginContainer>
-      {alertState.active && <Alert severity='error'>{alertState.message}</Alert>}
+      {Object.keys(errorsState).map(
+        (key) =>
+          errorsState[key] && (
+            <Alert key={key} severity='error'>
+              {errorsState[key].message}
+            </Alert>
+          ),
+      )}
       <LoginTitleContainer>Quiz Box</LoginTitleContainer>
       <LoginInputContainer>
         <LoginInputForm onSubmit={onSubmitForm}>

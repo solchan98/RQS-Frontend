@@ -1,8 +1,9 @@
 import { IRequestFailResponse, isRequestFailResponse, postRequest } from '../../../api';
 import { useNavigate } from 'react-router-dom';
+import { IRequestError } from '../../../recoil/error';
 
 interface IUseLoginProps {
-  onAlert: (message: string, period?: number) => void;
+  setErrorState: (error: IRequestError, clearTime?: number) => void;
 }
 
 interface ILogin {
@@ -20,7 +21,7 @@ interface ILoginSuccessToken {
   refreshToken: string;
 }
 
-export const useLogin = ({ onAlert }: IUseLoginProps) => {
+export const useLogin = ({ setErrorState }: IUseLoginProps) => {
   const navigate = useNavigate();
 
   const login = async ({ email, password }: ILogin) => {
@@ -30,11 +31,11 @@ export const useLogin = ({ onAlert }: IUseLoginProps) => {
     });
 
     if (isRequestFailResponse(res)) {
-      onAlert(res.message);
+      setErrorState({ key: 'login', status: Number(res.status), message: res.message });
       return;
     }
 
-    const tokens = res.data.data;
+    const tokens = res?.data.data as ILoginSuccessToken;
 
     localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
     localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
