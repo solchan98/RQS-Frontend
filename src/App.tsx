@@ -12,6 +12,7 @@ import { Login } from './page/auth/Login';
 import { AuthLayout } from './components/Layout/AuthLayout/AuthLayer';
 import { QuizPacks } from './page/quizpacks';
 import { GlobalRedirectHandler } from './components/Layout/AuthLayout/GlobalRedirectHandler';
+import { QuizPackDetails } from './page/quizpacks/quizpackdetails';
 
 const App = () => {
   return (
@@ -42,9 +43,12 @@ const App = () => {
             <Route path='' element={<QuizCreateIntro />} />
             <Route path='easy' element={<EasyQuizCreate />} />
           </Route>
-          <Route path='quiz-packs' element={<QuizPacks />} />
+          <Route path='quiz-packs'>
+            <Route path='' element={<QuizPacks />} />
+            <Route path=':quizPackId' element={<QuizPackDetails />} />
+          </Route>
         </Route>
-        <Route path='auth'>
+        <Route path=''>
           <Route path='login' element={<Login />} />
         </Route>
       </Routes>

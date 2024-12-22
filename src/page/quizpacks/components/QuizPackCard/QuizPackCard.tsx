@@ -1,4 +1,4 @@
-import { ITag } from '../../../types/common/tag';
+import { ITag } from '../../../../types/common/tag';
 import {
   QuizPackBottomContainer,
   QuizPackCardContainer,
@@ -10,7 +10,7 @@ import {
 } from './QuizPackCard.styles';
 import { FaUsers } from 'react-icons/fa';
 import { SiQuizlet } from 'react-icons/si';
-import { Icon } from '../../../components/Icon/Icon';
+import { Icon } from '../../../../components/Icon/Icon';
 
 interface IQuizPackCardProps {
   title: string;

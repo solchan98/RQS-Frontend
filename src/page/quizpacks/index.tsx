@@ -5,14 +5,14 @@ import {
   QuizPacksSearchContainer,
   QuizPacksTopContainer,
 } from './index.styles';
-import { QuizPacksTypeDropdown } from './QuizPacksTypeDropdown/QuizPackTypeDropdown';
+import { QuizPacksTypeDropdown } from './components/QuizPacksTypeDropdown/QuizPackTypeDropdown';
 import { Label } from '../../components/Label/Label';
-import { QuizPacksSearchBar } from './QuizPacksSearchBar/QuizPacksSearchBar';
+import { QuizPacksSearchBar } from './components/QuizPacksSearchBar/QuizPacksSearchBar';
 import { useInput } from '../../hooks/useInput';
-import { QuizPackCard } from './QuizPackCard/QuizPackCard';
+import { QuizPackCard } from './components/QuizPackCard/QuizPackCard';
 import { Alert, Button, Skeleton } from '@mui/material';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
-import { IQuizPack } from '../../types/quizpacks';
+import { IQuizPackStatus } from '../../types/quizpacks';
 import { getQuizPacks } from '../../api/reader/quizpacks';
 import { usePagination } from '../../hooks/usePagination';
 
@@ -21,7 +21,7 @@ export const QuizPacks = () => {
   const { paginationState, setPaginationState } = usePagination(10);
   const [loadingState, setLoadingState] = useState<boolean>(true);
 
-  const [quizPacksState, setQuizPacksState] = useState<IQuizPack[]>([]);
+  const [quizPacksState, setQuizPacksState] = useState<IQuizPackStatus[]>([]);
   const [searchTypeState, setSearchTypeState] = useState<'MY' | 'ALL'>('MY');
   const { value: searchInputState, onChange } = useInput();
 
