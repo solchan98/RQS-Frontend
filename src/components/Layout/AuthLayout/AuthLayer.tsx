@@ -5,7 +5,7 @@ export const AuthLayout = () => {
   const token = localStorage.getItem('accessToken');
 
   if (!token) {
-    return <Navigate to='/auth/login' />;
+    return <Navigate to='/login' />;
   }
 
   return <Outlet />;

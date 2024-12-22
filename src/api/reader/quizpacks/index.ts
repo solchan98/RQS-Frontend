@@ -24,13 +24,25 @@ export const getQuizPacks = async (
 export const getQuizPackDetails = async (
   quizPackId: number,
   setErrorState: (error: IRequestError, clearTime?: number) => void,
-): Promise<CommonResponse<IQuizPackDetail[]>> => {
-  return authGetRequest<CommonResponse<IQuizPackDetail[]>>(`quiz-packs/${quizPackId}`)
+): Promise<CommonResponse<IQuizPackDetail>> => {
+  return authGetRequest<CommonResponse<IQuizPackDetail>>(`quiz-packs/${quizPackId}`)
     .then((response) => {
-      const data = response?.data.data ?? []; // 빈 배열로 기본값 설정
+      const data = response?.data.data ?? ({} as IQuizPackDetail); // 빈 배열로 기본값 설정
       return { data };
     })
-    .catch((error) => catchHandler(error, `quiz-packs/${quizPackId}`, setErrorState));
+    .catch((error) => {
+      const axiosError = error as AxiosError;
+      const responseError = axiosError.response?.data as IResponseError;
+
+      setErrorState({
+        key: `quiz-packs/${quizPackId}`,
+        message: responseError?.message ?? error?.message,
+        status: responseError?.status ?? error?.status,
+      });
+
+      // 에러 발생 시 빈 배열 반환
+      return { data: {} as IQuizPackDetail };
+    });
 };
 
 const catchHandler = (

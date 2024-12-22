@@ -9,7 +9,7 @@ export const GlobalRedirectHandler = () => {
 
   useEffect(() => {
     const handleRedirect = () => {
-      navigate('/auth/login');
+      navigate('/login');
       onAlert('인증 정보가 만료되었습니다.');
     };
 

@@ -7,7 +7,7 @@ export const QuizPackCardContainer = styled.div`
 
   padding: 12px;
 
-  border-radius: 18px;
+  border-radius: 12px;
 `;
 
 export const QuizPackCardTitle = styled.div`
