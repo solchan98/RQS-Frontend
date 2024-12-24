@@ -11,8 +11,10 @@ import {
 import { FaUsers } from 'react-icons/fa';
 import { SiQuizlet } from 'react-icons/si';
 import { Icon } from '../../../../components/Icon/Icon';
+import { useNavigate } from 'react-router-dom';
 
 interface IQuizPackCardProps {
+  quizPackId: number;
   title: string;
   memberCount: number;
   quizCount: number;
@@ -20,9 +22,11 @@ interface IQuizPackCardProps {
   createdAt: string;
 }
 
-export const QuizPackCard = ({ title, memberCount, quizCount, tags, createdAt }: IQuizPackCardProps) => {
+export const QuizPackCard = ({ quizPackId, title, memberCount, quizCount, tags, createdAt }: IQuizPackCardProps) => {
+  const navigate = useNavigate();
+
   return (
-    <QuizPackCardContainer>
+    <QuizPackCardContainer onClick={() => navigate(`./${quizPackId}`)}>
       <QuizPackCardTitle>{title}</QuizPackCardTitle>
       <QuizPackCardTags>
         {tags.map((tag) => (

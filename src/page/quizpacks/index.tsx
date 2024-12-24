@@ -25,11 +25,6 @@ export const QuizPacks = () => {
   const [searchTypeState, setSearchTypeState] = useState<'MY' | 'ALL'>('MY');
   const { value: searchInputState, onChange } = useInput();
 
-  useEffect(() => {
-    setLoadingState(true);
-    loadQuizPacks();
-  }, []);
-
   const loadQuizPacks = () => {
     if (paginationState.finish) {
       return;
@@ -49,6 +44,11 @@ export const QuizPacks = () => {
     });
   };
 
+  useEffect(() => {
+    setLoadingState(true);
+    loadQuizPacks();
+  }, []);
+
   const onChangeSearchType = (type: 'MY' | 'ALL', callback: () => void) => {
     setSearchTypeState(type);
     setPaginationState((prev) => ({ lastId: null, chunk: prev.chunk, finish: false }));
@@ -62,7 +62,7 @@ export const QuizPacks = () => {
     if (stateChangeCompletionForSearch) {
       loadQuizPacks();
     }
-  }, [searchTypeState, paginationState, quizPacksState]);
+  }, [searchTypeState, paginationState, quizPacksState, loadQuizPacks]);
 
   const onSearch = (callback: () => void) => {
     // TODO ...
@@ -91,6 +91,7 @@ export const QuizPacks = () => {
         {quizPacksState.map((value) => (
           <QuizPackCard
             key={value.quizPackId}
+            quizPackId={value.quizPackId}
             title={value.quizPackTitle}
             memberCount={value.memberCount}
             quizCount={value.quizCount}

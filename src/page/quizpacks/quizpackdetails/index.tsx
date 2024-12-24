@@ -1,4 +1,4 @@
-import { useNavigate, useParams } from 'react-router-dom';
+import { replace, useLocation, useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { IQuiz, IQuizPackDetail, IQuizPackMember } from '../../../types/quizpacks';
 import { getQuizPackDetails } from '../../../api/reader/quizpacks';
@@ -24,21 +24,12 @@ export const QuizPackDetails = () => {
   const [quizPackDetails, setQuizPackDetails] = useState<IQuizPackDetail>(initQuizPackState);
 
   useEffect(() => {
-    const error = errorsState[`quiz-packs/${quizPackId}`];
-    if (error !== undefined) {
-      if (error.status === 403) {
-        navigation('../');
-      }
-    }
-  }, [errorsState]);
-
-  useEffect(() => {
     loadQuizPackDetails();
   }, []);
 
   const loadQuizPackDetails = () => {
     setLoadingState(true);
-    getQuizPackDetails(Number(quizPackId), setErrorState).then((result) => {
+    getQuizPackDetails(Number(quizPackId), setErrorState, () => navigation(-1)).then((result) => {
       const empty = Object.keys(result.data).length === 0;
       setQuizPackDetails(!empty ? result.data : initQuizPackState);
       setLoadingState(false);

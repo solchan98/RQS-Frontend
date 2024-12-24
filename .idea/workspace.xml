@@ -4,15 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈팩 상세 데이터 화면 매핑 로직 일부 구현">
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: Alert root 페이지에 두어 공통으로 처리되도록 수정">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/AuthLayout/AuthLayer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/AuthLayout/AuthLayer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/Layout/AuthLayout/GlobalRedirectHandler.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Layout/AuthLayout/GlobalRedirectHandler.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useCommonAlert.ts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useErrorRequest.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useErrorRequest.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/auth/Login/useLogin.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/components/QuizPackCard/QuizPackCard.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/components/QuizPackCard/QuizPackCard.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" afterDir="false" />
     </list>
@@ -98,7 +93,7 @@
       <workItem from="1733914423149" duration="5379000" />
       <workItem from="1733995275057" duration="11531000" />
       <workItem from="1734156524641" duration="15056000" />
-      <workItem from="1734758399181" duration="19058000" />
+      <workItem from="1734758399181" duration="23430000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -474,14 +469,21 @@
       <option name="project" value="LOCAL" />
       <updated>1734856938184</updated>
     </task>
-    <option name="localTasksCounter" value="48" />
+    <task id="LOCAL-00048" summary="feat: Alert root 페이지에 두어 공통으로 처리되도록 수정">
+      <option name="closed" value="true" />
+      <created>1734870155602</created>
+      <option name="number" value="00048" />
+      <option name="presentableId" value="LOCAL-00048" />
+      <option name="project" value="LOCAL" />
+      <updated>1734870155602</updated>
+    </task>
+    <option name="localTasksCounter" value="49" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 페이지 별 컴포넌트 관리 구조 수정" />
     <MESSAGE value="feat: 퀴즈 생성 라우터 설정" />
     <MESSAGE value="feat: 홈 퀴즈 생성 버튼 라우팅 추가" />
     <MESSAGE value="feat: 퀴즈게임 라우팅 구조 설계" />
@@ -506,6 +508,7 @@
     <MESSAGE value="feat: 퀴즈팩 검색 조건 변경 로직 추가" />
     <MESSAGE value="feat: 퀴즈팩 상세 조회 API 연동" />
     <MESSAGE value="feat: 퀴즈팩 상세 데이터 화면 매핑 로직 일부 구현" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈팩 상세 데이터 화면 매핑 로직 일부 구현" />
+    <MESSAGE value="feat: Alert root 페이지에 두어 공통으로 처리되도록 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: Alert root 페이지에 두어 공통으로 처리되도록 수정" />
   </component>
 </project>
