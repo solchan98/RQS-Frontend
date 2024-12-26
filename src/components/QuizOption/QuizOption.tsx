@@ -7,10 +7,10 @@ export const QuizOption = ({ option, onClickOption }: IQuizOptionProps) => {
 
   return (
     <QuizOptionButton
-      key={option.id}
+      key={option.optionId}
       type='button'
       selected={selectedState}
-      onClick={() => onClickOption(option.id, changeSelectedState)}
+      onClick={() => onClickOption(option.optionId, changeSelectedState)}
     >
       {option.content}
     </QuizOptionButton>

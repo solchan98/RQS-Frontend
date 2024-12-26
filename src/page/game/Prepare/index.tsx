@@ -1,4 +1,3 @@
-import { IPrepareQuizPack } from './index.types';
 import {
   PrepareQuizGameContainer,
   PrepareQuizGameQuizCount,
@@ -7,34 +6,47 @@ import {
   PrepareQuizGameTitle,
   PrepareQuizGameTopContainer,
 } from './index.stypes';
-import { useNavigate } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CircularProgress, Skeleton } from '@mui/material';
-
-const dummy: IPrepareQuizPack = {
-  quizPackId: 1,
-  title: 'JPA 이해도 확인하기',
-  quizCount: 4,
-  tags: ['JPA', 'Hibernate', 'Spring Data JPA', 'ORM'],
-};
+import { IQuizPackDetail } from '../../../types/quizpacks';
+import { QuizGameRadioType } from '../components/QuizGameTypeRadio/QuizGameRadioType';
+import { authPostRequest } from '../../../api';
 
 export const PrepareQuizGame = () => {
-  const [prepareQuizPackState, setPrepareQuizPackState] = useState<IPrepareQuizPack>();
+  const [quizPackState, setQuizPackState] = useState<IQuizPackDetail>();
+  const [loadingState, setLoadingState] = useState<boolean>(false);
+
+  const [radioState, setRadioState] = useState<'SEQUENCE_PICK' | 'RANDOM_PICK'>('SEQUENCE_PICK');
 
   const navigate = useNavigate();
+  const location = useLocation();
+  const { state } = location;
 
   useEffect(() => {
+    setLoadingState(true);
+
     setTimeout(() => {
-      setPrepareQuizPackState(dummy);
-    }, 2000);
+      setQuizPackState(state);
+      setLoadingState(false);
+    }, 1000);
   }, []);
 
   const onClickStartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    // TODO: call game start api -> get quiz-game-id
-    navigate(`../play/${1234}`);
+    authPostRequest('games', {
+      quizPackId: quizPackState?.quizPackId,
+      quizPickStrategy: radioState,
+    })
+      .then((response) => {
+        const result = response?.data as { data: { quizGameId: string } };
+        navigate(`../play/${result.data.quizGameId}`, { state: quizPackState?.quizzes.length });
+      })
+      .catch((error) => {
+        alert(error.message);
+      });
   };
 
-  if (!prepareQuizPackState) {
+  if (loadingState) {
     return (
       <PrepareQuizGameContainer>
         <PrepareQuizGameTopContainer>
@@ -61,14 +73,13 @@ export const PrepareQuizGame = () => {
   return (
     <PrepareQuizGameContainer>
       <PrepareQuizGameTopContainer>
-        <PrepareQuizGameTitle>{dummy.title}</PrepareQuizGameTitle>
+        <PrepareQuizGameTitle>{quizPackState?.quizPackTitle}</PrepareQuizGameTitle>
         <PrepareQuizGameTagsContainer>
-          {dummy.tags.map((tag) => (
-            <span key={tag}>#{tag}</span>
-          ))}
+          {quizPackState?.tags.map((tag) => <span key={tag.id}>#{tag.name}</span>)}
         </PrepareQuizGameTagsContainer>
-        <PrepareQuizGameQuizCount>총 {dummy.quizCount} 문제</PrepareQuizGameQuizCount>
+        <PrepareQuizGameQuizCount>총 {quizPackState?.quizzes.length} 문제</PrepareQuizGameQuizCount>
       </PrepareQuizGameTopContainer>
+      <QuizGameRadioType radioState={radioState} setRadioState={setRadioState} />
       <PrepareQuizGameStartButton type='button' onClick={onClickStartGame}>
         게임 시작!
       </PrepareQuizGameStartButton>

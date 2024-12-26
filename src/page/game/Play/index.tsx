@@ -1,6 +1,6 @@
-import { useParams } from 'react-router-dom';
+import { useLocation, useNavigate, useParams } from 'react-router-dom';
 import { ProgressBar } from '../../../components/ProgressBar/ProgressBar';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 import {
   NextQuizButtonContainer,
@@ -15,78 +15,70 @@ import { QuizOption } from '../../../components/QuizOption/QuizOption';
 import { useSubmitOption } from '../../../components/QuizOption/useSubmitOption';
 import { Button } from '@mui/material';
 import { IGameQuiz } from './index.types';
-
-const dummy: IGameQuiz[] = [
-  {
-    quizId: 1,
-    content: '다음 중 JPA의 주요 기능이 아닌 것은 무엇인가요? ',
-    options: [
-      {
-        id: 1,
-        content: '엔티티의 영속성 관리',
-      },
-      {
-        id: 2,
-        content: '데이터베이스 연결 관리',
-      },
-      {
-        id: 3,
-        content: '쿼리 자동 생성',
-      },
-      {
-        id: 4,
-        content: '네트워크 프로토콜 관리',
-      },
-    ],
-  },
-  {
-    quizId: 2,
-    content: '@Entity 어노테이션을 사용할 때 필수적으로 필요한 조건은 무엇인가요?',
-    options: [
-      {
-        id: 5,
-        content: '반드시 @Id를 지정해야 한다.',
-      },
-      {
-        id: 6,
-        content: '@GeneratedValue를 반드시 사용해야 한다.',
-      },
-      {
-        id: 7,
-        content: '클래스 이름과 데이터베이스 테이블 이름이 반드시 같아야 한다.',
-      },
-      {
-        id: 8,
-        content: '모든 필드가 @Column으로 명시되어야 한다.',
-      },
-    ],
-  },
-];
+import { authGetRequest, authPostRequest } from '../../../api';
 
 export const PlayQuizGame = () => {
   const { quizGameId } = useParams();
+  const { state: quizSize } = useLocation();
+  const navigate = useNavigate();
 
-  const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>(dummy[0]);
-  const { progressState, isLast, next } = useProgressBarState({ current: 1, totalCount: dummy.length });
+  const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>({} as IGameQuiz);
+  const { progressState, isLast, next } = useProgressBarState({ current: 1, totalCount: quizSize });
   const { submitOptions, onClickOption, clearSubmitOption } = useSubmitOption();
 
-  const pick = () => {
-    const quiz: IGameQuiz = dummy[progressState.current ?? 1];
-    console.log(submitOptions);
+  const [isLoading, setIsLoading] = useState(true);
 
+  const pick = () => {
     if (submitOptions.size === 0) {
       alert('정답은 최소 1개 이상 선택하여야합니다.');
       return;
     }
 
     if (isLast()) {
+      authPostRequest(`/games/${quizGameId}/submission`, {
+        optionIds: Array.from(submitOptions),
+      });
       alert('모든 퀴즈를 진행하였습니다.');
+      navigate(-1);
       return;
     }
-    next();
-    setCurrentQuizState(quiz);
-    clearSubmitOption();
+
+    authPostRequest(`/games/${quizGameId}/submission`, {
+      optionIds: Array.from(submitOptions),
+    }).then(() => {
+      setIsLoading(true);
+      authPostRequest(`/games/${quizGameId}/next-quiz`, {})
+        .then((response) => {
+          const result = response?.data as { data: IGameQuiz };
+          setCurrentQuizState(result.data);
+        })
+        .catch((error) => {
+          alert(error.message);
+        })
+        .finally(() => setIsLoading(false));
+
+      next();
+      // setCurrentQuizState(quiz);
+      clearSubmitOption();
+    });
   };
+
+  useEffect(() => {
+    setIsLoading(true);
+    authPostRequest(`/games/${quizGameId}/next-quiz`, {})
+      .then((response) => {
+        const result = response?.data as { data: IGameQuiz };
+        setCurrentQuizState(result.data);
+      })
+      .catch((error) => {
+        alert(error.message);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
+
+  if (isLoading) {
+    return <div>loading...</div>;
+  }
 
   return (
     <QuizGameContainer>
@@ -99,7 +91,7 @@ export const PlayQuizGame = () => {
       </QuizGameQuizContainer>
       <QuizOptionsContainer>
         {currentQuizState.options.map((option) => (
-          <QuizOption key={option.id} option={option} onClickOption={onClickOption} />
+          <QuizOption key={option.optionId} option={option} onClickOption={onClickOption} />
         ))}
       </QuizOptionsContainer>
       <NextQuizButtonContainer>

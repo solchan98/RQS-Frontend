@@ -1,5 +1,5 @@
 export interface IOption {
-  id: number;
+  optionId: number;
   content: string;
 }
 

@@ -26,7 +26,7 @@ export const QuizAccordion = ({ quiz }: IQuizAccordionProps) => {
       <div style={{ width: '100%', height: '1px', backgroundColor: '#c6c6c6' }} />
       <QuizAccordionOptions>
         {quiz.options.map(({ optionId, content }) => (
-          <QuizOption key={optionId} option={{ id: optionId, content }} onClickOption={() => null} />
+          <QuizOption key={optionId} option={{ optionId, content }} onClickOption={() => null} />
         ))}
       </QuizAccordionOptions>
     </QuizAccordionContainer>

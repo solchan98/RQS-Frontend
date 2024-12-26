@@ -7,6 +7,7 @@ import { QuizPackDetailsContainer, QuizPackDetailsQuizzesContainer } from './ind
 import { QuizAccordion } from './components/QuizAccordion/QuizAccordion';
 import { Tag } from '../../../components/Tag/Tag';
 import { ITag } from '../../../types/common/tag';
+import { Button } from '@mui/material';
 
 const initQuizPackState = {
   quizzes: [] as IQuiz[],
@@ -42,6 +43,14 @@ export const QuizPackDetails = () => {
       <span>{`Quizzes : ${quizPackDetails.quizzes.length}`}</span>
       <span>{`Members : ${quizPackDetails.quizPackMembers.length}`}</span>
       {quizPackDetails?.tags.map((tag) => <Tag key={tag.id} name={tag.name} size={12} />)}
+      <Button
+        type='button'
+        onClick={() => {
+          navigation(`/game/${quizPackDetails.quizPackId}/prepare`, { state: quizPackDetails });
+        }}
+      >
+        게임 시작
+      </Button>
       <QuizPackDetailsQuizzesContainer>
         {quizPackDetails?.quizzes.map((quiz) => <QuizAccordion key={quiz.quizId} quiz={quiz} />)}
       </QuizPackDetailsQuizzesContainer>
