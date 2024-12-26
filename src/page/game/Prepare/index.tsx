@@ -12,12 +12,15 @@ import { CircularProgress, Skeleton } from '@mui/material';
 import { IQuizPackDetail } from '../../../types/quizpacks';
 import { QuizGameRadioType } from '../components/QuizGameTypeRadio/QuizGameRadioType';
 import { authPostRequest } from '../../../api';
+import { startGameQuiz } from '../../../api/reader/quizgame';
+import { useErrorRequest } from '../../../hooks/useErrorRequest';
 
 export const PrepareQuizGame = () => {
   const [quizPackState, setQuizPackState] = useState<IQuizPackDetail>();
   const [loadingState, setLoadingState] = useState<boolean>(false);
 
   const [radioState, setRadioState] = useState<'SEQUENCE_PICK' | 'RANDOM_PICK'>('SEQUENCE_PICK');
+  const { setErrorState } = useErrorRequest();
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -33,17 +36,9 @@ export const PrepareQuizGame = () => {
   }, []);
 
   const onClickStartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
-    authPostRequest('games', {
-      quizPackId: quizPackState?.quizPackId,
-      quizPickStrategy: radioState,
-    })
-      .then((response) => {
-        const result = response?.data as { data: { quizGameId: string } };
-        navigate(`../play/${result.data.quizGameId}`);
-      })
-      .catch((error) => {
-        alert(error.message);
-      });
+    startGameQuiz(Number(quizPackState?.quizPackId), radioState, setErrorState, () => {}).then((quizGameId: string) => {
+      navigate(`../play/${quizGameId}`);
+    });
   };
 
   if (loadingState) {

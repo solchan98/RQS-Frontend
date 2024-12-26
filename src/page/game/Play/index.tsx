@@ -15,7 +15,8 @@ import { QuizOption } from '../../../components/QuizOption/QuizOption';
 import { useSubmitOption } from '../../../components/QuizOption/useSubmitOption';
 import { Button } from '@mui/material';
 import { IGameQuiz } from './index.types';
-import { authPostRequest } from '../../../api';
+import { getNextGameQuiz, submitGameQuiz } from '../../../api/reader/quizgame';
+import { useErrorRequest } from '../../../hooks/useErrorRequest';
 
 export const PlayQuizGame = () => {
   const { quizGameId } = useParams();
@@ -24,8 +25,23 @@ export const PlayQuizGame = () => {
   const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>({} as IGameQuiz);
   const { progressState, updateProgressState, isLast } = useProgressBarState({ current: 0, totalCount: 0 });
   const { submitOptions, onClickOption, clearSubmitOption } = useSubmitOption();
+  const { setErrorState } = useErrorRequest();
 
   const [isLoading, setIsLoading] = useState(true);
+
+  const nextGameQuiz = () => {
+    setIsLoading(true);
+    getNextGameQuiz(String(quizGameId), setErrorState, () => {}).then((data) => {
+      setCurrentQuizState(data);
+      updateProgressState({ current: data.submittedQuizCount + 1, totalCount: data.totalQuizCount });
+      clearSubmitOption();
+      setIsLoading(false);
+    });
+  };
+
+  useEffect(() => {
+    nextGameQuiz();
+  }, []);
 
   const pick = () => {
     if (submitOptions.size === 0) {
@@ -34,49 +50,21 @@ export const PlayQuizGame = () => {
     }
 
     if (isLast()) {
-      authPostRequest(`/games/${quizGameId}/submission`, {
-        optionIds: Array.from(submitOptions),
+      submitGameQuiz(String(quizGameId), Array.from(submitOptions), setErrorState, () => {}).then(() => {
+        alert('모든 퀴즈를 진행하였습니다.');
+        navigate(-1);
       });
-      alert('모든 퀴즈를 진행하였습니다.');
-      navigate(-1);
+      setIsLoading(true);
+      clearSubmitOption();
       return;
     }
 
     setIsLoading(true);
-    authPostRequest(`/games/${quizGameId}/submission`, {
-      optionIds: Array.from(submitOptions),
-    })
-      .then(() => {
-        authPostRequest(`/games/${quizGameId}/next-quiz`, {})
-          .then((response) => {
-            const result = response?.data as { data: IGameQuiz };
-            const { data } = result;
-            setCurrentQuizState(data);
-            updateProgressState({ current: data.submittedQuizCount + 1, totalCount: data.totalQuizCount });
-            clearSubmitOption();
-          })
-          .catch((error) => {
-            alert(error.message);
-          });
-      })
-      .finally(() => setIsLoading(false));
+    submitGameQuiz(String(quizGameId), Array.from(submitOptions), setErrorState, () => {}).then(() => {
+      clearSubmitOption();
+      nextGameQuiz();
+    });
   };
-
-  useEffect(() => {
-    setIsLoading(true);
-
-    authPostRequest(`/games/${quizGameId}/next-quiz`, {})
-      .then((response) => {
-        const result = response?.data as { data: IGameQuiz };
-        const { data } = result;
-        setCurrentQuizState(data);
-        updateProgressState({ current: data.submittedQuizCount + 1, totalCount: data.totalQuizCount });
-      })
-      .catch((error) => {
-        alert(error.message);
-      })
-      .finally(() => setIsLoading(false));
-  }, []);
 
   if (isLoading) {
     return (
