@@ -11,7 +11,6 @@ import { useEffect, useState } from 'react';
 import { CircularProgress, Skeleton } from '@mui/material';
 import { IQuizPackDetail } from '../../../types/quizpacks';
 import { QuizGameRadioType } from '../components/QuizGameTypeRadio/QuizGameRadioType';
-import { authPostRequest } from '../../../api';
 import { startGameQuiz } from '../../../api/reader/quizgame';
 import { useErrorRequest } from '../../../hooks/useErrorRequest';
 
