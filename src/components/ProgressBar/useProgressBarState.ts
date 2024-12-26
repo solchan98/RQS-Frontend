@@ -5,7 +5,7 @@ export const useProgressBarState = ({ current, totalCount }: IProgressBarState):
   const [progressState, setProgressState] = useState<IProgressBarState>({ current, totalCount });
 
   const next = () => {
-    if (current >= totalCount) {
+    if (progressState.current >= progressState.totalCount) {
       return;
     }
 
@@ -13,7 +13,7 @@ export const useProgressBarState = ({ current, totalCount }: IProgressBarState):
   };
 
   const previous = () => {
-    if (current <= totalCount) {
+    if (progressState.current <= progressState.totalCount) {
       return;
     }
 

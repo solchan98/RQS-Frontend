@@ -4,13 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.types.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/useProgressBarState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/useProgressBarState.ts" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈 게임 시작 및 진행 로직 구현">
       <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.types.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -94,7 +89,7 @@
       <workItem from="1733914423149" duration="5379000" />
       <workItem from="1733995275057" duration="11531000" />
       <workItem from="1734156524641" duration="15056000" />
-      <workItem from="1734758399181" duration="39303000" />
+      <workItem from="1734758399181" duration="39508000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -109,14 +104,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00006" summary="feat: react-router-dom 적용">
-      <option name="closed" value="true" />
-      <created>1731925719088</created>
-      <option name="number" value="00006" />
-      <option name="presentableId" value="LOCAL-00006" />
-      <option name="project" value="LOCAL" />
-      <updated>1731925719088</updated>
     </task>
     <task id="LOCAL-00007" summary="feat: lint 적용">
       <option name="closed" value="true" />
@@ -486,14 +473,21 @@
       <option name="project" value="LOCAL" />
       <updated>1735194322565</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="feat: 퀴즈 게임 시작 및 진행 로직 구현">
+      <option name="closed" value="true" />
+      <created>1735198365057</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1735198365057</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 퀴즈게임 준비 화면 스켈레톤 적용" />
     <MESSAGE value="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현" />
     <MESSAGE value="feat: 간단 로그인 페이지 UI 구성" />
     <MESSAGE value="feat: 로그인 성공 및 실패 핸들링 로직 추가" />
@@ -518,6 +512,7 @@
     <MESSAGE value="feat: 로그인 실패 예외 핸들링 수정" />
     <MESSAGE value="feat: 공통 예외 핸들러 적용" />
     <MESSAGE value="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용" />
+    <MESSAGE value="feat: 퀴즈 게임 시작 및 진행 로직 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈 게임 시작 및 진행 로직 구현" />
   </component>
 </project>

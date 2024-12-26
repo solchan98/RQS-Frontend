@@ -22,7 +22,7 @@ export const PlayQuizGame = () => {
   const navigate = useNavigate();
 
   const [currentQuizState, setCurrentQuizState] = useState<IGameQuiz>({} as IGameQuiz);
-  const { progressState, updateProgressState, isLast, next } = useProgressBarState({ current: 0, totalCount: 0 });
+  const { progressState, updateProgressState, isLast } = useProgressBarState({ current: 0, totalCount: 0 });
   const { submitOptions, onClickOption, clearSubmitOption } = useSubmitOption();
 
   const [isLoading, setIsLoading] = useState(true);
