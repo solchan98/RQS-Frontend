@@ -1,5 +1,11 @@
+import { IOption, IQuiz } from '../../../types/quizpacks';
+
 export interface IGameQuiz {
-  quizId: number;
-  content: string;
-  options: IOption[];
+  gameId: string;
+  quiz: IQuiz;
+  quizPackId: number;
+  submittedQuizCount: number;
+  totalQuizCount: number;
+  startedAt: string;
+  lastSubmittedAt: string | number;
 }

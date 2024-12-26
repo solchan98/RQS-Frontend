@@ -39,7 +39,7 @@ export const PrepareQuizGame = () => {
     })
       .then((response) => {
         const result = response?.data as { data: { quizGameId: string } };
-        navigate(`../play/${result.data.quizGameId}`, { state: quizPackState?.quizzes.length });
+        navigate(`../play/${result.data.quizGameId}`);
       })
       .catch((error) => {
         alert(error.message);

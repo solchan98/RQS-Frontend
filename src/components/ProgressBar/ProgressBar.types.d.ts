@@ -5,6 +5,7 @@ export interface IProgressBarProps {
 
 export interface IUseProgressBar {
   progressState: IProgressBarState;
+  updateProgressState: (progressState: IProgressBarState) => void;
   previous: () => void;
   next: () => void;
   isLast: () => boolean;

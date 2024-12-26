@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 공통 예외 핸들러 적용">
-      <change afterPath="$PROJECT_DIR$/src/page/game/components/QuizGameTypeRadio/QuizGameRadioType.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/QuizOption/QuizOption.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QuizOption/QuizOption.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/QuizOption/QuizOption.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/QuizOption/QuizOption.types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/ProgressBar.types.d.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ProgressBar/useProgressBarState.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ProgressBar/useProgressBarState.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.types.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/components/QuizAccordion/QuizAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/components/QuizAccordion/QuizAccordion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -96,7 +94,7 @@
       <workItem from="1733914423149" duration="5379000" />
       <workItem from="1733995275057" duration="11531000" />
       <workItem from="1734156524641" duration="15056000" />
-      <workItem from="1734758399181" duration="35602000" />
+      <workItem from="1734758399181" duration="39303000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -111,14 +109,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00005" summary="feat: 중간 커밋">
-      <option name="closed" value="true" />
-      <created>1731923404242</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1731923404242</updated>
     </task>
     <task id="LOCAL-00006" summary="feat: react-router-dom 적용">
       <option name="closed" value="true" />
@@ -488,14 +478,21 @@
       <option name="project" value="LOCAL" />
       <updated>1735187747451</updated>
     </task>
-    <option name="localTasksCounter" value="52" />
+    <task id="LOCAL-00052" summary="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용">
+      <option name="closed" value="true" />
+      <created>1735194322565</created>
+      <option name="number" value="00052" />
+      <option name="presentableId" value="LOCAL-00052" />
+      <option name="project" value="LOCAL" />
+      <updated>1735194322565</updated>
+    </task>
+    <option name="localTasksCounter" value="53" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 퀴즈게임 준비 화면 구성" />
     <MESSAGE value="feat: 퀴즈게임 준비 화면 스켈레톤 적용" />
     <MESSAGE value="feat: axios 공통화 일부 적용 및 로그인 기능 일부 구현" />
     <MESSAGE value="feat: 간단 로그인 페이지 UI 구성" />
@@ -520,6 +517,7 @@
     <MESSAGE value="feat: 퀴즈팩 라우팅 로직 수정" />
     <MESSAGE value="feat: 로그인 실패 예외 핸들링 수정" />
     <MESSAGE value="feat: 공통 예외 핸들러 적용" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 공통 예외 핸들러 적용" />
+    <MESSAGE value="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용" />
   </component>
 </project>

@@ -9,7 +9,7 @@ export const useProgressBarState = ({ current, totalCount }: IProgressBarState):
       return;
     }
 
-    setProgressState((prev) => ({ current: prev.current + 1, totalCount }));
+    setProgressState((prev) => ({ current: prev.current + 1, totalCount: prev.totalCount }));
   };
 
   const previous = () => {
@@ -17,12 +17,16 @@ export const useProgressBarState = ({ current, totalCount }: IProgressBarState):
       return;
     }
 
-    setProgressState((prev) => ({ current: prev.current - 1, totalCount }));
+    setProgressState((prev) => ({ current: prev.current - 1, totalCount: prev.totalCount }));
   };
 
   const isLast = () => {
-    return progressState.current >= totalCount;
+    return progressState.current >= progressState.totalCount;
   };
 
-  return { progressState, previous, next, isLast };
+  const updateProgressState = (updateState: IProgressBarState) => {
+    setProgressState(updateState);
+  };
+
+  return { progressState, updateProgressState, previous, next, isLast };
 };
