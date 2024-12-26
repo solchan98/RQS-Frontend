@@ -1,8 +1,9 @@
-import { IRequestFailResponse, isRequestFailResponse, postRequest } from '../../../api';
+import { postRequest } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 import { IRequestError } from '../../../recoil/error';
 import { AxiosError } from 'axios';
 import { IResponseError } from '../../../types/error';
+import { commonExceptionHandler } from '../../../api/exceptionHandler';
 
 interface IUseLoginProps {
   setErrorState: (error: IRequestError, clearTime?: number) => void;
@@ -39,13 +40,7 @@ export const useLogin = ({ setErrorState }: IUseLoginProps) => {
 
         navigate('/');
       })
-      .catch((error: AxiosError) => {
-        const responseError = error.response?.data as IResponseError;
-        const errorState = responseError?.status ?? error.status;
-        const errorMessage = responseError?.message ?? error.message;
-
-        setErrorState({ key: 'login', status: errorState, message: errorMessage });
-      });
+      .catch((error: AxiosError) => commonExceptionHandler(error, 'login', setErrorState, () => {}));
   };
 
   return { login };

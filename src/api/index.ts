@@ -90,15 +90,15 @@ authApiClient.interceptors.response.use(
               originalRequest.headers = originalRequest.headers || {}; // 헤더가 없을 수 있어 초기화
               originalRequest.headers.Authorization = `Bearer ${newAccessToken}`;
               try {
-                resolve(authApiClient(originalRequest)); // 요청이 성공하면 resolve
+                resolve(authApiClient(originalRequest));
               } catch (err) {
                 reject(err); // 실패한 요청은 reject 처리
               }
             }
             failedRequests = []; // 실패 요청들 초기화
           })
-          .catch((err) => {
-            failedRequests.forEach(({ reject }) => reject(err)); // 재발급 실패한 요청을 처리
+          .catch(() => {
+            failedRequests.forEach(({ reject }) => reject(error));
             failedRequests = [];
             isRefreshing = false;
 

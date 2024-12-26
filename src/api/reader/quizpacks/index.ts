@@ -4,56 +4,38 @@ import { IRequestError } from '../../../recoil/error';
 import { CommonResponse } from '../../../types/common/response';
 import { IUsePagination } from '../../../types/common/request';
 import { AxiosError } from 'axios';
-import { IResponseError } from '../../../types/error';
+import { commonExceptionHandler } from '../../exceptionHandler';
 
 export const getQuizPacks = async (
   paginationState: IUsePagination,
   searchType: 'MY' | 'ALL',
   setErrorState: (error: IRequestError, clearTime?: number) => void,
-): Promise<CommonResponse<IQuizPackStatus[]>> => {
+  errorCallback: () => void,
+): Promise<IQuizPackStatus[]> => {
   return authGetRequest<CommonResponse<IQuizPackStatus[]>>('quiz-packs', {
     params: { lastId: paginationState.lastId, chunk: paginationState.chunk, searchType },
   })
     .then((response) => {
-      const data = response?.data.data ?? []; // 빈 배열로 기본값 설정
-      return { data };
+      return response?.data.data ?? []; // 빈 배열로 기본값 설정
     })
-    .catch((error) => catchHandler(error, `quiz-packs`, setErrorState, { data: [] }, () => {}));
+    .catch((error: AxiosError) => {
+      commonExceptionHandler(error, `quiz-packs`, setErrorState, errorCallback);
+      return [] as IQuizPackStatus[];
+    });
 };
 
 export const getQuizPackDetails = async (
   quizPackId: number,
   setErrorState: (error: IRequestError, clearTime?: number) => void,
-  callback: (error: AxiosError) => void,
-): Promise<CommonResponse<IQuizPackDetail>> => {
+  errorCallback: () => void,
+): Promise<IQuizPackDetail> => {
   return authGetRequest<CommonResponse<IQuizPackDetail>>(`quiz-packs/${quizPackId}`)
     .then((response) => {
-      const data = response?.data.data ?? ({} as IQuizPackDetail); // 빈 배열로 기본값 설정
-      return { data };
+      // 정상적으로 데이터를 반환
+      return response?.data.data ?? ({} as IQuizPackDetail);
     })
-    .catch((error) =>
-      catchHandler(error, `quiz-packs/${quizPackId}`, setErrorState, { data: {} as IQuizPackDetail }, callback),
-    );
-};
-
-const catchHandler = <T>(
-  error: AxiosError,
-  key: string,
-  setErrorState: (error: IRequestError, clearTime?: number) => void,
-  errorReturnState: T,
-  callback: (error: AxiosError) => void,
-): T => {
-  const axiosError = error as AxiosError;
-  const responseError = axiosError.response?.data as IResponseError;
-
-  if (axiosError.status !== 401) {
-    setErrorState({
-      key,
-      message: responseError?.message ?? axiosError?.message,
-      status: responseError?.status ?? axiosError?.status,
+    .catch((error: AxiosError) => {
+      commonExceptionHandler(error, `quiz-packs/${quizPackId}`, setErrorState, errorCallback);
+      return {} as IQuizPackDetail; // 기본값 반환
     });
-  }
-  callback(error);
-
-  return errorReturnState;
 };

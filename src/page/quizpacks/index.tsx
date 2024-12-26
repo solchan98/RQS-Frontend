@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   QuizPacksBodyContainer,
   QuizPacksContainer,
@@ -25,15 +25,16 @@ export const QuizPacks = () => {
   const [searchTypeState, setSearchTypeState] = useState<'MY' | 'ALL'>('MY');
   const { value: searchInputState, onChange } = useInput();
 
-  const loadQuizPacks = () => {
+  const loadQuizPacks = useCallback(() => {
     if (paginationState.finish) {
       return;
     }
 
-    getQuizPacks(paginationState, searchTypeState, setErrorState).then((result) => {
-      const lastQuizPack = result.data.slice(-1)[0];
-      const finish = result.data.length < paginationState.chunk;
-      setQuizPacksState((prev) => [...prev, ...result.data]);
+    setLoadingState(true);
+    getQuizPacks(paginationState, searchTypeState, setErrorState, () => {}).then((result) => {
+      const lastQuizPack = result.slice(-1)[0];
+      const finish = result.length < paginationState.chunk;
+      setQuizPacksState((prev) => [...prev, ...result]);
       setLoadingState(false);
       if (!lastQuizPack) {
         setPaginationState((prev) => ({ ...prev, finish }));
@@ -42,10 +43,9 @@ export const QuizPacks = () => {
 
       setPaginationState((prev) => ({ lastId: lastQuizPack.quizPackId, chunk: prev.chunk, finish }));
     });
-  };
+  }, [paginationState, searchTypeState, setErrorState, setPaginationState]);
 
   useEffect(() => {
-    setLoadingState(true);
     loadQuizPacks();
   }, []);
 
@@ -62,7 +62,7 @@ export const QuizPacks = () => {
     if (stateChangeCompletionForSearch) {
       loadQuizPacks();
     }
-  }, [searchTypeState, paginationState, quizPacksState, loadQuizPacks]);
+  }, [searchTypeState]);
 
   const onSearch = (callback: () => void) => {
     // TODO ...
