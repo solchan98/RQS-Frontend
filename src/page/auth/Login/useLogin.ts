@@ -1,6 +1,8 @@
 import { IRequestFailResponse, isRequestFailResponse, postRequest } from '../../../api';
 import { useNavigate } from 'react-router-dom';
 import { IRequestError } from '../../../recoil/error';
+import { AxiosError } from 'axios';
+import { IResponseError } from '../../../types/error';
 
 interface IUseLoginProps {
   setErrorState: (error: IRequestError, clearTime?: number) => void;
@@ -25,22 +27,25 @@ export const useLogin = ({ setErrorState }: IUseLoginProps) => {
   const navigate = useNavigate();
 
   const login = async ({ email, password }: ILogin) => {
-    const res = await postRequest<ILoginSuccessResponse>('/login', {
+    postRequest<ILoginSuccessResponse>('/login', {
       email,
       password,
-    });
+    })
+      .then((response) => {
+        const tokens = response?.data.data as ILoginSuccessToken;
 
-    if (isRequestFailResponse(res)) {
-      setErrorState({ key: 'login', status: Number(res.status), message: res.message });
-      return;
-    }
+        localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
+        localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
 
-    const tokens = res?.data.data as ILoginSuccessToken;
+        navigate('/');
+      })
+      .catch((error: AxiosError) => {
+        const responseError = error.response?.data as IResponseError;
+        const errorState = responseError?.status ?? error.status;
+        const errorMessage = responseError?.message ?? error.message;
 
-    localStorage.setItem('accessToken', JSON.stringify(tokens.accessToken));
-    localStorage.setItem('refreshToken', JSON.stringify(tokens.refreshToken));
-
-    navigate('/');
+        setErrorState({ key: 'login', status: errorState, message: errorMessage });
+      });
   };
 
   return { login };
