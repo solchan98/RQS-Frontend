@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 프로그레스바 훅스 로직 수정">
-      <change afterPath="$PROJECT_DIR$/src/api/reader/quizgame/index.ts" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="chore: 불필요 임포트 구문 제거">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/api/exceptionHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/exceptionHandler.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -92,7 +91,7 @@
       <workItem from="1733914423149" duration="5379000" />
       <workItem from="1733995275057" duration="11531000" />
       <workItem from="1734156524641" duration="15056000" />
-      <workItem from="1734758399181" duration="42750000" />
+      <workItem from="1734758399181" duration="44007000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -107,22 +106,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00008" summary="feat: 스크롤 바운싱 방지 추가">
-      <option name="closed" value="true" />
-      <created>1731934090715</created>
-      <option name="number" value="00008" />
-      <option name="presentableId" value="LOCAL-00008" />
-      <option name="project" value="LOCAL" />
-      <updated>1731934090715</updated>
-    </task>
-    <task id="LOCAL-00009" summary="feat: Home 구성 변경">
-      <option name="closed" value="true" />
-      <created>1732100809465</created>
-      <option name="number" value="00009" />
-      <option name="presentableId" value="LOCAL-00009" />
-      <option name="project" value="LOCAL" />
-      <updated>1732100809465</updated>
     </task>
     <task id="LOCAL-00010" summary="feat: 잔디 캘린더 구현">
       <option name="closed" value="true" />
@@ -484,15 +467,29 @@
       <option name="project" value="LOCAL" />
       <updated>1735198416792</updated>
     </task>
-    <option name="localTasksCounter" value="55" />
+    <task id="LOCAL-00055" summary="feat: 퀴즈 시작 및 뽑기 API 로직 리팩토링">
+      <option name="closed" value="true" />
+      <created>1735201684872</created>
+      <option name="number" value="00055" />
+      <option name="presentableId" value="LOCAL-00055" />
+      <option name="project" value="LOCAL" />
+      <updated>1735201684872</updated>
+    </task>
+    <task id="LOCAL-00056" summary="chore: 불필요 임포트 구문 제거">
+      <option name="closed" value="true" />
+      <created>1735201716725</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1735201716725</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 간단 로그인 페이지 UI 구성" />
-    <MESSAGE value="feat: 로그인 성공 및 실패 핸들링 로직 추가" />
     <MESSAGE value="feat: Network Error 핸들링 가능하도록 수정" />
     <MESSAGE value="feat: alert timeout 설정 로직 수정&#10;- 새로운 alert 등록될 때 마다 기존 setTimeout 제거 및 새로 등록하도록 로직 수정" />
     <MESSAGE value="feat: 불필요 Alert 컴포넌트 제거" />
@@ -516,6 +513,8 @@
     <MESSAGE value="feat: 퀴즈 게임 시작 및 종료 프로세스 로직 적용" />
     <MESSAGE value="feat: 퀴즈 게임 시작 및 진행 로직 구현" />
     <MESSAGE value="feat: 프로그레스바 훅스 로직 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 프로그레스바 훅스 로직 수정" />
+    <MESSAGE value="feat: 퀴즈 시작 및 뽑기 API 로직 리팩토링" />
+    <MESSAGE value="chore: 불필요 임포트 구문 제거" />
+    <option name="LAST_COMMIT_MESSAGE" value="chore: 불필요 임포트 구문 제거" />
   </component>
 </project>

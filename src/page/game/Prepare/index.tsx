@@ -6,32 +6,33 @@ import {
   PrepareQuizGameTitle,
   PrepareQuizGameTopContainer,
 } from './index.stypes';
-import { useLocation, useNavigate } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { CircularProgress, Skeleton } from '@mui/material';
 import { IQuizPackDetail } from '../../../types/quizpacks';
 import { QuizGameRadioType } from '../components/QuizGameTypeRadio/QuizGameRadioType';
 import { startGameQuiz } from '../../../api/reader/quizgame';
 import { useErrorRequest } from '../../../hooks/useErrorRequest';
+import { getQuizPackDetails } from '../../../api/reader/quizpacks';
 
 export const PrepareQuizGame = () => {
   const [quizPackState, setQuizPackState] = useState<IQuizPackDetail>();
-  const [loadingState, setLoadingState] = useState<boolean>(false);
+  const [loadingState, setLoadingState] = useState<boolean>(true);
 
   const [radioState, setRadioState] = useState<'SEQUENCE_PICK' | 'RANDOM_PICK'>('SEQUENCE_PICK');
   const { setErrorState } = useErrorRequest();
 
   const navigate = useNavigate();
-  const location = useLocation();
-  const { state } = location;
+  const { quizPackId } = useParams();
 
   useEffect(() => {
     setLoadingState(true);
-
-    setTimeout(() => {
-      setQuizPackState(state);
+    getQuizPackDetails(Number(quizPackId), setErrorState, () => {
+      navigate(-1);
+    }).then((result) => {
+      setQuizPackState(result);
       setLoadingState(false);
-    }, 1000);
+    });
   }, []);
 
   const onClickStartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
