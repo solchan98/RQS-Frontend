@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Button } from '@mui/material';
 
 export const PrepareQuizGameContainer = styled.div`
   width: 100vw;
@@ -36,8 +35,10 @@ export const PrepareQuizGameQuizCount = styled.span`
 `;
 
 export const PrepareQuizGameTitle = styled.div`
+  width: 100%;
   font-size: 36px;
   font-weight: bold;
+  overflow-wrap: break-word;
 `;
 
 export const PrepareQuizGameStartButton = styled.button`
