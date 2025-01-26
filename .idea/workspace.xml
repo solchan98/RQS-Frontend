@@ -6,8 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="chore: 불필요 임포트 구문 제거">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/exceptionHandler.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/exceptionHandler.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -92,6 +91,8 @@
       <workItem from="1733995275057" duration="11531000" />
       <workItem from="1734156524641" duration="15056000" />
       <workItem from="1734758399181" duration="44007000" />
+      <workItem from="1737877109613" duration="253000" />
+      <workItem from="1737879534352" duration="52000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
