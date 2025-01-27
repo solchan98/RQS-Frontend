@@ -1,4 +1,4 @@
-import { Accordion, Typography } from '@mui/material';
+import { Typography } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { QuizOption } from '../../../../../components/QuizOption/QuizOption';
 import {

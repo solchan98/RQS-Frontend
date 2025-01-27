@@ -1,5 +1,5 @@
-import React, { ReactNode, useEffect } from 'react';
-import { BrowserRouter, Navigate, Route, Routes, useNavigate } from 'react-router-dom';
+import React from 'react';
+import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import { Home } from './page/home';
 import { NavContainer } from './components/Layout/NavContainer/NavContainer';
 import { MyQuizzes } from './page/myquizzes';
@@ -13,6 +13,9 @@ import { AuthLayout } from './components/Layout/AuthLayout/AuthLayer';
 import { QuizPacks } from './page/quizpacks';
 import { GlobalRedirectHandler } from './components/Layout/AuthLayout/GlobalRedirectHandler';
 import { QuizPackDetails } from './page/quizpacks/quizpackdetails';
+
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 
 const App = () => {
   return (

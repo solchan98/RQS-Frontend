@@ -4,7 +4,7 @@ import { AxiosError } from 'axios';
 import { CommonResponse } from '../../../types/common/response';
 import { commonExceptionHandler } from '../../exceptionHandler';
 import { IRequestError } from '../../../recoil/error';
-import { Contributions } from '../../../types/home';
+import { Contributions, OnGoingGame } from '../../../types/home';
 
 export const startGameQuiz = async (
   quizPackId: number,
@@ -52,6 +52,20 @@ export const submitGameQuiz = async (
     .then(() => {})
     .catch((error: AxiosError) => {
       commonExceptionHandler(error, `games/${quizGameId}/submission`, setErrorState, errorCallback);
+    });
+};
+
+export const getOnGoingQuizGames = async (
+  setErrorState: (error: IRequestError, clearTime?: number) => void,
+  errorCallback: () => void,
+): Promise<OnGoingGame[]> => {
+  return authGetRequest<CommonResponse<OnGoingGame[]>>('/games/in-progress')
+    .then((response) => {
+      return response?.data.data ?? ([] as OnGoingGame[]);
+    })
+    .catch((error: AxiosError) => {
+      commonExceptionHandler(error, `/games/in-progress`, setErrorState, errorCallback);
+      return [] as OnGoingGame[];
     });
 };
 

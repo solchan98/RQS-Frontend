@@ -10,25 +10,23 @@ import {
   OnGoingQuizGameProgressBarCount,
 } from './OnGoingQuizGame.styles';
 import { useProgressBarState } from '../../../../components/ProgressBar/useProgressBarState';
+import { OnGoingGame } from '../../../../types/home';
 
-const dummyOnGoingQuizGame = {
-  title: '다양한 서버 모니터링 방법',
-  timeAgo: 5,
-  pastQuizCount: 9,
-  quizCount: 10,
-};
+interface IOnGoingQuizGameProps {
+  data: OnGoingGame;
+}
 
-export const OnGoingQuizGame = () => {
-  const { progressState } = useProgressBarState({ current: 9, totalCount: dummyOnGoingQuizGame.quizCount });
+export const OnGoingQuizGame = ({ data }: IOnGoingQuizGameProps) => {
+  const { progressState } = useProgressBarState({ current: data.submittedQuizCount, totalCount: data.quizCount });
 
   return (
     <>
       <OnGoingQuizGameMiddle>
-        <Title title={dummyOnGoingQuizGame.title} size={24} />
-        <Label title={`진행한지 ${dummyOnGoingQuizGame.timeAgo}시간이 지났습니다.`} color='#878787' />
+        <Title title={data.quizPackTitle} size={24} />
+        <Label title={`진행한지 ${data.lastSubmittedAt}시간이 지났습니다.`} color='#878787' />
       </OnGoingQuizGameMiddle>
       <OnGoingQuizGameBottom>
-        <OnGoingQuizGameProgressBarCount>{`${dummyOnGoingQuizGame.pastQuizCount} / ${dummyOnGoingQuizGame.quizCount}`}</OnGoingQuizGameProgressBarCount>
+        <OnGoingQuizGameProgressBarCount>{`${data.submittedQuizCount} / ${data.quizCount}`}</OnGoingQuizGameProgressBarCount>
         <ProgressBar progressState={progressState} />
         <Icon icon={FaArrowRight} size={14} color='#878787' />
       </OnGoingQuizGameBottom>

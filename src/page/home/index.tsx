@@ -9,16 +9,32 @@ import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 import { Label } from '../../components/Label/Label';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
-import { Contributions } from '../../types/home';
-import { getContributions } from '../../api/reader/quizgame';
+import { Contributions, OnGoingGame } from '../../types/home';
+import { getContributions, getOnGoingQuizGames } from '../../api/reader/quizgame';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
+import { OnGoingQuizGameSlider } from './components/OnGoingQuizGame/OnGoingQuizGameSlider';
 
 export const Home = () => {
   const navigate = useNavigate();
   const { setErrorState } = useErrorRequest();
 
-  const [contributionsState, setContributionsState] = useState<Contributions[]>([]);
+  // ongoing games
+  const [onGoingQuizGamesState, setOnGoingQuizGamesState] = useState<OnGoingGame[]>([
+    {
+      id: '963c516e-4282-4da9-9cc6-8b947d69beb1',
+      quizPackTitle: '(Auto) Java,Backend,JPA',
+      submittedQuizCount: 2,
+      quizCount: 10,
+      startedAt: new Date('2025-01-27T12:11:45.850452'),
+      lastSubmittedAt: null,
+    },
+  ]);
+  useEffect(() => {
+    getOnGoingQuizGames(setErrorState, () => {}).then((data) => setOnGoingQuizGamesState(() => [...data]));
+  }, []);
 
+  // contributions
+  const [contributionsState, setContributionsState] = useState<Contributions[]>([]);
   useEffect(() => {
     getContributions(setErrorState, () => {}).then((data) => setContributionsState(() => [...data]));
   }, []);
@@ -47,7 +63,13 @@ export const Home = () => {
         </HomeLayoutContainer>
       </div>
       <HomeLayoutContainer>
-        <OnGoingQuizGame />
+        <OnGoingQuizGameSlider>
+          {onGoingQuizGamesState !== null && onGoingQuizGamesState.length > 0 ? (
+            onGoingQuizGamesState.map((item) => <OnGoingQuizGame key={item.id} data={item} />)
+          ) : (
+            <div>현재 진행중인 게임이 없습니다.</div>
+          )}
+        </OnGoingQuizGameSlider>
       </HomeLayoutContainer>
       {/* <HomeLayoutContainer> */}
       {/*  <div style={{ display: 'flex', justifyContent: 'space-between' }}> */}

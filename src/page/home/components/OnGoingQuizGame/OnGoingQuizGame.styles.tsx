@@ -16,6 +16,7 @@ export const OnGoingQuizGameBottom = styled.div`
 `;
 
 export const OnGoingQuizGameProgressBarCount = styled.div`
+  width: 20%;
   display: flex;
   justify-content: center;
   align-items: center;
