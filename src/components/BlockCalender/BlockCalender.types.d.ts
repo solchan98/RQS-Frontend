@@ -5,6 +5,7 @@ export interface IColumnType {
 }
 
 export interface ICellDateType {
+  year: number;
   month: number;
   day: number;
 }

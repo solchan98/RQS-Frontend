@@ -1,9 +1,10 @@
 import { IGameQuiz } from '../../../page/game/Play/index.types';
-import { authPostRequest } from '../../index';
+import { authGetRequest, authPostRequest } from '../../index';
 import { AxiosError } from 'axios';
 import { CommonResponse } from '../../../types/common/response';
 import { commonExceptionHandler } from '../../exceptionHandler';
 import { IRequestError } from '../../../recoil/error';
+import { Contributions } from '../../../types/home';
 
 export const startGameQuiz = async (
   quizPackId: number,
@@ -51,5 +52,19 @@ export const submitGameQuiz = async (
     .then(() => {})
     .catch((error: AxiosError) => {
       commonExceptionHandler(error, `games/${quizGameId}/submission`, setErrorState, errorCallback);
+    });
+};
+
+export const getContributions = async (
+  setErrorState: (error: IRequestError, clearTime?: number) => void,
+  errorCallback: () => void,
+): Promise<Contributions[]> => {
+  return authGetRequest<CommonResponse<Contributions[]>>('/games/contributions')
+    .then((response) => {
+      return response?.data.data ?? ([] as Contributions[]);
+    })
+    .catch((error: AxiosError) => {
+      commonExceptionHandler(error, `/games/contributions`, setErrorState, errorCallback);
+      return [] as Contributions[];
     });
 };

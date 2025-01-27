@@ -1,6 +1,6 @@
 import { IoNotificationsOutline } from 'react-icons/io5';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { HomeHeader, HomeHeaderIcons, HomeLayout, HomeLayoutContainer } from './index.styles';
 import { NickName } from 'components/NickName/NickName';
 import { Icon } from 'components/Icon/Icon';
@@ -9,9 +9,19 @@ import { BlockCalender } from '../../components/BlockCalender/BlockCalender';
 import { Label } from '../../components/Label/Label';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
+import { Contributions } from '../../types/home';
+import { getContributions } from '../../api/reader/quizgame';
+import { useErrorRequest } from '../../hooks/useErrorRequest';
 
 export const Home = () => {
   const navigate = useNavigate();
+  const { setErrorState } = useErrorRequest();
+
+  const [contributionsState, setContributionsState] = useState<Contributions[]>([]);
+
+  useEffect(() => {
+    getContributions(setErrorState, () => {}).then((data) => setContributionsState(() => [...data]));
+  }, []);
 
   return (
     <HomeLayout>
@@ -69,7 +79,7 @@ export const Home = () => {
       {/* </HomeLayoutContainer> */}
       <HomeLayoutContainer>
         <Label title='My Study Timeline' size={14} />
-        <BlockCalender />
+        <BlockCalender data={contributionsState} />
       </HomeLayoutContainer>
     </HomeLayout>
   );

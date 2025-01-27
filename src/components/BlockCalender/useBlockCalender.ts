@@ -13,16 +13,19 @@ const getMonthName = (monthIndex: number): string =>
  * Count값에 따른 컬러 반환
  */
 const getColor = (count: number): string => {
-  if (count < 1) {
-    return '#ededed';
-  }
-  if (count < 3) {
+  if (count >= 1) {
     return '#99e199';
   }
-  if (count < 5) {
+
+  if (count >= 3) {
     return '#80e180';
   }
-  return '#70ea70';
+
+  if (count >= 3) {
+    return '#70ea70';
+  }
+
+  return '#ededed';
 };
 
 /**
@@ -72,6 +75,7 @@ export const useBlockCalender = (period: number): IUseBlockCalender => {
       date.setDate(date.getDate() + 1) // 하루씩 증가
     ) {
       dates.push({
+        year: date.getFullYear(),
         month: date.getMonth() + 1, // 월을 1~12로 설정
         day: date.getDate(),
       });

@@ -10,17 +10,13 @@ import {
 import React, { useEffect, useRef } from 'react';
 import { ICellDateType } from './BlockCalender.types';
 import { useBlockCalender } from './useBlockCalender';
+import { Contributions } from '../../types/home';
 
-const dummy = [
-  { key: '11/1', count: 1 },
-  { key: '11/2', count: 3 },
-  { key: '11/15', count: 12 },
-  { key: '11/18', count: 5 },
-  { key: '9/18', count: 14 },
-  { key: '10/1', count: 1 },
-];
+interface IBlockCalenderProps {
+  data: Contributions[];
+}
 
-export const BlockCalender = () => {
+export const BlockCalender = ({ data }: IBlockCalenderProps) => {
   const { columnsState, getMonthName, getColor, isHover, mousePositionState, onEnterCellHandler, onLeaveCellHandler } =
     useBlockCalender(6);
 
@@ -40,11 +36,15 @@ export const BlockCalender = () => {
   }, []);
 
   const dateToKey = (date: ICellDateType) => {
-    return `${date.month}/${date.day}`;
+    return `${date.year}-${String(date.month).padStart(2, '0')}-${date.day}`.padStart(2, '0');
   };
 
   const getCountByDate = (date: ICellDateType) => {
-    return dummy.find((v) => v.key === `${date.month}/${date.day}`)?.count ?? 0;
+    return data.find((v) => v.localDate === `${dateToKey(date)}`)?.count ?? 0;
+  };
+
+  const toCellDisplay = (date: ICellDateType) => {
+    return `count : ${getCountByDate(date)}, ${String(date.month).padStart(2, '0')}-${String(date.day).padStart(2, '0')}`;
   };
 
   return (
@@ -59,13 +59,13 @@ export const BlockCalender = () => {
                   style={{
                     background: getColor(getCountByDate(date)),
                   }}
-                  key={`${date.month}/${date.day}`}
+                  key={dateToKey(date)}
                   onMouseEnter={(e) => onEnterCellHandler(e, dateToKey(date))}
                   onMouseLeave={onLeaveCellHandler}
                 >
                   {isHover(dateToKey(date)) ? (
                     <CellHoverContainer position={mousePositionState}>
-                      <CellHoverText>{`count : ${getCountByDate(date)}, ${date.month}/${date.day}`}</CellHoverText>
+                      <CellHoverText>{toCellDisplay(date)}</CellHoverText>
                     </CellHoverContainer>
                   ) : null}
                 </BlockCalenderCell>
