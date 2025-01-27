@@ -4,4 +4,5 @@ export interface IconProps {
   icon: IconType;
   size?: number;
   color?: string;
+  onClick?: () => void;
 }

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import ReactTimeago from 'react-timeago';
 
 export const OnGoingQuizGameMiddle = styled.div`
   flex-grow: 1;
@@ -22,4 +23,9 @@ export const OnGoingQuizGameProgressBarCount = styled.div`
   align-items: center;
 
   font-weight: bold;
+`;
+
+export const OnGoingQuizGameTimeAGo = styled(ReactTimeago)`
+  padding: 8px 8px 0;
+  font-size: 14px;
 `;

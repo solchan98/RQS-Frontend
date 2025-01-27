@@ -4,14 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 잔디 그리고 스크롤 로직 수정">
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 현재 진행중인 게임 클릭 시, 게임 재진입 기능 적용">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Icon/Icon.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/Icon/Icon.types.d.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Icon/Icon.types.d.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.styles.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -32,28 +32,28 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "develop",
-    "last_opened_file_path": "/Users/sol/Desktop/RQS-Frontend",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.standard": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.standard": "",
-    "node.js.selected.package.stylelint": "/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "prettierjs.PrettierConfiguration.Package": "/Users/sol/Desktop/RQS-Frontend/node_modules/prettier",
-    "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/Users/sol/Desktop/RQS-Frontend/node_modules/typescript/lib",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;develop&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/sol/Desktop/RQS-Frontend&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.standard&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.standard&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;/Users/hmc2940243/Desktop/quizbox-fe/node_modules/stylelint&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;prettierjs.PrettierConfiguration.Package&quot;: &quot;/Users/sol/Desktop/RQS-Frontend/node_modules/prettier&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.javascript.linters.eslint&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Users/sol/Desktop/RQS-Frontend/node_modules/typescript/lib&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/src/page/quizpacks/components" />
@@ -97,7 +97,10 @@
       <workItem from="1734156524641" duration="15056000" />
       <workItem from="1734758399181" duration="44007000" />
       <workItem from="1737877109613" duration="253000" />
-      <workItem from="1737879534352" duration="11341000" />
+      <workItem from="1737879534352" duration="12128000" />
+      <workItem from="1737981033170" duration="707000" />
+      <workItem from="1737981743257" duration="401000" />
+      <workItem from="1737982147624" duration="626000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -112,14 +115,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00014" summary="feat: 잔디 컴포넌트 호버 기능 개선 및 구조 수정">
-      <option name="closed" value="true" />
-      <created>1732272626089</created>
-      <option name="number" value="00014" />
-      <option name="presentableId" value="LOCAL-00014" />
-      <option name="project" value="LOCAL" />
-      <updated>1732272626089</updated>
     </task>
     <task id="LOCAL-00015" summary="feat: 잔디 cell 계산 로직 수정">
       <option name="closed" value="true" />
@@ -489,14 +484,21 @@
       <option name="project" value="LOCAL" />
       <updated>1737978926294</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="feat: 현재 진행중인 게임 클릭 시, 게임 재진입 기능 적용">
+      <option name="closed" value="true" />
+      <created>1737980336397</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1737980336397</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 퀴즈팩 리스트 조회 페이지 구현" />
     <MESSAGE value="feat: 페이지네이션 틀 작성 및 요청 에러 캐치하여 alert 처리 로직 작성" />
     <MESSAGE value="feat: N개 요청 401 응답 시, 하나의 토큰 재발급 요청으로 통합 처리하도록 로직 작성" />
     <MESSAGE value="feat: api 통신 예제 작성" />
@@ -521,6 +523,7 @@
     <MESSAGE value="feat: 잔디 로직 수정 및 api 연결" />
     <MESSAGE value="feat: 진행중인 게임 조회 로직 수정 및 API 연결&#10;- 날짜 관련 로직 수정 필요" />
     <MESSAGE value="feat: 잔디 그리고 스크롤 로직 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 잔디 그리고 스크롤 로직 수정" />
+    <MESSAGE value="feat: 현재 진행중인 게임 클릭 시, 게임 재진입 기능 적용" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 현재 진행중인 게임 클릭 시, 게임 재진입 기능 적용" />
   </component>
 </project>
