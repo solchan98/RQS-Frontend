@@ -4,20 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 잔디 로직 수정 및 api 연결">
-      <change afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGameSlider.styles.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGameSlider.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 진행중인 게임 조회 로직 수정 및 API 연결&#10;- 날짜 관련 로직 수정 필요">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/package-lock.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reader/quizgame/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/reader/quizgame/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.styles.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.styles.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/components/OnGoingQuizGame/OnGoingQuizGame.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/components/QuizAccordion/QuizAccordion.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/components/QuizAccordion/QuizAccordion.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/types/home/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/types/home/index.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/BlockCalender/BlockCalender.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/BlockCalender/BlockCalender.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -103,7 +92,7 @@
       <workItem from="1734156524641" duration="15056000" />
       <workItem from="1734758399181" duration="44007000" />
       <workItem from="1737877109613" duration="253000" />
-      <workItem from="1737879534352" duration="9389000" />
+      <workItem from="1737879534352" duration="9999000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -118,14 +107,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00012" summary="feat: 잔디 캘린더 방식 수정&#10;- 잔디 클릭 시, 호버 텍스트 추가">
-      <option name="closed" value="true" />
-      <created>1732190048422</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1732190048422</updated>
     </task>
     <task id="LOCAL-00013" summary="feat: 잔디 호버 z-index 수정">
       <option name="closed" value="true" />
@@ -495,14 +476,21 @@
       <option name="project" value="LOCAL" />
       <updated>1737947189902</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="feat: 진행중인 게임 조회 로직 수정 및 API 연결&#10;- 날짜 관련 로직 수정 필요">
+      <option name="closed" value="true" />
+      <created>1737951537240</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1737951537240</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="3" />
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: 불필요 Alert 컴포넌트 제거" />
     <MESSAGE value="feat: 로그인 여부에 따른 리다이텍션 요구사항 추가&#10;- 추가 레이어를 두어 토큰에 따른 분기 처리 적용" />
     <MESSAGE value="feat: 퀴즈팩 리스트 조회 페이지 구현" />
     <MESSAGE value="feat: 페이지네이션 틀 작성 및 요청 에러 캐치하여 alert 처리 로직 작성" />
@@ -527,6 +515,7 @@
     <MESSAGE value="chore: 불필요 임포트 구문 제거" />
     <MESSAGE value="chore: 우선순위 낮은 기능 주석 처리" />
     <MESSAGE value="feat: 잔디 로직 수정 및 api 연결" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 잔디 로직 수정 및 api 연결" />
+    <MESSAGE value="feat: 진행중인 게임 조회 로직 수정 및 API 연결&#10;- 날짜 관련 로직 수정 필요" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 진행중인 게임 조회 로직 수정 및 API 연결&#10;- 날짜 관련 로직 수정 필요" />
   </component>
 </project>

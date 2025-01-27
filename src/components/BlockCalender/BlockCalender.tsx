@@ -30,7 +30,7 @@ export const BlockCalender = ({ data }: IBlockCalenderProps) => {
           behavior: 'smooth',
         });
       }
-    }, 0);
+    }, 100);
 
     return () => clearTimeout(timeoutId);
   }, []);
