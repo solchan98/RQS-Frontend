@@ -19,16 +19,7 @@ export const Home = () => {
   const { setErrorState } = useErrorRequest();
 
   // ongoing games
-  const [onGoingQuizGamesState, setOnGoingQuizGamesState] = useState<OnGoingGame[]>([
-    {
-      id: '963c516e-4282-4da9-9cc6-8b947d69beb1',
-      quizPackTitle: '(Auto) Java,Backend,JPA',
-      submittedQuizCount: 2,
-      quizCount: 10,
-      startedAt: new Date('2025-01-27T12:11:45.850452'),
-      lastSubmittedAt: null,
-    },
-  ]);
+  const [onGoingQuizGamesState, setOnGoingQuizGamesState] = useState<OnGoingGame[]>([]);
   useEffect(() => {
     getOnGoingQuizGames(setErrorState, () => {}).then((data) => setOnGoingQuizGamesState(() => [...data]));
   }, []);

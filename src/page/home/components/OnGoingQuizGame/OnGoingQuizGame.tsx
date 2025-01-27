@@ -11,6 +11,7 @@ import {
 } from './OnGoingQuizGame.styles';
 import { useProgressBarState } from '../../../../components/ProgressBar/useProgressBarState';
 import { OnGoingGame } from '../../../../types/home';
+import { useNavigate } from 'react-router-dom';
 
 interface IOnGoingQuizGameProps {
   data: OnGoingGame;
@@ -19,8 +20,10 @@ interface IOnGoingQuizGameProps {
 export const OnGoingQuizGame = ({ data }: IOnGoingQuizGameProps) => {
   const { progressState } = useProgressBarState({ current: data.submittedQuizCount, totalCount: data.quizCount });
 
+  const navigate = useNavigate();
+
   return (
-    <>
+    <div>
       <OnGoingQuizGameMiddle>
         <Title title={data.quizPackTitle} size={24} />
         <Label title={`진행한지 ${data.lastSubmittedAt}시간이 지났습니다.`} color='#878787' />
@@ -28,8 +31,8 @@ export const OnGoingQuizGame = ({ data }: IOnGoingQuizGameProps) => {
       <OnGoingQuizGameBottom>
         <OnGoingQuizGameProgressBarCount>{`${data.submittedQuizCount} / ${data.quizCount}`}</OnGoingQuizGameProgressBarCount>
         <ProgressBar progressState={progressState} />
-        <Icon icon={FaArrowRight} size={14} color='#878787' />
+        <Icon icon={FaArrowRight} size={14} color='#878787' onClick={() => navigate(`/game/play/${data.id}`)} />
       </OnGoingQuizGameBottom>
-    </>
+    </div>
   );
 };

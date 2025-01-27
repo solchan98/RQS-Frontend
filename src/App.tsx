@@ -32,14 +32,14 @@ const App = () => {
             <Route path=':quizPackId'>
               <Route path='' element={<Navigate to='prepare' />} />
               <Route path='prepare' element={<PrepareQuizGame />} />
-              <Route path='play'>
-                <Route path='' element={<Navigate to='../' />} />
-                <Route path=':quizGameId' element={<PlayQuizGame />} />
-              </Route>
-              <Route path='results'>
-                <Route path='' element={<Navigate to='../' />} />
-                <Route path=':quizGameId' element={<ResultsQuizGame />} />
-              </Route>
+            </Route>
+            <Route path='play'>
+              <Route path='' element={<Navigate to='../' />} />
+              <Route path=':quizGameId' element={<PlayQuizGame />} />
+            </Route>
+            <Route path='results'>
+              <Route path='' element={<Navigate to='../' />} />
+              <Route path=':quizGameId' element={<ResultsQuizGame />} />
             </Route>
           </Route>
           <Route path='new-quizzes'>

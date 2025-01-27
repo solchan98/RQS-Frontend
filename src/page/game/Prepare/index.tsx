@@ -37,7 +37,7 @@ export const PrepareQuizGame = () => {
 
   const onClickStartGame = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
     startGameQuiz(Number(quizPackState?.quizPackId), radioState, setErrorState, () => {}).then((quizGameId: string) => {
-      navigate(`../play/${quizGameId}`);
+      navigate(`/game/play/${quizGameId}`);
     });
   };
 
