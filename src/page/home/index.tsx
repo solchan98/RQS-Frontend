@@ -21,7 +21,12 @@ export const Home = () => {
   // ongoing games
   const [onGoingQuizGamesState, setOnGoingQuizGamesState] = useState<OnGoingGame[]>([]);
   useEffect(() => {
-    getOnGoingQuizGames(setErrorState, () => {}).then((data) => setOnGoingQuizGamesState(() => [...data]));
+    getOnGoingQuizGames(setErrorState, () => {}).then((data) => {
+      const sortedQuizGames = data.sort((a, b) => {
+        return b.lastUpdatedAt.getTime() - a.lastUpdatedAt.getTime();
+      });
+      setOnGoingQuizGamesState(() => [...sortedQuizGames]);
+    });
   }, []);
 
   // contributions

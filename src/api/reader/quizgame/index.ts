@@ -61,7 +61,9 @@ export const getOnGoingQuizGames = async (
 ): Promise<OnGoingGame[]> => {
   return authGetRequest<CommonResponse<OnGoingGame[]>>('/games/in-progress')
     .then((response) => {
-      return response?.data.data ?? ([] as OnGoingGame[]);
+      const result = response?.data.data ?? ([] as OnGoingGame[]);
+      // TODO: string -> Date로 바꾸는 부분 공통 처리하도록 고민해보기
+      return result.map((value) => ({ ...value, lastUpdatedAt: new Date(value.lastUpdatedAt) }));
     })
     .catch((error: AxiosError) => {
       commonExceptionHandler(error, `/games/in-progress`, setErrorState, errorCallback);

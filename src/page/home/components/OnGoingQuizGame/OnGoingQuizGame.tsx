@@ -35,7 +35,7 @@ export const OnGoingQuizGame = ({ data }: IOnGoingQuizGameProps) => {
     <div>
       <OnGoingQuizGameMiddle>
         <Title title={data.quizPackTitle} size={24} />
-        <OnGoingQuizGameTimeAGo date={data.lastSubmittedAt ?? data.startedAt} formatter={formatter} />
+        <OnGoingQuizGameTimeAGo date={data.lastUpdatedAt} formatter={formatter} />
       </OnGoingQuizGameMiddle>
       <OnGoingQuizGameBottom>
         <OnGoingQuizGameProgressBarCount>{`${data.submittedQuizCount} / ${data.quizCount}`}</OnGoingQuizGameProgressBarCount>

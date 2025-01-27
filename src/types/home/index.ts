@@ -8,6 +8,5 @@ export interface OnGoingGame {
   quizPackTitle: string;
   submittedQuizCount: number;
   quizCount: number;
-  startedAt: Date;
-  lastSubmittedAt: Date | null;
+  lastUpdatedAt: Date;
 }
