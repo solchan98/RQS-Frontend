@@ -11,9 +11,9 @@ import { useEffect, useState } from 'react';
 import { CircularProgress, Skeleton } from '@mui/material';
 import { IQuizPackDetail } from '../../../types/quizpacks';
 import { QuizGameRadioType } from '../components/QuizGameTypeRadio/QuizGameRadioType';
-import { startGameQuiz } from '../../../api/reader/quizgame';
+import { startGameQuiz } from '../../../api/quizgame';
 import { useErrorRequest } from '../../../hooks/useErrorRequest';
-import { getQuizPackDetails } from '../../../api/reader/quizpacks';
+import { getQuizPackDetails } from '../../../api/quizpacks';
 
 export const PrepareQuizGame = () => {
   const [quizPackState, setQuizPackState] = useState<IQuizPackDetail>();

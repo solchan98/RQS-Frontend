@@ -1,7 +1,7 @@
 import { useNavigate, useParams } from 'react-router-dom';
 import React, { useEffect, useState } from 'react';
 import { IQuiz, IQuizPackDetail, IQuizPackMember } from '../../../types/quizpacks';
-import { getQuizPackDetails } from '../../../api/reader/quizpacks';
+import { getQuizPackDetails } from '../../../api/quizpacks';
 import { useErrorRequest } from '../../../hooks/useErrorRequest';
 import { QuizPackDetailsContainer, QuizPackDetailsQuizzesContainer } from './index.styles';
 import { QuizAccordion } from './components/QuizAccordion/QuizAccordion';

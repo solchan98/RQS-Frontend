@@ -5,7 +5,7 @@ import { NavContainer } from './components/Layout/NavContainer/NavContainer';
 import { MyQuizzes } from './page/myquizzes';
 import { PlayQuizGame } from './page/game/Play';
 import { EasyQuizCreate } from './page/quizcreate/EasyQuizCreate';
-import { QuizCreateIntro } from './page/quizcreate';
+import { QuizAutoCreate } from './page/quizcreate';
 import { PrepareQuizGame } from './page/game/Prepare';
 import { ResultsQuizGame } from './page/game/Results';
 import { Login } from './page/auth/Login';
@@ -42,9 +42,8 @@ const App = () => {
               <Route path=':quizGameId' element={<ResultsQuizGame />} />
             </Route>
           </Route>
-          <Route path='new-quizzes'>
-            <Route path='' element={<QuizCreateIntro />} />
-            <Route path='easy' element={<EasyQuizCreate />} />
+          <Route path='new-auto-quizzes'>
+            <Route path='' element={<QuizAutoCreate />} />
           </Route>
           <Route path='quiz-packs'>
             <Route path='' element={<QuizPacks />} />

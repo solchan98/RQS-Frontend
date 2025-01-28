@@ -1,10 +1,11 @@
-import { IQuizPackDetail, IQuizPackStatus } from '../../../types/quizpacks';
-import { authGetRequest } from '../../index';
-import { IRequestError } from '../../../recoil/error';
-import { CommonResponse } from '../../../types/common/response';
-import { IUsePagination } from '../../../types/common/request';
+import { IQuizPackDetail, IQuizPackStatus } from '../../types/quizpacks';
+import { authGetRequest, authPostRequest } from '../index';
+import { IRequestError } from '../../recoil/error';
+import { CommonResponse } from '../../types/common/response';
+import { IUsePagination } from '../../types/common/request';
 import { AxiosError } from 'axios';
-import { commonExceptionHandler } from '../../exceptionHandler';
+import { commonExceptionHandler } from '../exceptionHandler';
+import { IChip } from '../../components/ChipsArray/useChipsArray';
 
 export const getQuizPacks = async (
   paginationState: IUsePagination,
@@ -37,5 +38,22 @@ export const getQuizPackDetails = async (
     .catch((error: AxiosError) => {
       commonExceptionHandler(error, `quiz-packs/${quizPackId}`, setErrorState, errorCallback);
       return {} as IQuizPackDetail; // 기본값 반환
+    });
+};
+
+export const addAutoQuizCreateTask = async (
+  keywords: IChip[],
+  setErrorState: (error: IRequestError, clearTime?: number) => void,
+  errorCallback: () => void,
+): Promise<number> => {
+  return authPostRequest<CommonResponse<number>>('/quizzes/auto', {
+    keywords,
+  })
+    .then((response) => {
+      return response?.data.data ?? 0;
+    })
+    .catch((error: AxiosError) => {
+      commonExceptionHandler(error, '/quizzes/auto', setErrorState, errorCallback);
+      return 0;
     });
 };

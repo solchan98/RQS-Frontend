@@ -8,5 +8,9 @@ export const useInput = () => {
     setInputState(value);
   };
 
-  return { value: inputState, onChange: onChangeInput };
+  const clear = () => {
+    setInputState('');
+  };
+
+  return { value: inputState, onChange: onChangeInput, clear };
 };

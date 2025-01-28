@@ -10,7 +10,7 @@ import { Label } from '../../components/Label/Label';
 import { Button } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { Contributions, OnGoingGame } from '../../types/home';
-import { getContributions, getOnGoingQuizGames } from '../../api/reader/quizgame';
+import { getContributions, getOnGoingQuizGames } from '../../api/quizgame';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
 import { OnGoingQuizGameSlider } from './components/OnGoingQuizGame/OnGoingQuizGameSlider';
 
@@ -48,7 +48,7 @@ export const Home = () => {
       {/* </AddedTopicsQuizContainer> */}
       <div style={{ display: 'flex', gap: 12, justifyContent: 'space-between' }}>
         <HomeLayoutContainer style={{ width: '100%' }}>
-          <Button type='button' onClick={() => navigate('/new-quizzes')}>
+          <Button type='button' onClick={() => navigate('/new-auto-quizzes')}>
             퀴즈 바로생성
           </Button>
         </HomeLayoutContainer>

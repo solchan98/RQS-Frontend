@@ -1,10 +1,10 @@
-import { IGameQuiz } from '../../../page/game/Play/index.types';
-import { authGetRequest, authPostRequest } from '../../index';
+import { IGameQuiz } from '../../page/game/Play/index.types';
+import { authGetRequest, authPostRequest } from '../index';
 import { AxiosError } from 'axios';
-import { CommonResponse } from '../../../types/common/response';
-import { commonExceptionHandler } from '../../exceptionHandler';
-import { IRequestError } from '../../../recoil/error';
-import { Contributions, OnGoingGame } from '../../../types/home';
+import { CommonResponse } from '../../types/common/response';
+import { commonExceptionHandler } from '../exceptionHandler';
+import { IRequestError } from '../../recoil/error';
+import { Contributions, OnGoingGame } from '../../types/home';
 
 export const startGameQuiz = async (
   quizPackId: number,

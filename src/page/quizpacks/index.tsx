@@ -13,7 +13,7 @@ import { QuizPackCard } from './components/QuizPackCard/QuizPackCard';
 import { Button, Skeleton } from '@mui/material';
 import { useErrorRequest } from '../../hooks/useErrorRequest';
 import { IQuizPackStatus } from '../../types/quizpacks';
-import { getQuizPacks } from '../../api/reader/quizpacks';
+import { getQuizPacks } from '../../api/quizpacks';
 import { usePagination } from '../../hooks/usePagination';
 
 export const QuizPacks = () => {

@@ -15,7 +15,7 @@ import { QuizOption } from '../../../components/QuizOption/QuizOption';
 import { useSubmitOption } from '../../../components/QuizOption/useSubmitOption';
 import { Button } from '@mui/material';
 import { IGameQuiz } from './index.types';
-import { getNextGameQuiz, submitGameQuiz } from '../../../api/reader/quizgame';
+import { getNextGameQuiz, submitGameQuiz } from '../../../api/quizgame';
 import { useErrorRequest } from '../../../hooks/useErrorRequest';
 
 export const PlayQuizGame = () => {
