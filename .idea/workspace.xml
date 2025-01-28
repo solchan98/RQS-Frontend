@@ -4,21 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 진행중인 퀴즈 정렬 로직 추가">
-      <change afterPath="$PROJECT_DIR$/src/components/ChipsArray/ChipsArray.tsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/ChipsArray/useChipsArray.ts" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/page/quizcreate/index.styles.tsx" afterDir="false" />
+    <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 자동 퀴즈 생성 등록 화면 및 로직 구현">
+      <change afterPath="$PROJECT_DIR$/src/components/ChipsArray/ChipsArray.types.d.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reader/quizgame/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/quizgame/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/reader/quizpacks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/quizpacks/index.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/hooks/useInput.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/hooks/useInput.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Play/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Play/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/game/Prepare/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/home/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/home/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizcreate/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizcreate/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/page/quizpacks/quizpackdetails/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChipsArray/ChipsArray.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChipsArray/ChipsArray.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/ChipsArray/useChipsArray.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/ChipsArray/useChipsArray.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/page/quizcreate/EasyQuizCreate/index.tsx" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -111,7 +102,7 @@
       <workItem from="1737981033170" duration="707000" />
       <workItem from="1737981743257" duration="401000" />
       <workItem from="1737982147624" duration="3382000" />
-      <workItem from="1738084155917" duration="3689000" />
+      <workItem from="1738084155917" duration="4060000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
@@ -126,14 +117,6 @@
       <option name="presentableId" value="LOCAL-00002" />
       <option name="project" value="LOCAL" />
       <updated>1725165556595</updated>
-    </task>
-    <task id="LOCAL-00017" summary="feat: 퀴즈 게임 일부 구현">
-      <option name="closed" value="true" />
-      <created>1732789729973</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1732789729974</updated>
     </task>
     <task id="LOCAL-00018" summary="feat: 프로그레스바 컴포넌트 수정">
       <option name="closed" value="true" />
@@ -503,7 +486,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737983820963</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="feat: 자동 퀴즈 생성 등록 화면 및 로직 구현">
+      <option name="closed" value="true" />
+      <created>1738088051554</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1738088051554</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -515,7 +506,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="feat: api 통신 예제 작성" />
     <MESSAGE value="feat: 토큰 재발급 실패 시, login 페이지로 redirect 기능 구현&#10;- 직접 event를 발행하는 방식으로 구현" />
     <MESSAGE value="feat: 토큰 재발급 실패 시, alert 기능 추가 구현" />
     <MESSAGE value="feat: 토큰 재발급 후, 실패 요청 진행한 뒤 실패 요청 배열 초기화 로직 추가" />
@@ -540,6 +530,7 @@
     <MESSAGE value="feat: 현재 진행중인 게임 클릭 시, 게임 재진입 기능 적용" />
     <MESSAGE value="feat: 마지막 퀴즈 TimeAGo 적용" />
     <MESSAGE value="feat: 진행중인 퀴즈 정렬 로직 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="feat: 진행중인 퀴즈 정렬 로직 추가" />
+    <MESSAGE value="feat: 자동 퀴즈 생성 등록 화면 및 로직 구현" />
+    <option name="LAST_COMMIT_MESSAGE" value="feat: 자동 퀴즈 생성 등록 화면 및 로직 구현" />
   </component>
 </project>

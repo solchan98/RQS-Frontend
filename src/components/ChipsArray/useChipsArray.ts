@@ -1,9 +1,5 @@
 import { useState } from 'react';
-
-export interface IChip {
-  key: number | null;
-  label: string;
-}
+import { IChip } from './ChipsArray.types';
 
 export const useChipsArray = () => {
   const [chipsState, setChipsState] = useState<IChip[]>([]);
