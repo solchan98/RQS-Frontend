@@ -5,7 +5,7 @@ import { CommonResponse } from '../../types/common/response';
 import { IUsePagination } from '../../types/common/request';
 import { AxiosError } from 'axios';
 import { commonExceptionHandler } from '../exceptionHandler';
-import { IChip } from '../../components/ChipsArray/useChipsArray';
+import { IChip } from '../../components/ChipsArray/ChipsArray.types';
 
 export const getQuizPacks = async (
   paginationState: IUsePagination,

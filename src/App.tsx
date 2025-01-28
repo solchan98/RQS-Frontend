@@ -4,7 +4,6 @@ import { Home } from './page/home';
 import { NavContainer } from './components/Layout/NavContainer/NavContainer';
 import { MyQuizzes } from './page/myquizzes';
 import { PlayQuizGame } from './page/game/Play';
-import { EasyQuizCreate } from './page/quizcreate/EasyQuizCreate';
 import { QuizAutoCreate } from './page/quizcreate';
 import { PrepareQuizGame } from './page/game/Prepare';
 import { ResultsQuizGame } from './page/game/Results';
