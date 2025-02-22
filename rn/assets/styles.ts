@@ -1,0 +1,11 @@
+export const Styles = {
+  BORDER_RADIUS1: 8,
+  BORDER_RADIUS2: 12,
+
+  FONT_SIZE1: 8,
+  FONT_SIZE2: 12,
+  FONT_SIZE3: 14,
+  FONT_SIZE4: 16,
+  FONT_SIZE5: 18,
+  FONT_SIZE6: 24,
+};

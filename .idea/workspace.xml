@@ -5,9 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="4439f7a4-0502-43cc-9409-ee76a9e26d45" name="Changes" comment="feat: 타입 정리">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/api/quizpacks/index.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/api/quizpacks/index.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +32,7 @@
     "RunOnceActivity.ShowReadmeOnStart": "true",
     "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
-    "git-widget-placeholder": "develop",
+    "git-widget-placeholder": "rn",
     "last_opened_file_path": "/Users/sol/Desktop/RQS-Frontend/src/api/write/quizgame",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.standard": "true",
@@ -46,7 +45,7 @@
     "nodejs_package_manager_path": "npm",
     "prettierjs.PrettierConfiguration.Package": "/Users/sol/Desktop/RQS-Frontend/node_modules/prettier",
     "settings.editor.selected.configurable": "settings.javascript.linters.eslint",
-    "ts.external.directory.path": "/Users/sol/Desktop/RQS-Frontend/node_modules/typescript/lib",
+    "ts.external.directory.path": "/Users/sol/Desktop/RQS-Frontend/rn/node_modules/typescript/lib",
     "vue.rearranger.settings.migration": "true"
   }
 }]]></component>
@@ -101,6 +100,7 @@
       <workItem from="1737981743257" duration="401000" />
       <workItem from="1737982147624" duration="3382000" />
       <workItem from="1738084155917" duration="4120000" />
+      <workItem from="1740216805410" duration="38000" />
     </task>
     <task id="LOCAL-00001" summary="feat: 질문 및 꼬리질문 플레이 증간 커밋">
       <created>1725163147153</created>
